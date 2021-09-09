@@ -37,7 +37,16 @@ public class Character_Anims : MonoBehaviour
         //{
         //    characterSpriteRenderer.flipX = true;
         //}
-        Timing.RunCoroutine(_PlayAnimAttack(onHit,onAttackComplete));
+        Timing.RunCoroutine(_PlayAnimAttack(onHit, onAttackComplete));
+    }
+    public void PlaySpecialAttack()
+    {
+        //if (!isPlayerTeam)//flip)
+        //{
+        //    characterSpriteRenderer.flipX = true;
+        //}
+        anim.Play("Base Layer.TEST_ATTACK");
+
     }
 
     IEnumerator<float> _PlayAnimAttack(Action onHIT, Action onATTACKCOMPLETE)
@@ -49,15 +58,13 @@ public class Character_Anims : MonoBehaviour
         onATTACKCOMPLETE();
     }
 
-    public void PlayAnimIdle(Action onIdleComplete)
+    public void PlayAnimIdle()
     {
         //if (!isPlayerTeam)//flip)
         //{
         //    characterSpriteRenderer.flipX = true;
         //}
         anim.Play("Base Layer.TEST_IDLE");
-
-        onIdleComplete();
     }
     public void PlayAnimStarter()
     {

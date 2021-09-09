@@ -10,7 +10,7 @@ public class HealthBar : MonoBehaviour
     {
         this.healthSystem = healthSystem;
 
-        healthSystem.onHealthChanged += HealthSystem_onHealthChanged;
+        healthSystem.OnHealthChanged += HealthSystem_onHealthChanged;
     }
 
     private void HealthSystem_onHealthChanged(object sender, System.EventArgs e)

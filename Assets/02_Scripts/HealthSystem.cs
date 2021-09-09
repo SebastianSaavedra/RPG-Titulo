@@ -1,47 +1,66 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
 public class HealthSystem
 {
-    public event EventHandler onHealthChanged;
-    public event EventHandler onDead;
 
+    public event EventHandler OnHealthChanged;
+    public event EventHandler OnDead;
+
+    private int healthMax;
     private int health;
-    private int maxHealth;
 
     public HealthSystem(int healthMax)
     {
-        this.maxHealth = healthMax;
-        health = maxHealth;
+        this.healthMax = healthMax;
+        health = healthMax;
     }
 
-    public int GetHealth()
+    public void SetHealthAmount(int health)
     {
-        return health;
+        this.health = health;
+        if (OnHealthChanged != null)
+        {
+            OnHealthChanged(this, EventArgs.Empty);
+        }
     }
 
     public float GetHealthPercent()
     {
-        return (float)health / maxHealth;
+        return (float)health / healthMax;
     }
 
-    public void Damage(int dmgAmount)
+    public int GetHealthAmount()
     {
-        health -= dmgAmount;
-        if (health <= 0)
+        return health;
+    }
+
+    public void Damage(int amount)
+    {
+        health -= amount;
+        if (health < 0)
         {
             health = 0;
-            Die();
         }
-        if (onHealthChanged != null)
+
+        if (OnHealthChanged != null)
         {
-            onHealthChanged(this,EventArgs.Empty);
+            OnHealthChanged(this, EventArgs.Empty);
+        }
+
+        if (health <= 0)
+        {
+            Die();
         }
     }
 
     public void Die()
     {
-        if(onDead != null)
+        if (OnDead != null)
         {
-            onDead(this,EventArgs.Empty);
+            OnDead(this, EventArgs.Empty);
         }
     }
 
@@ -50,16 +69,17 @@ public class HealthSystem
         return health <= 0;
     }
 
-    public void Heal(int healAmount)
+    public void Heal(int amount)
     {
-        health += healAmount;
-        if (health > maxHealth)
+        health += amount;
+        if (health > healthMax)
         {
-            health = maxHealth;
+            health = healthMax;
         }
-        if (onHealthChanged != null)
+
+        if (OnHealthChanged != null)
         {
-            onHealthChanged(this, EventArgs.Empty);
+            OnHealthChanged(this, EventArgs.Empty);
         }
     }
 

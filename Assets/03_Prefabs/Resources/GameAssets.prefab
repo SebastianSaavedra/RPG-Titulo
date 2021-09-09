@@ -43,3 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9e51572363bff84a8d841ec604b6177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Map: {fileID: 6989693021506279504, guid: f975e2186bab02645b8a57cd888acac8, type: 3}
+  characterBattle: {fileID: 67787419368690135, guid: d565b5304666e674b9658e413708f99e, type: 3}
+  allyTX: {fileID: 2800000, guid: 7e6dc2ea2d0be764bac1dc66c10069d8, type: 3}
+  enemyTX: {fileID: 2800000, guid: 5a9bd66163068ad4dbbd93f8fe994ad6, type: 3}
+  allyANIM: {fileID: 9100000, guid: c073b78a224540d4994a942efb188077, type: 2}
+  enemyANIM: {fileID: 9100000, guid: 488d572aeae6c2049905a1fda8af6d12, type: 2}
