@@ -28,13 +28,13 @@ namespace CodeMonkey.Utils {
 
 
         public static World_Sprite CreateDebugButton(Vector3 position, System.Action ClickFunc) {
-            World_Sprite worldSprite = new World_Sprite(null, position, new Vector3(10, 10), Assets.i.s_White, Color.green, sortingOrderDefault);
+            World_Sprite worldSprite = new World_Sprite(null, position, new Vector3(10, 10), GameAssets.i.s_White, Color.green, sortingOrderDefault);
             worldSprite.AddButton(ClickFunc, null, null);
             return worldSprite;
         }
 
         public static World_Sprite CreateDebugButton(Transform parent, Vector3 localPosition, System.Action ClickFunc) {
-            World_Sprite worldSprite = new World_Sprite(parent, localPosition, new Vector3(10, 10), Assets.i.s_White, Color.green, sortingOrderDefault);
+            World_Sprite worldSprite = new World_Sprite(parent, localPosition, new Vector3(10, 10), GameAssets.i.s_White, Color.green, sortingOrderDefault);
             worldSprite.AddButton(ClickFunc, null, null);
             return worldSprite;
         }
@@ -52,7 +52,7 @@ namespace CodeMonkey.Utils {
             if (color.b >= 1f) color.b = .9f;
             Color colorOver = color * 1.1f; // button over color lighter
 
-            World_Sprite worldSprite = new World_Sprite(gameObject.transform, Vector3.zero, rendererBounds.size + new Vector3(paddingX, paddingY), Assets.i.s_White, color, sortingOrderDefault);
+            World_Sprite worldSprite = new World_Sprite(gameObject.transform, Vector3.zero, rendererBounds.size + new Vector3(paddingX, paddingY), GameAssets.i.s_White, color, sortingOrderDefault);
             worldSprite.AddButton(ClickFunc, () => worldSprite.SetColor(colorOver), () => worldSprite.SetColor(color));
             return worldSprite;
         }
@@ -63,7 +63,7 @@ namespace CodeMonkey.Utils {
 
         public static World_Sprite Create(Transform parent, Vector3 localPosition, Vector3 localScale, Sprite sprite = null, Color? color = null, int sortingOrderOffset = 0) {
             if (sprite == null) {
-                sprite = Assets.i.s_White;
+                sprite = GameAssets.i.s_White;
             }
             if (color == null) {
                 color = Color.white;
@@ -84,19 +84,19 @@ namespace CodeMonkey.Utils {
         }
 
         public static World_Sprite Create(Vector3 worldPosition, Vector3 localScale, Color color) {
-            return new World_Sprite(null, worldPosition, localScale, Assets.i.s_White, color, 0);
+            return new World_Sprite(null, worldPosition, localScale, GameAssets.i.s_White, color, 0);
         }
 
         public static World_Sprite Create(Vector3 worldPosition, Vector3 localScale, Color color, int sortingOrderOffset) {
-            return new World_Sprite(null, worldPosition, localScale, Assets.i.s_White, color, sortingOrderOffset);
+            return new World_Sprite(null, worldPosition, localScale, GameAssets.i.s_White, color, sortingOrderOffset);
         }
 
         public static World_Sprite Create(Vector3 worldPosition, Vector3 localScale) {
-            return new World_Sprite(null, worldPosition, localScale, Assets.i.s_White, Color.white, 0);
+            return new World_Sprite(null, worldPosition, localScale, GameAssets.i.s_White, Color.white, 0);
         }
 
         public static World_Sprite Create(Vector3 worldPosition, Vector3 localScale, int sortingOrderOffset) {
-            return new World_Sprite(null, worldPosition, localScale, Assets.i.s_White, Color.white, sortingOrderOffset);
+            return new World_Sprite(null, worldPosition, localScale, GameAssets.i.s_White, Color.white, sortingOrderOffset);
         }
 
         public static int GetSortingOrder(Vector3 position, int offset, int baseSortingOrder = sortingOrderDefault) {

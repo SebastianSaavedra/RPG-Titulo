@@ -43,9 +43,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9e51572363bff84a8d841ec604b6177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  s_White: {fileID: 21300000, guid: 170577bce7cbda144b82578f81308d23, type: 3}
+  s_Circle: {fileID: 21300000, guid: a0e35f6b808bb7447826cc6c69ffe448, type: 3}
+  m_White: {fileID: 2100000, guid: 7d5e8e2c082a4c44a9abd7d650cf0a15, type: 2}
+  radialMenu: {fileID: 2305348224314249874, guid: 2782a3cbe126bac40abff5ace5d9a14b, type: 3}
+  attackFirstButton: {fileID: 6669740405847419068, guid: a9c6e044c871e6346ae71a237c36f899, type: 3}
+  spellFirstButton: {fileID: 215698828217765856, guid: 114750a2b6a36864d9c73a833edd3d80, type: 3}
+  itemFirstButton: {fileID: 6280769887443443245, guid: 506bc8076bc944749937aba140302221, type: 3}
   Map: {fileID: 6989693021506279504, guid: f975e2186bab02645b8a57cd888acac8, type: 3}
   characterBattle: {fileID: 67787419368690135, guid: d565b5304666e674b9658e413708f99e, type: 3}
-  allyTX: {fileID: 2800000, guid: 7e6dc2ea2d0be764bac1dc66c10069d8, type: 3}
-  enemyTX: {fileID: 2800000, guid: 5a9bd66163068ad4dbbd93f8fe994ad6, type: 3}
+  damagePopup: {fileID: 2920174026715650587, guid: d5cbb6859cac94e41a282a83df2e600c, type: 3}
+  t_Ally: {fileID: 2800000, guid: 7e6dc2ea2d0be764bac1dc66c10069d8, type: 3}
+  t_enemy: {fileID: 2800000, guid: 5a9bd66163068ad4dbbd93f8fe994ad6, type: 3}
   allyANIM: {fileID: 9100000, guid: c073b78a224540d4994a942efb188077, type: 2}
   enemyANIM: {fileID: 9100000, guid: 488d572aeae6c2049905a1fda8af6d12, type: 2}

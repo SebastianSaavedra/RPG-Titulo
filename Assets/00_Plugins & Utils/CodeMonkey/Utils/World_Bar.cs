@@ -59,11 +59,11 @@ namespace CodeMonkey.Utils {
         }
 
         private void SetupOutline(Outline outline, Vector3 localScale, int sortingOrder) {
-            UtilsClass.CreateWorldSprite(transform, "Outline", Assets.i.s_White, new Vector3(0,0), localScale + new Vector3(outline.size, outline.size), sortingOrder, outline.color);
+            UtilsClass.CreateWorldSprite(transform, "Outline", GameAssets.i.s_White, new Vector3(0,0), localScale + new Vector3(outline.size, outline.size), sortingOrder, outline.color);
         }
 
         private void SetupBackground(Color backgroundColor, Vector3 localScale, int sortingOrder) {
-            background = UtilsClass.CreateWorldSprite(transform, "Background", Assets.i.s_White, new Vector3(0,0), localScale, sortingOrder, backgroundColor).transform;
+            background = UtilsClass.CreateWorldSprite(transform, "Background", GameAssets.i.s_White, new Vector3(0,0), localScale, sortingOrder, backgroundColor).transform;
         }
 
         private void SetupBar(Color barColor, Vector3 localScale, int sortingOrder) {
@@ -72,7 +72,7 @@ namespace CodeMonkey.Utils {
             bar.SetParent(transform);
             bar.localPosition = new Vector3(-localScale.x / 2f, 0, 0);
             bar.localScale = new Vector3(1,1,1);
-            Transform barIn = UtilsClass.CreateWorldSprite(bar, "BarIn", Assets.i.s_White, new Vector3(localScale.x / 2f, 0), localScale, sortingOrder, barColor).transform;
+            Transform barIn = UtilsClass.CreateWorldSprite(bar, "BarIn", GameAssets.i.s_White, new Vector3(localScale.x / 2f, 0), localScale, sortingOrder, barColor).transform;
         }
 
         public void SetLocalScale(Vector3 localScale) {

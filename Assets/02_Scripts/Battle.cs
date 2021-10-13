@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CodeMonkey.Utils;
 using CodeMonkey.MonoBehaviours;
+using MEC;
 
 public class Battle
 {
@@ -21,17 +22,15 @@ public class Battle
         //Loader.Load(Loader.Scene.BattleScene);
     }
 
-
-    private int turn;
     private CameraFollow cameraFollow;
-    private List<CharacterBattle> characterBattleList;
-    private CharacterBattle activeCharacterBattle;
-    private CharacterBattle selectedTargetCharacterBattle;
+    public List<CharacterBattle> characterBattleList;
+    public CharacterBattle activeCharacterBattle;
+    public CharacterBattle selectedTargetCharacterBattle;
 
     private LanePosition lastPlayerActiveLanePosition;
     private LanePosition lastEnemyActiveLanePosition;
 
-    private State state;
+    public State state;
 
     public enum LanePosition
     {
@@ -42,16 +41,17 @@ public class Battle
         Bottom,
     }
 
-    private enum State
+    public enum State
     {
         WaitingForPlayer,
+        OnMenu,
+        EnemySelection,
         Busy,
     }
 
     public Battle()
     {
         instance = this;
-        turn = 0;
         characterBattleList = new List<CharacterBattle>();
         state = State.Busy;
     }
@@ -116,7 +116,7 @@ public class Battle
         cameraFollow.SetCameraZoomSpeed(10f);
         ResetCamera();
 
-        // Set up Battle Scene
+        // Se inicia el combate
         foreach (Character character in GameData.characterList)
         {
             if (character.isInPlayerTeam)
@@ -125,9 +125,15 @@ public class Battle
                 switch (character.type)
                 {
                     default:
-                    case Character.Type.Player: lanePosition = LanePosition.Middle; break;
-                    case Character.Type.Tank: lanePosition = LanePosition.Down; break;
-                    case Character.Type.Healer: lanePosition = LanePosition.Up; break;
+                    case Character.Type.Player: 
+                        lanePosition = LanePosition.Middle; 
+                        break;
+                    case Character.Type.Tank: 
+                        lanePosition = LanePosition.Down; 
+                        break;
+                    case Character.Type.Healer:
+                        lanePosition = LanePosition.Up;
+                        break;
                 }
                 SpawnCharacter(character.type, lanePosition, true, character.stats);
             }
@@ -141,7 +147,6 @@ public class Battle
         }
 
         SetActiveCharacterBattle(GetAliveTeamCharacterBattleList(true)[0]);
-        SetSelectedTargetCharacterBattle(GetAliveTeamCharacterBattleList(false)[0]);
 
         lastPlayerActiveLanePosition = GetAliveTeamCharacterBattleList(true)[0].GetLanePosition();
         lastEnemyActiveLanePosition = GetNextLanePosition(GetAliveTeamCharacterBattleList(false)[0].GetLanePosition(), true);
@@ -167,17 +172,15 @@ public class Battle
         {
             activeCharacterBattle.HideSelectionCircle();
         }
-        if (!characterBattle.IsPlayerTeam())
-        {
-            // Enemy Active
-            selectedTargetCharacterBattle.HideSelectionCircle();
-        }
         activeCharacterBattle = characterBattle;
         activeCharacterBattle.ShowSelectionCircle(new Color(0, 1, 0, 1));
 
     }
-
-    private void SetSelectedTargetCharacterBattle(CharacterBattle characterBattle)
+    /// <summary>
+    ///Selecciona un personaje para Atacar
+    /// </summary>
+    /// <param name="characterBattle"></param>
+    public void SetSelectedTargetCharacterBattle(CharacterBattle characterBattle)
     {
         if (selectedTargetCharacterBattle != null)
         {
@@ -185,6 +188,15 @@ public class Battle
         }
         selectedTargetCharacterBattle = characterBattle;
         selectedTargetCharacterBattle.ShowSelectionCircle(new Color(1, 0, 0, 1));
+    }
+
+    /// <summary>
+    /// Para cambiar de objetivo (Esta funcion debe ser usada desde el script BattleWindow)
+    /// </summary>
+    /// <param name="isUp"></param>
+    public void UITargetSelect(bool isUp)
+    {
+        SetSelectedTargetCharacterBattle(GetNextCharacterBattle(selectedTargetCharacterBattle.GetLanePosition(), isUp, false));
     }
 
     private CharacterBattle GetNextCharacterBattle(LanePosition lanePosition, bool moveUp, bool isPlayerTeam)
@@ -222,29 +234,32 @@ public class Battle
 
     private List<CharacterBattle> GetTeamCharacterBattleList(bool isPlayerTeam)
     {
-        List<CharacterBattle> ret = new List<CharacterBattle>();
+        List<CharacterBattle> character = new List<CharacterBattle>();
         foreach (CharacterBattle characterBattle in characterBattleList)
         {
             if (characterBattle.IsPlayerTeam() == isPlayerTeam)
             {
-                ret.Add(characterBattle);
+                character.Add(characterBattle);
             }
         }
-        return ret;
+        return character;
     }
 
-    private List<CharacterBattle> GetAliveTeamCharacterBattleList(bool isPlayerTeam)
+    public List<CharacterBattle> GetAliveTeamCharacterBattleList(bool isPlayerTeam)
     {
-        List<CharacterBattle> ret = new List<CharacterBattle>();
+        List<CharacterBattle> character = new List<CharacterBattle>();
         foreach (CharacterBattle characterBattle in characterBattleList)
         {
-            if (characterBattle.IsDead()) continue; // Character is Dead
+            if (characterBattle.IsDead())
+            {
+                continue; // El personaje esta muerto
+            }
             if (characterBattle.IsPlayerTeam() == isPlayerTeam)
             {
-                ret.Add(characterBattle);
+                character.Add(characterBattle);
             }
         }
-        return ret;
+        return character;
     }
 
     public void Update()
@@ -252,138 +267,185 @@ public class Battle
         switch (state)
         {
             case State.WaitingForPlayer:
-                // Player Turn
+                break;
+
+
+            case State.EnemySelection:
 
                 if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
                 {
-                    // Select Target Up
-                    SetSelectedTargetCharacterBattle(GetNextCharacterBattle(selectedTargetCharacterBattle.GetLanePosition(), true, false));
+                    // Selecciona un pj de arriba
+                    UITargetSelect(true);
                 }
+
                 if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
                 {
-                    // Select Target Down
-                    SetSelectedTargetCharacterBattle(GetNextCharacterBattle(selectedTargetCharacterBattle.GetLanePosition(), false, false));
+                    // Selecciona un pj de abajo
+                    UITargetSelect(false);
                 }
 
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    // Attack
-                    state = State.Busy;
-                    SetCamera(selectedTargetCharacterBattle.GetPosition() + new Vector3(-5f, 0), 30f);
-                    activeCharacterBattle.AttackTarget(selectedTargetCharacterBattle.GetPosition(), () => {
-                        //SoundManager.PlaySound(SoundManager.Sound.CharacterHit);
-                        int damageBase = activeCharacterBattle.GetAttack();
-                        int damageMin = (int)(damageBase * 0.8f);
-                        int damageMax = (int)(damageBase * 1.2f);
-                        selectedTargetCharacterBattle.Damage(activeCharacterBattle, Random.Range(damageMin, damageMax));
-                        UtilsClass.ShakeCamera(.75f, .1f);
-                        if (selectedTargetCharacterBattle.IsDead())
-                        {
-                            TestEvilMonsterKilled();
-                        }
-                    }, () => {
-                        ResetCamera();
-                        activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
-                    });
+                    ExecuteCommand(BattleUI.instance.command);
                 }
-                if (Input.GetKeyDown(KeyCode.R))
-                {
-                    // Special
-                    if (activeCharacterBattle.TrySpendSpecial())
-                    {
-                        // Spend Special
-                        switch (activeCharacterBattle.GetCharacterType())
-                        {
-                            default:
-                            case Character.Type.Player:
-                                state = State.Busy;
-                                SetCamera(selectedTargetCharacterBattle.GetPosition() + new Vector3(-5f, 0), 30f);
-                                Vector3 slideToPosition = selectedTargetCharacterBattle.GetPosition() + new Vector3(-8f, 0);
-                                activeCharacterBattle.SlideToPosition(slideToPosition, 
-                                    () => 
-                                {
-                                    activeCharacterBattle.PlayAnimSpecialAttack(
-                                        () =>
-                                    {
-                                        ResetCamera();
-                                        activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
-                                    }
-                                    , () =>
-                                    {
-                                        // Massive Single Enemy Damage
-                                        //SoundManager.PlaySound(SoundManager.Sound.CharacterHit);
-                                        UtilsClass.ShakeCamera(2f, .15f);
-                                        int damageAmount = 100;
-                                        selectedTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount);
-                                        if (selectedTargetCharacterBattle.IsDead())
-                                        {
-                                            TestEvilMonsterKilled();
-                                        }
-                                    });
-                                });
-                                break;
-                            case Character.Type.Tank:
-                                state = State.Busy;
-                                activeCharacterBattle.SlideToPosition(GetPosition(LanePosition.Middle, false) + new Vector3(-15, 0), () => {
-                                    activeCharacterBattle.PlayAnimSpecialAttack(() =>
-                                    {
-                                        activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
-                                    }, 
-                                    () => 
-                                    {
-                                        // Damage All Enemies
-                                        //SoundManager.PlaySound(SoundManager.Sound.GroundPound);
-                                        UtilsClass.ShakeCamera(2f, .15f);
-                                        int damageAmount = 30;
-                                        List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(false);
-                                        foreach (CharacterBattle characterBattle in characterBattleList)
-                                        {
-                                            characterBattle.Damage(activeCharacterBattle, damageAmount);
-                                        }
-                                        if (selectedTargetCharacterBattle.IsDead())
-                                        {
-                                            TestEvilMonsterKilled();
-                                        }
-                                    });
-                                });
-                                break;
-                            case Character.Type.Healer:
-                                state = State.Busy;
-                                SetCamera(activeCharacterBattle.GetPosition(), 30f);
-                                activeCharacterBattle.PlayAnimSpecialAttack(() => {
-                                    activeCharacterBattle.PlayIdleAnim();
-                                    ResetCamera();
-                                    FunctionTimer.Create(ChooseNextActiveCharacter, .2f);
-                                }, 
-                                () => { });
 
-                                FunctionTimer.Create(() => {
-                                    // Heal all
-                                    //SoundManager.PlaySound(SoundManager.Sound.Heal);
-                                    List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(true);
-                                    foreach (CharacterBattle characterBattle in characterBattleList)
-                                    {
-                                        characterBattle.Heal(50);
-                                    }
-                                }, 1.2f);
-                                break;
-                        }
-                    }
+                if (Input.GetKeyDown(KeyCode.Escape) && !BattleUI.instance.radialMenu.activeInHierarchy)
+                {
+                    Debug.Log("Retrocedio 1 paso");
+                    state = State.WaitingForPlayer;
+                    BattleUI.instance.radialMenu.SetActive(true);
+                    selectedTargetCharacterBattle.HideSelectionCircle();
+                    selectedTargetCharacterBattle = null;
                 }
+
+                break;
+
+
+
                 //if (Input.GetKeyDown(KeyCode.T))
                 //{
                 //    // Heal
                 //    if (GameData.TrySpendHealthPotion())
                 //    {
                 //        state = State.Busy;
+                //BattleWindow.GetInstance().radialMenu.SetActive(false);
                 //        activeCharacterBattle.Heal(100);
                 //        FunctionTimer.Create(ChooseNextActiveCharacter, .2f);
                 //    }
                 //}
-                break;
             case State.Busy:
                 break;
         }
+        Debug.Log(state);
+    }
+
+    private void ExecuteCommand(string commandName)
+    {
+        switch (commandName)
+        {
+            default:
+                break;
+
+            case "Attack":
+                _Attack();
+                break;
+
+            case "Special":
+                _Special();
+                break;
+        }
+    }
+
+    private void _Attack()
+    {
+        // Ataque basico
+        state = State.Busy;
+        BattleUI.instance.radialMenu.SetActive(false);
+        SetCamera(selectedTargetCharacterBattle.GetPosition() + new Vector3(-5f, 0), 30f);
+        activeCharacterBattle.AttackTarget(selectedTargetCharacterBattle.GetPosition(), () =>
+        {
+            //SoundManager.PlaySound(SoundManager.Sound.CharacterHit);
+            int damageBase = activeCharacterBattle.GetAttack();
+            int minDamage = (int)(damageBase * 0.8f);
+            int maxDamage = (int)(damageBase * 1.2f);
+            selectedTargetCharacterBattle.Damage(activeCharacterBattle, Random.Range(minDamage, maxDamage)); ;
+            UtilsClass.ShakeCamera(.75f, .15f);
+            if (selectedTargetCharacterBattle.IsDead())
+            {
+                TestEvilMonsterKilled();
+            }
+        }, () =>
+        {
+            ResetCamera();
+            activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
+        });
+    }
+
+    public void _Special()
+    {
+        if (activeCharacterBattle.TrySpendSpecial())
+        {
+            // Spend Special
+            switch (activeCharacterBattle.GetCharacterType())
+            {
+                default:
+                case Character.Type.Player:
+                    state = State.Busy;
+                    BattleUI.instance.radialMenu.SetActive(false);
+                    SetCamera(selectedTargetCharacterBattle.GetPosition() + new Vector3(-5f, 0), 30f);
+                    Vector3 slideToPosition = selectedTargetCharacterBattle.GetPosition() + new Vector3(-8f, 0);
+                    activeCharacterBattle.SlideToPosition(slideToPosition,() =>
+                        {
+                        activeCharacterBattle.PlayAnimSpecialAttack(() =>
+                                {
+                                    // Golpe fuerte
+                                    //SoundManager.PlaySound(SoundManager.Sound.CharacterHit);
+                                    UtilsClass.ShakeCamera(2f, .15f);
+                                    int damageAmount = 100;
+                                    selectedTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount);
+                                    if (selectedTargetCharacterBattle.IsDead())
+                                    {
+                                        TestEvilMonsterKilled();
+                                    }
+                                },() =>
+                            {
+                                ResetCamera();
+                                activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
+                            });
+                        });
+                    break;
+                case Character.Type.Tank:
+                    state = State.Busy;
+                    BattleUI.instance.radialMenu.SetActive(false);
+                    activeCharacterBattle.SlideToPosition(GetPosition(LanePosition.Middle, false) + new Vector3(-15, 0), () =>
+                    {
+                        activeCharacterBattle.PlayAnimSpecialAttack(() =>
+                        {
+                            activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
+                        },
+                        () =>
+                        {
+                                        // Damage All Enemies
+                                        //SoundManager.PlaySound(SoundManager.Sound.GroundPound);
+                                        UtilsClass.ShakeCamera(2f, .15f);
+                            int damageAmount = 30;
+                            List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(false);
+                            foreach (CharacterBattle characterBattle in characterBattleList)
+                            {
+                                characterBattle.Damage(activeCharacterBattle, damageAmount);
+                            }
+                            if (selectedTargetCharacterBattle.IsDead())
+                            {
+                                TestEvilMonsterKilled();
+                            }
+                        });
+                    });
+                    break;
+                case Character.Type.Healer:
+                    state = State.Busy;
+                    BattleUI.instance.radialMenu.SetActive(false);
+                    SetCamera(activeCharacterBattle.GetPosition(), 30f);
+                    activeCharacterBattle.PlayAnimSpecialAttack(() =>
+                    {
+                        activeCharacterBattle.PlayIdleAnim();
+                        ResetCamera();
+                        FunctionTimer.Create(ChooseNextActiveCharacter, .2f);
+                    },
+                    () => { });
+
+                    FunctionTimer.Create(() => {
+                        // Heal all
+                        //SoundManager.PlaySound(SoundManager.Sound.Heal);
+                        List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(true);
+                        foreach (CharacterBattle characterBattle in characterBattleList)
+                        {
+                            characterBattle.Heal(50);
+                        }
+                    }, 1.2f);
+                    break;
+            }
+        }
+
     }
 
     public CharacterBattle GetActiveCharacterBattle()
@@ -438,6 +500,10 @@ public class Battle
 
     private void ChooseNextActiveCharacter()
     {
+        if (TurnSystem.instance.ZeroTurns())
+        {
+            Debug.Log("Se te acabaron los turnos, huiste del combate");
+        }
         // Selecciona un enemigo
         if (GetAliveTeamCharacterBattleList(false).Count == 0)
         {
@@ -456,7 +522,10 @@ public class Battle
                         uniqueCharacter.stats.health = characterBattle.GetHealthAmount();
                         if (uniqueCharacter.isInPlayerTeam)
                         {
-                            if (uniqueCharacter.stats.health < 1) uniqueCharacter.stats.health = 1;
+                            if (uniqueCharacter.stats.health < 1)
+                            {
+                                uniqueCharacter.stats.health = 1;
+                            }
                         }
                     }
                 }
@@ -479,7 +548,6 @@ public class Battle
                     character.isInPlayerTeam = true;
                     character.stats.health = character.stats.healthMax;
                     character.subType = Character.SubType.Tank_Friendly;
-                    GameData.GetCharacter(Character.Type.Sleezer).subType = Character.SubType.Sleezer_Friendly;
                     // Heal Player
                     Character uniqueCharacter = GameData.GetCharacter(Character.Type.Player);
                     uniqueCharacter.stats.health = uniqueCharacter.stats.healthMax;
@@ -528,20 +596,22 @@ public class Battle
             return;
         }
 
-        // Selecciona un aliado
+        // Si es que el turno anterior fue de un aliado
         if (activeCharacterBattle.IsPlayerTeam())
         {
-            // Next is Enemy
+            // Ahora es el turno de un enemigo
             List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(false);
             SetActiveCharacterBattle(
                 GetNextCharacterBattle(lastEnemyActiveLanePosition, false, false)
             );
             lastEnemyActiveLanePosition = activeCharacterBattle.GetLanePosition();
 
-            FunctionTimer.Create(() => {
+            FunctionTimer.Create(() => 
+            {
                 CharacterBattle aiTargetCharacterBattle = GetAliveTeamCharacterBattleList(true)[Random.Range(0, GetAliveTeamCharacterBattleList(true).Count)];
                 SetCamera(aiTargetCharacterBattle.GetPosition() + new Vector3(+5f, 0), 30f);
-                activeCharacterBattle.AttackTarget(aiTargetCharacterBattle.GetPosition(), () => {
+                activeCharacterBattle.AttackTarget(aiTargetCharacterBattle.GetPosition(), () => 
+                {
                     //SoundManager.PlaySound(SoundManager.Sound.CharacterHit);
                     int damageBase = activeCharacterBattle.GetAttack();
                     int damageMin = (int)(damageBase * 0.8f);
@@ -569,7 +639,8 @@ public class Battle
                         // Miss
                         //DamagePopup.Create(activeCharacterBattle.GetPosition(), "MISS", UtilsClass.GetColorFromString("00B4FF"));
                     }
-                }, () => {
+                }, () => 
+                {
                     ResetCamera();
                     activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
                 });
@@ -577,21 +648,26 @@ public class Battle
         }
         else
         {
-            // Next is player character
+            // Inicia turno de aliado
             List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(true);
             //SetActiveCharacterBattle(characterBattleList[Random.Range(0, characterBattleList.Count)]);
 
             //Debug.Log(lastPlayerActiveLanePosition);
-            SetActiveCharacterBattle(
-                GetNextCharacterBattle(lastPlayerActiveLanePosition, false, true)
-            );
+            SetActiveCharacterBattle(GetNextCharacterBattle(lastPlayerActiveLanePosition, false, true));
             lastPlayerActiveLanePosition = activeCharacterBattle.GetLanePosition();
-            //Debug.Log("2 " + lastPlayerActiveLanePosition);
 
             activeCharacterBattle.TickSpecialCooldown();
 
             RefreshSelectedTargetCharacterBattle();
+            BattleUI.instance.radialMenu.SetActive(true);
             state = State.WaitingForPlayer;
+        }
+
+        // Turn Start
+        if (activeCharacterBattle.IsPlayerTeam())
+        {
+            TurnSystem.instance.TurnDecrease();
+            Debug.Log("Turn Start");
         }
     }
 

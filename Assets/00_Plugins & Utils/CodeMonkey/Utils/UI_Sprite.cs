@@ -30,7 +30,7 @@ namespace CodeMonkey.Utils {
         }
 
         public static UI_Sprite CreateDebugButton(Vector2 anchoredPosition, Vector2 size, Action ClickFunc, Color color) {
-            UI_Sprite uiSprite = new UI_Sprite(GetCanvasTransform(), Assets.i.s_White, anchoredPosition, size, color);
+            UI_Sprite uiSprite = new UI_Sprite(GetCanvasTransform(), GameAssets.i.s_White, anchoredPosition, size, color);
             uiSprite.AddButton(ClickFunc, null, null);
             return uiSprite;
         }
@@ -72,7 +72,7 @@ namespace CodeMonkey.Utils {
             if (color.g >= 1f) color.g = .9f;
             if (color.b >= 1f) color.b = .9f;
             Color colorOver = color * 1.1f; // button over color lighter
-            UI_Sprite uiSprite = new UI_Sprite(parent, Assets.i.s_White, anchoredPosition, size, color);
+            UI_Sprite uiSprite = new UI_Sprite(parent, GameAssets.i.s_White, anchoredPosition, size, color);
             uiSprite.AddButton(ClickFunc, () => uiSprite.SetColor(colorOver), () => uiSprite.SetColor(color));
             uiTextComplex = new UI_TextComplex(uiSprite.gameObject.transform, Vector2.zero, 12, '#', text, null, null);
             uiTextComplex.SetTextColor(Color.black);

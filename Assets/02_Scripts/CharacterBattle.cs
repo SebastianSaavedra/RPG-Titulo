@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using MEC;
+using System.Collections.Generic;
 using CodeMonkey.Utils;
 public class CharacterBattle : MonoBehaviour
 {
@@ -12,18 +14,20 @@ public class CharacterBattle : MonoBehaviour
     private Material material;
     private Animator anim;
     private Color materialTintColor;
+    private Color baseTint;
     private bool isPlayerTeam;
     private Vector3 startingPosition;
     private Vector3 slideToPosition;
     private Transform selectionCircleTransform;
     private Battle.LanePosition lanePosition;
     private Character.Type characterType;
-    private Character.Stats stats;
+    [HideInInspector] public Character.Stats stats;
     private Action onAttackHit;
     private Action onAttackComplete;
     private Action onSlideComplete;
     private World_Bar healthWorldBar;
     private HealthSystem healthSystem;
+    private TurnSystem turnSystem;
 
     private enum State
     {
@@ -43,8 +47,15 @@ public class CharacterBattle : MonoBehaviour
         material = transform.GetComponent<SpriteRenderer>().material;
         materialTintColor = new Color(1, 0, 0, 0);
         selectionCircleTransform = transform.Find("SelectionCircle");
+        turnSystem = GameObject.Find("TurnSystem").GetComponent<TurnSystem>();
         HideSelectionCircle();
         SetStateIdle();
+    }
+
+    private void Start()
+    {
+
+        baseTint = GetComponent<SpriteRenderer>().material.color;
     }
 
     public void Setup(Character.Type characterType, Battle.LanePosition lanePosition, Vector3 startingPosition, bool isPlayerTeam, Character.Stats stats)
@@ -60,6 +71,9 @@ public class CharacterBattle : MonoBehaviour
         switch (characterType)
         {
             case Character.Type.Player:
+                material.color = new Color(.7f,.4f,.2f);
+                anim.runtimeAnimatorController = GameAssets.i.allyANIM;
+                playerAnims.PlayAnimStarter();
 
                 //if (GameData.GetCharacter(Character.Type.Player).hasFtnDewArmor)
                 //{
@@ -71,28 +85,25 @@ public class CharacterBattle : MonoBehaviour
                 //    material.mainTexture = newSpritesheetTexture;
                 //}
 
-                //if (GameData.GetCharacter(Character.Type.Player).hasSwordThousandTruths)
+                //if (GameData.GetCharacter(Character.Type.Player).starter)
                 //{
-                //    Texture2D newSpritesheetTexture = new Texture2D(material.mainTexture.width, material.mainTexture.height, TextureFormat.ARGB32, true);
-                //    newSpritesheetTexture.SetPixels((material.mainTexture as Texture2D).GetPixels());
-                //    Color[] swordThousandTruthsPixels = GameAssets.i.t_SwordThousandTruths.GetPixels(0, 0, 128, 128);
-                //    newSpritesheetTexture.SetPixels(0, 128, 128, 128, swordThousandTruthsPixels);
-                //    newSpritesheetTexture.Apply();
-                //    material.mainTexture = newSpritesheetTexture;
+                //    anim.runtimeAnimatorController = GameAssets.i.allyANIM;
+                //    playerAnims.PlayAnimStarter();
+                //    transform.localScale = Vector3.one * 1.2f;
                 //}
                 break;
-            //case Character.Type.Tank:
-            //    material.mainTexture = GameAssets.i.enemyTX;
-            //    anim.runtimeAnimatorController = GameAssets.i.enemyANIM;
-            //    playerAnims.PlayAnimStarter();
-            //    transform.localScale = Vector3.one * 1.2f;
-            //    break;
-            //case Character.Type.Healer:
-            //    material.mainTexture = GameAssets.i.t_Healer;
-            //    playerAnims.GetAnimatedWalker().SetAnimations(GameAssets.UnitAnimTypeEnum.dDualDagger_Idle, GameAssets.UnitAnimTypeEnum.dDualDagger_Walk, 1f, 1f);
-            //    attackUnitAnimType = GameAssets.UnitAnimTypeEnum.dDualDagger_Attack;
-            //    transform.localScale = Vector3.one * 1.0f;
-            //    break;
+            case Character.Type.Tank:
+                material.color = new Color(.55f, 0f, 1f);
+                anim.runtimeAnimatorController = GameAssets.i.allyANIM;
+                playerAnims.PlayAnimStarter();
+                transform.localScale = Vector3.one * 1.2f;
+                break;
+            case Character.Type.Healer:
+                material.color = new Color(1f, 1f, 0f);
+                anim.runtimeAnimatorController = GameAssets.i.allyANIM;
+                playerAnims.PlayAnimStarter();
+                transform.localScale = Vector3.one * .75f;
+                break;
             //case Character.Type.EvilMonster:
             //case Character.Type.EvilMonster_2:
             //case Character.Type.EvilMonster_3:
@@ -130,6 +141,10 @@ public class CharacterBattle : MonoBehaviour
         }
         //transform.Find("Body").GetComponent<MeshRenderer>().material = material;
 
+        if (isPlayerTeam)
+        {
+            turnSystem.SetTurnCount(stats.turns);
+        }
         healthSystem = new HealthSystem(stats.healthMax);
         healthSystem.SetHealthAmount(stats.health);
         healthWorldBar = new World_Bar(transform, healthWorldBarLocalPosition, new Vector3(12 * (stats.healthMax / 100f), 1.6f), Color.grey, Color.red, healthSystem.GetHealthPercent(), UnityEngine.Random.Range(1000, 2000), new World_Bar.Outline { color = Color.black, size = .6f });
@@ -155,7 +170,7 @@ public class CharacterBattle : MonoBehaviour
         //Blood_Handler.SpawnBlood(GetPosition(), bloodDir);
 
         //SoundManager.PlaySound(SoundManager.Sound.CharacterDamaged);
-        //DamagePopup.Create(GetPosition(), damageAmount, false);
+        DamagePopups.Create(GetPosition(), damageAmount, false);
         healthSystem.Damage(damageAmount);
         DamageFlash();
 
@@ -208,7 +223,7 @@ public class CharacterBattle : MonoBehaviour
     public void Heal(int healAmount)
     {
         materialTintColor = new Color(0, 1, 0, 1f);
-        material.SetColor("_Tint", materialTintColor);
+        Timing.RunCoroutine(_TintColor(materialTintColor));
         healthSystem.Heal(healAmount);
     }
 
@@ -291,7 +306,7 @@ public class CharacterBattle : MonoBehaviour
                 }
                 else
                 {
-                    // Reached Target position
+                    // Llego a la posicion del objetivo
                     state = State.AttackingTarget;
                     playerAnims.PlayAnimAttack(() =>
                     {
@@ -338,13 +353,6 @@ public class CharacterBattle : MonoBehaviour
                 }
                 break;
         }
-
-        //if (materialTintColor.a > 0)
-        //{
-        //    float tintFadeSpeed = 6f;
-        //    materialTintColor.a -= tintFadeSpeed * Time.deltaTime;
-        //    material.SetColor("_Tint", materialTintColor);
-        //}
     }
 
     private void SetStateIdle()
@@ -366,7 +374,15 @@ public class CharacterBattle : MonoBehaviour
     private void DamageFlash()
     {
         materialTintColor = new Color(1, 0, 0, 1f);
-        material.SetColor("_Tint", materialTintColor);
+        Timing.RunCoroutine(_TintColor(materialTintColor));
+    }
+
+    IEnumerator<float> _TintColor(Color color)
+    {
+        material.SetColor("_Color", materialTintColor);
+        yield return Timing.WaitForSeconds(.125f);
+        material.SetColor("_Color",baseTint);
+        yield break;
     }
 
     public void DamageKnockback(Vector3 knockbackDir, float knockbackDistance)
@@ -430,11 +446,9 @@ public class CharacterBattle : MonoBehaviour
         state = State.SlideToPosition;
     }
 
-    public void PlayAnimSpecialAttack(Action OnTrigger,Action OnHit)
+    public void PlayAnimSpecialAttack(Action OnHit,Action OnComplete)
     {
-        playerAnims.PlaySpecialAttack();
-        OnTrigger();
-        OnHit();
+        playerAnims.PlaySpecialAttack(OnHit, OnComplete);
 
     }
 }

@@ -6,12 +6,25 @@ using CodeMonkey;
 using CodeMonkey.Utils;
 using UnityEngine;
 
+[Serializable]
+public class Animations
+{
+
+    public WeaponAnims[] weaponAnimsArray;
+
+    [Serializable]
+    public struct WeaponAnims
+    {
+        public string weaponName;
+        public List<AnimationClip> anims;
+    }
+}
+
 public class Character_Anims : MonoBehaviour
 {
     [HideInInspector] public SpriteRenderer characterSpriteRenderer;
     [HideInInspector] public Animator anim;
-    //public bool isPlayerTeam;
-    StateMachineBehaviour machineBehaviour;
+    //public Animations anims;
 
     //IMPORTANTE    //IMPORTANTE    //IMPORTANTE
     //
@@ -37,25 +50,26 @@ public class Character_Anims : MonoBehaviour
         //{
         //    characterSpriteRenderer.flipX = true;
         //}
-        Timing.RunCoroutine(_PlayAnimAttack(onHit, onAttackComplete));
+        Timing.RunCoroutine(_WaitUntilAnimComplete("Base Layer.TEST_ATTACK", onHit, onAttackComplete));
     }
-    public void PlaySpecialAttack()
+    public void PlaySpecialAttack(Action onHit, Action onAttackComplete)
     {
         //if (!isPlayerTeam)//flip)
         //{
         //    characterSpriteRenderer.flipX = true;
         //}
-        anim.Play("Base Layer.TEST_ATTACK");
+        Timing.RunCoroutine(_WaitUntilAnimComplete("Base Layer.TEST_ATTACK", onHit, onAttackComplete));
 
     }
 
-    IEnumerator<float> _PlayAnimAttack(Action onHIT, Action onATTACKCOMPLETE)
+    IEnumerator<float> _WaitUntilAnimComplete(string Name,Action onHIT, Action onATTACKCOMPLETE)
     {
-        anim.Play("Base Layer.TEST_ATTACK");
+        anim.Play(Name);
         yield return Timing.WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
         onHIT();
         yield return Timing.WaitForOneFrame;
         onATTACKCOMPLETE();
+        yield break;
     }
 
     public void PlayAnimIdle()
