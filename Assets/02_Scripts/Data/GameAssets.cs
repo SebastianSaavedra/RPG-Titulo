@@ -25,9 +25,7 @@ public class GameAssets : MonoBehaviour
     public Transform Map;
     public Transform characterBattle;
     public Transform damagePopup;
-    public Texture2D t_Ally, t_enemy;
+    public Transform dmgDebuff, blindDebuff, healthDebuff;
     public RuntimeAnimatorController allyANIM, enemyANIM;
-
-
 
 }

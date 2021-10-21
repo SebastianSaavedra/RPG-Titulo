@@ -1,7 +1,8 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using MEC;
-using System.Collections.Generic;
 using CodeMonkey.Utils;
 public class CharacterBattle : MonoBehaviour
 {
@@ -27,7 +28,13 @@ public class CharacterBattle : MonoBehaviour
     private Action onSlideComplete;
     private World_Bar healthWorldBar;
     private HealthSystem healthSystem;
-    private TurnSystem turnSystem;
+    [HideInInspector] public StatusSystem statusSystem;
+    private bool canSpecial;
+    private bool hasStatus;
+
+    Sprite sprite;
+
+    Vector3 healthWorldBarLocalPosition = new Vector3(0, 13.25f);
 
     private enum State
     {
@@ -47,14 +54,12 @@ public class CharacterBattle : MonoBehaviour
         material = transform.GetComponent<SpriteRenderer>().material;
         materialTintColor = new Color(1, 0, 0, 0);
         selectionCircleTransform = transform.Find("SelectionCircle");
-        turnSystem = GameObject.Find("TurnSystem").GetComponent<TurnSystem>();
         HideSelectionCircle();
         SetStateIdle();
     }
 
     private void Start()
     {
-
         baseTint = GetComponent<SpriteRenderer>().material.color;
     }
 
@@ -66,14 +71,12 @@ public class CharacterBattle : MonoBehaviour
         this.isPlayerTeam = isPlayerTeam;
         this.stats = stats;
 
-        Vector3 healthWorldBarLocalPosition = new Vector3(0, 13.25f);
-
         switch (characterType)
         {
-            case Character.Type.Player:
-                material.color = new Color(.7f,.4f,.2f);
+            case Character.Type.Suyai:
+                material.color = new Color(.75f, 1f, 0f);
                 anim.runtimeAnimatorController = GameAssets.i.allyANIM;
-                playerAnims.PlayAnimStarter();
+                transform.localScale = Vector3.one * .75f;
 
                 //if (GameData.GetCharacter(Character.Type.Player).hasFtnDewArmor)
                 //{
@@ -84,24 +87,25 @@ public class CharacterBattle : MonoBehaviour
                 //    newSpritesheetTexture.Apply();
                 //    material.mainTexture = newSpritesheetTexture;
                 //}
-
-                //if (GameData.GetCharacter(Character.Type.Player).starter)
-                //{
-                //    anim.runtimeAnimatorController = GameAssets.i.allyANIM;
-                //    playerAnims.PlayAnimStarter();
-                //    transform.localScale = Vector3.one * 1.2f;
-                //}
                 break;
-            case Character.Type.Tank:
-                material.color = new Color(.55f, 0f, 1f);
+            case Character.Type.Antay:
+                material.color = new Color(.7f, .4f, .2f);
                 anim.runtimeAnimatorController = GameAssets.i.allyANIM;
-                playerAnims.PlayAnimStarter();
-                transform.localScale = Vector3.one * 1.2f;
+                transform.localScale = Vector3.one * .75f;
                 break;
-            case Character.Type.Healer:
+            case Character.Type.Pedro:
                 material.color = new Color(1f, 1f, 0f);
                 anim.runtimeAnimatorController = GameAssets.i.allyANIM;
-                playerAnims.PlayAnimStarter();
+                transform.localScale = Vector3.one * .75f;
+                break;
+            case Character.Type.Chillpila:
+                material.color = new Color(.55f, 0f, 1f);
+                anim.runtimeAnimatorController = GameAssets.i.allyANIM;
+                transform.localScale = Vector3.one * .75f;
+                break;
+            case Character.Type.Arana:
+                material.color = new Color(.25f, 0.25f, 0.25f);
+                anim.runtimeAnimatorController = GameAssets.i.allyANIM;
                 transform.localScale = Vector3.one * .75f;
                 break;
             //case Character.Type.EvilMonster:
@@ -114,44 +118,55 @@ public class CharacterBattle : MonoBehaviour
             //    healthWorldBarLocalPosition.y = 9.5f;
             //    break;
             case Character.Type.TESTENEMY:
-                //material.mainTexture = GameAssets.i.enemyTX;
                 anim.runtimeAnimatorController = GameAssets.i.enemyANIM;
-                playerAnims.PlayAnimStarter();
-                //    transform.localScale = Vector3.one * 1.2f;
                 break;
                 //case Character.Type.Enemy_MinionRed:
                 //    material.mainTexture = GameAssets.i.t_EnemyMinionRed;
                 //    playerAnims.GetAnimatedWalker().SetAnimations(GameAssets.UnitAnimTypeEnum.dMinion_Idle, GameAssets.UnitAnimTypeEnum.dMinion_Walk, 1f, 1f);
                 //    attackUnitAnimType = GameAssets.UnitAnimTypeEnum.dMinion_Attack;
                 //    break;
-                //case Character.Type.Enemy_Ogre:
-                //    material.mainTexture = GameAssets.i.t_Ogre;
-                //    playerAnims.GetAnimatedWalker().SetAnimations(GameAssets.UnitAnimTypeEnum.dOgre_Idle, GameAssets.UnitAnimTypeEnum.dOgre_Walk, 1f, 1f);
-                //    attackUnitAnimType = GameAssets.UnitAnimTypeEnum.dOgre_Attack;
-                //    hitUnitAnimType = UnitAnimType.GetUnitAnimType("dOgre_Hit");
-                //    slideLeftUnitAnim = UnitAnim.GetUnitAnim("dOgre_SlideLeft");
-                //    slideRightUnitAnim = UnitAnim.GetUnitAnim("dOgre_SlideRight");
-                //    healthWorldBarLocalPosition.y = 12;
-                //    break;
-                //case Character.Type.Enemy_Zombie:
-                //    material.mainTexture = GameAssets.i.t_Zombie;
-                //    playerAnims.GetAnimatedWalker().SetAnimations(GameAssets.UnitAnimTypeEnum.dZombie_Idle, GameAssets.UnitAnimTypeEnum.dZombie_Walk, 1f, 1f);
-                //    attackUnitAnimType = GameAssets.UnitAnimTypeEnum.dZombie_Attack;
-                //    break;
         }
         //transform.Find("Body").GetComponent<MeshRenderer>().material = material;
 
         if (isPlayerTeam)
         {
-            turnSystem.SetTurnCount(stats.turns);
+            TurnSystem.instance.SetTurnCount(this.stats.turns);
+        }
+        switch (characterType)
+        {
+            case Character.Type.Pedro:
+                SpecialAbilitiesCostSystem.instance.SetMoneyAmount(100);
+                break;
+            case Character.Type.Suyai:
+                SpecialAbilitiesCostSystem.instance.SetHerbsAmount(10);
+                break;
+            case Character.Type.Arana:
+                SpecialAbilitiesCostSystem.instance.SetTattoosAmount(5);
+                break;
+            case Character.Type.Antay:
+                SpecialAbilitiesCostSystem.instance.SetHitsAmount(5);
+                break;
+            case Character.Type.Chillpila:
+                SpecialAbilitiesCostSystem.instance.SetSoulsAmount(50);
+                break;
         }
         healthSystem = new HealthSystem(stats.healthMax);
         healthSystem.SetHealthAmount(stats.health);
+        statusSystem = new StatusSystem();
+        //
         healthWorldBar = new World_Bar(transform, healthWorldBarLocalPosition, new Vector3(12 * (stats.healthMax / 100f), 1.6f), Color.grey, Color.red, healthSystem.GetHealthPercent(), UnityEngine.Random.Range(1000, 2000), new World_Bar.Outline { color = Color.black, size = .6f });
         healthSystem.OnHealthChanged += HealthSystem_OnHealthChanged;
         healthSystem.OnDead += HealthSystem_OnDead;
 
+        Timing.RunCoroutine(_WaitUntilAnimComplete("Base Layer.TEST_START"));
+    }
+
+    IEnumerator<float> _WaitUntilAnimComplete(string name)
+    {
+        anim.Play(name);
+        yield return Timing.WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
         PlayIdleAnim();
+        yield break;
     }
 
     private void HealthSystem_OnDead(object sender, EventArgs e)
@@ -198,7 +213,6 @@ public class CharacterBattle : MonoBehaviour
             else
             {
                 // Player Team
-                stats.special = 0;
                 //SoundManager.PlaySound(SoundManager.Sound.OooohNooo);
             }
             //playerAnims.GetUnitAnimation().PlayAnimForced(UnitAnim.GetUnitAnim("LyingUp"), 1f, null);
@@ -225,6 +239,60 @@ public class CharacterBattle : MonoBehaviour
         materialTintColor = new Color(0, 1, 0, 1f);
         Timing.RunCoroutine(_TintColor(materialTintColor));
         healthSystem.Heal(healAmount);
+    }
+
+    public void Buff(int number)
+    {
+        switch (number)
+        {
+            default:
+                break;
+            case 0:
+                stats.attack += 5;
+                break;
+            case 1:
+                Debug.Log("Experiencia al final del combate aumentada!");
+                break;
+            case 2:
+                Debug.Log("Probabilidad de golpe critico aumentada!");
+                break;
+        }
+    }
+
+    public void Debuff(int number)
+    {
+        switch (number)
+        {
+            default:
+                break;
+            case 0:
+                {
+                    stats.attack -= 6;
+                    //sprite = GameAssets.i.dmgDebuff.GetComponent<Sprite>();
+                    Debug.Log("El daño total del enemigo es: " + stats.attack);
+                    break;
+                }
+            case 1:
+                {
+                    stats.damageChance = 33;
+                    //sprite = GameAssets.i.blindDebuff.GetComponent<Sprite>();
+                    Debug.Log("La probabilidad de atacar del enemigo es: " + stats.damageChance);
+                    break;
+                }
+            case 2:
+                {
+                    healthSystem.SetHealthAmount(healthSystem.GetHealthAmount() / 2);
+                    //sprite = GameAssets.i.healthDebuff.GetComponent<Sprite>();
+                    Debug.Log("La vida actual del enemigo es: " + healthSystem.GetHealthAmount());
+                    break;
+                }
+        }
+        statusSystem.SetStatusTimer(3);
+    }
+
+    public void StatusIcons(Sprite sprite)
+    {
+
     }
 
     public bool IsDead()
@@ -265,31 +333,81 @@ public class CharacterBattle : MonoBehaviour
         return stats.attack;
     }
 
-    public int GetSpecial()
-    {
-        return stats.special;
-    }
+    //public int GetSpecial()
+    //{
+    //    return stats.special;
+    //}
 
     public bool TrySpendSpecial()
     {
-        if (stats.special <= 0)
+        switch (characterType)
         {
-            stats.special = stats.specialMax;
-            return true;
+            case Character.Type.Pedro:
+                if (SpecialAbilitiesCostSystem.instance.GetMoneyAmount() >= SpecialAbilitiesCostSystem.instance.GetMaxMoneyAmount() / 4)
+                {
+                    canSpecial = true;
+                }
+                else
+                {
+                    canSpecial = false;
+                }
+                break;
+            case Character.Type.Suyai:
+                if (SpecialAbilitiesCostSystem.instance.GetHerbsAmount() >= SpecialAbilitiesCostSystem.instance.GetMaxHerbsAmount() / 5)
+                {
+                    canSpecial = true;
+                }
+                else
+                {
+                    canSpecial = false;
+                }
+                break;
+            case Character.Type.Antay:
+                if (SpecialAbilitiesCostSystem.instance.GetHitsAmount() >= SpecialAbilitiesCostSystem.instance.GetMaxHitsAmount() / 5)
+                {
+                    canSpecial = true;
+                }
+                else
+                {
+                    canSpecial = false;
+                }
+                break;
+            case Character.Type.Arana:
+                if (SpecialAbilitiesCostSystem.instance.GetTattoosAmount() >= SpecialAbilitiesCostSystem.instance.GetMaxTattoosAmount() / 5)
+                {
+                    canSpecial = true;
+                }
+                else
+                {
+                    canSpecial = false;
+                }
+                break;
+            case Character.Type.Chillpila:
+                if (SpecialAbilitiesCostSystem.instance.GetSoulsAmount() >= SpecialAbilitiesCostSystem.instance.GetMaxSoulsAmount() / 5)
+                {
+                    canSpecial = true;
+                }
+                else
+                {
+                    canSpecial = false;
+                }
+                break;
         }
-        else
-        {
-            return false;
-        }
+        return canSpecial;
     }
 
-    public void TickSpecialCooldown()
+    public bool HasStatus()
     {
-        if (stats.special > 0)
-        {
-            stats.special--;
-        }
+        return statusSystem.HasStatus();
     }
+
+    //public void TickSpecialCooldown()
+    //{
+    //    if (stats.special > 0)
+    //    {
+    //        stats.special--;
+    //    }
+    //}
 
 
     private void Update()

@@ -52,21 +52,21 @@ public static class GameData
         {
             return;
         }
-        Debug.Log("Se iniciaron los datos del GAMEDATA");
+        //Debug.Log("Se iniciaron los datos del GAMEDATA");
         isInit = true;
         //SoundManager.Initialize();
         state = State.Start;
 
         characterList = new List<Character>();
 
-        characterList.Add(new Character(Character.Type.Player)
+        characterList.Add(new Character(Character.Type.Suyai)
             {
-                position = GameAssets.i.Map.Find("player").position,
+                position = GameAssets.i.Map.Find("Suyai").position,
             });
 
-        characterList.Add(new Character(Character.Type.Tank, Character.SubType.Tank_BeforeJoin)
+        characterList.Add(new Character(Character.Type.Antay)
             {
-                position = GameAssets.i.Map.Find("tank").position,
+                position = GameAssets.i.Map.Find("Antay").position,
                 //enemyEncounter = new EnemyEncounter
                 //{
                 //    enemyBattleArray = new EnemyEncounter.EnemyBattle[] {
@@ -75,10 +75,20 @@ public static class GameData
                 //}
             });
 
-        characterList.Add(new Character(Character.Type.Healer, Character.SubType.Healer_BeforeJoin)
-            {
-                position = GameAssets.i.Map.Find("healer").position,
-            });
+        characterList.Add(new Character(Character.Type.Pedro)
+        {
+            position = GameAssets.i.Map.Find("Pedro").position,
+        });
+
+        characterList.Add(new Character(Character.Type.Arana)
+        {
+            position = GameAssets.i.Map.Find("Arana").position,
+        });
+
+        characterList.Add(new Character(Character.Type.Chillpila)
+        {
+            position = GameAssets.i.Map.Find("Chillpila").position,
+        });
 
 
         foreach (Transform mapSpawn in GameAssets.i.Map)

@@ -27,9 +27,9 @@ public class Character_Anims : MonoBehaviour
     //public Animations anims;
 
     //IMPORTANTE    //IMPORTANTE    //IMPORTANTE
-    //
-    // Recuerda poner corutinas para que se termine las animaciones entre ataques!
-    //
+    //                                                                                  //Listo
+    // Recuerda poner corutinas para que se termine las animaciones entre ataques!      //Listo
+    //                                                                                  //Listo
     //IMPORTANTE    //IMPORTANTE    //IMPORTANTE
 
 

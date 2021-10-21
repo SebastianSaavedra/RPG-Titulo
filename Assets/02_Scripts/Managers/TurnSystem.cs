@@ -1,9 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using MEC;
-using TMPro;
 
 public class TurnSystem : MonoBehaviour
 {
@@ -21,7 +17,6 @@ public class TurnSystem : MonoBehaviour
     public void SetTurnCount(int turns)
     {
         this.turns += turns;
-        //Debug.Log(this.turns);
         if (OnTurnChanged != null)
         {
             OnTurnChanged(this, EventArgs.Empty);
@@ -49,6 +44,10 @@ public class TurnSystem : MonoBehaviour
 
     public int TurnDecrease()
     {
+        if (turns == 0)
+        {
+            return turns;
+        }
         --turns;
         if (OnTurnChanged != null)
         {

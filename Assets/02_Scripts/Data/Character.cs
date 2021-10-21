@@ -12,9 +12,11 @@ public class Character
         switch (type)
         {
             default:
-            case Type.Player:
-            case Type.Tank:
-            case Type.Healer:
+            case Type.Suyai:
+            case Type.Antay:
+            case Type.Pedro:
+            case Type.Arana:
+            case Type.Chillpila:
 
             case Type.Randy:
             case Type.EvilMonster:
@@ -38,17 +40,17 @@ public class Character
         public int speedMax;
         public int speed;
         public int attack;
-        public int specialMax;
-        public int special;
+        public int damageChance;
         public int turns;
     }
 
     public enum Type
     {
-        Player,
-        Tank,
-        Healer,
-        PlayerDoppelganger,
+        Suyai,     // Prota/Healer Suyai
+        Antay,     // Tanque Antay
+        Pedro,     // Debuffer Pedro
+        Arana,     // Lancero Arana
+        Chillpila, // Mago oscuro Chillpila
 
         TESTENEMY,
         Enemy_MinionRed,
@@ -114,8 +116,7 @@ public class Character
             attack = 10,
             health = 100,
             healthMax = 100,
-            special = 1,
-            specialMax = 1,
+            damageChance = 75,
             speed = 1,
             speedMax = 1,
             turns = 1
@@ -126,29 +127,14 @@ public class Character
             default:
                 break;
 
-            case Type.Player:
-                stats = new Stats
-                {
-                    attack = 35,
-                    health = 120,
-                    healthMax = 120,
-                    special = 0,
-                    specialMax = 2 + 1,
-                    speed = 1,
-                    speedMax = 1,
-                    turns = 1
-                };
-                isInPlayerTeam = true;
-                break;
-
-            case Type.Healer:
+            /////////////////// Personajes jugables
+            
+            case Type.Suyai:       // Prota - Healer
                 stats = new Stats
                 {
                     attack = 20,
-                    health = 90,
-                    healthMax = 90,
-                    special = 1,
-                    specialMax = 2 + 1,
+                    health = 100,
+                    healthMax = 100,
                     speed = 1,
                     speedMax = 1,
                     turns = 2
@@ -156,14 +142,38 @@ public class Character
                 isInPlayerTeam = true;
                 break;
 
-            case Type.Tank:
+            case Type.Chillpila:       // Kalcu - Mago oscuro
+                stats = new Stats
+                {
+                    attack = 20,
+                    health = 90,
+                    healthMax = 90,
+                    speed = 1,
+                    speedMax = 1,
+                    turns = 2
+                };
+                isInPlayerTeam = true;
+                break;
+
+            case Type.Pedro:            // Trickster - Debuffer
+                stats = new Stats
+                {
+                    attack = 30,
+                    health = 105,
+                    healthMax = 105,
+                    speed = 1,
+                    speedMax = 1,
+                    turns = 2
+                };
+                isInPlayerTeam = true;
+                break;
+
+            case Type.Antay:            // Tank
                 stats = new Stats
                 {
                     attack = 25,
                     health = 150,
                     healthMax = 150,
-                    special = 1,
-                    specialMax = 2 + 1,
                     speed = 1,
                     speedMax = 1,
                     turns = 3
@@ -171,90 +181,34 @@ public class Character
                 isInPlayerTeam = true;
                 break;
 
+            case Type.Arana:            // Lancero - DmgDealer
+                stats = new Stats
+                {
+                    attack = 30,
+                    health = 110,
+                    healthMax = 110,
+                    speed = 1,
+                    speedMax = 1,
+                    turns = 3
+                };
+                isInPlayerTeam = true;
+                break;
+
+
+                /////////////////// ENEMIGOS
             case Type.TESTENEMY:
                 name = "TEST ENEMY";
                 stats = new Stats
                 {
                     attack = 16,
-                    health = 50,
-                    healthMax = 50,
-                    special = 1,
-                    specialMax = 1,
+                    health = 100,
+                    healthMax = 100,
                     speed = 1,
                     speedMax = 1,
+                    damageChance = 75,
                 };
                 break;
 
-            case Type.Enemy_MinionRed:
-                stats = new Stats
-                {
-                    attack = 20,
-                    health = 80,
-                    healthMax = 80,
-                    special = 1,
-                    specialMax = 1,
-                    speed = 1,
-                    speedMax = 1,
-                };
-                break;
-
-            case Type.Enemy_Zombie:
-                stats = new Stats
-                {
-                    attack = 30,
-                    health = 120,
-                    healthMax = 120,
-                    special = 1,
-                    specialMax = 1,
-                    speed = 1,
-                    speedMax = 1,
-                };
-                break;
-
-            case Type.Enemy_Ogre:
-                stats = new Stats
-                {
-                    attack = 25,
-                    health = 200,
-                    healthMax = 200,
-                    special = 1,
-                    specialMax = 1,
-                    speed = 1,
-                    speedMax = 1,
-                };
-                break;
-
-            case Type.EvilMonster:
-                name = "Evil Monster";
-                stats = new Stats
-                {
-                    attack = 40,
-                    health = 300,
-                    healthMax = 300,
-                    special = 1,
-                    specialMax = 1,
-                    speed = 1,
-                    speedMax = 1,
-                };
-                break;
-
-            case Type.EvilMonster_2:
-
-            case Type.EvilMonster_3:
-                name = "Evil Monster";
-                stats = new Stats
-                {
-                    attack = 60,
-                    health = 300,
-                    healthMax = 300,
-                    special = 1,
-                    specialMax = 1,
-                    speed = 1,
-                    speedMax = 1,
-                };
-                break;
-
-            case Type.PlayerDoppelganger:
             case Type.TavernAmbush:
             case Type.TavernAmbush_2:
             case Type.TavernAmbush_3:
@@ -284,10 +238,11 @@ public class Character
         switch (type)
         {
             default:
-            case Type.Player:
-            case Type.Tank:
-            case Type.Healer:
-            case Type.PlayerDoppelganger:
+            case Type.Suyai:
+            case Type.Antay:
+            case Type.Pedro:
+            case Type.Arana:
+            case Type.Chillpila:
             case Type.TavernAmbush:
             case Type.TavernAmbush_2:
             case Type.TavernAmbush_3:

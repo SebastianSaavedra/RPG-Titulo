@@ -30,6 +30,8 @@ public class Battle
     private LanePosition lastPlayerActiveLanePosition;
     private LanePosition lastEnemyActiveLanePosition;
 
+    Vector3 middlePosition = GetPosition(LanePosition.Middle, false) + new Vector3(-35, 0);
+
     public State state;
 
     public enum LanePosition
@@ -125,14 +127,20 @@ public class Battle
                 switch (character.type)
                 {
                     default:
-                    case Character.Type.Player: 
+                    case Character.Type.Suyai: 
                         lanePosition = LanePosition.Middle; 
                         break;
-                    case Character.Type.Tank: 
+                    case Character.Type.Antay: 
                         lanePosition = LanePosition.Down; 
                         break;
-                    case Character.Type.Healer:
+                    case Character.Type.Pedro:
+                        lanePosition = LanePosition.Top;
+                        break;
+                    case Character.Type.Arana:
                         lanePosition = LanePosition.Up;
+                        break;
+                    case Character.Type.Chillpila:
+                        lanePosition = LanePosition.Bottom;
                         break;
                 }
                 SpawnCharacter(character.type, lanePosition, true, character.stats);
@@ -350,100 +358,147 @@ public class Battle
             int maxDamage = (int)(damageBase * 1.2f);
             selectedTargetCharacterBattle.Damage(activeCharacterBattle, Random.Range(minDamage, maxDamage)); ;
             UtilsClass.ShakeCamera(.75f, .15f);
-            if (selectedTargetCharacterBattle.IsDead())
-            {
-                TestEvilMonsterKilled();
-            }
+            //if (selectedTargetCharacterBattle.IsDead())
+            //{
+            //    TestEvilMonsterKilled();
+            //}
         }, () =>
         {
             ResetCamera();
+            selectedTargetCharacterBattle.HideSelectionCircle();
             activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
         });
     }
 
     public void _Special()
     {
-        if (activeCharacterBattle.TrySpendSpecial())
+        // Spend Special
+        int number = Random.Range(0, 3);
+        switch (activeCharacterBattle.GetCharacterType())
         {
-            // Spend Special
-            switch (activeCharacterBattle.GetCharacterType())
-            {
-                default:
-                case Character.Type.Player:
-                    state = State.Busy;
-                    BattleUI.instance.radialMenu.SetActive(false);
-                    SetCamera(selectedTargetCharacterBattle.GetPosition() + new Vector3(-5f, 0), 30f);
-                    Vector3 slideToPosition = selectedTargetCharacterBattle.GetPosition() + new Vector3(-8f, 0);
-                    activeCharacterBattle.SlideToPosition(slideToPosition,() =>
-                        {
-                        activeCharacterBattle.PlayAnimSpecialAttack(() =>
-                                {
-                                    // Golpe fuerte
-                                    //SoundManager.PlaySound(SoundManager.Sound.CharacterHit);
-                                    UtilsClass.ShakeCamera(2f, .15f);
-                                    int damageAmount = 100;
-                                    selectedTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount);
-                                    if (selectedTargetCharacterBattle.IsDead())
-                                    {
-                                        TestEvilMonsterKilled();
-                                    }
-                                },() =>
-                            {
-                                ResetCamera();
-                                activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
-                            });
-                        });
-                    break;
-                case Character.Type.Tank:
-                    state = State.Busy;
-                    BattleUI.instance.radialMenu.SetActive(false);
-                    activeCharacterBattle.SlideToPosition(GetPosition(LanePosition.Middle, false) + new Vector3(-15, 0), () =>
+            default:
+            case Character.Type.Suyai:      //Healer - Buffer - Support
+                state = State.Busy;
+                BattleUI.instance.radialMenu.SetActive(false);
+                SetCamera(activeCharacterBattle.GetPosition(), 30f);
+                activeCharacterBattle.PlayAnimSpecialAttack(() =>
+                {
+                    activeCharacterBattle.PlayIdleAnim();
+                    ResetCamera();
+                    FunctionTimer.Create(ChooseNextActiveCharacter, .2f);
+                },
+                () => { });
+
+                FunctionTimer.Create(() => {
+                    // Heal all
+                    //SoundManager.PlaySound(SoundManager.Sound.Heal);
+                    List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(true);
+                    foreach (CharacterBattle characterBattle in characterBattleList)
                     {
-                        activeCharacterBattle.PlayAnimSpecialAttack(() =>
-                        {
-                            activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
-                        },
-                        () =>
-                        {
-                                        // Damage All Enemies
-                                        //SoundManager.PlaySound(SoundManager.Sound.GroundPound);
-                                        UtilsClass.ShakeCamera(2f, .15f);
-                            int damageAmount = 30;
-                            List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(false);
-                            foreach (CharacterBattle characterBattle in characterBattleList)
-                            {
-                                characterBattle.Damage(activeCharacterBattle, damageAmount);
-                            }
-                            if (selectedTargetCharacterBattle.IsDead())
-                            {
-                                TestEvilMonsterKilled();
-                            }
-                        });
-                    });
-                    break;
-                case Character.Type.Healer:
-                    state = State.Busy;
-                    BattleUI.instance.radialMenu.SetActive(false);
-                    SetCamera(activeCharacterBattle.GetPosition(), 30f);
+                        characterBattle.Heal(50);
+                    }
+                    SpecialAbilitiesCostSystem.instance.ConsumeHerbs(characterBattleList.Count);
+                    //Debug.Log("Cantidad de hierbas: " + SpecialAbilitiesCostSystem.instance.GetHerbsAmount());
+                }, 1.2f);
+                break;
+
+            case Character.Type.Antay:      //Tank
+                state = State.Busy;
+                BattleUI.instance.radialMenu.SetActive(false);
+
+                SetCamera(activeCharacterBattle.GetPosition(), 30f);
+                activeCharacterBattle.PlayAnimSpecialAttack(() =>
+                {
+                    activeCharacterBattle.PlayIdleAnim();
+                    ResetCamera();
+                    FunctionTimer.Create(ChooseNextActiveCharacter, .2f);
+                },
+                () => { });
+
+                FunctionTimer.Create(() => {
+                    // Buff all
+                    //SoundManager.PlaySound(SoundManager.Sound.Buff);
+                    List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(true);
+                    foreach (CharacterBattle characterBattle in characterBattleList)
+                    {
+                        characterBattle.Buff(number);
+                    }
+                    SpecialAbilitiesCostSystem.instance.ConsumeHits(1);
+                }, 1.2f);
+                break;
+
+            case Character.Type.Pedro:      // Debuffer - Trickster
+                state = State.Busy;
+                BattleUI.instance.radialMenu.SetActive(false);
+                SetCamera(middlePosition, 30f);
+                activeCharacterBattle.SlideToPosition(middlePosition, () =>
+                {
                     activeCharacterBattle.PlayAnimSpecialAttack(() =>
                     {
-                        activeCharacterBattle.PlayIdleAnim();
-                        ResetCamera();
-                        FunctionTimer.Create(ChooseNextActiveCharacter, .2f);
-                    },
-                    () => { });
-
-                    FunctionTimer.Create(() => {
-                        // Heal all
-                        //SoundManager.PlaySound(SoundManager.Sound.Heal);
-                        List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(true);
+                        // Debuff
+                        //SoundManager.PlaySound(SoundManager.Sound.CharacterHit);
+                        List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(false);
                         foreach (CharacterBattle characterBattle in characterBattleList)
                         {
-                            characterBattle.Heal(50);
+                            characterBattle.Debuff(number);
                         }
-                    }, 1.2f);
-                    break;
-            }
+                        SpecialAbilitiesCostSystem.instance.PayMoney(25);
+                    }, () =>
+                    {
+                        ResetCamera();
+                        activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
+                    });
+                });
+                break;
+            case Character.Type.Arana:
+                state = State.Busy;
+                BattleUI.instance.radialMenu.SetActive(false);
+                SetCamera(selectedTargetCharacterBattle.GetPosition() + new Vector3(-5f, 0), 30f);
+                Vector3 slideToPosition = selectedTargetCharacterBattle.GetPosition() + new Vector3(-8f, 0);
+                activeCharacterBattle.SlideToPosition(slideToPosition, () =>
+                {
+                    activeCharacterBattle.PlayAnimSpecialAttack(() =>
+                    {
+                        ResetCamera();
+                        activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
+                    },() =>
+                    {
+                        // Massive Single Enemy Damage
+                        //SoundManager.PlaySound(SoundManager.Sound.CharacterHit);
+                        UtilsClass.ShakeCamera(2f, .15f);
+                        int damageAmount = 100;
+                        selectedTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount);
+                        //if (selectedTargetCharacterBattle.IsDead())
+                        //{
+                        //    TestEvilMonsterKilled();
+                        //}
+                    });
+                });
+                SpecialAbilitiesCostSystem.instance.ConsumeTattoos(1);
+                break;
+            case Character.Type.Chillpila:
+                state = State.Busy;
+                activeCharacterBattle.SlideToPosition(GetPosition(LanePosition.Middle, false) + new Vector3(-15, 0), () => {
+                    activeCharacterBattle.PlayAnimSpecialAttack(() => {
+                        activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
+                    }, () => {
+                        // Damage All Enemies
+                        //SoundManager.PlaySound(SoundManager.Sound.GroundPound);
+                        UtilsClass.ShakeCamera(2f, .15f);
+                        int damageAmount = 30;
+                        List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(false);
+                        foreach (CharacterBattle characterBattle in characterBattleList)
+                        {
+                            characterBattle.Damage(activeCharacterBattle, damageAmount);
+                        }
+                        //if (selectedTargetCharacterBattle.IsDead())
+                        //{
+                        //    TestEvilMonsterKilled();
+                        //}
+                    });
+                });
+                SpecialAbilitiesCostSystem.instance.ConsumeSouls((int)(characterBattleList.Count * 1.5f));
+                break;
         }
 
     }
@@ -503,7 +558,9 @@ public class Battle
         if (TurnSystem.instance.ZeroTurns())
         {
             Debug.Log("Se te acabaron los turnos, huiste del combate");
+            return;
         }
+        
         // Selecciona un enemigo
         if (GetAliveTeamCharacterBattleList(false).Count == 0)
         {
@@ -530,7 +587,7 @@ public class Battle
                     }
                 }
             }
-            Debug.Log("El estado del GameData.state es: " + GameData.state);
+            //Debug.Log("El estado del GameData.state es: " + GameData.state);
             switch (GameData.state)
             {
                 case GameData.State.Start:
@@ -549,7 +606,7 @@ public class Battle
                     character.stats.health = character.stats.healthMax;
                     character.subType = Character.SubType.Tank_Friendly;
                     // Heal Player
-                    Character uniqueCharacter = GameData.GetCharacter(Character.Type.Player);
+                    Character uniqueCharacter = GameData.GetCharacter(Character.Type.Suyai);
                     uniqueCharacter.stats.health = uniqueCharacter.stats.healthMax;
                     break;
                 case GameData.State.FightingTavernAmbush:
@@ -557,9 +614,9 @@ public class Battle
                     break;
                 case GameData.State.FightingEvilMonster_1:
                     // Player Lost to Evil Monster
-                    GameData.GetCharacter(Character.Type.Player).stats.health = 1;
-                    GameData.GetCharacter(Character.Type.Tank).stats.health = 1;
-                    GameData.GetCharacter(Character.Type.Healer).stats.health = 1;
+                    GameData.GetCharacter(Character.Type.Suyai).stats.health = 1;
+                    GameData.GetCharacter(Character.Type.Antay).stats.health = 1;
+                    GameData.GetCharacter(Character.Type.Pedro).stats.health = 1;
                     GameData.state = GameData.State.LostToEvilMonster_1;
                     break;
                 case GameData.State.FightingEvilMonster_2:
@@ -617,7 +674,7 @@ public class Battle
                     int damageMin = (int)(damageBase * 0.8f);
                     int damageMax = (int)(damageBase * 1.2f);
                     int damageAmount = Random.Range(damageMin, damageMax);
-                    int damageChance = 75;
+                    int damageChance = activeCharacterBattle.stats.damageChance;
                     if (GetAliveCount(true) == 1)
                     {
                         // Solo 1 pj vivo
@@ -637,7 +694,7 @@ public class Battle
                     else
                     {
                         // Miss
-                        //DamagePopup.Create(activeCharacterBattle.GetPosition(), "MISS", UtilsClass.GetColorFromString("00B4FF"));
+                        DamagePopups.Create(activeCharacterBattle.GetPosition(), "FALLO", UtilsClass.GetColorFromString("00B4FF"));
                     }
                 }, () => 
                 {
@@ -650,15 +707,15 @@ public class Battle
         {
             // Inicia turno de aliado
             List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(true);
-            //SetActiveCharacterBattle(characterBattleList[Random.Range(0, characterBattleList.Count)]);
-
-            //Debug.Log(lastPlayerActiveLanePosition);
+            List<CharacterBattle> enemyCharacterBattleList = GetAliveTeamCharacterBattleList(false);
             SetActiveCharacterBattle(GetNextCharacterBattle(lastPlayerActiveLanePosition, false, true));
             lastPlayerActiveLanePosition = activeCharacterBattle.GetLanePosition();
 
-            activeCharacterBattle.TickSpecialCooldown();
+            //activeCharacterBattle.TickSpecialCooldown();
 
-            RefreshSelectedTargetCharacterBattle();
+            StatusInfo(enemyCharacterBattleList);
+
+            //RefreshSelectedTargetCharacterBattle();
             BattleUI.instance.radialMenu.SetActive(true);
             state = State.WaitingForPlayer;
         }
@@ -668,6 +725,18 @@ public class Battle
         {
             TurnSystem.instance.TurnDecrease();
             Debug.Log("Turn Start");
+        }
+    }
+
+    private void StatusInfo(List<CharacterBattle> enemyCharacterBattleList)
+    {
+        foreach (CharacterBattle character in enemyCharacterBattleList)
+        {
+            if (character.HasStatus())
+            {
+                character.statusSystem.TimerTick();
+                Debug.Log("Disminuyo en 1 el debuff timer para cada: " + character.GetCharacterType());
+            }
         }
     }
 

@@ -44,7 +44,6 @@ public class BattleUI : MonoBehaviour
     IEnumerator<float> _EventSystemReAssign()
     {
         yield return Timing.WaitForOneFrame;
-        Debug.Log("SI SE ACTIVA");
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(buttons[0]);
         yield break;
@@ -52,23 +51,38 @@ public class BattleUI : MonoBehaviour
 
     public void Command(string command)
     {
-        Timing.RunCoroutine(_WaitOneFrameForCommand());
         this.command = command;
+        Timing.RunCoroutine(_WaitOneFrameForCommand());
     }
 
-    IEnumerator<float> _WaitOneFrameForCommand()
+    IEnumerator<float> _WaitOneFrameForCommand()        //  A FUTURO PODRIAS INCLUIR PARAMETROS PARA DEFINIR QUE COMANDO SE ELIGIO
     {
         yield return Timing.WaitForOneFrame;
-        if (command == "Special" && Battle.GetInstance().activeCharacterBattle.GetCharacterType() != Character.Type.Player)
-        {
-            Battle.GetInstance()._Special();
-        }
-        else
+        if (command == "Special" && Battle.GetInstance().activeCharacterBattle.GetCharacterType() == Character.Type.Arana)
         {
             Battle.GetInstance().state = Battle.State.EnemySelection;
             Battle.GetInstance().SetSelectedTargetCharacterBattle(Battle.GetInstance().GetAliveTeamCharacterBattleList(false)[0]);
+            radialMenu.SetActive(false);
         }
-        radialMenu.SetActive(false);
+        else if (command == "Special"  && Battle.GetInstance().activeCharacterBattle.TrySpendSpecial())
+        {
+            Battle.GetInstance()._Special();
+            radialMenu.SetActive(false);
+        }
+        if (command == "Attack")
+        {
+            Battle.GetInstance().state = Battle.State.EnemySelection;
+            Battle.GetInstance().SetSelectedTargetCharacterBattle(Battle.GetInstance().GetAliveTeamCharacterBattleList(false)[0]);
+            radialMenu.SetActive(false);
+        }
+        if (command == "Items")
+        {
+            Debug.Log("Menu de items");
+        }
+        if (command == "Run")
+        {
+            Debug.Log("Huiste del combate");
+        }
         yield break;
     }
 
