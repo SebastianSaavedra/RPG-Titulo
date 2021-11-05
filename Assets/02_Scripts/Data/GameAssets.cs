@@ -15,6 +15,7 @@ public class GameAssets : MonoBehaviour
         }
     }
 
+
     [Header("Mini Assets para Debug")]
     public Sprite s_White;
     public Sprite s_Circle;
@@ -23,9 +24,23 @@ public class GameAssets : MonoBehaviour
     //////////////////////////
     [Header("Assets del juego")]
     public Transform Map;
-    public Transform characterBattle;
+    public Transform pfCharacterBattle;
+    public Transform pfNPCOvermap;
+    public Transform pfEnemyOvermap;
+    public Transform pfFollowerOvermap;
     public Transform damagePopup;
     public Transform dmgDebuff, blindDebuff, healthDebuff;
     public RuntimeAnimatorController allyANIM, enemyANIM;
+
+    public SoundAudioClip[] audioClipsArray;
+
+    [System.Serializable]
+    public class SoundAudioClip
+    {
+        public SoundManager.Sound sound;
+        public AudioClip audioClip;
+        [Range(0f, 2f)]
+        public float volumen;
+    }
 
 }

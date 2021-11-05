@@ -65,15 +65,9 @@ public static class GameData
             });
 
         characterList.Add(new Character(Character.Type.Antay)
-            {
-                position = GameAssets.i.Map.Find("Antay").position,
-                //enemyEncounter = new EnemyEncounter
-                //{
-                //    enemyBattleArray = new EnemyEncounter.EnemyBattle[] {
-                //        new EnemyEncounter.EnemyBattle(Character.Type.Tank, Battle.LanePosition.Middle),
-                //    }
-                //}
-            });
+        {
+            position = GameAssets.i.Map.Find("Antay").position,
+        });
 
         characterList.Add(new Character(Character.Type.Pedro)
         {

@@ -18,15 +18,14 @@ public class Character
             case Type.Arana:
             case Type.Chillpila:
 
-            case Type.Randy:
-            case Type.EvilMonster:
-            case Type.EvilMonster_2:
-            case Type.EvilMonster_3:
+            case Type.Jefe1:
+            case Type.Jefe2:
+            case Type.Jefe3:
                 return true;
             case Type.TESTENEMY:
-            case Type.Enemy_MinionRed:
-            case Type.Enemy_Ogre:
-            case Type.Enemy_Zombie:
+            case Type.NormalEnemy1:
+            case Type.NormalEnemy2:
+            case Type.NormalEnemy3:
                 return false;
         }
     }
@@ -34,11 +33,8 @@ public class Character
 
     public class Stats
     {
-
         public int healthMax;
         public int health;
-        public int speedMax;
-        public int speed;
         public int attack;
         public int damageChance;
         public int turns;
@@ -53,14 +49,13 @@ public class Character
         Chillpila, // Mago oscuro Chillpila
 
         TESTENEMY,
-        Enemy_MinionRed,
-        Enemy_Ogre,
-        Enemy_Zombie,
+        NormalEnemy1,
+        NormalEnemy2,
+        NormalEnemy3,
 
         TavernAmbush,
 
-        Randy,
-        EvilMonster,
+        Jefe1,
 
         Shop,
         Villager_1,
@@ -69,8 +64,8 @@ public class Character
         Villager_4,
         Villager_5,
 
-        EvilMonster_2,
-        EvilMonster_3,
+        Jefe2,
+        Jefe3,
 
         TavernAmbush_2,
         TavernAmbush_3,
@@ -117,8 +112,6 @@ public class Character
             health = 100,
             healthMax = 100,
             damageChance = 75,
-            speed = 1,
-            speedMax = 1,
             turns = 1
         };
 
@@ -135,8 +128,6 @@ public class Character
                     attack = 20,
                     health = 100,
                     healthMax = 100,
-                    speed = 1,
-                    speedMax = 1,
                     turns = 2
                 };
                 isInPlayerTeam = true;
@@ -148,8 +139,6 @@ public class Character
                     attack = 20,
                     health = 90,
                     healthMax = 90,
-                    speed = 1,
-                    speedMax = 1,
                     turns = 2
                 };
                 isInPlayerTeam = true;
@@ -161,8 +150,6 @@ public class Character
                     attack = 30,
                     health = 105,
                     healthMax = 105,
-                    speed = 1,
-                    speedMax = 1,
                     turns = 2
                 };
                 isInPlayerTeam = true;
@@ -174,11 +161,9 @@ public class Character
                     attack = 25,
                     health = 150,
                     healthMax = 150,
-                    speed = 1,
-                    speedMax = 1,
                     turns = 3
                 };
-                isInPlayerTeam = true;
+                //isInPlayerTeam = true;
                 break;
 
             case Type.Arana:            // Lancero - DmgDealer
@@ -187,11 +172,9 @@ public class Character
                     attack = 30,
                     health = 110,
                     healthMax = 110,
-                    speed = 1,
-                    speedMax = 1,
                     turns = 3
                 };
-                isInPlayerTeam = true;
+                //isInPlayerTeam = true;
                 break;
 
 
@@ -203,8 +186,6 @@ public class Character
                     attack = 16,
                     health = 100,
                     healthMax = 100,
-                    speed = 1,
-                    speedMax = 1,
                     damageChance = 75,
                 };
                 break;
@@ -222,15 +203,16 @@ public class Character
                 name = "Villager";
                 break;
 
-            case Type.Randy:
-                name = "Randy";
-                break;
-
             case Type.Shop:
                 name = "Vendor";
                 break;
         }
         isDead = false;
+    }
+
+    public bool IsInPlayerTeamFunc()
+    {
+        return isInPlayerTeam;
     }
 
     public bool IsEnemy()
@@ -248,12 +230,12 @@ public class Character
             case Type.TavernAmbush_3:
                 return false;
             case Type.TESTENEMY:
-            case Type.Enemy_MinionRed:
-            case Type.Enemy_Ogre:
-            case Type.Enemy_Zombie:
-            case Type.EvilMonster:
-            case Type.EvilMonster_2:
-            case Type.EvilMonster_3:
+            case Type.NormalEnemy1:
+            case Type.NormalEnemy2:
+            case Type.NormalEnemy3:
+            case Type.Jefe1:
+            case Type.Jefe2:
+            case Type.Jefe3:
                 return true;
         }
     }

@@ -160,6 +160,14 @@ public class SpecialAbilitiesCostSystem : MonoBehaviour
             OnSoulsChanged(this, EventArgs.Empty);
         }
     }
+    public void AddSouls(int amount)
+    {
+        this.souls += amount;
+        if (OnSoulsChanged != null)
+        {
+            OnSoulsChanged(this, EventArgs.Empty);
+        }
+    }
     public void ConsumeSouls(int amount)
     {
         souls -= amount;

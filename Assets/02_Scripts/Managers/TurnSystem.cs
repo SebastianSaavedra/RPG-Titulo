@@ -25,7 +25,7 @@ public class TurnSystem : MonoBehaviour
 
     public int _DebugTurns()
     {
-        turns = 1;
+        turns += 1;
         if (OnTurnChanged != null)
         {
             OnTurnChanged(this, EventArgs.Empty);
