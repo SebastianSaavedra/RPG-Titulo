@@ -605,7 +605,6 @@ public class Battle
                     character.isDead = false;
                     character.isInPlayerTeam = true;
                     character.stats.health = character.stats.healthMax;
-                    character.subType = Character.SubType.Tank_Friendly;
                     // Heal Player
                     Character uniqueCharacter = GameData.GetCharacter(Character.Type.Suyai);
                     uniqueCharacter.stats.health = uniqueCharacter.stats.healthMax;

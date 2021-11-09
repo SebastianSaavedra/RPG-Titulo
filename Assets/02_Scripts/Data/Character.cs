@@ -19,13 +19,8 @@ public class Character
             case Type.Chillpila:
 
             case Type.Jefe1:
-            case Type.Jefe2:
-            case Type.Jefe3:
                 return true;
             case Type.TESTENEMY:
-            case Type.NormalEnemy1:
-            case Type.NormalEnemy2:
-            case Type.NormalEnemy3:
                 return false;
         }
     }
@@ -49,26 +44,17 @@ public class Character
         Chillpila, // Mago oscuro Chillpila
 
         TESTENEMY,
-        NormalEnemy1,
-        NormalEnemy2,
-        NormalEnemy3,
-
-        TavernAmbush,
 
         Jefe1,
+        //Jefe2,
+        //Jefe3,
 
         Shop,
-        Villager_1,
-        Villager_2,
-        Villager_3,
-        Villager_4,
-        Villager_5,
-
-        Jefe2,
-        Jefe3,
-
-        TavernAmbush_2,
-        TavernAmbush_3,
+        //Villager_1,
+        //Villager_2,
+        //Villager_3,
+        //Villager_4,
+        //Villager_5,
     }
 
     public enum SubType
@@ -178,7 +164,7 @@ public class Character
                 break;
 
 
-                /////////////////// ENEMIGOS
+            /////////////////// ENEMIGOS
             case Type.TESTENEMY:
                 name = "TEST ENEMY";
                 stats = new Stats
@@ -190,18 +176,13 @@ public class Character
                 };
                 break;
 
-            case Type.TavernAmbush:
-            case Type.TavernAmbush_2:
-            case Type.TavernAmbush_3:
-                break;
-
-            case Type.Villager_1:
-            case Type.Villager_2:
-            case Type.Villager_3:
-            case Type.Villager_4:
-            case Type.Villager_5:
-                name = "Villager";
-                break;
+            //case Type.Villager_1:
+            //case Type.Villager_2:
+            //case Type.Villager_3:
+            //case Type.Villager_4:
+            //case Type.Villager_5:
+            //    name = "Villager";
+            //    break;
 
             case Type.Shop:
                 name = "Vendor";
@@ -225,17 +206,9 @@ public class Character
             case Type.Pedro:
             case Type.Arana:
             case Type.Chillpila:
-            case Type.TavernAmbush:
-            case Type.TavernAmbush_2:
-            case Type.TavernAmbush_3:
                 return false;
             case Type.TESTENEMY:
-            case Type.NormalEnemy1:
-            case Type.NormalEnemy2:
-            case Type.NormalEnemy3:
             case Type.Jefe1:
-            case Type.Jefe2:
-            case Type.Jefe3:
                 return true;
         }
     }

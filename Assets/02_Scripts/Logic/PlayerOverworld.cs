@@ -9,7 +9,7 @@ public class PlayerOverworld : MonoBehaviour
 
     public static PlayerOverworld instance;
 
-    private const float SPEED = 50f;
+    private const float SPEED = 15f;
 
     [SerializeField] private LayerMask wallLayerMask;
     private Character_Anims charAnim;

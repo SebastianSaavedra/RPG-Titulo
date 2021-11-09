@@ -6,14 +6,16 @@ public class NPCOverworld : MonoBehaviour
 
     public static NPCOverworld instance;
 
-    private const float SPEED = 50f;
+    private const float SPEED = 10f;
 
     private Character_Anims charAnim;
+    private Animator anim;
+    private SpriteRenderer sprite;
     private State state;
     private Vector3 targetMovePosition;
     private PlayerOverworld playerOverworld;
     private Character character;
-    public bool overrideOverworldRunning;
+    //public bool overrideOverworldRunning;
 
     private enum State
     {
@@ -24,6 +26,8 @@ public class NPCOverworld : MonoBehaviour
     {
         instance = this;
         charAnim = gameObject.GetComponent<Character_Anims>();
+        anim = gameObject.GetComponent<Animator>();
+        sprite = gameObject.GetComponent<SpriteRenderer>();
         SetStateNormal();
     }
 
@@ -103,7 +107,7 @@ public class NPCOverworld : MonoBehaviour
 
     private void Update()
     {
-        if (!OverworldManager.IsOvermapRunning() && !overrideOverworldRunning)
+        if (!OverworldManager.IsOvermapRunning()) //  && !overrideOverworldRunning
         {
             return;
         }

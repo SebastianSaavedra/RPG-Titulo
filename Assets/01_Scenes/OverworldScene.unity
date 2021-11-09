@@ -130,6 +130,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 67787419368690133, guid: 412146a97aeeba84dbef2a3d86281f26, type: 3}
+      propertyPath: m_Size.x
+      value: 1.73
+      objectReference: {fileID: 0}
+    - target: {fileID: 67787419368690133, guid: 412146a97aeeba84dbef2a3d86281f26, type: 3}
+      propertyPath: m_Size.y
+      value: 2.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 67787419368690133, guid: 412146a97aeeba84dbef2a3d86281f26, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 084f7d017102da1499e6632c6ae727e2, type: 3}
+    - target: {fileID: 67787419368690133, guid: 412146a97aeeba84dbef2a3d86281f26, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 67787419368690134, guid: 412146a97aeeba84dbef2a3d86281f26, type: 3}
       propertyPath: m_Name
       value: pfPlayer
@@ -201,6 +217,7 @@ GameObject:
   m_Component:
   - component: {fileID: 579841427}
   - component: {fileID: 579841426}
+  - component: {fileID: 579841428}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -222,6 +239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraFollow: {fileID: 833844795}
   playerOverworld: {fileID: 222412380}
+  cameraZoom: 10
 --- !u!4 &579841427
 Transform:
   m_ObjectHideFlags: 0
@@ -236,6 +254,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &579841428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579841425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77b361edd97307c448cc1dd18f0a6f39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &625992075
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -243,22 +273,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1541176564365829061, guid: f975e2186bab02645b8a57cd888acac8, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2030675258669391643, guid: f975e2186bab02645b8a57cd888acac8, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3736750224250282602, guid: f975e2186bab02645b8a57cd888acac8, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5059170852978008564, guid: f975e2186bab02645b8a57cd888acac8, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6989693021506279504, guid: f975e2186bab02645b8a57cd888acac8, type: 3}
       propertyPath: m_RootOrder
       value: 2

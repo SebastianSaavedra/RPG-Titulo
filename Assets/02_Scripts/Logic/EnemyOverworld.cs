@@ -6,9 +6,11 @@ public class EnemyOverworld : MonoBehaviour
 
     public static EnemyOverworld instance;
 
-    private const float SPEED = 60f;
+    private const float SPEED = 7.5f;
 
     private Character_Anims charAnim;
+    private Animator anim;
+    private SpriteRenderer sprite;
     private State state;
     private Vector3 targetMovePosition;
     private Character character;
@@ -27,6 +29,8 @@ public class EnemyOverworld : MonoBehaviour
     {
         instance = this;
         charAnim = gameObject.GetComponent<Character_Anims>();
+        anim = gameObject.GetComponent<Animator>();
+        sprite = gameObject.GetComponent<SpriteRenderer>();
         SetStateNormal();
     }
 
@@ -34,43 +38,21 @@ public class EnemyOverworld : MonoBehaviour
     {
         this.character = character;
         this.playerOvermap = playerOvermap;
-        //switch (character.type)
-        //{
-        //    default:
-        //    case Character.Type.Enemy_MinionOrange:
-        //        material.mainTexture = GameAssets.i.t_EnemyMinionOrange;
-        //        charAnim.GetAnimatedWalker().SetAnimations(GameAssets.UnitAnimTypeEnum.dMinion_Idle, GameAssets.UnitAnimTypeEnum.dMinion_Walk, 1f, 1f);
-        //        break;
-        //    case Character.Type.Enemy_MinionRed:
-        //        material.mainTexture = GameAssets.i.t_EnemyMinionRed;
-        //        charAnim.GetAnimatedWalker().SetAnimations(GameAssets.UnitAnimTypeEnum.dMinion_Idle, GameAssets.UnitAnimTypeEnum.dMinion_Walk, 1f, 1f);
-        //        break;
-        //    case Character.Type.Enemy_Ogre:
-        //        material.mainTexture = GameAssets.i.t_Ogre;
-        //        charAnim.GetAnimatedWalker().SetAnimations(GameAssets.UnitAnimTypeEnum.dOgre_Idle, GameAssets.UnitAnimTypeEnum.dOgre_Walk, 1f, 1f);
-        //        break;
-        //    case Character.Type.Enemy_Zombie:
-        //        material.mainTexture = GameAssets.i.t_Zombie;
-        //        charAnim.GetAnimatedWalker().SetAnimations(GameAssets.UnitAnimTypeEnum.dZombie_Idle, GameAssets.UnitAnimTypeEnum.dZombie_Walk, 1f, 1.3f);
-        //        break;
-        //    case Character.Type.EvilMonster:
-        //    case Character.Type.EvilMonster_2:
-        //    case Character.Type.EvilMonster_3:
-        //        material.mainTexture = GameAssets.i.t_EvilMonster;
-        //        charAnim.GetAnimatedWalker().SetAnimations(GameAssets.UnitAnimTypeEnum.dBareHands_Idle, GameAssets.UnitAnimTypeEnum.dBareHands_Walk, 1f, 1f);
-        //        transform.localScale = Vector3.one * 1.7f;
-        //        break;
-        //}
+        switch (character.type)
+        {
+            default:
+            case Character.Type.TESTENEMY:
+                sprite.sprite = GameAssets.i.spriteEnemy;
+                break;
+        }
         spawnPosition = GetPosition();
         roamPosition = GetPosition();
-        roamDistanceMax = 20f;
+        roamDistanceMax = 5f;
 
-        if (character.type == Character.Type.NormalEnemy1 ||
-            character.type == Character.Type.NormalEnemy2 ||
-            character.type == Character.Type.NormalEnemy3)
-        {
-            roamDistanceMax = 5f;
-        }
+        //if (character.type == Character.Type.NormalEnemy1)  // || character.type == Character.Type.NormalEnemy2 || character.type == Character.Type.NormalEnemy3
+        //{
+        //    roamDistanceMax = 5f;
+        //}
 
         SetTargetMovePosition(GetPosition());
     }
@@ -136,19 +118,17 @@ public class EnemyOverworld : MonoBehaviour
 
     private void HandleTargetMovePosition()
     {
-        float findTargetRange = 70f;
-        if (character.type == Character.Type.NormalEnemy1 ||
-            character.type == Character.Type.NormalEnemy2 ||
-            character.type == Character.Type.NormalEnemy3)
-        {
-            findTargetRange = 60f;
-        }
+        float findTargetRange = 10f;
+        //if (character.type == Character.Type.NormalEnemy1) //  || character.type == Character.Type.NormalEnemy2 || character.type == Character.Type.NormalEnemy3
+        //{
+        //    findTargetRange = 60f;
+        //}
         if (Vector3.Distance(GetPosition(), playerOvermap.GetPosition()) < findTargetRange)
         {
             // Player within find target range
             SetTargetMovePosition(playerOvermap.GetPosition());
         }
-        float attackRange = 10f;
+        float attackRange = 1f;
         if (Vector3.Distance(GetPosition(), playerOvermap.GetPosition()) < attackRange)
         {
             // Player within attack/interact range
@@ -158,7 +138,7 @@ public class EnemyOverworld : MonoBehaviour
 
     private void HandleMovement()
     {
-        float minMoveDistance = 5f;
+        float minMoveDistance = 1f;
         Vector3 moveDir = new Vector3(0, 0);
         if (Vector3.Distance(GetPosition(), targetMovePosition) > minMoveDistance)
         {
@@ -196,20 +176,20 @@ public class EnemyOverworld : MonoBehaviour
                 // Battle!
                 Battle.LoadEnemyEncounter(character, character.enemyEncounter);
                 break;
-            case Character.Type.NormalEnemy1:
-                {
-                    //if (character.subType == Character.SubType.Enemy_HurtMeDaddy)
-                    //{
-                    //    // Special enemy
-                    //    Cutscenes.Play_HurtMeDaddy(character);
-                    //}
-                    //else
-                    //{
-                    //}
-                    // Normal battle
-                    Battle.LoadEnemyEncounter(character, character.enemyEncounter);
-                    break;
-                }
+            //case Character.Type.TESTENEMY:
+            //    {
+            //        //if (character.subType == Character.SubType.Enemy_HurtMeDaddy)
+            //        //{
+            //        //    // Special enemy
+            //        //    Cutscenes.Play_HurtMeDaddy(character);
+            //        //}
+            //        //else
+            //        //{
+            //        //}
+            //        // Normal battle
+            //        Battle.LoadEnemyEncounter(character, character.enemyEncounter);
+            //        break;
+            //    }
             //case Character.Type.Enemy_MinionRed:
             //    {
             //        if (character.subType == Character.SubType.Enemy_HurtMeDaddy_2)

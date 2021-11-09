@@ -108,23 +108,14 @@ public class CharacterBattle : MonoBehaviour
                 anim.runtimeAnimatorController = GameAssets.i.allyANIM;
                 transform.localScale = Vector3.one * .75f;
                 break;
-            //case Character.Type.EvilMonster:
-            //case Character.Type.EvilMonster_2:
-            //case Character.Type.EvilMonster_3:
-            //    material.mainTexture = GameAssets.i.t_EvilMonster;
-            //    playerAnims.GetAnimatedWalker().SetAnimations(GameAssets.UnitAnimTypeEnum.dBareHands_Idle, GameAssets.UnitAnimTypeEnum.dBareHands_Walk, 1f, 1f);
-            //    attackUnitAnimType = GameAssets.UnitAnimTypeEnum.dBareHands_Punch;
-            //    transform.localScale = Vector3.one * 1.8f;
-            //    healthWorldBarLocalPosition.y = 9.5f;
-            //    break;
+
+            /////////////////////////
+            //ENEMIGOS
+            /////////////////////////
+            
             case Character.Type.TESTENEMY:
                 anim.runtimeAnimatorController = GameAssets.i.enemyANIM;
                 break;
-                //case Character.Type.Enemy_MinionRed:
-                //    material.mainTexture = GameAssets.i.t_EnemyMinionRed;
-                //    playerAnims.GetAnimatedWalker().SetAnimations(GameAssets.UnitAnimTypeEnum.dMinion_Idle, GameAssets.UnitAnimTypeEnum.dMinion_Walk, 1f, 1f);
-                //    attackUnitAnimType = GameAssets.UnitAnimTypeEnum.dMinion_Attack;
-                //    break;
         }
         //transform.Find("Body").GetComponent<MeshRenderer>().material = material;
 
@@ -201,7 +192,7 @@ public class CharacterBattle : MonoBehaviour
             if (!IsPlayerTeam())
             {
                 // Enemy
-                if (characterType != Character.Type.Jefe1 && characterType != Character.Type.Jefe2 && characterType != Character.Type.Jefe3)
+                if (characterType != Character.Type.Jefe1) // && characterType != Character.Type.Jefe2 && characterType != Character.Type.Jefe3
                 {
                     // Don't spawn Flying Body for Evil Monster
                     Debug.Log("Se murio");

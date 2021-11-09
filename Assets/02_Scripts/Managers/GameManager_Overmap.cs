@@ -9,6 +9,7 @@ public class GameManager_Overmap : MonoBehaviour
     public static GridPathfinding gridPathfinding;
     [SerializeField] private CameraFollow cameraFollow;
     [SerializeField] private PlayerOverworld playerOverworld;
+    [SerializeField] private float cameraZoom = 10f;
 
     private void Awake()
     {
@@ -24,7 +25,7 @@ public class GameManager_Overmap : MonoBehaviour
 
         OverworldManager.GetInstance().Start(transform);
 
-        cameraFollow.Setup(GetCameraPosition, () => 70f, true, true);
+        cameraFollow.Setup(GetCameraPosition, () => cameraZoom, true, true);
     }
 
     private void Update()

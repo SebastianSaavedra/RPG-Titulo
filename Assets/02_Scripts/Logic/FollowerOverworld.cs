@@ -7,9 +7,11 @@ public class FollowerOverworld : MonoBehaviour
 
     public static FollowerOverworld instance;
 
-    private float speed = 50f;
+    private float speed = 15f;
 
     private Character_Anims charAnim;
+    private Animator anim;
+    private SpriteRenderer sprite;
     private State state;
     private Vector3 targetMovePosition;
     private PlayerOverworld playerOvermap;
@@ -27,6 +29,8 @@ public class FollowerOverworld : MonoBehaviour
     {
         instance = this;
         charAnim = gameObject.GetComponent<Character_Anims>();
+        anim = gameObject.GetComponent<Animator>();
+        sprite = gameObject.GetComponent<SpriteRenderer>();
         SetStateNormal();
     }
 
@@ -38,19 +42,18 @@ public class FollowerOverworld : MonoBehaviour
 
         switch (character.type)
         {
-            //case Character.Type.Pedro:
-            //    material.mainTexture = GameAssets.i.t_Tank;
-            //    transform.localScale = Vector3.one * 1.2f;
-            //    break;
-            //case Character.Type.Arana:
-            //    material.mainTexture = GameAssets.i.t_Sleezer;
-            //    transform.localScale = Vector3.one * 0.7f;
-            //    speed = 65f;
-            //    break;
-            //case Character.Type.Chillpila:
-            //    material.mainTexture = GameAssets.i.t_Healer;
-            //    transform.localScale = Vector3.one * 1.0f;
-            //    break;
+            case Character.Type.Pedro:
+                sprite.sprite = GameAssets.i.spriteOWPedro;
+                transform.localScale = Vector3.one * .9f;
+                break;
+            case Character.Type.Arana:
+                sprite.sprite = GameAssets.i.spriteOWArana;
+                transform.localScale = Vector3.one * .9f;
+                break;
+                //case Character.Type.Chillpila:
+                //    material.mainTexture = GameAssets.i.t_Healer;
+                //    transform.localScale = Vector3.one * 1.0f;
+                //    break;
         }
 
         healthSystem = new HealthSystem(character.stats.healthMax);
@@ -120,12 +123,12 @@ public class FollowerOverworld : MonoBehaviour
 
     private void HandleTargetMovePosition()
     {
-        float tooFarDistance = 50f;
+        float tooFarDistance = .5f;
         if (Vector3.Distance(GetPosition(), playerOvermap.GetPosition()) > tooFarDistance)
         {
             SetTargetMovePosition(playerOvermap.GetPosition() + followOffset);
         }
-        float tooCloseDistance = 20f;
+        float tooCloseDistance = .2f;
         if (Vector3.Distance(GetPosition(), playerOvermap.GetPosition()) < tooCloseDistance)
         {
             SetTargetMovePosition(GetPosition());

@@ -62,36 +62,36 @@ public class OverworldManager
                 case Character.Type.Suyai:
                     playerOvermap.Setup(character);
                     break;
-                case Character.Type.Chillpila:
-                    SpawnFollower(character, new Vector3(10, 0));
-                    break;
+                //case Character.Type.Chillpila:
+                //    SpawnFollower(character, new Vector3(1, 0));
+                //    break;
                 case Character.Type.Pedro:
-                    SpawnFollower(character, new Vector3(10, -5));
+                    SpawnFollower(character, new Vector3(-1, -1));
                     break;
-                //case Character.Type.Arana:
-                //    SpawnFollower(character, new Vector3(10, 0));
-                //    break;
-                //case Character.Type.Shop:
-                //case Character.Type.TavernAmbush:
-                //case Character.Type.TavernAmbush_2:
-                //case Character.Type.TavernAmbush_3:
-                //    SpawnNPC(character);
-                //    break;
-                //case Character.Type.Villager_1:
-                //case Character.Type.Villager_2:
-                //case Character.Type.Villager_3:
-                //case Character.Type.Villager_4:
-                //case Character.Type.Villager_5:
-                //    NPCOvermap npcOvermap = SpawnNPC(character);
-                //    foreach (Transform child in transform.Find("Map"))
-                //    {
-                //        if (Vector3.Distance(npcOvermap.GetPosition(), child.position) < 1f)
-                //        {
-                //            CharacterSetLastMoveDirData characterSetLastMoveDirData = child.GetComponent<CharacterSetLastMoveDirData>();
-                //            //npcOvermap.SetLastMoveDir(characterSetLastMoveDirData.lastMoveDir);
-                //        }
-                //    }
-                //    break;
+                case Character.Type.Arana:
+                    SpawnFollower(character, new Vector3(1, 1));
+                    break;
+                    //case Character.Type.Shop:
+                    //case Character.Type.TavernAmbush:
+                    //case Character.Type.TavernAmbush_2:
+                    //case Character.Type.TavernAmbush_3:
+                    //    SpawnNPC(character);
+                    //    break;
+                    //case Character.Type.Villager_1:
+                    //case Character.Type.Villager_2:
+                    //case Character.Type.Villager_3:
+                    //case Character.Type.Villager_4:
+                    //case Character.Type.Villager_5:
+                    //NPCOverworld npcOverworld = SpawnNPC(character);
+                    //foreach (Transform child in transform.Find("Map"))
+                    //{
+                    //    if (Vector3.Distance(npcOvermap.GetPosition(), child.position) < 1f)
+                    //    {
+                    //        CharacterSetLastMoveDirData characterSetLastMoveDirData = child.GetComponent<CharacterSetLastMoveDirData>();
+                    //        //npcOvermap.SetLastMoveDir(characterSetLastMoveDirData.lastMoveDir);
+                    //    }
+                    //}
+                    //break;
             }
         }
 

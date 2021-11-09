@@ -95,7 +95,7 @@ public static class GameData
             if (characterSpawnData != null)
             {
                 characterList.Add(
-                    new Character(characterSpawnData.characterType, characterSpawnData.characterSubType)
+                    new Character(characterSpawnData.characterType)
                     {
                         position = mapSpawn.position,
                         enemyEncounter = characterSpawnData.enemyEncounter,

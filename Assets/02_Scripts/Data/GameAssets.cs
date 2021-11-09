@@ -20,9 +20,11 @@ public class GameAssets : MonoBehaviour
     public Sprite s_White;
     public Sprite s_Circle;
     public Material m_White;
-    [Space(10)]
     //////////////////////////
-    [Header("Assets del juego")]
+
+    [Header("Prefabs")]
+    [Space(5)]
+
     public Transform Map;
     public Transform pfCharacterBattle;
     public Transform pfNPCOvermap;
@@ -30,7 +32,18 @@ public class GameAssets : MonoBehaviour
     public Transform pfFollowerOvermap;
     public Transform damagePopup;
     public Transform dmgDebuff, blindDebuff, healthDebuff;
-    public RuntimeAnimatorController allyANIM, enemyANIM;
+
+    [Header("Animators")]
+    [Space(5)]
+
+    public RuntimeAnimatorController allyANIM;
+    public RuntimeAnimatorController enemyANIM;
+
+    [Header("Sprites")]
+    [Space(5)]
+
+    public Sprite spriteEnemy;
+    public Sprite spriteOWPedro, spriteOWArana;
 
     public SoundAudioClip[] audioClipsArray;
 
