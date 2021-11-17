@@ -32,18 +32,20 @@ public class GameAssets : MonoBehaviour
     public Transform pfFollowerOvermap;
     public Transform damagePopup;
     public Transform dmgDebuff, blindDebuff, healthDebuff;
+    public Transform pfMedicinalHerbs;
 
     [Header("Animators")]
     [Space(5)]
 
-    public RuntimeAnimatorController allyANIM;
+    public RuntimeAnimatorController suyaiANIM;
+    public RuntimeAnimatorController pedroANIM, aranaANIM, antayANIM,chillpilaANIM;
     public RuntimeAnimatorController enemyANIM;
 
     [Header("Sprites")]
     [Space(5)]
 
     public Sprite spriteEnemy;
-    public Sprite spriteOWPedro, spriteOWArana;
+    public Sprite spriteOWPedro, spriteOWArana, spriteOWChillpila, spriteOWAntay;
 
     public SoundAudioClip[] audioClipsArray;
 

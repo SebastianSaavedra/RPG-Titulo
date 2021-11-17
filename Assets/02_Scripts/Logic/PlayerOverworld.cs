@@ -13,15 +13,16 @@ public class PlayerOverworld : MonoBehaviour
 
     [SerializeField] private LayerMask wallLayerMask;
     private Character_Anims charAnim;
-    private State state;
+    public State state;
     private HealthSystem healthSystem;
-    private World_Bar healthWorldBar;
+    //private World_Bar healthWorldBar;
     private Character character;
 
-    private enum State
+
+    public enum State
     {
         Normal,
-        Tripped,
+        Busy,
     }
 
     private void Awake()
@@ -38,9 +39,9 @@ public class PlayerOverworld : MonoBehaviour
         transform.position = character.position;
         healthSystem = new HealthSystem(character.stats.healthMax);
         healthSystem.SetHealthAmount(character.stats.health);
-        healthWorldBar = new World_Bar(transform, new Vector3(0, 10), new Vector3(15, 2), Color.grey, Color.red, healthSystem.GetHealthPercent(), UnityEngine.Random.Range(10000, 11000), new World_Bar.Outline { color = Color.black, size = .6f });
-        healthSystem.OnHealthChanged += HealthSystem_OnHealthChanged;
-        RefreshHealthBar();
+        //healthWorldBar = new World_Bar(transform, new Vector3(0, 10), new Vector3(15, 2), Color.grey, Color.red, healthSystem.GetHealthPercent(), UnityEngine.Random.Range(10000, 11000), new World_Bar.Outline { color = Color.black, size = .6f });
+        //healthSystem.OnHealthChanged += HealthSystem_OnHealthChanged;
+        //RefreshHealthBar();
 
         RefreshTexture();
         
@@ -82,24 +83,24 @@ public class PlayerOverworld : MonoBehaviour
         character.position = GetPosition();
     }
 
-    private void HealthSystem_OnHealthChanged(object sender, EventArgs e)
-    {
-        RefreshHealthBar();
-    }
+    //private void HealthSystem_OnHealthChanged(object sender, EventArgs e)
+    //{
+    //    RefreshHealthBar();
+    //}
 
-    private void RefreshHealthBar()
-    {
-        healthWorldBar.SetSize(healthSystem.GetHealthPercent());
-        if (healthSystem.GetHealthPercent() >= 1f)
-        {
-            // Full health
-            healthWorldBar.Hide();
-        }
-        else
-        {
-            healthWorldBar.Show();
-        }
-    }
+    //private void RefreshHealthBar()
+    //{
+    //    healthWorldBar.SetSize(healthSystem.GetHealthPercent());
+    //    if (healthSystem.GetHealthPercent() >= 1f)
+    //    {
+    //        // Full health
+    //        healthWorldBar.Hide();
+    //    }
+    //    else
+    //    {
+    //        healthWorldBar.Show();
+    //    }
+    //}
 
     private void Update()
     {

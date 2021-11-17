@@ -29,6 +29,7 @@ public class CharacterBattle : MonoBehaviour
     private World_Bar healthWorldBar;
     private HealthSystem healthSystem;
     [HideInInspector] public StatusSystem statusSystem;
+    private SpriteRenderer spriteRen;
     private bool canSpecial;
     private bool hasStatus;
 
@@ -52,6 +53,7 @@ public class CharacterBattle : MonoBehaviour
         playerAnims = gameObject.GetComponent<Character_Anims>();
         anim = gameObject.GetComponent<Animator>();
         material = transform.GetComponent<SpriteRenderer>().material;
+        spriteRen = gameObject.GetComponent<SpriteRenderer>();
         materialTintColor = new Color(1, 0, 0, 0);
         selectionCircleTransform = transform.Find("SelectionCircle");
         HideSelectionCircle();
@@ -71,12 +73,16 @@ public class CharacterBattle : MonoBehaviour
         this.isPlayerTeam = isPlayerTeam;
         this.stats = stats;
 
+        if (!isPlayerTeam)
+        {
+            spriteRen.flipX = false;
+        }
+
         switch (characterType)
         {
             case Character.Type.Suyai:
-                material.color = new Color(.75f, 1f, 0f);
-                anim.runtimeAnimatorController = GameAssets.i.allyANIM;
-                transform.localScale = Vector3.one * .75f;
+                anim.runtimeAnimatorController = GameAssets.i.suyaiANIM;
+                //transform.localScale = Vector3.one * .75f;
 
                 //if (GameData.GetCharacter(Character.Type.Player).hasFtnDewArmor)
                 //{
@@ -89,24 +95,16 @@ public class CharacterBattle : MonoBehaviour
                 //}
                 break;
             case Character.Type.Antay:
-                material.color = new Color(.7f, .4f, .2f);
-                anim.runtimeAnimatorController = GameAssets.i.allyANIM;
-                transform.localScale = Vector3.one * .75f;
+                anim.runtimeAnimatorController = GameAssets.i.antayANIM;
                 break;
             case Character.Type.Pedro:
-                material.color = new Color(1f, 1f, 0f);
-                anim.runtimeAnimatorController = GameAssets.i.allyANIM;
-                transform.localScale = Vector3.one * .75f;
+                anim.runtimeAnimatorController = GameAssets.i.pedroANIM;
                 break;
             case Character.Type.Chillpila:
-                material.color = new Color(.55f, 0f, 1f);
-                anim.runtimeAnimatorController = GameAssets.i.allyANIM;
-                transform.localScale = Vector3.one * .75f;
+                anim.runtimeAnimatorController = GameAssets.i.chillpilaANIM;
                 break;
             case Character.Type.Arana:
-                material.color = new Color(.25f, 0.25f, 0.25f);
-                anim.runtimeAnimatorController = GameAssets.i.allyANIM;
-                transform.localScale = Vector3.one * .75f;
+                anim.runtimeAnimatorController = GameAssets.i.aranaANIM;
                 break;
 
             /////////////////////////
@@ -149,7 +147,7 @@ public class CharacterBattle : MonoBehaviour
         healthSystem.OnHealthChanged += HealthSystem_OnHealthChanged;
         healthSystem.OnDead += HealthSystem_OnDead;
 
-        Timing.RunCoroutine(_WaitUntilAnimComplete("Base Layer.TEST_START"));
+        Timing.RunCoroutine(_WaitUntilAnimComplete("Base Layer.START"));
     }
 
     IEnumerator<float> _WaitUntilAnimComplete(string name)

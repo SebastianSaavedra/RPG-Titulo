@@ -42,9 +42,10 @@ public static class GameData
 
     private static bool isInit = false;
     public static List<Character> characterList;
-    //public static List<Item> itemList;
+    public static List<Item> itemList;
 
     public static State state;
+    public static int herbsCount;
 
     public static void Init()
     {
@@ -54,9 +55,9 @@ public static class GameData
         }
         //Debug.Log("Se iniciaron los datos del GAMEDATA");
         isInit = true;
-        //SoundManager.Initialize();
+        SoundManager.Initialize();
         state = State.Start;
-
+        herbsCount = 0;
         characterList = new List<Character>();
 
         characterList.Add(new Character(Character.Type.Suyai)
@@ -99,21 +100,21 @@ public static class GameData
                     {
                         position = mapSpawn.position,
                         enemyEncounter = characterSpawnData.enemyEncounter,
-                        shopContents = characterSpawnData.shopContents.Clone()
+                        //shopContents = characterSpawnData.shopContents.Clone()
                     }
                 );
             }
         }
 
-        //itemList = new List<Item>();
-        //foreach (Transform mapSpawn in GameAssets.i.Map)
-        //{
-        //    ItemSpawnData itemSpawnData = mapSpawn.GetComponent<ItemSpawnData>();
-        //    if (itemSpawnData != null)
-        //    {
-        //        itemList.Add(new Item(itemSpawnData.itemType, itemSpawnData.amount, mapSpawn.position));
-        //    }
-        //}
+        itemList = new List<Item>();
+        foreach (Transform mapSpawn in GameAssets.i.Map)
+        {
+            ItemSpawnData itemSpawnData = mapSpawn.GetComponent<ItemSpawnData>();
+            if (itemSpawnData != null)
+            {
+                itemList.Add(new Item(itemSpawnData.itemType, itemSpawnData.amount, mapSpawn.position));
+            }
+        }
     }
 
     public static string GetCharacterName(Character.Type characterType)
@@ -140,6 +141,11 @@ public static class GameData
         }
         return null;
     }
+    public static void AddHerbs(int amount)
+    {
+        herbsCount += amount;
+    }
+
 
     //public static bool TrySpendHealthPotion()
     //{
@@ -158,7 +164,7 @@ public static class GameData
 
 
 
-    
+
     //Encuentro con enemigo/s
     [Serializable]
     public class EnemyEncounter

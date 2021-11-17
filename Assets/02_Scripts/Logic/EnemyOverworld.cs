@@ -23,6 +23,7 @@ public class EnemyOverworld : MonoBehaviour
     private enum State
     {
         Normal,
+        Busy
     }
 
     private void Awake()
@@ -174,6 +175,9 @@ public class EnemyOverworld : MonoBehaviour
         {
             default:
                 // Battle!
+                state = State.Busy;
+                playerOvermap.state = PlayerOverworld.State.Busy;
+                SoundManager.PlaySound(SoundManager.Sound.BattleTransition);
                 Battle.LoadEnemyEncounter(character, character.enemyEncounter);
                 break;
             //case Character.Type.TESTENEMY:

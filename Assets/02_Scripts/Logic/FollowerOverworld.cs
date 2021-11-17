@@ -18,7 +18,7 @@ public class FollowerOverworld : MonoBehaviour
     private Vector3 followOffset;
     private Character character;
     private HealthSystem healthSystem;
-    private World_Bar healthWorldBar;
+    //private World_Bar healthWorldBar;
 
     private enum State
     {
@@ -40,27 +40,35 @@ public class FollowerOverworld : MonoBehaviour
         this.playerOvermap = playerOvermap;
         this.followOffset = followOffset;
 
-        switch (character.type)
+        if (character.IsInPlayerTeam())
         {
-            case Character.Type.Pedro:
-                sprite.sprite = GameAssets.i.spriteOWPedro;
-                transform.localScale = Vector3.one * .9f;
-                break;
-            case Character.Type.Arana:
-                sprite.sprite = GameAssets.i.spriteOWArana;
-                transform.localScale = Vector3.one * .9f;
-                break;
-                //case Character.Type.Chillpila:
-                //    material.mainTexture = GameAssets.i.t_Healer;
-                //    transform.localScale = Vector3.one * 1.0f;
-                //    break;
+            switch (character.type)
+            {
+                case Character.Type.Pedro:
+                    sprite.sprite = GameAssets.i.spriteOWPedro;
+                    transform.localScale = Vector3.one * .9f;
+                    break;
+                case Character.Type.Arana:
+                    sprite.sprite = GameAssets.i.spriteOWArana;
+                    transform.localScale = Vector3.one * .9f;
+                    break;
+                case Character.Type.Chillpila:
+                    sprite.sprite = GameAssets.i.spriteOWChillpila;
+                    transform.localScale = Vector3.one * .9f;
+                    break;
+                case Character.Type.Antay:
+                    sprite.sprite = GameAssets.i.spriteOWAntay;
+                    transform.localScale = Vector3.one * .9f;
+                    break;
+
+            }
         }
 
         healthSystem = new HealthSystem(character.stats.healthMax);
         healthSystem.SetHealthAmount(character.stats.health);
-        healthWorldBar = new World_Bar(transform, new Vector3(0, 10), new Vector3(15, 2), Color.grey, Color.red, healthSystem.GetHealthPercent(), UnityEngine.Random.Range(10000, 11000), new World_Bar.Outline { color = Color.black, size = .6f });
-        healthSystem.OnHealthChanged += HealthSystem_OnHealthChanged;
-        RefreshHealthBar();
+        //healthWorldBar = new World_Bar(transform, new Vector3(0, 10), new Vector3(15, 2), Color.grey, Color.red, healthSystem.GetHealthPercent(), UnityEngine.Random.Range(10000, 11000), new World_Bar.Outline { color = Color.black, size = .6f });
+        //healthSystem.OnHealthChanged += HealthSystem_OnHealthChanged;
+        //RefreshHealthBar();
 
         SetTargetMovePosition(playerOvermap.GetPosition() + followOffset);
     }
@@ -70,24 +78,24 @@ public class FollowerOverworld : MonoBehaviour
         character.position = GetPosition();
     }
 
-    private void HealthSystem_OnHealthChanged(object sender, EventArgs e)
-    {
-        RefreshHealthBar();
-    }
+    //private void HealthSystem_OnHealthChanged(object sender, EventArgs e)
+    //{
+    //    RefreshHealthBar();
+    //}
 
-    public void RefreshHealthBar()
-    {
-        healthWorldBar.SetSize(healthSystem.GetHealthPercent());
-        if (healthSystem.GetHealthPercent() >= 1f)
-        {
-            // Full health
-            healthWorldBar.Hide();
-        }
-        else
-        {
-            healthWorldBar.Show();
-        }
-    }
+    //public void RefreshHealthBar()
+    //{
+    //    healthWorldBar.SetSize(healthSystem.GetHealthPercent());
+    //    if (healthSystem.GetHealthPercent() >= 1f)
+    //    {
+    //        // Full health
+    //        healthWorldBar.Hide();
+    //    }
+    //    else
+    //    {
+    //        healthWorldBar.Show();
+    //    }
+    //}
 
     public Character GetCharacter()
     {

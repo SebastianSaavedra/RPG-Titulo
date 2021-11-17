@@ -46,25 +46,17 @@ public class Character_Anims : MonoBehaviour
 
     public void PlayAnimAttack(Action onHit, Action onAttackComplete)
     {
-        //if (!isPlayerTeam)//flip)
-        //{
-        //    characterSpriteRenderer.flipX = true;
-        //}
-        Timing.RunCoroutine(_WaitUntilAnimComplete("Base Layer.TEST_ATTACK", onHit, onAttackComplete));
+        Timing.RunCoroutine(_WaitUntilAnimComplete("Base Layer.ATTACK", onHit, onAttackComplete));
     }
     public void PlaySpecialAttack(Action onHit, Action onAttackComplete)
     {
-        //if (!isPlayerTeam)//flip)
-        //{
-        //    characterSpriteRenderer.flipX = true;
-        //}
-        Timing.RunCoroutine(_WaitUntilAnimComplete("Base Layer.TEST_ATTACK", onHit, onAttackComplete));
+        Timing.RunCoroutine(_WaitUntilAnimComplete("Base Layer.SPECIAL", onHit, onAttackComplete));
 
     }
 
-    IEnumerator<float> _WaitUntilAnimComplete(string Name,Action onHIT, Action onATTACKCOMPLETE)
+    IEnumerator<float> _WaitUntilAnimComplete(string name,Action onHIT, Action onATTACKCOMPLETE)
     {
-        anim.Play(Name);
+        anim.Play(name);
         yield return Timing.WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
         onHIT();
         yield return Timing.WaitForOneFrame;
@@ -74,18 +66,10 @@ public class Character_Anims : MonoBehaviour
 
     public void PlayAnimIdle()
     {
-        //if (!isPlayerTeam)//flip)
-        //{
-        //    characterSpriteRenderer.flipX = true;
-        //}
-        anim.Play("Base Layer.TEST_IDLE");
+        anim.Play("Base Layer.IDLE");
     }
     public void PlayAnimStarter()
     {
-        //if (!isPlayerTeam)//flip)
-        //{
-        //    characterSpriteRenderer.flipX = true;
-        //}
-        anim.Play("Base Layer.TEST_START");
+        anim.Play("Base Layer.START");
     }
 }

@@ -16,10 +16,11 @@ public class Battle
 
     public static void LoadEnemyEncounter(Character character, GameData.EnemyEncounter enemyEncounter)
     {
-        //OvermapHandler.SaveAllCharacterPositions();
+        OverworldManager.SaveAllCharacterPositions();
         Battle.character = character;
         Battle.enemyEncounter = enemyEncounter;
-        Loader.Load(Loader.Scene.BattleScene);
+        
+        FunctionTimer.Create(OverworldManager.LoadFromOvermapToBattle, .7f);
     }
 
     private CameraFollow cameraFollow;
@@ -113,7 +114,7 @@ public class Battle
         // Se inicia el combate
         foreach (Character character in GameData.characterList)
         {
-            if (character.isInPlayerTeam)
+            if (character.IsInPlayerTeam())
             {
                 LanePosition lanePosition;
                 switch (character.type)
@@ -629,7 +630,7 @@ public class Battle
                     break;
             }
             //SoundManager.PlaySound(SoundManager.Sound.BattleWin);
-            //FunctionTimer.Create(OvermapHandler.LoadBackToOvermap, .7f);
+            FunctionTimer.Create(OverworldManager.LoadBackToOvermap, .7f);
             return;
         }
         if (GetAliveTeamCharacterBattleList(true).Count == 0)
@@ -649,7 +650,7 @@ public class Battle
                 }
             }
 
-            //FunctionTimer.Create(OvermapHandler.LoadBackToOvermap, .7f);
+            FunctionTimer.Create(OverworldManager.LoadBackToOvermap, .7f);
             return;
         }
 

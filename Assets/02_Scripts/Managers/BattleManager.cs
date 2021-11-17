@@ -12,7 +12,7 @@ public class BattleManager : MonoBehaviour
 
         if (Battle.enemyEncounter == null)
         {
-            Debug.Log("PELEA DEBUG");
+            Debug.Log("PELEA DEBUG, ESTA PELEA SOLO DEBERIA INICIARSE SI ES QUE NO SE HA ENCONTRADO INFORMACION RESPECTO AL ENEMYENCOUNTER");
             GameData.EnemyEncounter enemyEncounter = new GameData.EnemyEncounter
             {
                 enemyBattleArray = new GameData.EnemyEncounter.EnemyBattle[] {

@@ -191,7 +191,7 @@ public class Character
         isDead = false;
     }
 
-    public bool IsInPlayerTeamFunc()
+    public bool IsInPlayerTeam()
     {
         return isInPlayerTeam;
     }

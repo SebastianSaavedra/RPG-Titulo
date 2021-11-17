@@ -12,7 +12,12 @@ public class OverworldManager
 
     public static void LoadBackToOvermap()
     {
-        Loader.Load(Loader.Scene.OvermapScene);
+        Loader.Load(Loader.Scene.OverworldScene);
+    }
+
+    public static void LoadFromOvermapToBattle()
+    {
+        Loader.Load(Loader.Scene.BattleScene);
     }
 
     public static void SaveAllCharacterPositions()
@@ -57,20 +62,30 @@ public class OverworldManager
                 continue;
             }
 
-            switch (character.type)
+            if (character.IsInPlayerTeam())
             {
-                case Character.Type.Suyai:
-                    playerOvermap.Setup(character);
-                    break;
-                //case Character.Type.Chillpila:
-                //    SpawnFollower(character, new Vector3(1, 0));
-                //    break;
-                case Character.Type.Pedro:
-                    SpawnFollower(character, new Vector3(-1, -1));
-                    break;
-                case Character.Type.Arana:
-                    SpawnFollower(character, new Vector3(1, 1));
-                    break;
+                switch (character.type)
+                {
+                    case Character.Type.Suyai:
+                        playerOvermap.Setup(character);
+                        break;
+                    case Character.Type.Pedro:
+                        SpawnFollower(character, new Vector3(-1, -1));
+                        break;
+                    case Character.Type.Arana:
+                        SpawnFollower(character, new Vector3(1, 1));
+                        break;
+                    case Character.Type.Chillpila:
+                        SpawnFollower(character, new Vector3(1, 1));
+                        break;
+                    case Character.Type.Antay:
+                        SpawnFollower(character, new Vector3(-1, -1));
+                        break;
+                }
+
+            }
+                switch (character.type)
+            {
                     //case Character.Type.Shop:
                     //case Character.Type.TavernAmbush:
                     //case Character.Type.TavernAmbush_2:
@@ -96,11 +111,11 @@ public class OverworldManager
         }
 
 
-        //foreach (Item item in GameData.itemList)
-        //{
-        //    if (item.IsDestroyed()) continue;
-        //    SpawnItem(item);
-        //}
+        foreach (Item item in GameData.itemList)
+        {
+            if (item.IsDestroyed()) continue;
+            SpawnItem(item);
+        }
 
         // Starting state
         //switch (GameData.state)
@@ -374,25 +389,19 @@ public NPCOverworld GetClosestNPC(Vector3 position, float maxDistance = float.Ma
         return npcOvermap;
     }
 
-    //public static void SpawnItem(Item item)
-    //{
-    //    Transform prefab;
-    //    switch (item.GetItemType())
-    //    {
-    //        default:
-    //            Debug.Log("########## Default Item Type: " + item.GetItemType());
-    //            prefab = GameAssets.i.pfFtnDewItemOvermap;
-    //            break;
-    //        case Item.ItemType.FtnDew:
-    //            prefab = GameAssets.i.pfFtnDewItemOvermap;
-    //            break;
-    //        case Item.ItemType.HealthPotion:
-    //            prefab = GameAssets.i.pfHealthPotionItemOvermap;
-    //            break;
-    //    }
-    //    Transform itemTransform = UnityEngine.Object.Instantiate(prefab, item.GetPosition(), Quaternion.identity);
-    //    ItemOvermap itemOvermap = itemTransform.GetComponent<ItemOvermap>();
-    //    itemOvermap.Setup(item, instance.playerOvermap);
-    //}
+    public static void SpawnItem(Item item)
+    {
+        Transform prefab;
+        switch (item.GetItemType())
+        {
+            default:
+            case Item.ItemType.MedicinalHerbs:
+                prefab = GameAssets.i.pfMedicinalHerbs;
+                break;
+        }
+        Transform itemTransform = UnityEngine.Object.Instantiate(prefab, item.GetPosition(), Quaternion.identity);
+        ItemOverworld itemOvermap = itemTransform.GetComponent<ItemOverworld>();
+        itemOvermap.Setup(item, instance.playerOvermap);
+    }
 
 }
