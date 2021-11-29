@@ -23,6 +23,8 @@ public class PlayerOverworld : MonoBehaviour
     {
         Normal,
         Busy,
+        OnMenu,
+
     }
 
     private void Awake()
@@ -43,7 +45,7 @@ public class PlayerOverworld : MonoBehaviour
         //healthSystem.OnHealthChanged += HealthSystem_OnHealthChanged;
         //RefreshHealthBar();
 
-        RefreshTexture();
+        //RefreshTexture();
         
         //Animación de caminar
 
@@ -55,28 +57,13 @@ public class PlayerOverworld : MonoBehaviour
         // Idle anim
     }
 
-    public void RefreshTexture()        //CAMBIO DE EQUIPAMIENTO
-    {
-        //if (character.hasFtnDewArmor)
-        //{
-        //    Texture2D newSpritesheetTexture = new Texture2D(material.mainTexture.width, material.mainTexture.height, TextureFormat.ARGB32, true);
-        //    newSpritesheetTexture.SetPixels((material.mainTexture as Texture2D).GetPixels());
-        //    Color[] ftnDewArmorPixels = GameAssets.i.t_FtnDewArmor.GetPixels(0, 0, 512, 128);
-        //    newSpritesheetTexture.SetPixels(0, 256, 512, 128, ftnDewArmorPixels);
-        //    newSpritesheetTexture.Apply();
-        //    material.mainTexture = newSpritesheetTexture;
-        //}
-
-        //if (character.hasSwordThousandTruths)
-        //{
-        //    Texture2D newSpritesheetTexture = new Texture2D(material.mainTexture.width, material.mainTexture.height, TextureFormat.ARGB32, true);
-        //    newSpritesheetTexture.SetPixels((material.mainTexture as Texture2D).GetPixels());
-        //    Color[] swordThousandTruthsPixels = GameAssets.i.t_SwordThousandTruths.GetPixels(0, 0, 128, 128);
-        //    newSpritesheetTexture.SetPixels(0, 128, 128, 128, swordThousandTruthsPixels);
-        //    newSpritesheetTexture.Apply();
-        //    material.mainTexture = newSpritesheetTexture;
-        //}
-    }
+    //public void RefreshTexture()        //CAMBIO DE EQUIPAMIENTO
+    //{
+    //    //if (character.equipamiento)
+    //    //{
+    //    //    cambio de animator
+    //    //}
+    //}
 
     public void SaveCharacterPosition()
     {
@@ -119,7 +106,7 @@ public class PlayerOverworld : MonoBehaviour
         }
     }
 
-    private void SetStateNormal()
+    public void SetStateNormal()
     {
         state = State.Normal;
     }

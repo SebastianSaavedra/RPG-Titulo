@@ -13,6 +13,7 @@ public class BattleUI : MonoBehaviour
     [SerializeField] List<GameObject> buttons = new List<GameObject>();
     [HideInInspector] public string command;
     public GameObject radialMenu;
+    int index = 0;
 
     private void Awake()
     {
@@ -25,28 +26,33 @@ public class BattleUI : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(buttons[0]);
     }
 
-    private void Update()
-    {
-        switch(buttons.Count)
-        {
-            default:
-                break;
-            case 0:
-                // HACER QUE APAREZCA LA DESCRIPCIÓN AL MOVERSE A TRAVES DEL MENU
-                break;
-        }
-    }
+    //private void Update()
+    //{
+    //    switch(index)
+    //    {
+    //        default:
+    //            break;
+    //        case 0:
+    //            // HACER QUE APAREZCA LA DESCRIPCIÓN AL MOVERSE A TRAVES DEL MENU
+    //            break;
+    //    }
+    //}
 
     private void OnEnable()
     {
         Timing.RunCoroutine(_EventSystemReAssign());
     }
 
+    public void SetIndex(int number)
+    {
+        index = number;
+    }
+
     IEnumerator<float> _EventSystemReAssign()
     {
         yield return Timing.WaitForOneFrame;
         EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(buttons[0]);
+        EventSystem.current.SetSelectedGameObject(buttons[index]);
         yield break;
     }
 

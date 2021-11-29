@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 using DG.Tweening;
 
-public class UIManager : MonoBehaviour
+public class BattleUIManager : MonoBehaviour
 {
     [SerializeField] TurnSystem turnSystem;
     [SerializeField] SpecialAbilitiesCostSystem abilityCostSystem;

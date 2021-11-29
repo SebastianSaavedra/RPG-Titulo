@@ -57,39 +57,39 @@ public class Character
         //Villager_5,
     }
 
-    public enum SubType
-    {
-        None,
+    //public enum SubType
+    //{
+    //    None,
 
-        Enemy_HurtMeDaddy,
-        Enemy_HurtMeDaddy_2,
+    //    Enemy_HurtMeDaddy,
+    //    Enemy_HurtMeDaddy_2,
 
-        Tank_BeforeJoin,
-        Tank_Friendly,
+    //    Tank_BeforeJoin,
+    //    Tank_Friendly,
 
-        Healer_BeforeJoin,
-        Healer_Friendly,
+    //    Healer_BeforeJoin,
+    //    Healer_Friendly,
 
-        EvilMonster_1,
-        EvilMonster_2,
-        EvilMonster_3,
-    }
+    //    EvilMonster_1,
+    //    EvilMonster_2,
+    //    EvilMonster_3,
+    //}
 
     public Type type;
-    public SubType subType;
+    //public SubType subType;
     public Stats stats;
     public string name;
     public Vector3 position;
     public GameData.EnemyEncounter enemyEncounter;
     public GameData.ShopContents shopContents;
     public bool isDead;
-    public bool isInPlayerTeam;     // DEFINE SI ES QUE ESTE CHARACTER VA A SER SPAWNEADO O NO EN EL TEAM DEL PLAYER
+    private bool isInPlayerTeam;     // DEFINE SI ES QUE ESTE CHARACTER VA A SER SPAWNEADO O NO EN EL TEAM DEL PLAYER
     public bool weapon;
 
-    public Character(Type type, SubType subType = SubType.None)
+    public Character(Type type) //, SubType subType = SubType.None
     {
         this.type = type;
-        this.subType = subType;
+        //this.subType = subType;
         name = type.ToString();
 
         stats = new Stats
@@ -123,8 +123,8 @@ public class Character
                 stats = new Stats
                 {
                     attack = 20,
-                    health = 90,
-                    healthMax = 90,
+                    health = 100,
+                    healthMax = 100,
                     turns = 2
                 };
                 isInPlayerTeam = true;
@@ -133,9 +133,9 @@ public class Character
             case Type.Pedro:            // Trickster - Debuffer
                 stats = new Stats
                 {
-                    attack = 30,
-                    health = 105,
-                    healthMax = 105,
+                    attack = 25,
+                    health = 100,
+                    healthMax = 100,
                     turns = 2
                 };
                 isInPlayerTeam = true;
@@ -144,9 +144,9 @@ public class Character
             case Type.Antay:            // Tank
                 stats = new Stats
                 {
-                    attack = 25,
-                    health = 150,
-                    healthMax = 150,
+                    attack = 20,
+                    health = 125,
+                    healthMax = 125,
                     turns = 3
                 };
                 //isInPlayerTeam = true;
@@ -156,8 +156,8 @@ public class Character
                 stats = new Stats
                 {
                     attack = 30,
-                    health = 110,
-                    healthMax = 110,
+                    health = 100,
+                    healthMax = 100,
                     turns = 3
                 };
                 //isInPlayerTeam = true;
@@ -176,6 +176,12 @@ public class Character
                 };
                 break;
 
+
+
+
+
+
+            /////////////////// NPC
             //case Type.Villager_1:
             //case Type.Villager_2:
             //case Type.Villager_3:
@@ -184,6 +190,7 @@ public class Character
             //    name = "Villager";
             //    break;
 
+            /////////////////// VENDEDORES
             case Type.Shop:
                 name = "Vendor";
                 break;
@@ -193,6 +200,12 @@ public class Character
 
     public bool IsInPlayerTeam()
     {
+        return isInPlayerTeam;
+    }
+
+    public bool AssignIsInPlayerTeam(bool isInTeam)
+    {
+        isInPlayerTeam = isInTeam;
         return isInPlayerTeam;
     }
 

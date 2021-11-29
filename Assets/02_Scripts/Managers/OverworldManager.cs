@@ -183,7 +183,6 @@ public class OverworldManager
 
     public void Update()
     {
-
         //    switch (GameData.state)
         //    {
         //        case GameData.State.GoingToTownCenter:
@@ -359,6 +358,29 @@ public NPCOverworld GetClosestNPC(Vector3 position, float maxDistance = float.Ma
     }
 
     public static void StopOvermapRunning()
+    {
+        instance.overmapRunning = false;
+        if (instance.OnOvermapStopped != null) instance.OnOvermapStopped(instance, EventArgs.Empty);
+    }
+    public static void ContinueOvermapRunning()
+    {
+        instance.overmapRunning = true;
+        if (instance.OnOvermapStopped != null)
+        {
+            instance.OnOvermapStopped(instance, EventArgs.Empty);
+        }
+
+    }
+    public void ContinueOvermap()
+    {
+        instance.overmapRunning = true;
+        if (instance.OnOvermapStopped != null)
+        {
+            instance.OnOvermapStopped(instance, EventArgs.Empty);
+        }
+
+    }
+    public void StopOvermap()
     {
         instance.overmapRunning = false;
         if (instance.OnOvermapStopped != null) instance.OnOvermapStopped(instance, EventArgs.Empty);

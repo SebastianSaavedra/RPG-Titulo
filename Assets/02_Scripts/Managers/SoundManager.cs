@@ -18,6 +18,7 @@ public static class SoundManager
         SpecialAbility,
         BattleTransition,
         BattleWin,
+        BattleTheme,
         Heal,
         Talking,
         Dash,
@@ -64,6 +65,18 @@ public static class SoundManager
             audioSource.Play();
 
             Object.Destroy(soundGameObject, destroyTime);
+        }
+    }
+    public static void PlaySoundLoop(Sound sound)
+    {
+        if (CanPlaySound(sound))
+        {
+            GameObject soundGameObject = new GameObject("Sound");
+            AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
+            audioSource.clip = GetAudioClip(sound);
+            audioSource.volume = (masterVolume / 10f) * GetSoundVolume(sound);
+            audioSource.loop = true;
+            audioSource.Play();
         }
     }
 

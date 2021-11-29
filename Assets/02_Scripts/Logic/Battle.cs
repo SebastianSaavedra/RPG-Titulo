@@ -110,6 +110,7 @@ public class Battle
         cameraFollow.SetCameraMoveSpeed(10f);
         cameraFollow.SetCameraZoomSpeed(10f);
         ResetCamera();
+        SoundManager.PlaySoundLoop(SoundManager.Sound.BattleTheme);
 
         // Se inicia el combate
         foreach (Character character in GameData.characterList)
@@ -579,7 +580,7 @@ public class Battle
                     if (uniqueCharacter != null)
                     {
                         uniqueCharacter.stats.health = characterBattle.GetHealthAmount();
-                        if (uniqueCharacter.isInPlayerTeam)
+                        if (uniqueCharacter.IsInPlayerTeam())
                         {
                             if (uniqueCharacter.stats.health < 1)
                             {
@@ -604,7 +605,7 @@ public class Battle
                     GameData.state = GameData.State.DefeatedTank;
                     // Heal Tank
                     character.isDead = false;
-                    character.isInPlayerTeam = true;
+                    character.AssignIsInPlayerTeam(true);
                     character.stats.health = character.stats.healthMax;
                     // Heal Player
                     Character uniqueCharacter = GameData.GetCharacter(Character.Type.Suyai);
@@ -676,16 +677,16 @@ public class Battle
                     int damageMax = (int)(damageBase * 1.2f);
                     int damageAmount = Random.Range(damageMin, damageMax);
                     int damageChance = activeCharacterBattle.stats.damageChance;
-                    if (GetAliveCount(true) == 1)
-                    {
-                        // Solo 1 pj vivo
-                        CharacterBattle lastSurvivingCharacterBattle = GetAliveTeamCharacterBattleList(true)[0];
-                        if (lastSurvivingCharacterBattle.GetHealthAmount() <= damageAmount)
-                        {
-                            // POR RAZONES DE BETA TESTING Y NO SUFRIR DE ENOJO EXISTE ESTA OPCION, PERO UN FUTURO SE COMENTA
-                            damageChance = 0;
-                        }
-                    }
+                    //if (GetAliveCount(true) == 1)
+                    //{
+                    //    // Solo 1 pj vivo
+                    //    CharacterBattle lastSurvivingCharacterBattle = GetAliveTeamCharacterBattleList(true)[0];
+                    //    if (lastSurvivingCharacterBattle.GetHealthAmount() <= damageAmount)
+                    //    {
+                    //        // POR RAZONES DE BETA TESTING Y NO SUFRIR DE ENOJO EXISTE ESTA OPCION, PERO UN FUTURO SE COMENTA
+                    //        damageChance = 0;
+                    //    }
+                    //}
                     if (Random.Range(0, 100) < damageChance)    // probabilidad de golpear al player
                     {
                         // Hit
