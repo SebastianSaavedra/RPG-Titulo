@@ -67,6 +67,17 @@ MonoBehaviour:
   spriteOWArana: {fileID: 21300000, guid: ccd95990fbf33764699f25c675240de1, type: 3}
   spriteOWChillpila: {fileID: 21300000, guid: 5f02b309d128b90428225ce9e3b86f9b, type: 3}
   spriteOWAntay: {fileID: 21300000, guid: e8dab28991e649047a4aeb118f5fdcc8, type: 3}
+  splashSuyai: {fileID: 21300000, guid: 084f7d017102da1499e6632c6ae727e2, type: 3}
+  splashPedro: {fileID: 21300000, guid: eefaf311a7cf50f44ad7336ad0b8d2b2, type: 3}
+  splashChillpila: {fileID: 21300000, guid: 5f02b309d128b90428225ce9e3b86f9b, type: 3}
+  splashArana: {fileID: 21300000, guid: ccd95990fbf33764699f25c675240de1, type: 3}
+  splashAntay: {fileID: 21300000, guid: e8dab28991e649047a4aeb118f5fdcc8, type: 3}
+  enemies:
+  - {fileID: 21300000, guid: e34b9e308ecb010429c88f7c5804f5cd, type: 3}
+  - {fileID: 21300000, guid: 20b3f5a2f3f54d748b19e1f2d7a57c45, type: 3}
+  - {fileID: 21300000, guid: 11eb049c635a68c4196449957cd3f2bf, type: 3}
+  - {fileID: 21300000, guid: ea398371b06de5f4b880825d87ede8de, type: 3}
+  - {fileID: 21300000, guid: a871ed24dc777044aaaee99e3d04941f, type: 3}
   audioClipsArray:
   - sound: 8
     audioClip: {fileID: 8300000, guid: 25bd6f9af2e87da439ef7fab6323d808, type: 3}

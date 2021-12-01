@@ -5,8 +5,6 @@ using UnityEngine;
 
 public static class GameData
 {
-
-
     public enum State
     {
         Start,
@@ -42,6 +40,7 @@ public static class GameData
 
     private static bool isInit = false;
     public static List<Character> characterList;
+    //public static List<Character> inPlayerTeamList;
     public static List<Item> itemList;
 
     public static State state;
@@ -59,6 +58,7 @@ public static class GameData
         state = State.Start;
         herbsCount = 0;
         characterList = new List<Character>();
+        //inPlayerTeamList = new List<Character>();
 
         characterList.Add(new Character(Character.Type.Suyai)
             {
@@ -84,7 +84,11 @@ public static class GameData
         {
             position = GameAssets.i.Map.Find("Chillpila").position,
         });
-
+        //inPlayerTeamList.Add(new Character(Character.Type.Chillpila));
+        //inPlayerTeamList.Add(new Character(Character.Type.Suyai));
+        //inPlayerTeamList.Add(new Character(Character.Type.Pedro));
+        //inPlayerTeamList.Add(new Character(Character.Type.Arana));
+        //inPlayerTeamList.Add(new Character(Character.Type.Antay));
 
         foreach (Transform mapSpawn in GameAssets.i.Map)
         {

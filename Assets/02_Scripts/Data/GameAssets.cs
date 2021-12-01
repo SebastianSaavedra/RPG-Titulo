@@ -1,5 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class GameAssets : MonoBehaviour
 {
     private static GameAssets _i;
@@ -46,6 +47,8 @@ public class GameAssets : MonoBehaviour
 
     public Sprite spriteEnemy;
     public Sprite spriteOWPedro, spriteOWArana, spriteOWChillpila, spriteOWAntay;
+    public Sprite splashSuyai, splashPedro, splashChillpila, splashArana, splashAntay;
+    public List<Sprite> enemies = new List<Sprite>();
 
     public SoundAudioClip[] audioClipsArray;
 

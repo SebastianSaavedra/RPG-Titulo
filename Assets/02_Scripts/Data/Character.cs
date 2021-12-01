@@ -31,6 +31,7 @@ public class Character
         public int healthMax;
         public int health;
         public int attack;
+        public int defense;
         public int damageChance;
         public int turns;
     }
@@ -55,6 +56,14 @@ public class Character
         //Villager_3,
         //Villager_4,
         //Villager_5,
+    }
+
+    public enum LanePosition
+    {
+        Middle,
+        Up,
+        Down,
+        None,
     }
 
     //public enum SubType
@@ -83,6 +92,7 @@ public class Character
     public GameData.EnemyEncounter enemyEncounter;
     public GameData.ShopContents shopContents;
     public bool isDead;
+    public LanePosition lanePosition;
     private bool isInPlayerTeam;     // DEFINE SI ES QUE ESTE CHARACTER VA A SER SPAWNEADO O NO EN EL TEAM DEL PLAYER
     public bool weapon;
 
@@ -97,8 +107,9 @@ public class Character
             attack = 10,
             health = 100,
             healthMax = 100,
+            defense = 1,
             damageChance = 75,
-            turns = 1
+            turns = 1,
         };
 
         switch (type)
@@ -109,58 +120,73 @@ public class Character
             /////////////////// Personajes jugables
             
             case Type.Suyai:       // Prota - Healer
+                name = "Suyai";
                 stats = new Stats
                 {
                     attack = 20,
                     health = 100,
                     healthMax = 100,
+                    defense = 1,
                     turns = 2
                 };
                 isInPlayerTeam = true;
+                lanePosition = LanePosition.Middle;
                 break;
 
             case Type.Chillpila:       // Kalcu - Mago oscuro
+                name = "Chillpila";
                 stats = new Stats
                 {
                     attack = 20,
                     health = 100,
                     healthMax = 100,
+                    defense = 1,
                     turns = 2
                 };
                 isInPlayerTeam = true;
+                lanePosition = LanePosition.Down;
                 break;
 
             case Type.Pedro:            // Trickster - Debuffer
+                name = "Pedro";
                 stats = new Stats
                 {
                     attack = 25,
                     health = 100,
                     healthMax = 100,
+                    defense = 1,
                     turns = 2
                 };
                 isInPlayerTeam = true;
+                lanePosition = LanePosition.Up;
                 break;
 
             case Type.Antay:            // Tank
+                name = "Antay";
                 stats = new Stats
                 {
                     attack = 20,
                     health = 125,
                     healthMax = 125,
+                    defense = 2,
                     turns = 3
                 };
                 //isInPlayerTeam = true;
+                lanePosition = LanePosition.None;
                 break;
 
             case Type.Arana:            // Lancero - DmgDealer
+                name = "Arana";
                 stats = new Stats
                 {
                     attack = 30,
                     health = 100,
                     healthMax = 100,
+                    defense = 1,
                     turns = 3
                 };
                 //isInPlayerTeam = true;
+                lanePosition = LanePosition.None;
                 break;
 
 
@@ -207,6 +233,12 @@ public class Character
     {
         isInPlayerTeam = isInTeam;
         return isInPlayerTeam;
+    }
+
+    public void ChangeLane(LanePosition lane)
+    {
+        lanePosition = lane;
+
     }
 
     public bool IsEnemy()

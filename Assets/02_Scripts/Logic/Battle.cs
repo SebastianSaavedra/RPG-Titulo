@@ -121,20 +121,20 @@ public class Battle
                 switch (character.type)
                 {
                     default:
-                    case Character.Type.Suyai: 
-                        lanePosition = LanePosition.Middle; 
+                    case Character.Type.Suyai:
+                        lanePosition = (LanePosition)character.lanePosition; 
                         break;
-                    case Character.Type.Antay: 
-                        lanePosition = LanePosition.Down; 
+                    case Character.Type.Antay:
+                        lanePosition = (LanePosition)character.lanePosition;
                         break;
                     case Character.Type.Pedro:
-                        lanePosition = LanePosition.Up;
+                        lanePosition = (LanePosition)character.lanePosition;
                         break;
                     case Character.Type.Arana:
-                        lanePosition = LanePosition.Up;
+                        lanePosition = (LanePosition)character.lanePosition;
                         break;
                     case Character.Type.Chillpila:
-                        lanePosition = LanePosition.Down;
+                        lanePosition = (LanePosition)character.lanePosition;
                         break;
                 }
                 SpawnCharacter(character.type, lanePosition, true, character.stats);
@@ -286,7 +286,7 @@ public class Battle
                     UITargetSelect(false);
                 }
 
-                if (Input.GetKeyDown(KeyCode.Space))
+                if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
                 {
                     ExecuteCommand(BattleUI.instance.command);
                 }

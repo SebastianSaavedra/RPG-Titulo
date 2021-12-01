@@ -52,7 +52,6 @@ public class OverworldManager
     {
         StartOvermapRunning();
 
-
         foreach (Character character in GameData.characterList)
         {
             if (character.isDead) continue;
@@ -82,7 +81,6 @@ public class OverworldManager
                         SpawnFollower(character, new Vector3(-1, -1));
                         break;
                 }
-
             }
                 switch (character.type)
             {

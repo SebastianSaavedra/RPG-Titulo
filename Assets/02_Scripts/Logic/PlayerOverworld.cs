@@ -24,6 +24,7 @@ public class PlayerOverworld : MonoBehaviour
         Normal,
         Busy,
         OnMenu,
+        SubMenu,
 
     }
 
