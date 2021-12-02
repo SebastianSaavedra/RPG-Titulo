@@ -13,7 +13,7 @@ public class ItemOverworld : MonoBehaviour {
     }
 
     private void Update() {
-        float tractorDistance = 5f;
+        float tractorDistance = 1f;
         if (Vector3.Distance(GetPosition(), playerOvermap.GetPosition()) < tractorDistance) {
             // Within Tractor distance, get pulled towards player
             float tractorSpeed = Vector3.Distance(GetPosition(), playerOvermap.GetPosition()) * 8f;
@@ -23,12 +23,17 @@ public class ItemOverworld : MonoBehaviour {
             if (Vector3.Distance(GetPosition(), playerOvermap.GetPosition()) < grabDistance) {
                 // Within Grab distance, grab and destroy
 
-                switch (item.GetItemType()) {
+                switch (item.GetItemType()) 
+                {
                 default:
-                case Item.ItemType.MedicinalHerbs:
-                        GameData.AddHerbs(item.GetAmount());
+                    case Item.ItemType.MedicinalHerbs:
+                        ResourceManager.instance.AddHerbs(item.GetAmount());
                         SoundManager.PlaySound(SoundManager.Sound.Coin);
-                    break;
+                        break;
+                    case Item.ItemType.Money:
+                        ResourceManager.instance.AddMoney(item.GetAmount());
+                        SoundManager.PlaySound(SoundManager.Sound.Coin);
+                        break;
                 }
 
                 item.DestroySelf();

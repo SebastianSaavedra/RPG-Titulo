@@ -44,7 +44,6 @@ public static class GameData
     public static List<Item> itemList;
 
     public static State state;
-    public static int herbsCount;
 
     public static void Init()
     {
@@ -56,7 +55,6 @@ public static class GameData
         isInit = true;
         SoundManager.Initialize();
         state = State.Start;
-        herbsCount = 0;
         characterList = new List<Character>();
         //inPlayerTeamList = new List<Character>();
 
@@ -144,10 +142,6 @@ public static class GameData
             }
         }
         return null;
-    }
-    public static void AddHerbs(int amount)
-    {
-        herbsCount += amount;
     }
 
 

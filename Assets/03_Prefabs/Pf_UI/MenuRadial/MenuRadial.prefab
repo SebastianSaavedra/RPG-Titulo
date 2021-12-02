@@ -764,14 +764,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 6895436438834642650}
-    - target: {fileID: 6669740405847419067, guid: a9c6e044c871e6346ae71a237c36f899, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: set_layer
-      objectReference: {fileID: 0}
-    - target: {fileID: 6669740405847419067, guid: a9c6e044c871e6346ae71a237c36f899, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: UnityEngine.GameObject, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 6669740405847419068, guid: a9c6e044c871e6346ae71a237c36f899, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1036,7 +1028,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4333117072428086115, guid: 506bc8076bc944749937aba140302221, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: Items
+      value: Inventory
       objectReference: {fileID: 0}
     - target: {fileID: 4333117072428086115, guid: 506bc8076bc944749937aba140302221, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName

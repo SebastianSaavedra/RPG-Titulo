@@ -23,6 +23,7 @@ public class CharacterBattle : MonoBehaviour
     private Battle.LanePosition lanePosition;
     private Character.Type characterType;
     [HideInInspector] public Character.Stats stats;
+    private int health, attack, defense, damageChance;
     private Action onAttackHit;
     private Action onAttackComplete;
     private Action onSlideComplete;
@@ -73,6 +74,11 @@ public class CharacterBattle : MonoBehaviour
         this.isPlayerTeam = isPlayerTeam;
         this.stats = stats;
 
+        health = stats.health;
+        attack = stats.attack;
+        defense = stats.defense;
+        damageChance = stats.damageChance;
+
         if (!isPlayerTeam)
         {
             spriteRen.flipX = false;
@@ -82,17 +88,7 @@ public class CharacterBattle : MonoBehaviour
         {
             case Character.Type.Suyai:
                 anim.runtimeAnimatorController = GameAssets.i.suyaiANIM;
-                //transform.localScale = Vector3.one * .75f;
-
-                //if (GameData.GetCharacter(Character.Type.Player).hasFtnDewArmor)
-                //{
-                //    Texture2D newSpritesheetTexture = new Texture2D(material.mainTexture.width, material.mainTexture.height, TextureFormat.ARGB32, true);
-                //    newSpritesheetTexture.SetPixels((material.mainTexture as Texture2D).GetPixels());
-                //    Color[] ftnDewArmorPixels = GameAssets.i.t_FtnDewArmor.GetPixels(0, 0, 512, 128);
-                //    newSpritesheetTexture.SetPixels(0, 256, 512, 128, ftnDewArmorPixels);
-                //    newSpritesheetTexture.Apply();
-                //    material.mainTexture = newSpritesheetTexture;
-                //}
+                //si es q el pj tiene una armadura es posible poner un if y cambiar de animator
                 break;
             case Character.Type.Antay:
                 anim.runtimeAnimatorController = GameAssets.i.antayANIM;
@@ -115,29 +111,10 @@ public class CharacterBattle : MonoBehaviour
                 anim.runtimeAnimatorController = GameAssets.i.enemyANIM;
                 break;
         }
-        //transform.Find("Body").GetComponent<MeshRenderer>().material = material;
 
         if (isPlayerTeam)
         {
             TurnSystem.instance.SetTurnCount(this.stats.turns);
-        }
-        switch (characterType)
-        {
-            case Character.Type.Pedro:
-                SpecialAbilitiesCostSystem.instance.SetMoneyAmount(100);
-                break;
-            case Character.Type.Suyai:
-                SpecialAbilitiesCostSystem.instance.SetHerbsAmount(10);
-                break;
-            case Character.Type.Arana:
-                SpecialAbilitiesCostSystem.instance.SetTattoosAmount(5);
-                break;
-            case Character.Type.Antay:
-                SpecialAbilitiesCostSystem.instance.SetHitsAmount(5);
-                break;
-            case Character.Type.Chillpila:
-                SpecialAbilitiesCostSystem.instance.SetSoulsAmount(50);
-                break;
         }
         healthSystem = new HealthSystem(stats.healthMax);
         healthSystem.SetHealthAmount(stats.health);
@@ -174,7 +151,6 @@ public class CharacterBattle : MonoBehaviour
         //Blood_Handler.SpawnBlood(GetPosition(), bloodDir);
 
         //SoundManager.PlaySound(SoundManager.Sound.CharacterDamaged);
-        DamagePopups.Create(GetPosition(), damageAmount, false);
         healthSystem.Damage(damageAmount);
         DamageFlash();
 
@@ -238,6 +214,7 @@ public class CharacterBattle : MonoBehaviour
                 break;
             case 0:
                 stats.attack += 5;
+                Debug.Log("El daño de ahora es: " + stats.attack);
                 break;
             case 1:
                 Debug.Log("Experiencia al final del combate aumentada!");
@@ -276,12 +253,19 @@ public class CharacterBattle : MonoBehaviour
                     break;
                 }
         }
-        statusSystem.SetStatusTimer(3);
+        statusSystem.SetStatusTimer(6);
     }
-
+     
     public void StatusIcons(Sprite sprite)
     {
 
+    }
+
+    public void RefreshStats()
+    {
+        stats.attack = attack;
+        stats.damageChance = damageChance;
+        //healthSystem.SetHealthAmount(health);
     }
 
     public bool IsDead()
@@ -332,7 +316,7 @@ public class CharacterBattle : MonoBehaviour
         switch (characterType)
         {
             case Character.Type.Pedro:
-                if (SpecialAbilitiesCostSystem.instance.GetMoneyAmount() >= SpecialAbilitiesCostSystem.instance.GetMaxMoneyAmount() / 4)
+                if (ResourceManager.instance.GetMoneyAmount() >= 0)
                 {
                     canSpecial = true;
                 }
@@ -342,7 +326,7 @@ public class CharacterBattle : MonoBehaviour
                 }
                 break;
             case Character.Type.Suyai:
-                if (SpecialAbilitiesCostSystem.instance.GetHerbsAmount() >= SpecialAbilitiesCostSystem.instance.GetMaxHerbsAmount() / 5)
+                if (ResourceManager.instance.GetHerbsAmount() >= ResourceManager.instance.GetMaxHerbsAmount() / 5)
                 {
                     canSpecial = true;
                 }
@@ -352,7 +336,7 @@ public class CharacterBattle : MonoBehaviour
                 }
                 break;
             case Character.Type.Antay:
-                if (SpecialAbilitiesCostSystem.instance.GetHitsAmount() >= SpecialAbilitiesCostSystem.instance.GetMaxHitsAmount() / 5)
+                if (ResourceManager.instance.GetHitsAmount() >= ResourceManager.instance.GetMaxHitsAmount() / 5)
                 {
                     canSpecial = true;
                 }
@@ -362,7 +346,7 @@ public class CharacterBattle : MonoBehaviour
                 }
                 break;
             case Character.Type.Arana:
-                if (SpecialAbilitiesCostSystem.instance.GetTattoosAmount() >= SpecialAbilitiesCostSystem.instance.GetMaxTattoosAmount() / 5)
+                if (ResourceManager.instance.GetTattoosAmount() >= ResourceManager.instance.GetMaxTattoosAmount() / 5)
                 {
                     canSpecial = true;
                 }
@@ -372,7 +356,7 @@ public class CharacterBattle : MonoBehaviour
                 }
                 break;
             case Character.Type.Chillpila:
-                if (SpecialAbilitiesCostSystem.instance.GetSoulsAmount() >= SpecialAbilitiesCostSystem.instance.GetMaxSoulsAmount() / 5)
+                if (ResourceManager.instance.GetSoulsAmount() >= ResourceManager.instance.GetMaxSoulsAmount() / 5)
                 {
                     canSpecial = true;
                 }
@@ -487,7 +471,7 @@ public class CharacterBattle : MonoBehaviour
     IEnumerator<float> _TintColor(Color color)
     {
         material.SetColor("_Color", materialTintColor);
-        yield return Timing.WaitForSeconds(.125f);
+        yield return Timing.WaitForSeconds(.133f);
         material.SetColor("_Color",baseTint);
         yield break;
     }

@@ -451,7 +451,7 @@ GameObject:
   - component: {fileID: 457128475}
   - component: {fileID: 457128474}
   m_Layer: 0
-  m_Name: SpecialAbilitiesCostSystem
+  m_Name: StatusSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -466,7 +466,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 457128473}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a635453f7614e241acc783a017e795c, type: 3}
+  m_Script: {fileID: 11500000, guid: 16b6079637f1f084aa6cf9adeb821efe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &457128475
@@ -1353,15 +1353,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8942289292848026062, guid: 2426f100997c6d04db5118ba90306d7a, type: 3}
       propertyPath: m_LocalScale.x
-      value: 20.958698
+      value: 25.657639
       objectReference: {fileID: 0}
     - target: {fileID: 8942289292848026062, guid: 2426f100997c6d04db5118ba90306d7a, type: 3}
       propertyPath: m_LocalScale.y
-      value: 3.314
+      value: 4.0569987
       objectReference: {fileID: 0}
     - target: {fileID: 8942289292848026062, guid: 2426f100997c6d04db5118ba90306d7a, type: 3}
       propertyPath: m_LocalScale.z
-      value: 11.525981
+      value: 14.110106
+      objectReference: {fileID: 0}
+    - target: {fileID: 8942289292848026062, guid: 2426f100997c6d04db5118ba90306d7a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 14.358
+      objectReference: {fileID: 0}
+    - target: {fileID: 8942289292848026062, guid: 2426f100997c6d04db5118ba90306d7a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.20151
+      objectReference: {fileID: 0}
+    - target: {fileID: 8942289292848026062, guid: 2426f100997c6d04db5118ba90306d7a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -1.5746
       objectReference: {fileID: 0}
     - target: {fileID: 8942289293122960606, guid: 2426f100997c6d04db5118ba90306d7a, type: 3}
       propertyPath: m_Name
@@ -1413,15 +1425,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8942289293301055879, guid: 2426f100997c6d04db5118ba90306d7a, type: 3}
       propertyPath: m_LocalScale.x
-      value: 18.404825
+      value: 22.531187
       objectReference: {fileID: 0}
     - target: {fileID: 8942289293301055879, guid: 2426f100997c6d04db5118ba90306d7a, type: 3}
       propertyPath: m_LocalScale.y
-      value: 3.7908
+      value: 4.6406975
       objectReference: {fileID: 0}
     - target: {fileID: 8942289293301055879, guid: 2426f100997c6d04db5118ba90306d7a, type: 3}
       propertyPath: m_LocalScale.z
-      value: 10.27884
+      value: 12.583356
+      objectReference: {fileID: 0}
+    - target: {fileID: 8942289293301055879, guid: 2426f100997c6d04db5118ba90306d7a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 9.5101
+      objectReference: {fileID: 0}
+    - target: {fileID: 8942289293301055879, guid: 2426f100997c6d04db5118ba90306d7a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.20151
+      objectReference: {fileID: 0}
+    - target: {fileID: 8942289293301055879, guid: 2426f100997c6d04db5118ba90306d7a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -1.5746
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2426f100997c6d04db5118ba90306d7a, type: 3}
@@ -1605,7 +1629,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnSystem: {fileID: 480979597}
-  abilityCostSystem: {fileID: 457128474}
   turnText: {fileID: 156734777}
   moneyText: {fileID: 2168764180608127105}
   herbsText: {fileID: 1975160547038564472}
@@ -2631,4 +2654,4 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1

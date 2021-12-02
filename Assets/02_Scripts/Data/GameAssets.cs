@@ -34,6 +34,7 @@ public class GameAssets : MonoBehaviour
     public Transform damagePopup;
     public Transform dmgDebuff, blindDebuff, healthDebuff;
     public Transform pfMedicinalHerbs;
+    public Transform pfCoin;
 
     [Header("Animators")]
     [Space(5)]

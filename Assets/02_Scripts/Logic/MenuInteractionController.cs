@@ -115,28 +115,4 @@ public class MenuInteractionController : MonoBehaviour
         currentMenuOpened = subMenus[index];
         OpenCloseMenu(currentMenuOpened, lastMenuOpened);
     }
-    public void ChangeTeam(bool IsInTeam)
-    {
-        foreach (Character character in GameData.characterList)
-        {
-            switch (character.type)
-            {
-                case Character.Type.Suyai:
-                    character.AssignIsInPlayerTeam(IsInTeam);
-                    break;
-                case Character.Type.Pedro:
-                    character.AssignIsInPlayerTeam(IsInTeam);
-                    break;
-                case Character.Type.Arana:
-                    character.AssignIsInPlayerTeam(IsInTeam);
-                    break;
-                case Character.Type.Chillpila:
-                    character.AssignIsInPlayerTeam(IsInTeam);
-                    break;
-                case Character.Type.Antay:
-                    character.AssignIsInPlayerTeam(IsInTeam);
-                    break;
-            }
-        }
-    }
 }

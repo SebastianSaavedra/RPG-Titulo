@@ -6,6 +6,8 @@ public class Item : MonoBehaviour {
 
     public enum ItemType {
         MedicinalHerbs,
+        Money,
+
     }
 
     private ItemType itemType;

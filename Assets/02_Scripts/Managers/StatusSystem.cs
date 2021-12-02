@@ -1,17 +1,20 @@
 using System;
 using UnityEngine;
 
-public class StatusSystem
+public class StatusSystem : MonoBehaviour
 {
+    public static StatusSystem instance;
     public event EventHandler OnTimerChanged;
 
-    private int maxDuration;
     private int remainingDuration;
-
-    public void SetStatusTimer(int maxDuration)
+    private void Awake()
     {
-        this.maxDuration = maxDuration;
-        remainingDuration = maxDuration;
+        instance = this;
+    }
+
+    public void SetStatusTimer(int duration)
+    {
+        remainingDuration = duration;
         if (OnTimerChanged != null)
         {
             OnTimerChanged(this, EventArgs.Empty);
@@ -29,8 +32,8 @@ public class StatusSystem
             OnTimerChanged(this, EventArgs.Empty);
         }
     }
-    
-    public int GetStatusDurationAmount()
+
+    public int GetRemainingStatusDuration()
     {
         return remainingDuration;
     }
@@ -51,5 +54,4 @@ public class StatusSystem
     {
         return remainingDuration.ToString();
     }
-
 }

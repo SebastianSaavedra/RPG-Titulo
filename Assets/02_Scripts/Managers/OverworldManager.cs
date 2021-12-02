@@ -33,6 +33,8 @@ public class OverworldManager
 
     private PlayerOverworld playerOvermap;
 
+    static Transform firstFollowerSpawn;
+
     private bool overmapRunning;
     private List<EnemyOverworld> enemyList;
     private List<NPCOverworld> npcList;
@@ -391,6 +393,13 @@ public NPCOverworld GetClosestNPC(Vector3 position, float maxDistance = float.Ma
         followerOvermap.Setup(character, instance.playerOvermap, followOffset);
         instance.followerList.Add(followerOvermap);
     }
+    //public static void ReplaceFollower(GameObject pjSale, Character pjEntra, Vector3 followOffset)
+    //{
+    //    Transform followerTransform = UnityEngine.Object.Instantiate(GameAssets.i.pfFollowerOvermap, pjEntra.position, Quaternion.identity);
+    //    FollowerOverworld followerOvermap = followerTransform.GetComponent<FollowerOverworld>();
+    //    followerOvermap.Setup(pjEntra, instance.playerOvermap, followOffset);
+    //    instance.followerList.Add(followerOvermap);
+    //}
 
     public static void SpawnEnemy(Character character)
     {
@@ -417,6 +426,9 @@ public NPCOverworld GetClosestNPC(Vector3 position, float maxDistance = float.Ma
             default:
             case Item.ItemType.MedicinalHerbs:
                 prefab = GameAssets.i.pfMedicinalHerbs;
+                break;
+            case Item.ItemType.Money:
+                prefab = GameAssets.i.pfCoin;
                 break;
         }
         Transform itemTransform = UnityEngine.Object.Instantiate(prefab, item.GetPosition(), Quaternion.identity);

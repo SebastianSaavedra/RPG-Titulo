@@ -4,7 +4,6 @@ using CodeMonkey.Utils;
 
 public class FollowerOverworld : MonoBehaviour
 {
-
     public static FollowerOverworld instance;
 
     private float speed = 15f;

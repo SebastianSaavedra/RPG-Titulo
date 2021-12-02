@@ -21,8 +21,7 @@ public class MenuStateController : MonoBehaviour
     [SerializeField] MenuInteractionController interactionController;
     Image pj;
     GameObject lastMenuPicked;
-    Character pjActual,pjEntra, topChar, midChar, bottomChar;
-    Character suyai, pedro, chillpila, arana, antay;
+    Character  topChar, midChar, bottomChar, pjActual, pjEntra, suyai, pedro, chillpila, arana, antay;
     private void OnEnable()
     {
         switch (menus)
@@ -34,7 +33,7 @@ public class MenuStateController : MonoBehaviour
                 Timing.RunCoroutine(MenuInteractionController.instance._EventSystemReAssign(transform.Find("FirstPick").gameObject));
                 break;
             case MENUS.Equipo:
-                UpdatePartyUIFromList();
+                UpdatePartyUI();
                 Timing.RunCoroutine(MenuInteractionController.instance._EventSystemReAssign(interactionController.topMenu));
                 break;
             case MENUS.Equipamiento:
@@ -52,7 +51,8 @@ public class MenuStateController : MonoBehaviour
         }
 
     }
-    void UpdatePartyUIFromList() // Actualiza el UI de canvas para mostrar la party correcta en el orden correcto
+
+    void UpdatePartyUI() // Actualiza el UI de canvas para mostrar la party correcta en el orden correcto
     {
         foreach (Character character in GameData.characterList)
         {
@@ -113,49 +113,6 @@ public class MenuStateController : MonoBehaviour
         }
 
     }
-    void UpdatePartyUI() // Actualiza el UI de canvas para mostrar la party correcta en el orden correcto
-    {
-        foreach (Character character in GameData.characterList)
-        {
-            if (character.IsInPlayerTeam())
-            {
-                switch (character.lanePosition)
-                {
-                    case Character.LanePosition.Up:
-                        pj = interactionController.topMenu.transform.Find("Character").GetComponent<Image>();
-                        topChar = character;
-                        break;
-                    case Character.LanePosition.Middle:
-                        pj = interactionController.midMenu.transform.Find("Character").GetComponent<Image>();
-                        midChar = character;
-                        break;
-                    case Character.LanePosition.Down:
-                        pj = interactionController.bottomMenu.transform.Find("Character").GetComponent<Image>();
-                        bottomChar = character;
-                        break;
-                }
-                switch (character.type)
-                {
-                    case Character.Type.Suyai:
-                        pj.sprite = GameAssets.i.splashSuyai;
-                        break;
-                    case Character.Type.Pedro:
-                        pj.sprite = GameAssets.i.splashPedro;
-                        break;
-                    case Character.Type.Chillpila:
-                        pj.sprite = GameAssets.i.splashChillpila;
-                        break;
-                    case Character.Type.Arana:
-                        pj.sprite = GameAssets.i.splashArana;
-                        break;
-                    case Character.Type.Antay:
-                        pj.sprite = GameAssets.i.splashAntay;
-                        break;
-                }
-            }
-        }
-
-    }
     public void SaveGameObjectButton(GameObject go)
     {
         lastMenuPicked = go;
@@ -195,63 +152,98 @@ public class MenuStateController : MonoBehaviour
         switch (charName)
         {
             case "Suyai":
-                WhichLane(suyai, pjActual);
+                pjEntra = suyai;
+                WhichCharacterAndLanes(pjEntra, pjActual);
                 return;
             case "Pedro":
-                WhichLane(pedro, pjActual);
+                pjEntra = pedro;
+                WhichCharacterAndLanes(pjEntra, pjActual);
                 return;
             case "Chillpila":
-                WhichLane(chillpila, pjActual);
+                pjEntra = chillpila;
+                WhichCharacterAndLanes(pjEntra, pjActual);
                 return;
             case "Antay":
-                WhichLane(antay, pjActual);
+                pjEntra = antay;
+                WhichCharacterAndLanes(pjEntra, pjActual);
                 return;
             case "Arana":
-                WhichLane(arana, pjActual);
+                pjEntra = arana;
+                WhichCharacterAndLanes(pjEntra, pjActual);
                 return;
         }
     }
-    private void WhichLane(Character pjEntra, Character pjSale)
+
+    private void WhichCharacterAndLanes(Character pjEntra, Character pjSale)
     {
-        if (pjEntra.IsInPlayerTeam())
+        if (pjActual == suyai)
         {
-            switch (SaveGameObject().name)
+            if (pjEntra.IsInPlayerTeam())
             {
-                case "Top":
-                    pjSale.ChangeLane(pjEntra.lanePosition);
-                    pjEntra.ChangeLane(Character.LanePosition.Up);
-                    break;
-                case "Mid":
-                    pjSale.ChangeLane(pjEntra.lanePosition);
-                    pjEntra.ChangeLane(Character.LanePosition.Middle);
-                    break;
-                case "Bottom":
-                    pjSale.ChangeLane(pjEntra.lanePosition);
-                    pjEntra.ChangeLane(Character.LanePosition.Down);
-                    break;
+                switch (SaveGameObject().name)
+                {
+                    case "Top":
+                        pjSale.ChangeLane(pjEntra.lanePosition);
+                        pjEntra.ChangeLane(Character.LanePosition.Up);
+                        break;
+                    case "Mid":
+                        pjSale.ChangeLane(pjEntra.lanePosition);
+                        pjEntra.ChangeLane(Character.LanePosition.Middle);
+                        break;
+                    case "Bottom":
+                        pjSale.ChangeLane(pjEntra.lanePosition);
+                        pjEntra.ChangeLane(Character.LanePosition.Down);
+                        break;
+                }
+            }
+            else
+            {
+                Debug.Log("NO PUEDES SACAR A SUYAI DEL TEAM");
+                //mensaje de q no puedes sacar a suyai del team
             }
         }
         else
         {
-            pjEntra.AssignIsInPlayerTeam(true);
-            switch (SaveGameObject().name)
+            if (pjEntra.IsInPlayerTeam())
             {
-                case "Top":
-                    pjSale.AssignIsInPlayerTeam(false);
-                    pjEntra.ChangeLane(Character.LanePosition.Up);
-                    break;
-                case "Mid":
-                    pjSale.AssignIsInPlayerTeam(false);
-                    pjEntra.ChangeLane(Character.LanePosition.Middle);
-                    break;
-                case "Bottom":
-                    pjSale.AssignIsInPlayerTeam(false);
-                    pjEntra.ChangeLane(Character.LanePosition.Down);
-                    break;
+                switch (SaveGameObject().name)
+                {
+                    case "Top":
+                        pjSale.ChangeLane(pjEntra.lanePosition);
+                        pjEntra.ChangeLane(Character.LanePosition.Up);
+                        break;
+                    case "Mid":
+                        pjSale.ChangeLane(pjEntra.lanePosition);
+                        pjEntra.ChangeLane(Character.LanePosition.Middle);
+                        break;
+                    case "Bottom":
+                        pjSale.ChangeLane(pjEntra.lanePosition);
+                        pjEntra.ChangeLane(Character.LanePosition.Down);
+                        break;
+                }
             }
+            else
+            {
+                pjEntra.AssignIsInPlayerTeam(true);
+                switch (SaveGameObject().name)
+                {
+                    case "Top":
+                        pjSale.AssignIsInPlayerTeam(false);
+                        pjEntra.ChangeLane(Character.LanePosition.Up);
+                        break;
+                    case "Mid":
+                        pjSale.AssignIsInPlayerTeam(false);
+                        pjEntra.ChangeLane(Character.LanePosition.Middle);
+                        break;
+                    case "Bottom":
+                        pjSale.AssignIsInPlayerTeam(false);
+                        pjEntra.ChangeLane(Character.LanePosition.Down);
+                        break;
+                }
 
+            }
+            Timing.RunCoroutine(interactionController._EventSystemReAssign(SaveGameObject()));
         }
-        Timing.RunCoroutine(interactionController._EventSystemReAssign(SaveGameObject()));
         UpdatePartyUI();
     }
 }

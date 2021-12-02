@@ -47,6 +47,7 @@ public class Battle
         WaitingForPlayer,
         OnMenu,
         EnemySelection,
+        OnInventory,
         Busy,
     }
 
@@ -139,6 +140,7 @@ public class Battle
                 }
                 SpawnCharacter(character.type, lanePosition, true, character.stats);
             }
+            ResourceManager.instance.RefreshResourcesUI();
         }
 
         GameData.EnemyEncounter enemyEncounter = Battle.enemyEncounter;
@@ -268,8 +270,8 @@ public class Battle
     {
         switch (state)
         {
-            case State.WaitingForPlayer:
-                break;
+            //case State.WaitingForPlayer:
+            //    break;
 
 
             case State.EnemySelection:
@@ -299,24 +301,9 @@ public class Battle
                     selectedTargetCharacterBattle.HideSelectionCircle();
                     selectedTargetCharacterBattle = null;
                 }
-
                 break;
-
-
-
-                //if (Input.GetKeyDown(KeyCode.T))
-                //{
-                //    // Heal
-                //    if (GameData.TrySpendHealthPotion())
-                //    {
-                //        state = State.Busy;
-                //BattleWindow.GetInstance().radialMenu.SetActive(false);
-                //        activeCharacterBattle.Heal(100);
-                //        FunctionTimer.Create(ChooseNextActiveCharacter, .2f);
-                //    }
-                //}
-            case State.Busy:
-                break;
+            //case State.Busy:
+            //    break;
         }
         Debug.Log(state);
     }
@@ -354,8 +341,8 @@ public class Battle
             UtilsClass.ShakeCamera(.75f, .15f);
             if (selectedTargetCharacterBattle.IsDead() && activeCharacterBattle.GetCharacterType() == Character.Type.Chillpila)
             {
-                int valor = SpecialAbilitiesCostSystem.instance.GetSoulsAmount();
-                SpecialAbilitiesCostSystem.instance.AddSouls(Random.Range((int)(valor * .15f),(int)(valor * .25f)));
+                int valor = ResourceManager.instance.GetSoulsAmount();
+                ResourceManager.instance.AddSouls(Random.Range((int)(valor * .15f),(int)(valor * .25f)));
                 //TestEvilMonsterKilled();
             }
         }, () =>
@@ -393,7 +380,7 @@ public class Battle
                     {
                         characterBattle.Heal(50);
                     }
-                    SpecialAbilitiesCostSystem.instance.ConsumeHerbs(characterBattleList.Count);
+                    ResourceManager.instance.ConsumeHerbs(characterBattleList.Count);
                     //Debug.Log("Cantidad de hierbas: " + SpecialAbilitiesCostSystem.instance.GetHerbsAmount());
                 }, 1.2f);
                 break;
@@ -419,7 +406,7 @@ public class Battle
                     {
                         characterBattle.Buff(number);
                     }
-                    SpecialAbilitiesCostSystem.instance.ConsumeHits(1);
+                    ResourceManager.instance.ConsumeHits(1);
                 }, 1.2f);
                 break;
 
@@ -438,7 +425,7 @@ public class Battle
                         {
                             characterBattle.Debuff(number);
                         }
-                        SpecialAbilitiesCostSystem.instance.PayMoney(25);
+                        ResourceManager.instance.PayMoney(25);
                     }, () =>
                     {
                         ResetCamera();
@@ -470,7 +457,7 @@ public class Battle
                         //}
                     });
                 });
-                SpecialAbilitiesCostSystem.instance.ConsumeTattoos(1);
+                ResourceManager.instance.ConsumeTattoos(1);
                 break;
 
             case Character.Type.Chillpila:          // MAGE 
@@ -492,15 +479,15 @@ public class Battle
                         {
                             if (characterBattleList[i].IsDead())
                             {
-                                int valor = SpecialAbilitiesCostSystem.instance.GetSoulsAmount();
-                                SpecialAbilitiesCostSystem.instance.AddSouls(Random.Range((int)(valor * .15f), (int)(valor * .25f)));
+                                int valor = ResourceManager.instance.GetSoulsAmount();
+                                ResourceManager.instance.AddSouls(Random.Range((int)(valor * .15f), (int)(valor * .25f)));
                                 //TestEvilMonsterKilled();
                             }
 
                         }
                     });
                 });
-                SpecialAbilitiesCostSystem.instance.ConsumeSouls((int)(characterBattleList.Count * 1.5f));
+                ResourceManager.instance.ConsumeSouls((int)(characterBattleList.Count * 1.5f));
                 break;
         }
 
@@ -560,7 +547,8 @@ public class Battle
     {
         if (TurnSystem.instance.ZeroTurns())
         {
-            Debug.Log("Se te acabaron los turnos, huiste del combate");
+            Debug.Log("Se te acabaron los turnos, vuela alto");
+            FunctionTimer.Create(OverworldManager.LoadBackToOvermap, .7f);
             return;
         }
         
@@ -674,7 +662,7 @@ public class Battle
                     //SoundManager.PlaySound(SoundManager.Sound.CharacterHit);
                     int damageBase = activeCharacterBattle.GetAttack();
                     int damageMin = (int)(damageBase * 0.8f);
-                    int damageMax = (int)(damageBase * 1.2f);
+                    int damageMax = (int)(damageBase * 1.0f);
                     int damageAmount = Random.Range(damageMin, damageMax);
                     int damageChance = activeCharacterBattle.stats.damageChance;
                     //if (GetAliveCount(true) == 1)
@@ -690,8 +678,19 @@ public class Battle
                     if (Random.Range(0, 100) < damageChance)    // probabilidad de golpear al player
                     {
                         // Hit
-                        aiTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount);
-                        UtilsClass.ShakeCamera(.75f, .1f);
+                        if (Random.Range(0, 100) <= 5)       //Critical Hit
+                        {
+                            damageAmount *= (int)Random.Range((int)1.2f,(int)1.5f);
+                            aiTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount);
+                            DamagePopups.Create(aiTargetCharacterBattle.GetPosition(),damageAmount,true);
+                            UtilsClass.ShakeCamera(1f, .1f);
+                        }
+                        else                                //Normal Hit
+                        {
+                            aiTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount);
+                            DamagePopups.Create(aiTargetCharacterBattle.GetPosition(), damageAmount, false);
+                            UtilsClass.ShakeCamera(.75f, .1f);
+                        }
                     }
                     else
                     {

@@ -56,6 +56,7 @@ MonoBehaviour:
   blindDebuff: {fileID: 0}
   healthDebuff: {fileID: 0}
   pfMedicinalHerbs: {fileID: 740378356030626837, guid: 4bf72b9393beda943b3c995d46d569d5, type: 3}
+  pfCoin: {fileID: 740378356030626837, guid: 8a842e0f3e27e974880a141e0b9a8b9a, type: 3}
   suyaiANIM: {fileID: 9100000, guid: f12bc6ecd7ec9bb4a94d78b4c02c7fbc, type: 2}
   pedroANIM: {fileID: 9100000, guid: 92d7085d1b370e74ab1045b36989edfa, type: 2}
   aranaANIM: {fileID: 9100000, guid: 2953abf012d3b9f48933f62342c1a879, type: 2}

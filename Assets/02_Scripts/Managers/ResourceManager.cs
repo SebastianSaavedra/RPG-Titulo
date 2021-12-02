@@ -1,14 +1,15 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class SpecialAbilitiesCostSystem : MonoBehaviour
+public class ResourceManager : MonoBehaviour
 {
-    public static SpecialAbilitiesCostSystem instance;
-
-    public event EventHandler OnMoneyChanged, OnHerbsChanged, OnSoulsChanged,OnTattoosChanged, OnHitsChanged;
+    public static ResourceManager instance;
+    public event EventHandler OnMoneyChanged, OnHerbsChanged, OnSoulsChanged, OnTattoosChanged, OnHitsChanged;
 
     //Pedro
-    private int maxMoney = 100;
+    //private int maxMoney = 100;
     private int money;
 
     //Suyai
@@ -16,7 +17,7 @@ public class SpecialAbilitiesCostSystem : MonoBehaviour
     private int herbs;
 
     //Chillquila
-    private int maxSouls = 30;
+    private int maxSouls = 50;
     private int souls;
 
     //Antay
@@ -27,36 +28,23 @@ public class SpecialAbilitiesCostSystem : MonoBehaviour
     private int maxTattoos = 5;
     private int tattoos;
 
-    private void Start()
+
+    void Awake()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+            return;
+        }
+        Destroy(this.gameObject);
     }
 
     #region Money
-    public int _DebugMoney()
-    {
-        if (money >= maxMoney)
-        {
-            money = maxMoney;
-        }
-        else
-        {
-            money += 10;
-        }
-        if (OnMoneyChanged != null)
-        {
-            OnMoneyChanged(this, EventArgs.Empty);
-        }
-        return money;
-    }
 
-    public void SetMoneyAmount(int amount)
+    public void AddMoney(int amount)
     {
-        this.money = amount;
-        if (money >= maxMoney)
-        {
-            money = maxMoney;
-        }
+        this.money += amount;
         if (OnMoneyChanged != null)
         {
             OnMoneyChanged(this, EventArgs.Empty);
@@ -76,10 +64,10 @@ public class SpecialAbilitiesCostSystem : MonoBehaviour
         return money;
     }
 
-    public int GetMaxMoneyAmount()
-    {
-        return maxMoney;
-    }
+    //public int GetMaxMoneyAmount()
+    //{
+    //    return maxMoney;
+    //}
     public string RefreshMoneyCounter()
     {
         return money.ToString();
@@ -87,7 +75,7 @@ public class SpecialAbilitiesCostSystem : MonoBehaviour
     #endregion
 
     #region Herbs
-    public int _DebugHerbs()
+    public void AddHerbs(int amount)
     {
         if (herbs >= maxHerbs)
         {
@@ -95,17 +83,8 @@ public class SpecialAbilitiesCostSystem : MonoBehaviour
         }
         else
         {
-            herbs += 10;
+            this.herbs += amount;
         }
-        if (OnHerbsChanged != null)
-        {
-            OnHerbsChanged(this, EventArgs.Empty);
-        }
-        return herbs;
-    }
-    public void SetHerbsAmount(int amount)
-    {
-        this.herbs = amount;
         if (OnHerbsChanged != null)
         {
             OnHerbsChanged(this, EventArgs.Empty);
@@ -136,7 +115,7 @@ public class SpecialAbilitiesCostSystem : MonoBehaviour
     #endregion
 
     #region Souls
-    public int _DebugSouls()
+    public void AddSouls(int amount)
     {
         if (souls >= maxSouls)
         {
@@ -144,25 +123,8 @@ public class SpecialAbilitiesCostSystem : MonoBehaviour
         }
         else
         {
-            souls += 10;
+            souls += amount;
         }
-        if (OnSoulsChanged != null)
-        {
-            OnSoulsChanged(this, EventArgs.Empty);
-        }
-        return souls;
-    }
-    public void SetSoulsAmount(int amount)
-    {
-        this.souls = amount;
-        if (OnSoulsChanged != null)
-        {
-            OnSoulsChanged(this, EventArgs.Empty);
-        }
-    }
-    public void AddSouls(int amount)
-    {
-        this.souls += amount;
         if (OnSoulsChanged != null)
         {
             OnSoulsChanged(this, EventArgs.Empty);
@@ -193,22 +155,22 @@ public class SpecialAbilitiesCostSystem : MonoBehaviour
     #endregion
 
     #region Tattoos
-    public int _DebugTattoos()
-    {
-        if (tattoos >= maxTattoos)
-        {
-            tattoos = maxTattoos;
-        }
-        else
-        {
-            tattoos += 1;
-        }
-        if (OnTattoosChanged != null)
-        {
-            OnTattoosChanged(this, EventArgs.Empty);
-        }
-        return tattoos;
-    }
+    //public int _DebugTattoos()
+    //{
+    //    if (tattoos >= maxTattoos)
+    //    {
+    //        tattoos = maxTattoos;
+    //    }
+    //    else
+    //    {
+    //        tattoos += 1;
+    //    }
+    //    if (OnTattoosChanged != null)
+    //    {
+    //        OnTattoosChanged(this, EventArgs.Empty);
+    //    }
+    //    return tattoos;
+    //}
     public void SetTattoosAmount(int amount)
     {
         this.tattoos = amount;
@@ -242,7 +204,7 @@ public class SpecialAbilitiesCostSystem : MonoBehaviour
     #endregion
 
     #region Hits
-    public int _DebugHits()
+    public void SetHitsAmount(int amount)
     {
         if (hitAmounts >= maxHits)
         {
@@ -250,17 +212,8 @@ public class SpecialAbilitiesCostSystem : MonoBehaviour
         }
         else
         {
-            hitAmounts += 1;
+            hitAmounts += amount;
         }
-        if (OnHitsChanged != null)
-        {
-            OnHitsChanged(this, EventArgs.Empty);
-        }
-        return hitAmounts;
-    }
-    public void SetHitsAmount(int amount)
-    {
-        this.hitAmounts = amount;
         if (OnHitsChanged != null)
         {
             OnHitsChanged(this, EventArgs.Empty);
@@ -289,4 +242,13 @@ public class SpecialAbilitiesCostSystem : MonoBehaviour
         return hitAmounts.ToString();
     }
     #endregion
+
+    public void RefreshResourcesUI()
+    {
+        OnHitsChanged(this, EventArgs.Empty);
+        OnHerbsChanged(this, EventArgs.Empty);
+        OnMoneyChanged(this, EventArgs.Empty);
+        OnSoulsChanged(this, EventArgs.Empty);
+        OnTattoosChanged(this, EventArgs.Empty);
+    }
 }

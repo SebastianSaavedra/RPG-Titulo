@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using MEC;
 using DG.Tweening;
+using CodeMonkey.Utils;
 
 public class BattleUI : MonoBehaviour
 {
@@ -76,19 +77,20 @@ public class BattleUI : MonoBehaviour
             Battle.GetInstance()._Special();
             radialMenu.SetActive(false);
         }
-        if (command == "Attack")
+        switch(command)
         {
-            Battle.GetInstance().state = Battle.State.EnemySelection;
-            Battle.GetInstance().SetSelectedTargetCharacterBattle(Battle.GetInstance().GetAliveTeamCharacterBattleList(false)[0]);
-            radialMenu.SetActive(false);
-        }
-        if (command == "Items")
-        {
-            Debug.Log("Menu de items");
-        }
-        if (command == "Run")
-        {
-            Debug.Log("Huiste del combate");
+            case "Attack":
+                Battle.GetInstance().state = Battle.State.EnemySelection;
+                Battle.GetInstance().SetSelectedTargetCharacterBattle(Battle.GetInstance().GetAliveTeamCharacterBattleList(false)[0]);
+                radialMenu.SetActive(false);
+                break;
+            case "Items":
+                Debug.Log("Menu de items");
+                break;
+            case "Run":
+                Debug.Log("Huiste del combate");
+                FunctionTimer.Create(OverworldManager.LoadBackToOvermap, .7f);
+                break;
         }
         yield break;
     }
