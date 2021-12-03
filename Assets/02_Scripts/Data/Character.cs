@@ -94,7 +94,6 @@ public class Character
     public bool isDead;
     public LanePosition lanePosition;
     private bool isInPlayerTeam;     // DEFINE SI ES QUE ESTE CHARACTER VA A SER SPAWNEADO O NO EN EL TEAM DEL PLAYER
-    public bool weapon;
 
     public Character(Type type) //, SubType subType = SubType.None
     {
@@ -138,8 +137,8 @@ public class Character
                 stats = new Stats
                 {
                     attack = 20,
-                    health = 100,
-                    healthMax = 100,
+                    health = 90,
+                    healthMax = 90,
                     defense = 1,
                     turns = 2
                 };
@@ -152,8 +151,8 @@ public class Character
                 stats = new Stats
                 {
                     attack = 25,
-                    health = 100,
-                    healthMax = 100,
+                    health = 110,
+                    healthMax = 110,
                     defense = 1,
                     turns = 2
                 };
@@ -180,8 +179,8 @@ public class Character
                 stats = new Stats
                 {
                     attack = 30,
-                    health = 100,
-                    healthMax = 100,
+                    health = 110,
+                    healthMax = 110,
                     defense = 1,
                     turns = 3
                 };

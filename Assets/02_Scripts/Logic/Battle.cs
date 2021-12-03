@@ -58,11 +58,11 @@ public class Battle
         state = State.Busy;
     }
 
-    public static void SpawnCharacter(Character.Type characterType, Battle.LanePosition lanePosition, bool isPlayerTeam, Character.Stats stats)
+    public static void SpawnCharacter(Character.Type characterType, Battle.LanePosition lanePosition, bool isPlayerTeam, Character character)
     {
         Transform characterTransform = Object.Instantiate(GameAssets.i.pfCharacterBattle, GetPosition(lanePosition, isPlayerTeam), Quaternion.identity);
         CharacterBattle characterBattle = characterTransform.GetComponent<CharacterBattle>();
-        characterBattle.Setup(characterType, lanePosition, GetPosition(lanePosition, isPlayerTeam), isPlayerTeam, stats);
+        characterBattle.Setup(characterType, lanePosition, GetPosition(lanePosition, isPlayerTeam), isPlayerTeam, character.stats,character);
         instance.characterBattleList.Add(characterBattle);
     }
 
@@ -73,9 +73,9 @@ public class Battle
         switch (lanePosition)
         {
             default:
-            case LanePosition.Middle: return new Vector3(playerTeamMultiplier * 50f, 0);
-            case LanePosition.Up: return new Vector3(playerTeamMultiplier * 60f, +20);
-            case LanePosition.Down: return new Vector3(playerTeamMultiplier * 60f, -20);
+            case LanePosition.Middle: return new Vector3(playerTeamMultiplier * 37.6f, -17.2f);
+            case LanePosition.Up: return new Vector3(playerTeamMultiplier * 67.8f, -6.2f);
+            case LanePosition.Down: return new Vector3(playerTeamMultiplier * 57.9f, -37.6f);
         }
 
     }
@@ -138,7 +138,7 @@ public class Battle
                         lanePosition = (LanePosition)character.lanePosition;
                         break;
                 }
-                SpawnCharacter(character.type, lanePosition, true, character.stats);
+                SpawnCharacter(character.type, lanePosition, true, character);
             }
             ResourceManager.instance.RefreshResourcesUI();
         }
@@ -147,7 +147,7 @@ public class Battle
         for (int i = 0; i < enemyEncounter.enemyBattleArray.Length; i++)
         {
             GameData.EnemyEncounter.EnemyBattle enemyBattle = enemyEncounter.enemyBattleArray[i];
-            SpawnCharacter(enemyBattle.characterType, enemyBattle.lanePosition, false, new Character(enemyBattle.characterType).stats);
+            SpawnCharacter(enemyBattle.characterType, enemyBattle.lanePosition, false, new Character(enemyBattle.characterType));
         }
 
         SetActiveCharacterBattle(GetAliveTeamCharacterBattleList(true)[0]);
@@ -341,8 +341,7 @@ public class Battle
             UtilsClass.ShakeCamera(.75f, .15f);
             if (selectedTargetCharacterBattle.IsDead() && activeCharacterBattle.GetCharacterType() == Character.Type.Chillpila)
             {
-                int valor = ResourceManager.instance.GetSoulsAmount();
-                ResourceManager.instance.AddSouls(Random.Range((int)(valor * .15f),(int)(valor * .25f)));
+                ResourceManager.instance.AddSouls(Random.Range((int)(5 * 1.25f),(int)(5 * 1.5f)));
                 //TestEvilMonsterKilled();
             }
         }, () =>
@@ -479,8 +478,7 @@ public class Battle
                         {
                             if (characterBattleList[i].IsDead())
                             {
-                                int valor = ResourceManager.instance.GetSoulsAmount();
-                                ResourceManager.instance.AddSouls(Random.Range((int)(valor * .15f), (int)(valor * .25f)));
+                                ResourceManager.instance.AddSouls(Random.Range((int)(5 * 1.25f), (int)(5 * 1.5f)));
                                 //TestEvilMonsterKilled();
                             }
 
@@ -665,16 +663,6 @@ public class Battle
                     int damageMax = (int)(damageBase * 1.0f);
                     int damageAmount = Random.Range(damageMin, damageMax);
                     int damageChance = activeCharacterBattle.stats.damageChance;
-                    //if (GetAliveCount(true) == 1)
-                    //{
-                    //    // Solo 1 pj vivo
-                    //    CharacterBattle lastSurvivingCharacterBattle = GetAliveTeamCharacterBattleList(true)[0];
-                    //    if (lastSurvivingCharacterBattle.GetHealthAmount() <= damageAmount)
-                    //    {
-                    //        // POR RAZONES DE BETA TESTING Y NO SUFRIR DE ENOJO EXISTE ESTA OPCION, PERO UN FUTURO SE COMENTA
-                    //        damageChance = 0;
-                    //    }
-                    //}
                     if (Random.Range(0, 100) < damageChance)    // probabilidad de golpear al player
                     {
                         // Hit
@@ -701,6 +689,7 @@ public class Battle
                 {
                     ResetCamera();
                     activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
+                    StatusInfo(activeCharacterBattle);
                 });
             }, .3f);
         }
@@ -709,15 +698,10 @@ public class Battle
         {
             // Inicia turno de aliado
             List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(true);
-            List<CharacterBattle> enemyCharacterBattleList = GetAliveTeamCharacterBattleList(false);
+            //List<CharacterBattle> enemyCharacterBattleList = GetAliveTeamCharacterBattleList(false);
             SetActiveCharacterBattle(GetNextCharacterBattle(lastPlayerActiveLanePosition, false, true));
             lastPlayerActiveLanePosition = activeCharacterBattle.GetLanePosition();
 
-            //activeCharacterBattle.TickSpecialCooldown();
-
-            StatusInfo(enemyCharacterBattleList);
-
-            //RefreshSelectedTargetCharacterBattle();
             BattleUI.instance.radialMenu.SetActive(true);
             state = State.WaitingForPlayer;
         }
@@ -730,45 +714,41 @@ public class Battle
         }
     }
 
-    private void StatusInfo(List<CharacterBattle> enemyCharacterBattleList)
+    private void StatusInfo(CharacterBattle character)
     {
-        foreach (CharacterBattle character in enemyCharacterBattleList)
+        if (character.HasStatus())
         {
-            if (character.HasStatus())
-            {
-                character.statusSystem.TimerTick();
-                Debug.Log("Disminuyo en 1 el debuff timer para cada: " + character.GetCharacterType());
-            }
+            character.statusSystem.TimerTick();
         }
     }
 
-    private void RefreshSelectedTargetCharacterBattle()
-    {
-        if (selectedTargetCharacterBattle != null && selectedTargetCharacterBattle.IsDead())
-        {
-            selectedTargetCharacterBattle.HideSelectionCircle();
-            selectedTargetCharacterBattle = null;
-        }
-        if (selectedTargetCharacterBattle == null)
-        {
-            // Select next valid target
-            List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(false);
-            if (characterBattleList.Count == 0)
-            {
-                // No more targets available
-                return;
-            }
-            else
-            {
-                // There are still targets available
-                CharacterBattle newTargetCharacterBattle = characterBattleList[Random.Range(0, characterBattleList.Count)];
-                SetSelectedTargetCharacterBattle(newTargetCharacterBattle);
-            }
-        }
-        else
-        {
-            SetSelectedTargetCharacterBattle(selectedTargetCharacterBattle);
-        }
-    }
+    //private void RefreshSelectedTargetCharacterBattle()
+    //{
+    //    if (selectedTargetCharacterBattle != null && selectedTargetCharacterBattle.IsDead())
+    //    {
+    //        selectedTargetCharacterBattle.HideSelectionCircle();
+    //        selectedTargetCharacterBattle = null;
+    //    }
+    //    if (selectedTargetCharacterBattle == null)
+    //    {
+    //        // Select next valid target
+    //        List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(false);
+    //        if (characterBattleList.Count == 0)
+    //        {
+    //            // No more targets available
+    //            return;
+    //        }
+    //        else
+    //        {
+    //            // There are still targets available
+    //            CharacterBattle newTargetCharacterBattle = characterBattleList[Random.Range(0, characterBattleList.Count)];
+    //            SetSelectedTargetCharacterBattle(newTargetCharacterBattle);
+    //        }
+    //    }
+    //    else
+    //    {
+    //        SetSelectedTargetCharacterBattle(selectedTargetCharacterBattle);
+    //    }
+    //}
 
 }

@@ -26,7 +26,6 @@ public class StatusSystem : MonoBehaviour
         {
             remainingDuration--;
         }
-        Debug.Log("La duración del Status Effect es: " + remainingDuration);
         if (OnTimerChanged != null)
         {
             OnTimerChanged(this, EventArgs.Empty);

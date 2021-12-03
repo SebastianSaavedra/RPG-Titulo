@@ -12,12 +12,12 @@ public class OverworldManager
 
     public static void LoadBackToOvermap()
     {
-        Loader.Load(Loader.Scene.OverworldScene);
+        Loader.LoadTargetScene(Loader.Scene.OverworldScene);
     }
 
     public static void LoadFromOvermapToBattle()
     {
-        Loader.Load(Loader.Scene.BattleScene);
+        Loader.LoadTargetScene(Loader.Scene.BattleScene);
     }
 
     public static void SaveAllCharacterPositions()

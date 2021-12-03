@@ -13,12 +13,13 @@ public class BattleUI : MonoBehaviour
 
     [SerializeField] List<GameObject> buttons = new List<GameObject>();
     [HideInInspector] public string command;
-    public GameObject radialMenu;
+    [HideInInspector] public GameObject radialMenu;
     int index = 0;
 
     private void Awake()
     {
         instance = this;
+        radialMenu = gameObject;
     }
 
     private void Start()
@@ -26,18 +27,6 @@ public class BattleUI : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(buttons[0]);
     }
-
-    //private void Update()
-    //{
-    //    switch(index)
-    //    {
-    //        default:
-    //            break;
-    //        case 0:
-    //            // HACER QUE APAREZCA LA DESCRIPCIÓN AL MOVERSE A TRAVES DEL MENU
-    //            break;
-    //    }
-    //}
 
     private void OnEnable()
     {
@@ -63,26 +52,38 @@ public class BattleUI : MonoBehaviour
         Timing.RunCoroutine(_WaitOneFrameForCommand());
     }
 
-    IEnumerator<float> _WaitOneFrameForCommand()        //  A FUTURO PODRIAS INCLUIR PARAMETROS PARA DEFINIR QUE COMANDO SE ELIGIO
+    IEnumerator<float> _WaitOneFrameForCommand()
     {
         yield return Timing.WaitForOneFrame;
-        if (command == "Special" && Battle.GetInstance().activeCharacterBattle.GetCharacterType() == Character.Type.Arana)
-        {
-            Battle.GetInstance().state = Battle.State.EnemySelection;
-            Battle.GetInstance().SetSelectedTargetCharacterBattle(Battle.GetInstance().GetAliveTeamCharacterBattleList(false)[0]);
-            radialMenu.SetActive(false);
-        }
-        else if (command == "Special"  && Battle.GetInstance().activeCharacterBattle.TrySpendSpecial())
-        {
-            Battle.GetInstance()._Special();
-            radialMenu.SetActive(false);
-        }
+
         switch(command)
         {
             case "Attack":
                 Battle.GetInstance().state = Battle.State.EnemySelection;
                 Battle.GetInstance().SetSelectedTargetCharacterBattle(Battle.GetInstance().GetAliveTeamCharacterBattleList(false)[0]);
                 radialMenu.SetActive(false);
+                break;
+            case "Special":
+                switch (Battle.GetInstance().activeCharacterBattle.GetCharacterType())
+                {
+                    case Character.Type.Arana:
+                        if (Battle.GetInstance().activeCharacterBattle.TrySpendSpecial())
+                        {
+                            Battle.GetInstance().state = Battle.State.EnemySelection;
+                            Battle.GetInstance().SetSelectedTargetCharacterBattle(Battle.GetInstance().GetAliveTeamCharacterBattleList(false)[0]);
+                            radialMenu.SetActive(false);
+                        }
+                        break;
+                    //case Character.Type.Suyai:
+                    //    break;
+                    default:
+                        if (Battle.GetInstance().activeCharacterBattle.TrySpendSpecial())
+                        {
+                            Battle.GetInstance()._Special();
+                            radialMenu.SetActive(false);
+                        }
+                        break;
+                }
                 break;
             case "Items":
                 Debug.Log("Menu de items");

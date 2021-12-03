@@ -26,14 +26,13 @@ public class HealthSystem
         }
     }
 
-    public float GetHealthPercent()
-    {
-        return (float)health / healthMax;
-    }
-
     public int GetHealthAmount()
     {
         return health;
+    }
+    public int GetMaxHealthAmount()
+    {
+        return healthMax;
     }
 
     public void Damage(int amount)

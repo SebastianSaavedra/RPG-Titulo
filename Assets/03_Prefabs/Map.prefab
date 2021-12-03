@@ -937,6 +937,8 @@ MonoBehaviour:
       lanePosition: 1
     - characterType: 5
       lanePosition: 0
+    - characterType: 5
+      lanePosition: 2
 --- !u!1 &7461500350809809799
 GameObject:
   m_ObjectHideFlags: 0

@@ -195,10 +195,12 @@ public class MenuStateController : MonoBehaviour
                         pjEntra.ChangeLane(Character.LanePosition.Down);
                         break;
                 }
+                Timing.RunCoroutine(interactionController._EventSystemReAssign(SaveGameObject()));
             }
             else
             {
                 Debug.Log("NO PUEDES SACAR A SUYAI DEL TEAM");
+                Timing.RunCoroutine(interactionController._EventSystemReAssign(SaveGameObject()));
                 //mensaje de q no puedes sacar a suyai del team
             }
         }

@@ -37,6 +37,7 @@ public class MenuInteractionController : MonoBehaviour
                     if (!mainMenu.activeSelf)
                     {
                         OpenCloseMenu(lastMenuOpened, subMenus[index]);
+                        Debug.Log("desactive un menu");
                     }
                     else
                     {

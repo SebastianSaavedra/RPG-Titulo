@@ -1,11 +1,11 @@
-using UnityEngine;
+//using UnityEngine;
 
-public class LoaderUpdate : MonoBehaviour
-{
+//public class LoaderUpdate : MonoBehaviour
+//{
 
-    private void Update()
-    {
-        Loader.LoadTargetScene();
-    }
+//    private void Update()
+//    {
+//        Loader.LoadTargetScene();
+//    }
 
-}
+//}

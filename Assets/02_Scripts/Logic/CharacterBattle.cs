@@ -23,11 +23,12 @@ public class CharacterBattle : MonoBehaviour
     private Battle.LanePosition lanePosition;
     private Character.Type characterType;
     [HideInInspector] public Character.Stats stats;
+    Character character;
     private int health, attack, defense, damageChance;
     private Action onAttackHit;
     private Action onAttackComplete;
     private Action onSlideComplete;
-    private World_Bar healthWorldBar;
+    //private World_Bar healthWorldBar;
     private HealthSystem healthSystem;
     [HideInInspector] public StatusSystem statusSystem;
     private SpriteRenderer spriteRen;
@@ -57,6 +58,7 @@ public class CharacterBattle : MonoBehaviour
         spriteRen = gameObject.GetComponent<SpriteRenderer>();
         materialTintColor = new Color(1, 0, 0, 0);
         selectionCircleTransform = transform.Find("SelectionCircle");
+        statusSystem = StatusSystem.instance;
         HideSelectionCircle();
         SetStateIdle();
     }
@@ -66,13 +68,14 @@ public class CharacterBattle : MonoBehaviour
         baseTint = GetComponent<SpriteRenderer>().material.color;
     }
 
-    public void Setup(Character.Type characterType, Battle.LanePosition lanePosition, Vector3 startingPosition, bool isPlayerTeam, Character.Stats stats)
+    public void Setup(Character.Type characterType, Battle.LanePosition lanePosition, Vector3 startingPosition, bool isPlayerTeam, Character.Stats stats, Character character)
     {
         this.characterType = characterType;
         this.lanePosition = lanePosition;
         this.startingPosition = startingPosition;
         this.isPlayerTeam = isPlayerTeam;
         this.stats = stats;
+        this.character = character;
 
         health = stats.health;
         attack = stats.attack;
@@ -118,11 +121,10 @@ public class CharacterBattle : MonoBehaviour
         }
         healthSystem = new HealthSystem(stats.healthMax);
         healthSystem.SetHealthAmount(stats.health);
-        statusSystem = new StatusSystem();
         //
-        healthWorldBar = new World_Bar(transform, healthWorldBarLocalPosition, new Vector3(12 * (stats.healthMax / 100f), 1.6f), Color.grey, Color.red, healthSystem.GetHealthPercent(), UnityEngine.Random.Range(1000, 2000), new World_Bar.Outline { color = Color.black, size = .6f });
+        //healthWorldBar = new World_Bar(transform, healthWorldBarLocalPosition, new Vector3(12 * (stats.healthMax / 100f), 1.6f), Color.grey, Color.red, healthSystem.GetHealthPercent(), UnityEngine.Random.Range(1000, 2000), new World_Bar.Outline { color = Color.black, size = .6f });
         healthSystem.OnHealthChanged += HealthSystem_OnHealthChanged;
-        healthSystem.OnDead += HealthSystem_OnDead;
+        //healthSystem.OnDead += HealthSystem_OnDead;
 
         Timing.RunCoroutine(_WaitUntilAnimComplete("Base Layer.START"));
     }
@@ -135,14 +137,17 @@ public class CharacterBattle : MonoBehaviour
         yield break;
     }
 
-    private void HealthSystem_OnDead(object sender, EventArgs e)
-    {
-        healthWorldBar.Hide();
-    }
+    //private void HealthSystem_OnDead(object sender, EventArgs e)
+    //{
+    //    healthWorldBar.Hide();
+    //}
 
     private void HealthSystem_OnHealthChanged(object sender, EventArgs e)
     {
-        healthWorldBar.SetSize(healthSystem.GetHealthPercent());
+        if (isPlayerTeam == true)
+        {
+            InfoMenuWindow.instance.OnHealthChanged(character,healthSystem);
+        }
     }
 
     public void Damage(CharacterBattle attacker, int damageAmount)
@@ -181,7 +186,7 @@ public class CharacterBattle : MonoBehaviour
                 //SoundManager.PlaySound(SoundManager.Sound.OooohNooo);
             }
             //playerAnims.GetUnitAnimation().PlayAnimForced(UnitAnim.GetUnitAnim("LyingUp"), 1f, null);
-            healthWorldBar.Hide();
+            //healthWorldBar.Hide();
             transform.localScale = new Vector3(-1, 1, 1);
             //gameObject.SetActive(false);
             //Destroy(gameObject);
