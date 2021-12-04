@@ -6,7 +6,6 @@ using UnityEngine;
 // Clase que contiene datos de cada personaje
 public class Character
 {
-
     public static bool IsUniqueCharacterType(Type type)
     {
         switch (type)
@@ -51,11 +50,8 @@ public class Character
         //Jefe3,
 
         Shop,
-        //Villager_1,
-        //Villager_2,
-        //Villager_3,
-        //Villager_4,
-        //Villager_5,
+        NPC_1,
+
     }
 
     public enum LanePosition
@@ -66,39 +62,21 @@ public class Character
         None,
     }
 
-    //public enum SubType
-    //{
-    //    None,
-
-    //    Enemy_HurtMeDaddy,
-    //    Enemy_HurtMeDaddy_2,
-
-    //    Tank_BeforeJoin,
-    //    Tank_Friendly,
-
-    //    Healer_BeforeJoin,
-    //    Healer_Friendly,
-
-    //    EvilMonster_1,
-    //    EvilMonster_2,
-    //    EvilMonster_3,
-    //}
-
     public Type type;
-    //public SubType subType;
     public Stats stats;
     public string name;
     public Vector3 position;
     public GameData.EnemyEncounter enemyEncounter;
     public GameData.ShopContents shopContents;
+    public GameData.NPCDialogues npcDialogues;
     public bool isDead;
     public LanePosition lanePosition;
+    private bool firstTimeTalking;
     private bool isInPlayerTeam;     // DEFINE SI ES QUE ESTE CHARACTER VA A SER SPAWNEADO O NO EN EL TEAM DEL PLAYER
 
-    public Character(Type type) //, SubType subType = SubType.None
+    public Character(Type type)
     {
         this.type = type;
-        //this.subType = subType;
         name = type.ToString();
 
         stats = new Stats
@@ -206,21 +184,26 @@ public class Character
 
 
 
-            /////////////////// NPC
-            //case Type.Villager_1:
-            //case Type.Villager_2:
-            //case Type.Villager_3:
-            //case Type.Villager_4:
-            //case Type.Villager_5:
-            //    name = "Villager";
-            //    break;
+            ///////////////// NPC
+            case Type.NPC_1:
+                name = "Elpe huen";
+                break;
 
             /////////////////// VENDEDORES
             case Type.Shop:
-                name = "Vendor";
+                name = "Vendedor";
                 break;
         }
         isDead = false;
+    }
+
+    public bool IsFirstTimeTalking()
+    {
+        return firstTimeTalking;
+    }
+    public void AssignFirstTimeTalking()
+    {
+        firstTimeTalking = true;
     }
 
     public bool IsInPlayerTeam()

@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class NPCOverworld : MonoBehaviour
 {
-
     public static NPCOverworld instance;
 
     private const float SPEED = 10f;
@@ -31,53 +30,23 @@ public class NPCOverworld : MonoBehaviour
         SetStateNormal();
     }
 
-    public void Setup(Character character, PlayerOverworld playerOvermap)
+    public void Setup(Character character, PlayerOverworld playerOverworld)
     {
         this.character = character;
-        this.playerOverworld = playerOvermap;
+        this.playerOverworld = playerOverworld;
 
         //animación de caminar
 
         switch (character.type)
         {
-            //case Character.Type.Tank:
-            //    material.mainTexture = GameAssets.i.t_Tank;
-            //    playerBase.GetAnimatedWalker().SetAnimations(GameAssets.UnitAnimTypeEnum.dSwordShield_Idle, GameAssets.UnitAnimTypeEnum.dSwordShield_Walk, 1f, 1f);
-            //    transform.localScale = Vector3.one * 1.2f;
-            //    break;
-            //case Character.Type.Healer:
-            //    material.mainTexture = GameAssets.i.t_Healer;
-            //    playerBase.GetAnimatedWalker().SetAnimations(GameAssets.UnitAnimTypeEnum.dDualDagger_Idle, GameAssets.UnitAnimTypeEnum.dDualDagger_Walk, 1f, 1f);
-            //    transform.localScale = Vector3.one * 1.0f;
-            //    break;
-            //case Character.Type.PlayerDoppelganger:
-            //    material.mainTexture = GameAssets.i.t_Player;
-            //    playerBase.GetAnimatedWalker().SetAnimations(GameAssets.UnitAnimTypeEnum.dBareHands_Idle, GameAssets.UnitAnimTypeEnum.dBareHands_Walk, 1f, 1f);
-            //    transform.localScale = Vector3.one * 1.0f;
-            //    break;
-            //case Character.Type.Shop:
-            //    material.mainTexture = GameAssets.i.t_Vendor;
-            //    break;
+            case Character.Type.NPC_1:
+                sprite.sprite = GameAssets.i.npc_1;
+                //Setear animator
+                break;
 
-            //case Character.Type.Villager_1: material.mainTexture = GameAssets.i.t_Villager_1; break;
-            //case Character.Type.Villager_2: material.mainTexture = GameAssets.i.t_Villager_2; break;
-            //case Character.Type.Villager_3: material.mainTexture = GameAssets.i.t_Villager_3; break;
-            //case Character.Type.Villager_4: material.mainTexture = GameAssets.i.t_Villager_4; break;
-            //case Character.Type.Villager_5: material.mainTexture = GameAssets.i.t_Villager_5; break;
-
-            //case Character.Type.Randy:
-            //    material.mainTexture = GameAssets.i.t_Randy;
-            //    playerBase.GetAnimatedWalker().SetAnimations(GameAssets.UnitAnimTypeEnum.dBareHands_Idle, GameAssets.UnitAnimTypeEnum.dBareHands_Walk, 1f, 1f);
-            //    break;
-            //case Character.Type.TavernAmbush:
-            //    material.mainTexture = GameAssets.i.t_EnemyMinionRed;
-            //    playerBase.GetAnimatedWalker().SetAnimations(GameAssets.UnitAnimTypeEnum.dMinion_Idle, GameAssets.UnitAnimTypeEnum.dMinion_Walk, 1f, 1f);
-            //    break;
-            //case Character.Type.TavernAmbush_2:
-            //case Character.Type.TavernAmbush_3:
-            //    material.mainTexture = GameAssets.i.t_EnemyMinionOrange;
-            //    playerBase.GetAnimatedWalker().SetAnimations(GameAssets.UnitAnimTypeEnum.dMinion_Idle, GameAssets.UnitAnimTypeEnum.dMinion_Walk, 1f, 1f);
-            //    break;
+                //case Character.Type.Shop:
+                //    material.mainTexture = GameAssets.i.t_Vendor;
+                //    break;
         }
 
         SetTargetMovePosition(GetPosition());

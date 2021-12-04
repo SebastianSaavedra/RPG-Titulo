@@ -35,6 +35,8 @@ public class GameAssets : MonoBehaviour
     public Transform dmgDebuff, blindDebuff, healthDebuff;
     public Transform pfMedicinalHerbs;
     public Transform pfCoin;
+    public Transform pfChatBubbleUI;
+    public Transform pfChatOption;
 
     [Header("Animators")]
     [Space(5)]
@@ -47,8 +49,10 @@ public class GameAssets : MonoBehaviour
     [Space(5)]
 
     public Sprite spriteEnemy;
+    public Sprite npc_1;
     public Sprite spriteOWPedro, spriteOWArana, spriteOWChillpila, spriteOWAntay;
     public Sprite splashSuyai, splashPedro, splashChillpila, splashArana, splashAntay;
+    public Sprite playerDialogueSprite, npc_1DialogueSprite;
     public List<Sprite> enemies = new List<Sprite>();
 
     public SoundAudioClip[] audioClipsArray;

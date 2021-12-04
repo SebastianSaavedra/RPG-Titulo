@@ -1,10 +1,10 @@
 using UnityEngine;
 using CodeMonkey.MonoBehaviours;
 using GridPathfindingSystem;
-public class GameManager_Overmap : MonoBehaviour
+public class GameManager_Overworld : MonoBehaviour
 {
 
-    private static GameManager_Overmap instance;
+    private static GameManager_Overworld instance;
 
     public static GridPathfinding gridPathfinding;
     [SerializeField] private CameraFollow cameraFollow;

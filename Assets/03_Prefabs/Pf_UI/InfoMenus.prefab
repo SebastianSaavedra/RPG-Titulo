@@ -67,7 +67,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: b6ca2bffb1a572f4993fb90527952527, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -530,12 +530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4c73cfa8512de94ba1a38a507b8eb97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  posiciones: 1
-  window: {fileID: 3693785565381016312}
-  icon: {fileID: 8503984419939095215}
-  nombre: {fileID: 7976787916036232889}
-  vida: {fileID: 4745540497685378703}
-  recurso: {fileID: 2290925253848176409}
+  characterWindowArray: []
 --- !u!1 &1591436161325576181
 GameObject:
   m_ObjectHideFlags: 0
@@ -991,12 +986,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4c73cfa8512de94ba1a38a507b8eb97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  posiciones: 0
-  window: {fileID: 6743259163110664715}
-  icon: {fileID: 3730793404218349006}
-  nombre: {fileID: 1489695174512922155}
-  vida: {fileID: 3961121800893925151}
-  recurso: {fileID: 4218217288069803267}
+  characterWindowArray: []
 --- !u!1 &3693785565381016312
 GameObject:
   m_ObjectHideFlags: 0
@@ -1386,7 +1376,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: b6ca2bffb1a572f4993fb90527952527, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -1656,12 +1646,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4c73cfa8512de94ba1a38a507b8eb97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  posiciones: 2
-  window: {fileID: 8291486273407910329}
-  icon: {fileID: 4144906351037123662}
-  nombre: {fileID: 7735618065564863437}
-  vida: {fileID: 6880392515029830017}
-  recurso: {fileID: 6274574771531051893}
+  characterWindowArray: []
 --- !u!1 &8771115912703466322
 GameObject:
   m_ObjectHideFlags: 0
@@ -1729,7 +1714,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: b6ca2bffb1a572f4993fb90527952527, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1

@@ -129,33 +129,32 @@ public class PlayerOverworld : MonoBehaviour
         //    }
         //}
 
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    NPCOvermap npcOvermap = OvermapHandler.GetInstance().GetClosestNPC(GetPosition(), 12f);
-        //    if (npcOvermap != null)
-        //    {
-        //        switch (npcOvermap.GetCharacter().type)
-        //        {
-        //            case Character.Type.Tank:
-        //                // Tank is only a NPC before he joins
-        //                Cutscenes.Play_Tank_BeforeJoin();
-        //                break;
-        //            case Character.Type.Healer:
-        //                // Healer is only a NPC before he joins
-        //                //Cutscenes.Play_Healer_BeforeJoin();
-        //                break;
-        //            case Character.Type.PlayerDoppelganger:
-        //                if (GameData.state == GameData.State.GoingToAskDoppelGanger)
-        //                {
-        //                    Cutscenes.Play_DoppelGanger();
-        //                }
-        //                break;
-        //            case Character.Type.Shop:
-        //                Cutscenes.Play_Shop(npcOvermap.GetCharacter());
-        //                break;
-        //        }
-        //    }
-        //}
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            NPCOverworld npcOverworld = OverworldManager.GetInstance().GetClosestNPC(GetPosition(), 12f);
+            if (npcOverworld != null)
+            {
+                switch (npcOverworld.GetCharacter().type)
+                {
+                    case Character.Type.NPC_1:
+                        if (!npcOverworld.GetCharacter().IsFirstTimeTalking())
+                        {
+                            Debug.Log("ENTRO EN DIALOGO");
+                            npcOverworld.GetCharacter().AssignFirstTimeTalking();
+                            Dialogues.TestDialogue(npcOverworld.GetCharacter());
+                        }
+                        else
+                        {
+                            Debug.Log("ENTRO EN DIALOGO RANDOM");
+                            Dialogues.RandomNPCDialog(npcOverworld.GetCharacter());
+                        }
+                        break;
+                    //case Character.Type.Shop:
+                    //    Cutscenes.Play_Shop(npcOvermap.GetCharacter());
+                    //    break;
+                }
+            }
+        }
     }
 
     private void HandleMovement()

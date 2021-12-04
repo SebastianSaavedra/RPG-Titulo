@@ -6,8 +6,8 @@ public class CharacterSpawnData : MonoBehaviour
 {
 
     public Character.Type characterType;
-    //public Character.SubType characterSubType;
     public GameData.EnemyEncounter enemyEncounter;
+    public GameData.NPCDialogues npcDialogues;
     //public GameData.ShopContents shopContents;
 
 }

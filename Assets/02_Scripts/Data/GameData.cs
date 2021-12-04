@@ -102,6 +102,7 @@ public static class GameData
                     {
                         position = mapSpawn.position,
                         enemyEncounter = characterSpawnData.enemyEncounter,
+                        npcDialogues = characterSpawnData.npcDialogues
                         //shopContents = characterSpawnData.shopContents.Clone()
                     }
                 );
@@ -180,6 +181,17 @@ public static class GameData
                 this.characterType = characterType;
                 this.lanePosition = lanePosition;
             }
+        }
+    }
+    [Serializable]
+    public class NPCDialogues
+    {
+        public DialoguesList[] dialogues;
+
+        [Serializable]
+        public struct DialoguesList
+        {
+            public string[] dialogue;
         }
     }
 

@@ -57,6 +57,8 @@ MonoBehaviour:
   healthDebuff: {fileID: 0}
   pfMedicinalHerbs: {fileID: 740378356030626837, guid: 4bf72b9393beda943b3c995d46d569d5, type: 3}
   pfCoin: {fileID: 740378356030626837, guid: 8a842e0f3e27e974880a141e0b9a8b9a, type: 3}
+  pfChatBubbleUI: {fileID: 0}
+  pfChatOption: {fileID: 0}
   suyaiANIM: {fileID: 9100000, guid: f12bc6ecd7ec9bb4a94d78b4c02c7fbc, type: 2}
   pedroANIM: {fileID: 9100000, guid: 92d7085d1b370e74ab1045b36989edfa, type: 2}
   aranaANIM: {fileID: 9100000, guid: 2953abf012d3b9f48933f62342c1a879, type: 2}
@@ -64,6 +66,7 @@ MonoBehaviour:
   chillpilaANIM: {fileID: 9100000, guid: 17276fb73c5e8d244be173111835a717, type: 2}
   enemyANIM: {fileID: 9100000, guid: 488d572aeae6c2049905a1fda8af6d12, type: 2}
   spriteEnemy: {fileID: 21300000, guid: 6d549ced5c29b0c4482ca4495e3b240e, type: 3}
+  npc_1: {fileID: 5827935539512385037, guid: 7e6dc2ea2d0be764bac1dc66c10069d8, type: 3}
   spriteOWPedro: {fileID: 21300000, guid: eefaf311a7cf50f44ad7336ad0b8d2b2, type: 3}
   spriteOWArana: {fileID: 21300000, guid: ccd95990fbf33764699f25c675240de1, type: 3}
   spriteOWChillpila: {fileID: 21300000, guid: 5f02b309d128b90428225ce9e3b86f9b, type: 3}
@@ -73,6 +76,8 @@ MonoBehaviour:
   splashChillpila: {fileID: 21300000, guid: 5f02b309d128b90428225ce9e3b86f9b, type: 3}
   splashArana: {fileID: 21300000, guid: ccd95990fbf33764699f25c675240de1, type: 3}
   splashAntay: {fileID: 21300000, guid: e8dab28991e649047a4aeb118f5fdcc8, type: 3}
+  playerDialogueSprite: {fileID: 21300000, guid: 084f7d017102da1499e6632c6ae727e2, type: 3}
+  npc_1DialogueSprite: {fileID: 5827935539512385037, guid: 7e6dc2ea2d0be764bac1dc66c10069d8, type: 3}
   enemies:
   - {fileID: 21300000, guid: e34b9e308ecb010429c88f7c5804f5cd, type: 3}
   - {fileID: 21300000, guid: 20b3f5a2f3f54d748b19e1f2d7a57c45, type: 3}
@@ -88,4 +93,7 @@ MonoBehaviour:
     volumen: 0.66
   - sound: 10
     audioClip: {fileID: 8300000, guid: 3254f01cd12b1ba4ebedce91da91644e, type: 3}
+    volumen: 0.66
+  - sound: 12
+    audioClip: {fileID: 8300000, guid: 8ee46854bc6e47f448907f0b53a7e21d, type: 3}
     volumen: 0.66
