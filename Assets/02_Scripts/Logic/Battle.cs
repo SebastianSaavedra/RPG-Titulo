@@ -47,6 +47,7 @@ public class Battle
         WaitingForPlayer,
         OnMenu,
         EnemySelection,
+        AllySelection,
         OnInventory,
         Busy,
     }
@@ -198,9 +199,9 @@ public class Battle
     /// Para cambiar de objetivo (Esta funcion debe ser usada desde el script BattleWindow)
     /// </summary>
     /// <param name="isUp"></param>
-    public void UITargetSelect(bool isUp)
+    public void UITargetSelect(bool isUp, bool isTeam)
     {
-        SetSelectedTargetCharacterBattle(GetNextCharacterBattle(selectedTargetCharacterBattle.GetLanePosition(), isUp, false));
+        SetSelectedTargetCharacterBattle(GetNextCharacterBattle(selectedTargetCharacterBattle.GetLanePosition(), isUp, isTeam));
     }
 
     private CharacterBattle GetNextCharacterBattle(LanePosition lanePosition, bool moveUp, bool isPlayerTeam)
@@ -266,45 +267,70 @@ public class Battle
         return character;
     }
 
+    public List<CharacterBattle> GetDeadTeamCharacterBattleList(bool isPlayerTeam)
+    {
+        List<CharacterBattle> character = new List<CharacterBattle>();
+        foreach (CharacterBattle characterBattle in characterBattleList)
+        {
+            if (characterBattle.IsDead() && characterBattle.IsPlayerTeam() == isPlayerTeam)
+            {
+                character.Add(characterBattle);
+            }
+        }
+        return character;
+    }
+
     public void Update()
     {
-        switch (state)
+        if (state == State.EnemySelection || state == State.AllySelection)
         {
-            //case State.WaitingForPlayer:
-            //    break;
+            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
+            {
+                // Selecciona un pj de arriba
+                UITargetSelect(true, false);
+            }
 
+            if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
+            {
+                // Selecciona un pj de abajo
+                UITargetSelect(false, false);
+            }
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+            {
+                ExecuteCommand(BattleUI.instance.command);
+            }
 
-            case State.EnemySelection:
-
-                if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
-                {
-                    // Selecciona un pj de arriba
-                    UITargetSelect(true);
-                }
-
-                if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
-                {
-                    // Selecciona un pj de abajo
-                    UITargetSelect(false);
-                }
-
-                if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
-                {
-                    ExecuteCommand(BattleUI.instance.command);
-                }
-
-                if (Input.GetKeyDown(KeyCode.Escape) && !BattleUI.instance.radialMenu.activeInHierarchy)
-                {
-                    Debug.Log("Retrocedio 1 paso");
-                    state = State.WaitingForPlayer;
-                    BattleUI.instance.radialMenu.SetActive(true);
-                    selectedTargetCharacterBattle.HideSelectionCircle();
-                    selectedTargetCharacterBattle = null;
-                }
-                break;
-            //case State.Busy:
-            //    break;
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Debug.Log("Retrocedio 1 paso");
+                state = State.WaitingForPlayer;
+                BattleUI.instance.OpenLastWindow();
+                selectedTargetCharacterBattle.HideSelectionCircle();
+                selectedTargetCharacterBattle = null;
+            }
         }
+
+        //if (BattleUI.instance.battleMenus == BattleUI.BATTLEMENUS.Submenu)
+        //{
+        //    if (Input.GetKeyDown(KeyCode.Escape))
+        //    {
+        //        if (state == State.EnemySelection || state == State.AllySelection)
+        //        {
+        //            Debug.Log("Retrocedio 1 paso");
+        //            state = State.WaitingForPlayer;
+        //            BattleUI.instance.OpenLastWindow();
+        //            selectedTargetCharacterBattle.HideSelectionCircle();
+        //            selectedTargetCharacterBattle = null;
+        //        }
+        //        else
+        //        {
+        //            Debug.Log("Retrocedio 1 paso");
+        //            state = State.WaitingForPlayer;
+        //            BattleUI.instance.lastMenuActivated.SetActive(false);
+        //            BattleUI.instance.SetSelectedGameObjectEventSystem();
+        //        }
+        //    }
+        //}
         Debug.Log(state);
     }
 
@@ -325,11 +351,25 @@ public class Battle
         }
     }
 
+    public void _Defense()
+    {
+        state = State.Busy;
+        BattleUI.instance.lastMenuActivated = null;
+        FunctionTimer.Create(ChooseNextActiveCharacter, .2f);
+        SetCamera(activeCharacterBattle.GetPosition(), 30f);
+        activeCharacterBattle.Block(() =>
+        {
+            ResetCamera();
+            activeCharacterBattle.HideSelectionCircle();
+        });
+    }
+
     private void _Attack()
     {
         // Ataque basico
         state = State.Busy;
-        BattleUI.instance.radialMenu.SetActive(false);
+        BattleUI.instance.lastMenuActivated = null;
+        BattleUI.instance.battleMenus = BattleUI.BATTLEMENUS.None;
         SetCamera(selectedTargetCharacterBattle.GetPosition() + new Vector3(-5f, 0), 30f);
         activeCharacterBattle.AttackTarget(selectedTargetCharacterBattle.GetPosition(), () =>
         {
@@ -337,7 +377,7 @@ public class Battle
             int damageBase = activeCharacterBattle.GetAttack();
             int minDamage = (int)(damageBase * 0.8f);
             int maxDamage = (int)(damageBase * 1.2f);
-            selectedTargetCharacterBattle.Damage(activeCharacterBattle, Random.Range(minDamage, maxDamage)); ;
+            selectedTargetCharacterBattle.Damage(activeCharacterBattle, Random.Range(minDamage, maxDamage),selectedTargetCharacterBattle); ;
             UtilsClass.ShakeCamera(.75f, .15f);
             if (selectedTargetCharacterBattle.IsDead() && activeCharacterBattle.GetCharacterType() == Character.Type.Chillpila)
             {
@@ -354,38 +394,95 @@ public class Battle
 
     public void _Special()
     {
-        // Spend Special
+        state = State.Busy;
         int number = Random.Range(0, 3);
+        BattleUI.instance.lastMenuActivated = null;
+        BattleUI.instance.battleMenus = BattleUI.BATTLEMENUS.None;
         switch (activeCharacterBattle.GetCharacterType())
         {
             default:
-            case Character.Type.Suyai:      //Healer - Buffer - Support
-                state = State.Busy;
+            case Character.Type.Suyai:      //Healer - Support
                 BattleUI.instance.radialMenu.SetActive(false);
-                SetCamera(activeCharacterBattle.GetPosition(), 30f);
-                activeCharacterBattle.PlayAnimSpecialAttack(() =>
+                switch (BattleUI.instance.spellName)
                 {
-                    activeCharacterBattle.PlayIdleAnim();
-                    ResetCamera();
-                    FunctionTimer.Create(ChooseNextActiveCharacter, .2f);
-                },
-                () => { });
+                    case "Curar":
+                        SetCamera(selectedTargetCharacterBattle.GetPosition() + new Vector3(-5f, 0), 30f);
+                        Vector3 slideToPositionToHeal = selectedTargetCharacterBattle.GetPosition() + new Vector3(-8f, 0);
+                        activeCharacterBattle.SlideToPosition(slideToPositionToHeal, () =>
+                        {
+                            activeCharacterBattle.PlayAnimSpecialAttack(() =>
+                            {
+                                ResetCamera();
+                                activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
+                            }, () =>
+                            {
+                                //Heal Individual
+                                //SoundManager.PlaySound(SoundManager.Sound.Heal);
+                                selectedTargetCharacterBattle.Heal((int)(selectedTargetCharacterBattle.GetHealthAmount() * .2f));
+                            });
+                        });
+                        ResourceManager.instance.ConsumeHerbs(1);
+                        break;
 
-                FunctionTimer.Create(() => {
-                    // Heal all
-                    //SoundManager.PlaySound(SoundManager.Sound.Heal);
-                    List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(true);
-                    foreach (CharacterBattle characterBattle in characterBattleList)
-                    {
-                        characterBattle.Heal(50);
-                    }
-                    ResourceManager.instance.ConsumeHerbs(characterBattleList.Count);
-                    //Debug.Log("Cantidad de hierbas: " + SpecialAbilitiesCostSystem.instance.GetHerbsAmount());
-                }, 1.2f);
+                    case "CuraGrupal":
+                        SetCamera(activeCharacterBattle.GetPosition(), 30f);
+                        activeCharacterBattle.PlayAnimSpecialAttack(() =>
+                        {
+                            activeCharacterBattle.PlayIdleAnim();
+                            ResetCamera();
+                            FunctionTimer.Create(ChooseNextActiveCharacter, .2f);
+                        },
+                        () => { });
+
+                        FunctionTimer.Create(() => {
+                            // Heal Grupal
+                            //SoundManager.PlaySound(SoundManager.Sound.Heal);
+                            List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(true);
+                            foreach (CharacterBattle characterBattle in characterBattleList)
+                            {
+                                characterBattle.Heal(50);
+                            }
+                            ResourceManager.instance.ConsumeHerbs(characterBattleList.Count);
+                        }, 1.2f);
+                        break;
+
+                    case "Revivir":
+                        SetCamera(selectedTargetCharacterBattle.GetPosition() + new Vector3(-5f, 0), 30f);
+                        Vector3 slideToPositionToRevive = selectedTargetCharacterBattle.GetPosition() + new Vector3(-8f, 0);
+                        activeCharacterBattle.SlideToPosition(slideToPositionToRevive, () =>
+                        {
+                            activeCharacterBattle.PlayAnimSpecialAttack(() =>
+                            {
+                                ResetCamera();
+                                activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
+                            }, () =>
+                            {
+                                //Revive 1 pj
+                                //SoundManager.PlaySound(SoundManager.Sound.Heal);
+                                selectedTargetCharacterBattle.Heal((int)(selectedTargetCharacterBattle.GetMaxHealthAmount() * .25f));
+                            });
+                        });
+                        ResourceManager.instance.ConsumeHerbs(1);
+                        break;
+
+                    case "Turnos":
+                        SetCamera(activeCharacterBattle.GetPosition(), 30f);
+                        activeCharacterBattle.PlayAnimSpecialAttack(() =>
+                        {
+                            activeCharacterBattle.PlayIdleAnim();
+                            ResetCamera();
+                            FunctionTimer.Create(ChooseNextActiveCharacter, .2f);
+                        }, () =>
+                        {
+                            //SoundManager.PlaySound(SoundManager.Sound.Heal);
+                            TurnSystem.instance.SetTurnCount(3);
+                        });
+                        ResourceManager.instance.ConsumeHerbs(3);
+                        break;
+                }
                 break;
 
             case Character.Type.Antay:      //Tank
-                state = State.Busy;
                 BattleUI.instance.radialMenu.SetActive(false);
 
                 SetCamera(activeCharacterBattle.GetPosition(), 30f);
@@ -410,7 +507,6 @@ public class Battle
                 break;
 
             case Character.Type.Pedro:      // Debuffer - Trickster
-                state = State.Busy;
                 BattleUI.instance.radialMenu.SetActive(false);
                 SetCamera(middlePosition, 30f);
                 activeCharacterBattle.SlideToPosition(middlePosition, () =>
@@ -432,8 +528,8 @@ public class Battle
                     });
                 });
                 break;
+
             case Character.Type.Arana:      // DAMAGE DEALER
-                state = State.Busy;
                 BattleUI.instance.radialMenu.SetActive(false);
                 SetCamera(selectedTargetCharacterBattle.GetPosition() + new Vector3(-5f, 0), 30f);
                 Vector3 slideToPosition = selectedTargetCharacterBattle.GetPosition() + new Vector3(-8f, 0);
@@ -445,11 +541,11 @@ public class Battle
                         activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
                     },() =>
                     {
-                        // Massive Single Enemy Damage
+                        // Un Golpe Fuerte
                         //SoundManager.PlaySound(SoundManager.Sound.CharacterHit);
                         UtilsClass.ShakeCamera(2f, .15f);
                         int damageAmount = 100;
-                        selectedTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount);
+                        selectedTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount, selectedTargetCharacterBattle);
                         //if (selectedTargetCharacterBattle.IsDead())
                         //{
                         //    TestEvilMonsterKilled();
@@ -460,19 +556,18 @@ public class Battle
                 break;
 
             case Character.Type.Chillpila:          // MAGE 
-                state = State.Busy;
                 activeCharacterBattle.SlideToPosition(GetPosition(LanePosition.Middle, false) + new Vector3(-15, 0), () => {
                     activeCharacterBattle.PlayAnimSpecialAttack(() => {
                         activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
                     }, () => {
-                        // Damage All Enemies
+                        // Dano en area
                         //SoundManager.PlaySound(SoundManager.Sound.GroundPound);
                         UtilsClass.ShakeCamera(2f, .15f);
                         int damageAmount = 30;
                         List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(false);
                         foreach (CharacterBattle characterBattle in characterBattleList)
                         {
-                            characterBattle.Damage(activeCharacterBattle, damageAmount);
+                            characterBattle.Damage(activeCharacterBattle, damageAmount,characterBattle);
                         }
                         for (int i = 0; i < characterBattleList.Count; i++)
                         {
@@ -669,13 +764,13 @@ public class Battle
                         if (Random.Range(0, 100) <= 5)       //Critical Hit
                         {
                             damageAmount *= (int)Random.Range((int)1.2f,(int)1.5f);
-                            aiTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount);
+                            aiTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount, aiTargetCharacterBattle);
                             DamagePopups.Create(aiTargetCharacterBattle.GetPosition(),damageAmount,true);
                             UtilsClass.ShakeCamera(1f, .1f);
                         }
                         else                                //Normal Hit
                         {
-                            aiTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount);
+                            aiTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount, aiTargetCharacterBattle);
                             DamagePopups.Create(aiTargetCharacterBattle.GetPosition(), damageAmount, false);
                             UtilsClass.ShakeCamera(.75f, .1f);
                         }
@@ -701,6 +796,10 @@ public class Battle
             //List<CharacterBattle> enemyCharacterBattleList = GetAliveTeamCharacterBattleList(false);
             SetActiveCharacterBattle(GetNextCharacterBattle(lastPlayerActiveLanePosition, false, true));
             lastPlayerActiveLanePosition = activeCharacterBattle.GetLanePosition();
+            if (activeCharacterBattle.IsBlocking())
+            {
+                activeCharacterBattle.LetGoBlock();
+            }
 
             BattleUI.instance.radialMenu.SetActive(true);
             state = State.WaitingForPlayer;

@@ -35,9 +35,9 @@ public class HealthSystem
         return healthMax;
     }
 
-    public void Damage(int amount)
+    public void Damage(int amount, CharacterBattle attackedOne)
     {
-        health -= amount;
+        health -= (amount ^ 2) / (amount + attackedOne.stats.defense);
         if (health < 0)
         {
             health = 0;

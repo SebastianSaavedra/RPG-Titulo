@@ -131,7 +131,7 @@ public class PlayerOverworld : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            NPCOverworld npcOverworld = OverworldManager.GetInstance().GetClosestNPC(GetPosition(), 12f);
+            NPCOverworld npcOverworld = OverworldManager.GetInstance().GetClosestNPC(GetPosition(), 1.5f);
             if (npcOverworld != null)
             {
                 switch (npcOverworld.GetCharacter().type)

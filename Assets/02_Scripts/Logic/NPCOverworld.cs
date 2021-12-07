@@ -129,5 +129,4 @@ public class NPCOverworld : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
-
 }

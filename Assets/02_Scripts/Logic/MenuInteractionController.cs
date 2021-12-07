@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MEC;
-using DG.Tweening;
-using TMPro;
-using System.Linq;
 using UnityEngine.EventSystems;
+
 public class MenuInteractionController : MonoBehaviour
 {
     public static MenuInteractionController instance;

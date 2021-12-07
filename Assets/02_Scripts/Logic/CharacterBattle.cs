@@ -34,6 +34,7 @@ public class CharacterBattle : MonoBehaviour
     private SpriteRenderer spriteRen;
     private bool canSpecial;
     private bool hasStatus;
+    private bool isBlocking;
 
     Sprite sprite;
 
@@ -150,13 +151,36 @@ public class CharacterBattle : MonoBehaviour
         }
     }
 
-    public void Damage(CharacterBattle attacker, int damageAmount)
+    public bool IsBlocking()
+    {
+        return isBlocking;
+    }
+
+    public void Block(Action onDefense)
+    {
+        isBlocking = true;
+        stats.defense += 1;
+        //Animación de bloquear
+        Debug.Log("Se puso en modo bloqueo");
+        TurnSystem.instance.SetTurnCount(1);
+        onDefense();
+    }
+
+    public void LetGoBlock()
+    {
+        isBlocking = false;
+        stats.defense -= 1;
+        playerAnims.PlayAnimIdle();
+        Debug.Log("Salio del modo bloqueo");
+    }
+
+    public void Damage(CharacterBattle attacker, int damageAmount, CharacterBattle characterAttacked)
     {
         //Vector3 bloodDir = (GetPosition() - attacker.GetPosition()).normalized;
         //Blood_Handler.SpawnBlood(GetPosition(), bloodDir);
 
         //SoundManager.PlaySound(SoundManager.Sound.CharacterDamaged);
-        healthSystem.Damage(damageAmount);
+        healthSystem.Damage(damageAmount, characterAttacked);
         DamageFlash();
 
         //ANIMACION DE SER HITEADO
@@ -279,11 +303,11 @@ public class CharacterBattle : MonoBehaviour
     }
 
     public int GetHealthAmount() => healthSystem.GetHealthAmount();
+    public int GetMaxHealthAmount() => healthSystem.GetMaxHealthAmount();
 
     public void PlayIdleAnim()
     {
         playerAnims.PlayAnimIdle();
-        //playerBase.GetUnitAnimation().PlayAnimForced(UnitAnim.GetUnitAnim("LyingUp"), 1f, null);
     }
 
     private Vector3 GetTargetDir()
@@ -321,7 +345,7 @@ public class CharacterBattle : MonoBehaviour
         switch (characterType)
         {
             case Character.Type.Pedro:
-                if (ResourceManager.instance.GetMoneyAmount() >= 0)
+                if (ResourceManager.instance.GetMoneyAmount() > 0)
                 {
                     canSpecial = true;
                 }
@@ -331,7 +355,7 @@ public class CharacterBattle : MonoBehaviour
                 }
                 break;
             case Character.Type.Suyai:
-                if (ResourceManager.instance.GetHerbsAmount() >= ResourceManager.instance.GetMaxHerbsAmount() / 5)
+                if (ResourceManager.instance.GetHerbsAmount() >= 1)
                 {
                     canSpecial = true;
                 }
@@ -341,7 +365,7 @@ public class CharacterBattle : MonoBehaviour
                 }
                 break;
             case Character.Type.Antay:
-                if (ResourceManager.instance.GetHitsAmount() >= ResourceManager.instance.GetMaxHitsAmount() / 5)
+                if (ResourceManager.instance.GetHitsAmount() >= 1)
                 {
                     canSpecial = true;
                 }
@@ -351,7 +375,7 @@ public class CharacterBattle : MonoBehaviour
                 }
                 break;
             case Character.Type.Arana:
-                if (ResourceManager.instance.GetTattoosAmount() >= ResourceManager.instance.GetMaxTattoosAmount() / 5)
+                if (ResourceManager.instance.GetTattoosAmount() >= 1)
                 {
                     canSpecial = true;
                 }
