@@ -49,10 +49,10 @@ public class GameAssets : MonoBehaviour
     [Space(5)]
 
     public Sprite spriteEnemy;
-    public Sprite npc_1;
+    public Sprite questNpc_1, warriorNPC;
     public Sprite spriteOWPedro, spriteOWArana, spriteOWChillpila, spriteOWAntay;
     public Sprite splashSuyai, splashPedro, splashChillpila, splashArana, splashAntay;
-    public Sprite playerDialogueSprite, npc_1DialogueSprite;
+    public Sprite playerDialogueSprite, npc_1DialogueSprite, warriorNpcDialogueSprite;
     public List<Sprite> enemies = new List<Sprite>();
 
     public Quest[] questArray;

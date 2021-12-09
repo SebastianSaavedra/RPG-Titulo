@@ -40,8 +40,16 @@ public class NPCOverworld : MonoBehaviour
 
         switch (character.type)
         {
-            case Character.Type.NPC_1:
-                sprite.sprite = GameAssets.i.npc_1;
+            case Character.Type.QuestNpc_1:
+                sprite.sprite = GameAssets.i.questNpc_1;
+                //Setear animator
+                break;
+            case Character.Type.WarriorNPC_1:
+                sprite.sprite = GameAssets.i.warriorNPC;
+                //Setear animator
+                break;
+            case Character.Type.WarriorNPC_2:
+                sprite.sprite = GameAssets.i.warriorNPC;
                 //Setear animator
                 break;
 

@@ -66,7 +66,8 @@ MonoBehaviour:
   chillpilaANIM: {fileID: 9100000, guid: 17276fb73c5e8d244be173111835a717, type: 2}
   enemyANIM: {fileID: 9100000, guid: 488d572aeae6c2049905a1fda8af6d12, type: 2}
   spriteEnemy: {fileID: 21300000, guid: 6d549ced5c29b0c4482ca4495e3b240e, type: 3}
-  npc_1: {fileID: 5827935539512385037, guid: 7e6dc2ea2d0be764bac1dc66c10069d8, type: 3}
+  questNpc_1: {fileID: 0}
+  warriorNPC: {fileID: 21300000, guid: 170e201a23bd75a40bd92ca0633b5605, type: 3}
   spriteOWPedro: {fileID: 21300000, guid: 2508f08a576af4e479843b9039b7f363, type: 3}
   spriteOWArana: {fileID: 21300000, guid: 843a560d664e92748b4633ceaffc2c32, type: 3}
   spriteOWChillpila: {fileID: 21300000, guid: d27f2c46446c3034dbbac0b4eb7d1265, type: 3}
@@ -78,6 +79,7 @@ MonoBehaviour:
   splashAntay: {fileID: 21300000, guid: c2487de4c7ab5df4f9ff42e88f16cf79, type: 3}
   playerDialogueSprite: {fileID: 21300000, guid: 6f15fc5d26e8bda42ad26663858aa678, type: 3}
   npc_1DialogueSprite: {fileID: 5827935539512385037, guid: 7e6dc2ea2d0be764bac1dc66c10069d8, type: 3}
+  warriorNpcDialogueSprite: {fileID: 21300000, guid: 170e201a23bd75a40bd92ca0633b5605, type: 3}
   enemies:
   - {fileID: 21300000, guid: 2f50c32beb34dbb4687efa4f3b7e170b, type: 3}
   - {fileID: 21300000, guid: d2d0c1724bb61fe49ae74baa68e8c837, type: 3}

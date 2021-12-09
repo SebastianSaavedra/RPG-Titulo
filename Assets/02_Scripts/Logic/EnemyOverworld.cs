@@ -6,7 +6,7 @@ public class EnemyOverworld : MonoBehaviour
 
     public static EnemyOverworld instance;
 
-    private const float SPEED = 7.5f;
+    private const float SPEED = 5.5f;
 
     private Character_Anims charAnim;
     private Animator anim;
@@ -93,7 +93,7 @@ public class EnemyOverworld : MonoBehaviour
 
     private void HandleRoaming()
     {
-        float minRoamDistance = 5f;
+        float minRoamDistance = 2f;
         if (Vector3.Distance(GetPosition(), roamPosition) < minRoamDistance)
         {
             // Near roam position, wait
@@ -119,7 +119,7 @@ public class EnemyOverworld : MonoBehaviour
 
     private void HandleTargetMovePosition()
     {
-        float findTargetRange = 10f;
+        float findTargetRange = 7.5f;
         //if (character.type == Character.Type.NormalEnemy1) //  || character.type == Character.Type.NormalEnemy2 || character.type == Character.Type.NormalEnemy3
         //{
         //    findTargetRange = 60f;

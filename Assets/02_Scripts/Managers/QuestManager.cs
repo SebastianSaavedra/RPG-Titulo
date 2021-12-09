@@ -28,6 +28,9 @@ public class QuestManager : MonoBehaviour
                 case "Matar enemigos":
                     quest.questGoal._currentAmount++;
                     break;
+                case "Recolectar Hierbas":
+                    quest.questGoal._currentAmount++;
+                    break;
             }
         }
     }

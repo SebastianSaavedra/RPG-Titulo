@@ -8,14 +8,17 @@ public static class GameData
     public enum State
     {
         Start,
+        Testing,
         GameOver,
     }
 
     private static bool isInit = false;
     public static List<Character> characterList;
     public static List<Item> itemList;
-
+    
     public static State state;
+
+    public static string[] nombresMapucheArray;
 
     public static void Init()
     {
@@ -27,6 +30,48 @@ public static class GameData
         isInit = true;
         SoundManager.Initialize();
         state = State.Start;
+        nombresMapucheArray = new string[] {
+            "Nahuel",
+            "Eluney",
+            "Aukan",
+            "Tahiel",
+            "Nehuen",
+            "Ayun",
+            "Ankatu",
+            "Lautaro",
+            "Quimey",
+            "Lihue",
+            "Yaco",
+            "Auca",
+            "Nahuelpan",
+            "Quillen",
+            "Huenchullán",
+            "Lican ray",
+            "Alihuen",
+            "Yenien",
+            "Kuyén",
+            "Nahuelquin",
+            "Yamai",
+            "Caucaman",
+            "Alhue",
+            "Linkoyan",
+            "Lancuyen",
+            "Antilaf",
+            "Nulpi",
+            "Huapi",
+            "Hueicha",
+            "Raiquen",
+            "Amuyen",
+            "Mainque",
+            "Cuyen",
+            "Chaiten",
+            "Huilen",
+            "Cobquecura",
+            "Cumelén",
+            "Ayelén",
+        };
+
+
         characterList = new List<Character>();
 
         characterList.Add(new Character(Character.Type.Suyai)
@@ -166,6 +211,7 @@ public static class GameData
         [Serializable]
         public struct DialoguesList
         {
+            [TextArea]
             public string[] dialogue;
         }
     }

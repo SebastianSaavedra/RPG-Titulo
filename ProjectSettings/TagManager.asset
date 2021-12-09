@@ -41,3 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Map
+    uniqueID: 2566780079
+    locked: 0
+  - name: Personajes
+    uniqueID: 1475217159
+    locked: 0
+  - name: Decoration
+    uniqueID: 573948665
+    locked: 0

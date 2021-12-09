@@ -135,22 +135,18 @@ public class PlayerOverworld : MonoBehaviour
             {
                 switch (npcOverworld.GetCharacter().type)
                 {
-                    case Character.Type.NPC_1:
-                        Dialogues.QuestDialogue(npcOverworld.GetCharacter());
-                        //if (!npcOverworld.GetCharacter().IsFirstTimeTalking())
-                        //{
-                        //    Debug.Log("ENTRO EN DIALOGO");
-                        //    npcOverworld.GetCharacter().AssignFirstTimeTalking();
-                        //}
-                        //else
-                        //{
-                        //    Debug.Log("ENTRO EN DIALOGO RANDOM");
-                        //    Dialogues.RandomNPCDialog(npcOverworld.GetCharacter());
-                        //}
-                        break;
-                    //case Character.Type.Shop:
-                    //    Cutscenes.Play_Shop(npcOvermap.GetCharacter());
+                    //case Character.Type.QuestNpc_1:
+                    //    Dialogues.QuestDialogue(npcOverworld.GetCharacter());
                     //    break;
+                    case Character.Type.WarriorNPC_1:
+                        Dialogues.TestDialogue_1(npcOverworld.GetCharacter());
+                        break;
+                    case Character.Type.WarriorNPC_2:
+                        Dialogues.TestDialogue_2(npcOverworld.GetCharacter());
+                        break;
+                        //case Character.Type.Shop:
+                        //    Cutscenes.Play_Shop(npcOvermap.GetCharacter());
+                        //    break;
                 }
             }
         }

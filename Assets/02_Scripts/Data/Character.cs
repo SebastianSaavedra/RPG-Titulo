@@ -50,7 +50,10 @@ public class Character
         //Jefe3,
 
         Shop,
-        NPC_1,
+        QuestNpc_1,
+        WarriorNPC_1,
+        WarriorNPC_2,
+
 
     }
 
@@ -186,7 +189,7 @@ public class Character
 
 
             ///////////////// NPC
-            case Type.NPC_1:
+            case Type.QuestNpc_1:
                 name = "Elpe huen";
                 break;
 

@@ -84,16 +84,22 @@ public class OverworldManager
                         break;
                 }
             }
+            NPCOverworld npcOverworld;
             switch (character.type)
             {
-                case Character.Type.NPC_1:
-                    NPCOverworld npcOverworld = SpawnNPC(character);
+                case Character.Type.QuestNpc_1:
+                    character.name = GetRandomString();
+                    npcOverworld = SpawnNPC(character);
+                    break;
+                case Character.Type.WarriorNPC_1:
+                case Character.Type.WarriorNPC_2:
+                    character.name = GetRandomString();
+                    npcOverworld = SpawnNPC(character);
                     break;
 
                     //case Character.Type.Shop:
             }
         }
-
 
         foreach (Item item in GameData.itemList)
         {
@@ -101,51 +107,15 @@ public class OverworldManager
             SpawnItem(item);
         }
 
-        // Starting state
-        //switch (GameData.state)
-        //{
-        //    case GameData.State.Start:
-        //        Cutscenes.Play_Start();
-        //        break;
-        //    case GameData.State.DefeatedHurtMeDaddy:
-        //    case GameData.State.DefeatedHurtMeDaddy_2:
-        //        Window_QuestPointer.Create(GetNPC(GameData.GetCharacter(Character.Type.Tank)).GetPosition() + new Vector3(0, 10), Color.yellow, Color.yellow, crossSprite: GameAssets.i.s_ExclamationPoint);
-        //        break;
-        //    case GameData.State.DefeatedTank:
-        //        Cutscenes.Play_Tank_AfterJoin();
-        //        break;
-        //    case GameData.State.SurvivedTavernAmbush:
-        //        Cutscenes.Play_SurvivedTavernAmbush();
-        //        break;
-        //    case GameData.State.HealerJoined:
-        //        Window_QuestPointer.Create(GameAssets.i.Map.Find("shop").position, Color.white, Color.white);
-        //        break;
-        //    case GameData.State.LostToEvilMonster_1:
-        //        playerOvermap.SetPosition(GameAssets.i.Map.Find("dungeonPlayer").position);
-        //        GetFollower(GameData.GetCharacter(Character.Type.Tank)).SetPosition(GameAssets.i.Map.Find("dungeonTank").position);
-        //        GetFollower(GameData.GetCharacter(Character.Type.Sleezer)).SetPosition(GameAssets.i.Map.Find("dungeonSleezer").position);
-        //        GetFollower(GameData.GetCharacter(Character.Type.Healer)).SetPosition(GameAssets.i.Map.Find("dungeonHealer").position);
 
-        //        Cutscenes.Play_LostToEvilMonster_1();
-        //        break;
-        //    case GameData.State.MovingToEvilMonster_2:
-        //        Window_QuestPointer.Create(GameAssets.i.Map.Find("evilMonster_2").position, Color.white, Color.white);
-        //        break;
-        //    case GameData.State.LostToEvilMonster_2:
-        //        playerOvermap.SetPosition(GameAssets.i.Map.Find("dungeonPlayer").position);
-        //        GetFollower(GameData.GetCharacter(Character.Type.Tank)).SetPosition(GameAssets.i.Map.Find("dungeonTank").position);
-        //        GetFollower(GameData.GetCharacter(Character.Type.Sleezer)).SetPosition(GameAssets.i.Map.Find("dungeonSleezer").position);
-        //        GetFollower(GameData.GetCharacter(Character.Type.Healer)).SetPosition(GameAssets.i.Map.Find("dungeonHealer").position);
+        switch (GameData.state)
+        {
+            case GameData.State.Start:
+                Dialogues.Play_Start();
+                GameData.state = GameData.State.Testing;
+                break;
+        }
 
-        //        Cutscenes.Play_LostToEvilMonster_2();
-        //        break;
-        //    case GameData.State.MovingToEvilMonster_3:
-        //        Window_QuestPointer.Create(GameAssets.i.Map.Find("evilMonster_3").position, Color.white, Color.white);
-        //        break;
-        //    case GameData.State.DefeatedEvilMonster:
-        //        Cutscenes.Play_DefeatedEvilMonster();
-        //        break;
-        //}
 
         //transform.Find("Map").Find("Hitboxes").Find("TavernEntryHitbox").gameObject.SetActive(((int)GameData.state) < ((int)GameData.State.DefeatedTank));
         //transform.Find("Map").Find("Hitboxes").Find("HurtMeDaddyHitbox").gameObject.SetActive(((int)GameData.state) < ((int)GameData.State.DefeatedHurtMeDaddy));
@@ -163,6 +133,11 @@ public class OverworldManager
         //{
         //    hitboxTransform.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
         //}
+    }
+
+    string GetRandomString()
+    {
+        return GameData.nombresMapucheArray[UnityEngine.Random.Range(0, GameData.nombresMapucheArray.Length)];
     }
 
     public void Update()

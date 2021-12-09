@@ -16,8 +16,14 @@ public static class Dialogues
                     dialogue.ShowText(character.quest._startDialogue);
                     switch (character.type)
                     {
-                        case Character.Type.NPC_1:
+                        case Character.Type.QuestNpc_1:
                                 dialogue.ShowRightCharacter(GameAssets.i.npc_1DialogueSprite, false);
+                            break;
+                        case Character.Type.WarriorNPC_1:
+                                dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
+                            break;
+                        case Character.Type.WarriorNPC_2:
+                                dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
                             break;
                     }
                     dialogue.ShowRightCharacterName(character.name);
@@ -41,8 +47,14 @@ public static class Dialogues
                     dialogue.ShowText(character.quest._completedDialogue);
                     switch (character.type)
                     {
-                        case Character.Type.NPC_1:
+                        case Character.Type.QuestNpc_1:
                                 dialogue.ShowRightCharacter(GameAssets.i.npc_1DialogueSprite, false);
+                            break;
+                        case Character.Type.WarriorNPC_1:
+                                dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
+                            break;
+                        case Character.Type.WarriorNPC_2:
+                                dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
                             break;
                     }
                     dialogue.ShowRightCharacterName(character.name);
@@ -66,8 +78,14 @@ public static class Dialogues
                     dialogue.ShowText(character.quest._inProgressDialogue);
                     switch (character.type)
                     {
-                        case Character.Type.NPC_1:
+                        case Character.Type.QuestNpc_1:
                                 dialogue.ShowRightCharacter(GameAssets.i.npc_1DialogueSprite, false);
+                            break;
+                        case Character.Type.WarriorNPC_1:
+                                dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
+                            break;
+                        case Character.Type.WarriorNPC_2:
+                                dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
                             break;
                     }
                     dialogue.ShowRightCharacterName(character.name);
@@ -82,6 +100,7 @@ public static class Dialogues
 
         }
     }
+
     //public static void RandomNPCDialog(Character character)
     //{
     //    OverworldManager.StopOvermapRunning();
@@ -106,4 +125,79 @@ public static class Dialogues
     //        },
     //    }, true);
     //}
+    public static void Play_Start()
+    {
+        OverworldManager.StopOvermapRunning();
+        DialogueController dialogue = DialogueController.GetInstance();
+        dialogue.SetDialogueActions(new List<Action>() {
+            () => {
+                dialogue.Show();
+                dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
+                dialogue.ShowText("Suyai, ¿así que estas cumpliendo el desafío para finalmente ser reconocida como Machi?");
+                dialogue.ShowRightCharacterName("Nehuén");
+                dialogue.HideLeftCharacter();
+                dialogue.HideLeftCharacterName();
+            },() => {
+                dialogue.ShowText("La Anciana ya nos ha puesto al corriente, y nos ha pedido que no te dejemos volver hasta que cumplas la tarea que se te ha encomendado, la que consiste en recolectar al menos 6 hierbas.");
+            },() => {
+                dialogue.ShowText("Aunque no se muy bien como son capaces de diferenciarlas.");
+            },() => {
+                dialogue.ShowText("He oido que las Machis pueden distinguir facilmente los arbustos de donde poder sacar dichas hierbas.");
+            },() => {
+                dialogue.ShowText("Dicen que en los arbustos con colores más vivos pueden crecer las plantas curativas, pero para mi, todos son del mismo color.");
+            },() => {
+                dialogue.ShowText("Ahora que te di ese consejo es hora de que empieces, no quiero quedarme haciendo guardia hasta el anochecer.");
+            },() => {
+                dialogue.ShowText("Si no sabes por donde empezar, podrias usar WASD o las Flechas direccionales para explorar la zona.");
+            },() => {
+                dialogue.ShowText("Si ves algo sospechoso, no dudes en inspeccionarlo con SPACE.");
+            },() => {
+                dialogue.ShowText("Por ultimo, puedes organizarte apretando ENTER.");
+            },
+            () => {
+                dialogue.Hide();
+                //character.quest.questGoal.QuestStarted();
+                //QuestManager.instance.quests.Add(character.quest);
+                OverworldManager.StartOvermapRunning();
+            },
+        }, true);
+    }
+    public static void TestDialogue_1(Character character)
+    {
+        OverworldManager.StopOvermapRunning();
+        DialogueController dialogue = DialogueController.GetInstance();
+        dialogue.SetDialogueActions(new List<Action>() {
+            () => {
+                dialogue.Show();
+                dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
+                dialogue.ShowText("Ya no hay nada mas que pueda decirte Suyai, ¡Mucha Suerte!");
+                dialogue.ShowRightCharacterName(character.name);
+                dialogue.HideLeftCharacter();
+                dialogue.HideLeftCharacterName();
+            },
+            () => {
+                dialogue.Hide();
+                OverworldManager.StartOvermapRunning();
+            },
+        }, true);
+    }
+    public static void TestDialogue_2(Character character)
+    {
+        OverworldManager.StopOvermapRunning();
+        DialogueController dialogue = DialogueController.GetInstance();
+        dialogue.SetDialogueActions(new List<Action>() {
+            () => {
+                dialogue.Show();
+                dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
+                dialogue.ShowText("Lo siento Suyai, no puedo dejarte avanzar por acá.");
+                dialogue.ShowRightCharacterName(character.name);
+                dialogue.HideLeftCharacter();
+                dialogue.HideLeftCharacterName();
+            },
+            () => {
+                dialogue.Hide();
+                OverworldManager.StartOvermapRunning();
+            },
+        }, true);
+    }
 }
