@@ -55,6 +55,8 @@ public class GameAssets : MonoBehaviour
     public Sprite playerDialogueSprite, npc_1DialogueSprite;
     public List<Sprite> enemies = new List<Sprite>();
 
+    public Quest[] questArray;
+
     public SoundAudioClip[] audioClipsArray;
 
     [System.Serializable]

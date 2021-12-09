@@ -6,7 +6,6 @@ using CodeMonkey.Utils;
 
 public class PlayerOverworld : MonoBehaviour
 {
-
     public static PlayerOverworld instance;
 
     private const float SPEED = 15f;
@@ -137,17 +136,17 @@ public class PlayerOverworld : MonoBehaviour
                 switch (npcOverworld.GetCharacter().type)
                 {
                     case Character.Type.NPC_1:
-                        if (!npcOverworld.GetCharacter().IsFirstTimeTalking())
-                        {
-                            Debug.Log("ENTRO EN DIALOGO");
-                            npcOverworld.GetCharacter().AssignFirstTimeTalking();
-                            Dialogues.TestDialogue(npcOverworld.GetCharacter());
-                        }
-                        else
-                        {
-                            Debug.Log("ENTRO EN DIALOGO RANDOM");
-                            Dialogues.RandomNPCDialog(npcOverworld.GetCharacter());
-                        }
+                        Dialogues.QuestDialogue(npcOverworld.GetCharacter());
+                        //if (!npcOverworld.GetCharacter().IsFirstTimeTalking())
+                        //{
+                        //    Debug.Log("ENTRO EN DIALOGO");
+                        //    npcOverworld.GetCharacter().AssignFirstTimeTalking();
+                        //}
+                        //else
+                        //{
+                        //    Debug.Log("ENTRO EN DIALOGO RANDOM");
+                        //    Dialogues.RandomNPCDialog(npcOverworld.GetCharacter());
+                        //}
                         break;
                     //case Character.Type.Shop:
                     //    Cutscenes.Play_Shop(npcOvermap.GetCharacter());

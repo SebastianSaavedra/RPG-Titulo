@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MEC;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
+
 public class MenuStateController : MonoBehaviour
 {
     public enum MENUS
@@ -143,7 +143,7 @@ public class MenuStateController : MonoBehaviour
         switch (comando)
         {
             case "ChangeCharacter":
-                interactionController.popUpWindowController.Setup("¿Cambiar compañero?","Si",this);
+                interactionController.popUpWindowController.Setup("¿Cambiar compañero?","Si");
                 break;
         }
     }

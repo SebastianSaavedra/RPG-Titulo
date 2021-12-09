@@ -37,7 +37,7 @@ public class HealthSystem
 
     public void Damage(int amount, CharacterBattle attackedOne)
     {
-        health -= (amount ^ 2) / (amount + attackedOne.stats.defense);
+        health -= ((amount * amount) / (amount + attackedOne.stats.defense));
         if (health < 0)
         {
             health = 0;

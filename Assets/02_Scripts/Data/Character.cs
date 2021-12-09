@@ -69,6 +69,7 @@ public class Character
     public GameData.EnemyEncounter enemyEncounter;
     public GameData.ShopContents shopContents;
     public GameData.NPCDialogues npcDialogues;
+    public Quest quest;
     public bool isDead;
     public LanePosition lanePosition;
     private bool firstTimeTalking;
@@ -172,10 +173,10 @@ public class Character
                 name = "TEST ENEMY";
                 stats = new Stats
                 {
-                    attack = 16,
-                    health = 100,
-                    healthMax = 100,
-                    damageChance = 75,
+                    attack = 15,
+                    health = 50,
+                    healthMax = 60,
+                    damageChance = 85,
                 };
                 break;
 

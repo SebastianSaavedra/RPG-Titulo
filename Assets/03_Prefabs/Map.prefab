@@ -210,6 +210,7 @@ MonoBehaviour:
   npcDialogues:
     dialogues:
     - dialogue: []
+  quest: {fileID: 0}
 --- !u!1 &1257410211662564207
 GameObject:
   m_ObjectHideFlags: 0
@@ -513,6 +514,7 @@ MonoBehaviour:
   npcDialogues:
     dialogues:
     - dialogue: []
+  quest: {fileID: 0}
 --- !u!1 &3656209527837777019
 GameObject:
   m_ObjectHideFlags: 0
@@ -722,22 +724,8 @@ MonoBehaviour:
   enemyEncounter:
     enemyBattleArray: []
   npcDialogues:
-    dialogues:
-    - dialogue:
-      - Esto es un testeo
-      - y es el mejor testeo
-      - "Si llego hasta ac\xE1 funciono!"
-    - dialogue:
-      - Yeah
-      - Perdonen, Kamehameha
-      - "Despu\xE9s del tema del Tetris viene el Dragon Ball Rap"
-      - Quien no haya seguido esta serie es porque no tiene infancia
-      - Big Bang Attack ataca desde el Planeta Namek
-      - Vegeta, Son Goku, rivalidades Saiyan
-      - "(Allargat bast\xF3) y es que en castellano raya"
-      - "Mola m\xE1s en catal\xE1n, prefiero Nubol Kinton"
-      - "El canvi de lloc instantani, al verlo me flip\xF3"
-      - Son Goku, Goten, Krillin, Pan, Trunks, Yamcha, Chaos y Tenshinhan
+    dialogues: []
+  quest: {fileID: 11400000, guid: 2bf6c0b0ffd47314984677634998ea7d, type: 2}
 --- !u!1 &6082689525745658967
 GameObject:
   m_ObjectHideFlags: 0
@@ -1012,6 +1000,7 @@ MonoBehaviour:
   npcDialogues:
     dialogues:
     - dialogue: []
+  quest: {fileID: 0}
 --- !u!1 &7461500350809809799
 GameObject:
   m_ObjectHideFlags: 0
