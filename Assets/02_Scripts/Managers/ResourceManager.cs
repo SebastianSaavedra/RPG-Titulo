@@ -18,7 +18,7 @@ public class ResourceManager : MonoBehaviour
 
     //Chillquila
     private int maxSouls = 50;
-    private int souls;
+    private int souls = 50;
 
     //Antay
     private int maxHits = 10;
@@ -26,7 +26,7 @@ public class ResourceManager : MonoBehaviour
 
     //Arana
     private int maxTattoos = 5;
-    private int tattoos;
+    private int tattoos = 5;
 
 
     void Awake()

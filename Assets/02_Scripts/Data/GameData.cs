@@ -8,39 +8,11 @@ public static class GameData
     public enum State
     {
         Start,
-        FightingHurtMeDaddy,
-        DefeatedHurtMeDaddy,
-        FightingHurtMeDaddy_2,
-        DefeatedHurtMeDaddy_2,
-        FightingTank,
-        DefeatedTank,
-        GoingToTownCenter,
-        ArrivedAtTownCenter,
-        GoingToAskDoppelGanger,
-        GoingToTavern,
-        InTavern,
-        FightingTavernAmbush,
-        SurvivedTavernAmbush,
-        HealerJoined,
-        LeavingTown,
-        GoingToFirstEvilMonsterEncounter,
-        GoingToFightEvilMonster,
-        FightingEvilMonster_1,
-        LostToEvilMonster_1,
-        MovingToEvilMonster_2,
-        GoingToFightEvilMonster_2,
-        FightingEvilMonster_2,
-        LostToEvilMonster_2,
-        MovingToEvilMonster_3,
-        GoingToFightEvilMonster_3,
-        FightingEvilMonster_3,
-        DefeatedEvilMonster,
         GameOver,
     }
 
     private static bool isInit = false;
     public static List<Character> characterList;
-    //public static List<Character> inPlayerTeamList;
     public static List<Item> itemList;
 
     public static State state;
@@ -56,7 +28,6 @@ public static class GameData
         SoundManager.Initialize();
         state = State.Start;
         characterList = new List<Character>();
-        //inPlayerTeamList = new List<Character>();
 
         characterList.Add(new Character(Character.Type.Suyai)
             {
@@ -82,11 +53,6 @@ public static class GameData
         {
             position = GameAssets.i.Map.Find("Chillpila").position,
         });
-        //inPlayerTeamList.Add(new Character(Character.Type.Chillpila));
-        //inPlayerTeamList.Add(new Character(Character.Type.Suyai));
-        //inPlayerTeamList.Add(new Character(Character.Type.Pedro));
-        //inPlayerTeamList.Add(new Character(Character.Type.Arana));
-        //inPlayerTeamList.Add(new Character(Character.Type.Antay));
 
         foreach (Transform mapSpawn in GameAssets.i.Map)
         {
@@ -102,7 +68,9 @@ public static class GameData
                     {
                         position = mapSpawn.position,
                         enemyEncounter = characterSpawnData.enemyEncounter,
-                        npcDialogues = characterSpawnData.npcDialogues
+                        npcDialogues = characterSpawnData.npcDialogues,
+                        quest = characterSpawnData.quest,
+
                         //shopContents = characterSpawnData.shopContents.Clone()
                     }
                 );
@@ -117,6 +85,12 @@ public static class GameData
             {
                 itemList.Add(new Item(itemSpawnData.itemType, itemSpawnData.amount, mapSpawn.position));
             }
+        }
+
+        foreach (Quest quest in GameAssets.i.questArray)
+        {
+            quest.questGoal.questState = QuestGoal.QUESTSTATE.NONE;
+            quest.questGoal._currentAmount = 0;
         }
     }
 
@@ -183,6 +157,7 @@ public static class GameData
             }
         }
     }
+
     [Serializable]
     public class NPCDialogues
     {
@@ -194,8 +169,6 @@ public static class GameData
             public string[] dialogue;
         }
     }
-
-
 
     //Tienda
     [Serializable]

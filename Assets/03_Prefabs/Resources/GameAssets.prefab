@@ -84,6 +84,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 11eb049c635a68c4196449957cd3f2bf, type: 3}
   - {fileID: 21300000, guid: ea398371b06de5f4b880825d87ede8de, type: 3}
   - {fileID: 21300000, guid: a871ed24dc777044aaaee99e3d04941f, type: 3}
+  questArray:
+  - {fileID: 11400000, guid: 2bf6c0b0ffd47314984677634998ea7d, type: 2}
   audioClipsArray:
   - sound: 8
     audioClip: {fileID: 8300000, guid: 25bd6f9af2e87da439ef7fab6323d808, type: 3}

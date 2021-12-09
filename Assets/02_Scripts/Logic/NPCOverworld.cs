@@ -16,6 +16,7 @@ public class NPCOverworld : MonoBehaviour
     private Character character;
     //public bool overrideOverworldRunning;
 
+
     private enum State
     {
         Normal,

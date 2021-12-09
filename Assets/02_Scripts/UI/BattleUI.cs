@@ -166,8 +166,8 @@ public class BattleUI : MonoBehaviour
                 CloseBattleMenus();
                 break;
             case "Defense":
-                Battle.GetInstance()._Defense();
                 CloseBattleMenus();
+                Battle.GetInstance()._Defense();
                 break;
             case "Special":
                 ExecuteSpecial();
