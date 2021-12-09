@@ -67,23 +67,26 @@ MonoBehaviour:
   enemyANIM: {fileID: 9100000, guid: 488d572aeae6c2049905a1fda8af6d12, type: 2}
   spriteEnemy: {fileID: 21300000, guid: 6d549ced5c29b0c4482ca4495e3b240e, type: 3}
   npc_1: {fileID: 5827935539512385037, guid: 7e6dc2ea2d0be764bac1dc66c10069d8, type: 3}
-  spriteOWPedro: {fileID: 21300000, guid: eefaf311a7cf50f44ad7336ad0b8d2b2, type: 3}
-  spriteOWArana: {fileID: 21300000, guid: ccd95990fbf33764699f25c675240de1, type: 3}
-  spriteOWChillpila: {fileID: 21300000, guid: 5f02b309d128b90428225ce9e3b86f9b, type: 3}
-  spriteOWAntay: {fileID: 21300000, guid: e8dab28991e649047a4aeb118f5fdcc8, type: 3}
-  splashSuyai: {fileID: 21300000, guid: 084f7d017102da1499e6632c6ae727e2, type: 3}
-  splashPedro: {fileID: 21300000, guid: eefaf311a7cf50f44ad7336ad0b8d2b2, type: 3}
-  splashChillpila: {fileID: 21300000, guid: 5f02b309d128b90428225ce9e3b86f9b, type: 3}
-  splashArana: {fileID: 21300000, guid: ccd95990fbf33764699f25c675240de1, type: 3}
-  splashAntay: {fileID: 21300000, guid: e8dab28991e649047a4aeb118f5fdcc8, type: 3}
-  playerDialogueSprite: {fileID: 21300000, guid: 084f7d017102da1499e6632c6ae727e2, type: 3}
+  spriteOWPedro: {fileID: 21300000, guid: 2508f08a576af4e479843b9039b7f363, type: 3}
+  spriteOWArana: {fileID: 21300000, guid: 843a560d664e92748b4633ceaffc2c32, type: 3}
+  spriteOWChillpila: {fileID: 21300000, guid: d27f2c46446c3034dbbac0b4eb7d1265, type: 3}
+  spriteOWAntay: {fileID: 21300000, guid: c2487de4c7ab5df4f9ff42e88f16cf79, type: 3}
+  splashSuyai: {fileID: 21300000, guid: 6f15fc5d26e8bda42ad26663858aa678, type: 3}
+  splashPedro: {fileID: 21300000, guid: 2508f08a576af4e479843b9039b7f363, type: 3}
+  splashChillpila: {fileID: 21300000, guid: d27f2c46446c3034dbbac0b4eb7d1265, type: 3}
+  splashArana: {fileID: 21300000, guid: 843a560d664e92748b4633ceaffc2c32, type: 3}
+  splashAntay: {fileID: 21300000, guid: c2487de4c7ab5df4f9ff42e88f16cf79, type: 3}
+  playerDialogueSprite: {fileID: 21300000, guid: 6f15fc5d26e8bda42ad26663858aa678, type: 3}
   npc_1DialogueSprite: {fileID: 5827935539512385037, guid: 7e6dc2ea2d0be764bac1dc66c10069d8, type: 3}
   enemies:
-  - {fileID: 21300000, guid: e34b9e308ecb010429c88f7c5804f5cd, type: 3}
-  - {fileID: 21300000, guid: 20b3f5a2f3f54d748b19e1f2d7a57c45, type: 3}
-  - {fileID: 21300000, guid: 11eb049c635a68c4196449957cd3f2bf, type: 3}
-  - {fileID: 21300000, guid: ea398371b06de5f4b880825d87ede8de, type: 3}
-  - {fileID: 21300000, guid: a871ed24dc777044aaaee99e3d04941f, type: 3}
+  - {fileID: 21300000, guid: 2f50c32beb34dbb4687efa4f3b7e170b, type: 3}
+  - {fileID: 21300000, guid: d2d0c1724bb61fe49ae74baa68e8c837, type: 3}
+  - {fileID: 21300000, guid: 338ccf96607f83740b2bad42d77b445b, type: 3}
+  - {fileID: 21300000, guid: 479513ac4100f8343b5cf6c698058e67, type: 3}
+  - {fileID: 21300000, guid: 20ef65180de12ad40a04c9b5442cc851, type: 3}
+  - {fileID: 21300000, guid: b24fef4d131ddd646b3fa1720f5d93a0, type: 3}
+  - {fileID: 21300000, guid: 84d68abded98b554a9cc9029b17dbaf7, type: 3}
+  - {fileID: 21300000, guid: 1a69d64fadc1e0b488a42633a25fc4f3, type: 3}
   questArray:
   - {fileID: 11400000, guid: 2bf6c0b0ffd47314984677634998ea7d, type: 2}
   audioClipsArray:

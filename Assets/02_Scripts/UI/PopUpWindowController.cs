@@ -26,17 +26,25 @@ public class PopUpWindowController : MonoBehaviour
         gameObject.SetActive(true);
         this.pregunta.text = pregunta;
         this.boton.transform.Find("Texto").GetComponent<TextMeshProUGUI>().text = boton;
-        //menuStateController = menuController;
+        Timing.RunCoroutine(MenuInteractionController.instance._EventSystemReAssign(this.boton));
+    }
+    public void Setup(string pregunta, string boton, MenuStateController menuStateController)
+    {
+        PlayerOverworld.instance.state = PlayerOverworld.State.SubMenu;
+        gameObject.SetActive(true);
+        this.pregunta.text = pregunta;
+        this.boton.transform.Find("Texto").GetComponent<TextMeshProUGUI>().text = boton;
+        this.menuStateController = menuStateController;
         Timing.RunCoroutine(MenuInteractionController.instance._EventSystemReAssign(this.boton));
     }
 
-    //public void Trigger()
-    //{
-    //    switch(menuStateController.menus)
-    //    {
-    //        case MenuStateController.MENUS.Equipo:
-    //            Timing.RunCoroutine(MenuInteractionController.instance._EventSystemReAssign(menuStateController.transform.Find("FirstPick").gameObject));
-    //            break;
-    //    }
-    //}
+    public void Trigger()
+    {
+        switch(menuStateController.menus)
+        {
+            case MenuStateController.MENUS.Equipo:
+                Timing.RunCoroutine(MenuInteractionController.instance._EventSystemReAssign(menuStateController.transform.Find("FirstPick").gameObject));
+                break;
+        }
+    }
 }

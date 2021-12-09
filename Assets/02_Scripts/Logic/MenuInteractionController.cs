@@ -76,7 +76,7 @@ public class MenuInteractionController : MonoBehaviour
         yield return Timing.WaitForOneFrame;
 
         EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(go.gameObject);
+        EventSystem.current.SetSelectedGameObject(go);
 
         yield break;
     }

@@ -143,7 +143,7 @@ public class MenuStateController : MonoBehaviour
         switch (comando)
         {
             case "ChangeCharacter":
-                interactionController.popUpWindowController.Setup("¿Cambiar compañero?","Si");
+                interactionController.popUpWindowController.Setup("¿Cambiar compañero?","Si",this);
                 break;
         }
     }

@@ -200,20 +200,20 @@ public class PlayerOverworld : MonoBehaviour
 
     private bool IsOnTopOfWall()
     {
-        RaycastHit2D raycastHit = Physics2D.BoxCast(GetPosition(), new Vector2(5, 9), 0f, Vector2.zero, 0f, wallLayerMask);
+        RaycastHit2D raycastHit = Physics2D.BoxCast(GetPosition(), new Vector2(1.8f, 2.9f), 0f, Vector2.zero, 0f, wallLayerMask);
         return raycastHit.collider != null;
     }
 
     private bool CanMoveTo(Vector3 dir, float distance)
     {
         if (IsOnTopOfWall()) return true;
-        RaycastHit2D raycastHit = Physics2D.BoxCast(GetPosition(), new Vector2(5, 9), 0f, dir, distance, wallLayerMask);
+        RaycastHit2D raycastHit = Physics2D.BoxCast(GetPosition(), new Vector2(1.8f, 2.9f), 0f, dir, distance, wallLayerMask);
         return raycastHit.collider == null;
     }
 
     private void TryMoveTo(Vector3 dir, float distance)
     {
-        RaycastHit2D raycastHit = Physics2D.BoxCast(GetPosition(), new Vector2(5, 9), 0f, dir, distance, wallLayerMask);
+        RaycastHit2D raycastHit = Physics2D.BoxCast(GetPosition(), new Vector2(1.8f, 2.9f), 0f, dir, distance, wallLayerMask);
         if (raycastHit.collider == null)
         {
             transform.position += dir * distance;
