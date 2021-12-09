@@ -44,9 +44,15 @@ TagManager:
   - name: Map
     uniqueID: 2566780079
     locked: 0
+  - name: Items
+    uniqueID: 3770102447
+    locked: 0
+  - name: Arbustos
+    uniqueID: 3266887501
+    locked: 0
   - name: Personajes
     uniqueID: 1475217159
     locked: 0
-  - name: Decoration
+  - name: Arboles
     uniqueID: 573948665
     locked: 0

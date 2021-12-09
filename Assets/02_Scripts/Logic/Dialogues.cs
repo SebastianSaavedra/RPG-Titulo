@@ -125,7 +125,7 @@ public static class Dialogues
     //        },
     //    }, true);
     //}
-    public static void Play_Start()
+    public static void Play_Start(Character character)
     {
         OverworldManager.StopOvermapRunning();
         DialogueController dialogue = DialogueController.GetInstance();
@@ -138,26 +138,34 @@ public static class Dialogues
                 dialogue.HideLeftCharacter();
                 dialogue.HideLeftCharacterName();
             },() => {
+                dialogue.ShowText("");
                 dialogue.ShowText("La Anciana ya nos ha puesto al corriente, y nos ha pedido que no te dejemos volver hasta que cumplas la tarea que se te ha encomendado, la que consiste en recolectar al menos 6 hierbas.");
             },() => {
+                dialogue.ShowText("");
                 dialogue.ShowText("Aunque no se muy bien como son capaces de diferenciarlas.");
             },() => {
+                dialogue.ShowText("");
                 dialogue.ShowText("He oido que las Machis pueden distinguir facilmente los arbustos de donde poder sacar dichas hierbas.");
             },() => {
+                dialogue.ShowText("");
                 dialogue.ShowText("Dicen que en los arbustos con colores más vivos pueden crecer las plantas curativas, pero para mi, todos son del mismo color.");
             },() => {
+                dialogue.ShowText("");
                 dialogue.ShowText("Ahora que te di ese consejo es hora de que empieces, no quiero quedarme haciendo guardia hasta el anochecer.");
             },() => {
+                dialogue.ShowText("");
                 dialogue.ShowText("Si no sabes por donde empezar, podrias usar WASD o las Flechas direccionales para explorar la zona.");
             },() => {
+                dialogue.ShowText("");
                 dialogue.ShowText("Si ves algo sospechoso, no dudes en inspeccionarlo con SPACE.");
             },() => {
+                dialogue.ShowText("");
                 dialogue.ShowText("Por ultimo, puedes organizarte apretando ENTER.");
             },
             () => {
                 dialogue.Hide();
-                //character.quest.questGoal.QuestStarted();
-                //QuestManager.instance.quests.Add(character.quest);
+                character.quest.questGoal.QuestStarted();
+                QuestManager.instance.quests.Add(character.quest);
                 OverworldManager.StartOvermapRunning();
             },
         }, true);
@@ -190,6 +198,25 @@ public static class Dialogues
                 dialogue.Show();
                 dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
                 dialogue.ShowText("Lo siento Suyai, no puedo dejarte avanzar por acá.");
+                dialogue.ShowRightCharacterName(character.name);
+                dialogue.HideLeftCharacter();
+                dialogue.HideLeftCharacterName();
+            },
+            () => {
+                dialogue.Hide();
+                OverworldManager.StartOvermapRunning();
+            },
+        }, true);
+    }
+    public static void TestDialogue_3(Character character)
+    {
+        OverworldManager.StopOvermapRunning();
+        DialogueController dialogue = DialogueController.GetInstance();
+        dialogue.SetDialogueActions(new List<Action>() {
+            () => {
+                dialogue.Show();
+                dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
+                dialogue.ShowText("Finalmente, has completado la misión que se te ha encomendado, vamos a la aldea.");
                 dialogue.ShowRightCharacterName(character.name);
                 dialogue.HideLeftCharacter();
                 dialogue.HideLeftCharacterName();

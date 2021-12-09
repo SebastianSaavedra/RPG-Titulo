@@ -42,7 +42,23 @@ public class Text_Writer : MonoBehaviour {
 	}
 
 
-    public static void ClearWriter(Text uiText)
+
+	public static void AddWriter(TextMeshProUGUI uiText, string txt, float speed, bool whitespaces, bool useDeltaTime = true)
+	{
+		if (txt == null) txt = "";
+		instance.AddWriter_Instance(uiText, txt, speed, whitespaces, useDeltaTime);
+	}
+	private void AddWriter_Instance(TextMeshProUGUI uiText, string txt, float speed, bool whitespaces, bool useDeltaTime = true)
+	{
+		if (writerList == null)
+		{
+			writerList = new List<Text_Writer_Obj>();
+		}
+		writerList.Add(new Text_Writer_Obj(uiText, txt, speed, whitespaces, useDeltaTime));
+	}
+
+
+	public static void ClearWriter(TextMeshProUGUI uiText)
 	{
         if (instance.writerList != null) 
 		{
@@ -55,21 +71,21 @@ public class Text_Writer : MonoBehaviour {
                 }
             }
         }
-    }
-	public static void AddWriter(Text uiText, string txt, float speed, bool whitespaces, bool useDeltaTime = true, Action callbackComplete = null) 
-	{
-        if (txt == null) txt = "";
-		instance.AddWriter_Instance(uiText,txt,speed,whitespaces,useDeltaTime,callbackComplete);
 	}
-	private void AddWriter_Instance(Text uiText, string txt, float speed, bool whitespaces, bool useDeltaTime = true, Action callbackComplete = null) 
+	public static void AddWriter(TextMeshProUGUI uiText, string txt, float speed, bool whitespaces, bool useDeltaTime = true, Action callbackComplete = null)
 	{
-		if (writerList == null) 
+		if (txt == null) txt = "";
+		instance.AddWriter_Instance(uiText, txt, speed, whitespaces, useDeltaTime, callbackComplete);
+	}
+	private void AddWriter_Instance(TextMeshProUGUI uiText, string txt, float speed, bool whitespaces, bool useDeltaTime = true, Action callbackComplete = null)
+	{
+		if (writerList == null)
 		{
 			writerList = new List<Text_Writer_Obj>();
 		}
-		writerList.Add(new Text_Writer_Obj(uiText,txt,speed,whitespaces,useDeltaTime,callbackComplete));
+		writerList.Add(new Text_Writer_Obj(uiText, txt, speed, whitespaces, useDeltaTime, callbackComplete));
 	}
-    public static void RemoveWriter(TextMeshProUGUI uiText) 
+	public static void RemoveWriter(TextMeshProUGUI uiText) 
 	{
         instance.RemoveWriter_Instance(uiText);
     }

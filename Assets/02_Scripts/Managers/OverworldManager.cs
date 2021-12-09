@@ -38,6 +38,7 @@ public class OverworldManager
     private bool overmapRunning;
     private List<EnemyOverworld> enemyList;
     private List<NPCOverworld> npcList;
+    private List<ItemOverworld> itemList;
     private List<FollowerOverworld> followerList;
 
     public OverworldManager(PlayerOverworld playerOvermap)
@@ -47,6 +48,7 @@ public class OverworldManager
         followerList = new List<FollowerOverworld>();
         npcList = new List<NPCOverworld>();
         enemyList = new List<EnemyOverworld>();
+        itemList = new List<ItemOverworld>();
         overmapRunning = true;
     }
 
@@ -99,6 +101,16 @@ public class OverworldManager
 
                     //case Character.Type.Shop:
             }
+            switch (GameData.state)
+            {
+                case GameData.State.Start:
+                    if (character.type == Character.Type.WarriorNPC_1)
+                    {
+                        Dialogues.Play_Start(character);
+                        GameData.state = GameData.State.Testing;
+                    }
+                    break;
+            }
         }
 
         foreach (Item item in GameData.itemList)
@@ -108,13 +120,13 @@ public class OverworldManager
         }
 
 
-        switch (GameData.state)
-        {
-            case GameData.State.Start:
-                Dialogues.Play_Start();
-                GameData.state = GameData.State.Testing;
-                break;
-        }
+        //switch (GameData.state)
+        //{
+        //    case GameData.State.Start:
+        //        Dialogues.Play_Start();
+        //        GameData.state = GameData.State.Testing;
+        //        break;
+        //}
 
 
         //transform.Find("Map").Find("Hitboxes").Find("TavernEntryHitbox").gameObject.SetActive(((int)GameData.state) < ((int)GameData.State.DefeatedTank));
@@ -232,7 +244,7 @@ public class OverworldManager
         //    }, timer);
     }
 
-public NPCOverworld GetClosestNPC(Vector3 position, float maxDistance = float.MaxValue)
+    public NPCOverworld GetClosestNPC(Vector3 position, float maxDistance = float.MaxValue)
     {
         NPCOverworld closest = null;
         foreach (NPCOverworld npcOvermap in npcList)
@@ -247,6 +259,27 @@ public NPCOverworld GetClosestNPC(Vector3 position, float maxDistance = float.Ma
                 if (Vector3.Distance(position, npcOvermap.GetPosition()) < Vector3.Distance(position, closest.GetPosition()))
                 {
                     closest = npcOvermap;
+                }
+            }
+        }
+        return closest;
+    }
+
+    public ItemOverworld GetClosestItem(Vector3 position, float maxDistance = float.MaxValue)
+    {
+        ItemOverworld closest = null;
+        foreach (ItemOverworld itemOvermap in itemList)
+        {
+            if (Vector3.Distance(position, itemOvermap.GetPosition()) > maxDistance) continue; // Too far
+            if (closest == null)
+            {
+                closest = itemOvermap;
+            }
+            else
+            {
+                if (Vector3.Distance(position, itemOvermap.GetPosition()) < Vector3.Distance(position, closest.GetPosition()))
+                {
+                    closest = itemOvermap;
                 }
             }
         }
@@ -310,6 +343,10 @@ public NPCOverworld GetClosestNPC(Vector3 position, float maxDistance = float.Ma
     {
         return instance.overmapRunning;
     }
+    public bool IsOvermapRunningNonStatic()
+    {
+        return instance.overmapRunning;
+    }
 
     public static void StartOvermapRunning()
     {
@@ -352,6 +389,7 @@ public NPCOverworld GetClosestNPC(Vector3 position, float maxDistance = float.Ma
         followerOvermap.Setup(character, instance.playerOvermap, followOffset);
         instance.followerList.Add(followerOvermap);
     }
+
     //public static void ReplaceFollower(GameObject pjSale, Character pjEntra, Vector3 followOffset)
     //{
     //    Transform followerTransform = UnityEngine.Object.Instantiate(GameAssets.i.pfFollowerOvermap, pjEntra.position, Quaternion.identity);
@@ -391,8 +429,9 @@ public NPCOverworld GetClosestNPC(Vector3 position, float maxDistance = float.Ma
                 break;
         }
         Transform itemTransform = UnityEngine.Object.Instantiate(prefab, item.GetPosition(), Quaternion.identity);
-        ItemOverworld itemOvermap = itemTransform.GetComponent<ItemOverworld>();
-        itemOvermap.Setup(item, instance.playerOvermap);
+        ItemOverworld itemOverworld = itemTransform.GetComponent<ItemOverworld>();
+        itemOverworld.Setup(item, instance.playerOvermap);
+        instance.itemList.Add(itemOverworld);
     }
 
 }

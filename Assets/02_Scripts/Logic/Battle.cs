@@ -323,28 +323,6 @@ public class Battle
                 selectedTargetCharacterBattle = null;
             }
         }
-
-        //if (BattleUI.instance.battleMenus == BattleUI.BATTLEMENUS.Submenu)
-        //{
-        //    if (Input.GetKeyDown(KeyCode.Escape))
-        //    {
-        //        if (state == State.EnemySelection || state == State.AllySelection)
-        //        {
-        //            Debug.Log("Retrocedio 1 paso");
-        //            state = State.WaitingForPlayer;
-        //            BattleUI.instance.OpenLastWindow();
-        //            selectedTargetCharacterBattle.HideSelectionCircle();
-        //            selectedTargetCharacterBattle = null;
-        //        }
-        //        else
-        //        {
-        //            Debug.Log("Retrocedio 1 paso");
-        //            state = State.WaitingForPlayer;
-        //            BattleUI.instance.lastMenuActivated.SetActive(false);
-        //            BattleUI.instance.SetSelectedGameObjectEventSystem();
-        //        }
-        //    }
-        //}
         Debug.Log(state);
     }
 
@@ -633,14 +611,7 @@ public class Battle
     }
 
     private void ChooseNextActiveCharacter()
-    {
-        if (TurnSystem.instance.ZeroTurns())
-        {
-            Debug.Log("Se te acabaron los turnos, vuela alto");
-            FunctionTimer.Create(OverworldManager.LoadBackToOvermap, .7f);
-            return;
-        }
-        
+    {        
         // Selecciona un enemigo
         if (GetAliveTeamCharacterBattleList(false).Count == 0)
         {
@@ -711,6 +682,14 @@ public class Battle
             FunctionTimer.Create(OverworldManager.LoadBackToOvermap, .7f);
             return;
         }
+
+        if (TurnSystem.instance.ZeroTurns())
+        {
+            Debug.Log("Se te acabaron los turnos, vuela alto");
+            FunctionTimer.Create(OverworldManager.LoadBackToOvermap, .7f);
+            return;
+        }
+
         if (GetAliveTeamCharacterBattleList(true).Count == 0)
         {
             // Perdio

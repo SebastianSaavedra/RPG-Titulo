@@ -30,6 +30,11 @@ public class Item : MonoBehaviour {
         return amount;
     }
 
+    public void SetAmount(int value)
+    {
+        amount = value;
+    }
+
     public Vector3 GetPosition() {
         return position;
     }

@@ -59,11 +59,13 @@ public class BattleUI : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                Debug.Log("ESCAPANDO DEL MENU XD");
                 if (Battle.GetInstance().state == Battle.State.WaitingForPlayer)
                 {
                     Debug.Log("Retrocedio 1 paso");
-                    lastMenuActivated.SetActive(false);
+                    if (lastMenuActivated != null)
+                    {
+                        lastMenuActivated.SetActive(false);
+                    }
                     EventSystem.current.SetSelectedGameObject(null);
                     EventSystem.current.SetSelectedGameObject(buttons[index]);
                 }
@@ -105,10 +107,14 @@ public class BattleUI : MonoBehaviour
         {
             Debug.Log(lastMenuActivated.name);
             lastMenuActivated.SetActive(true);
+            radialMenu.SetActive(true);
+            Timing.RunCoroutine(_EventSystemReAssign(subButtonsArray[index].subButtons[0]));
         }
-        radialMenu.SetActive(true);
-        Debug.Log(subButtonsArray[index].subButtons[0].name);
-        Timing.RunCoroutine(_EventSystemReAssign(subButtonsArray[index].subButtons[0]));
+        else
+        {
+            Timing.RunCoroutine(_EventSystemReAssign(buttons[index]));
+            radialMenu.SetActive(true);
+        }
     }
 
     public void Command(string command)     //Comando a ejecutar
@@ -133,11 +139,11 @@ public class BattleUI : MonoBehaviour
                 break;
             case "Submenu.Special":
                 battleMenus = BATTLEMENUS.Submenu;
-                lastMenuActivated = submenuSpecial;
                 switch (Battle.GetInstance().activeCharacterBattle.GetCharacterType())
                 {
                     case Character.Type.Suyai:
                         Debug.Log("Submenu de habilidades activado");
+                        lastMenuActivated = submenuSpecial;
                         submenuSpecial.SetActive(true);
                         suyaiSpells.SetActive(true);
                         Timing.RunCoroutine(_EventSystemReAssign(subButtonsArray[index].subButtons[0]));
@@ -202,6 +208,7 @@ public class BattleUI : MonoBehaviour
                     radialMenu.SetActive(false);
                     Battle.GetInstance().state = Battle.State.EnemySelection;
                     Battle.GetInstance().SetSelectedTargetCharacterBattle(Battle.GetInstance().GetAliveTeamCharacterBattleList(false)[0]);
+                    command = "Special";
                     break;
 
                 case Character.Type.Suyai:

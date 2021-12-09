@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using CodeMonkey.Utils;
-
+using TMPro;
 
 public class PlayerOverworld : MonoBehaviour
 {
     public static PlayerOverworld instance;
 
-    private const float SPEED = 15f;
+    private const float SPEED = 10f;
 
     [SerializeField] private LayerMask wallLayerMask;
     private Character_Anims charAnim;
@@ -17,6 +16,7 @@ public class PlayerOverworld : MonoBehaviour
     //private World_Bar healthWorldBar;
     private Character character;
 
+    public TextMeshProUGUI hierbasContadorTESTING;
 
     public enum State
     {
@@ -33,6 +33,12 @@ public class PlayerOverworld : MonoBehaviour
         charAnim = gameObject.GetComponent<Character_Anims>();
         SetStateNormal();
 
+    }
+
+    private void OnEnable()
+    {
+
+        hierbasContadorTESTING.SetText("Hierbas: " + ResourceManager.instance.GetHerbsAmount().ToString());
     }
 
     public void Setup(Character character)
@@ -131,6 +137,7 @@ public class PlayerOverworld : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             NPCOverworld npcOverworld = OverworldManager.GetInstance().GetClosestNPC(GetPosition(), 1.5f);
+            ItemOverworld itemOverworld = OverworldManager.GetInstance().GetClosestItem(GetPosition(), 3.9f);
             if (npcOverworld != null)
             {
                 switch (npcOverworld.GetCharacter().type)
@@ -139,7 +146,14 @@ public class PlayerOverworld : MonoBehaviour
                     //    Dialogues.QuestDialogue(npcOverworld.GetCharacter());
                     //    break;
                     case Character.Type.WarriorNPC_1:
-                        Dialogues.TestDialogue_1(npcOverworld.GetCharacter());
+                        if (npcOverworld.GetCharacter().quest.questGoal.CanComplete())
+                        {
+                            Dialogues.TestDialogue_3(npcOverworld.GetCharacter());
+                        }
+                        else
+                        {
+                            Dialogues.TestDialogue_1(npcOverworld.GetCharacter());
+                        }
                         break;
                     case Character.Type.WarriorNPC_2:
                         Dialogues.TestDialogue_2(npcOverworld.GetCharacter());
@@ -147,6 +161,23 @@ public class PlayerOverworld : MonoBehaviour
                         //case Character.Type.Shop:
                         //    Cutscenes.Play_Shop(npcOvermap.GetCharacter());
                         //    break;
+                }
+            }
+            else if (itemOverworld != null)
+            {
+                switch (itemOverworld.GetItem().GetItemType())
+                {
+                    case Item.ItemType.MedicinalHerbs:
+                        if (itemOverworld.GetItem().GetAmount() >= 1)
+                        {
+                            QuestManager.instance.QuestProgress();
+                            ResourceManager.instance.AddHerbs(itemOverworld.GetItem().GetAmount());
+                            itemOverworld.GetItem().SetAmount(0);
+                            hierbasContadorTESTING.SetText("Hierbas: " + ResourceManager.instance.GetHerbsAmount().ToString());
+                            SoundManager.PlaySound(SoundManager.Sound.Coin);
+                            Debug.Log("A la planta le quedan: " + itemOverworld.GetItem().GetAmount() + " hierbas");
+                        }
+                        break;
                 }
             }
         }
@@ -196,20 +227,20 @@ public class PlayerOverworld : MonoBehaviour
 
     private bool IsOnTopOfWall()
     {
-        RaycastHit2D raycastHit = Physics2D.BoxCast(GetPosition(), new Vector2(1.8f, 2.9f), 0f, Vector2.zero, 0f, wallLayerMask);
+        RaycastHit2D raycastHit = Physics2D.CircleCast(GetPosition(), 1f, Vector2.zero, 0f, wallLayerMask);
         return raycastHit.collider != null;
     }
 
     private bool CanMoveTo(Vector3 dir, float distance)
     {
         if (IsOnTopOfWall()) return true;
-        RaycastHit2D raycastHit = Physics2D.BoxCast(GetPosition(), new Vector2(1.8f, 2.9f), 0f, dir, distance, wallLayerMask);
+        RaycastHit2D raycastHit = Physics2D.CircleCast(GetPosition(), 1f, dir, distance, wallLayerMask);
         return raycastHit.collider == null;
     }
 
     private void TryMoveTo(Vector3 dir, float distance)
     {
-        RaycastHit2D raycastHit = Physics2D.BoxCast(GetPosition(), new Vector2(1.8f, 2.9f), 0f, dir, distance, wallLayerMask);
+        RaycastHit2D raycastHit = Physics2D.CircleCast(GetPosition(), 1f, dir,distance, wallLayerMask);
         if (raycastHit.collider == null)
         {
             transform.position += dir * distance;

@@ -91,6 +91,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 1a69d64fadc1e0b488a42633a25fc4f3, type: 3}
   questArray:
   - {fileID: 11400000, guid: 2bf6c0b0ffd47314984677634998ea7d, type: 2}
+  - {fileID: 11400000, guid: febe619589560b74f8863d0ebe1c6859, type: 2}
   audioClipsArray:
   - sound: 8
     audioClip: {fileID: 8300000, guid: 25bd6f9af2e87da439ef7fab6323d808, type: 3}
@@ -103,4 +104,7 @@ MonoBehaviour:
     volumen: 0.66
   - sound: 12
     audioClip: {fileID: 8300000, guid: 8ee46854bc6e47f448907f0b53a7e21d, type: 3}
+    volumen: 0.66
+  - sound: 17
+    audioClip: {fileID: 8300000, guid: e94c2cc3d7c61bf499e696059c59077c, type: 3}
     volumen: 0.66

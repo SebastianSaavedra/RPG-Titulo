@@ -200,6 +200,7 @@ public class MenuStateController : MonoBehaviour
             else
             {
                 Debug.Log("NO PUEDES SACAR A SUYAI DEL TEAM");
+                SoundManager.PlaySound(SoundManager.Sound.Error);
                 Timing.RunCoroutine(interactionController._EventSystemReAssign(SaveGameObject()));
                 //mensaje de q no puedes sacar a suyai del team
             }

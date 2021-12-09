@@ -25,6 +25,8 @@ public static class SoundManager
         ButtonPress,
         ButtonOver,
         PlayerMove,
+        Error,
+
     }
 
     private static Dictionary<Sound, float> soundTimerDictionary;

@@ -9,6 +9,9 @@ public class UIChatBubble : MonoBehaviour
 
     private static UIChatBubble instance;
 
+    [Range(0.01f,0.1f)]
+    public float textSpeed = .03f;
+
     public static void Create(Vector2 position, string text) 
     {
         Transform chatBubbleUITransform = Instantiate(GameAssets.i.pfChatBubbleUI, instance.transform);
@@ -27,8 +30,8 @@ public class UIChatBubble : MonoBehaviour
         Show();
         uiText.text = "";
         Text_Writer.RemoveWriter(uiText);
-        Text_Writer.AddWriter(uiText, text, .02f, true);
-        SoundManager.PlaySound(SoundManager.Sound.Talking, text.Length * .02f);
+        Text_Writer.AddWriter(uiText, text, textSpeed, true,true);
+        SoundManager.PlaySound(SoundManager.Sound.Talking, text.Length * textSpeed);
     }
 
     public void Hide() {

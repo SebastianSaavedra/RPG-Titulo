@@ -96,7 +96,7 @@ public class MenuInteractionController : MonoBehaviour
     }
     private void HandleMenu()
     {
-        if (Input.GetKeyDown(KeyCode.Return) && !IsMainMenuOpen())
+        if (Input.GetKeyDown(KeyCode.Return) && !IsMainMenuOpen() && OverworldManager.GetInstance().IsOvermapRunningNonStatic())
         {
             OpenCloseMenu(true,mainMenu);
             PlayerOverworld.instance.state = PlayerOverworld.State.OnMenu;

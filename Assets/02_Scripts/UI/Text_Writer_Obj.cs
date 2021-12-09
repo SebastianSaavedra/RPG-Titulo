@@ -7,7 +7,7 @@ using TMPro;
 public class Text_Writer_Obj 
 {
 	private TextMeshProUGUI tmpro;
-    private Text uiText;
+    private TextMeshProUGUI uiText;
 	private string txt;
 	private float timer;
 	private float speed;
@@ -28,7 +28,19 @@ public class Text_Writer_Obj
 		timer = 0f;
 		txtIndex = 1;
 	}
-	public Text_Writer_Obj(Text _uiText, string _txt, float _speed, bool _whitespaces, bool useDeltaTime = true, Action callbackComplete = null) 
+	public Text_Writer_Obj(TextMeshProUGUI _uiText, string _txt, float _speed, bool _whitespaces, bool useDeltaTime = true)
+	{
+		uiText = _uiText;
+		txt = _txt;
+		speed = _speed;
+		whitespaces = _whitespaces;
+		this.useDeltaTime = useDeltaTime;
+
+		if (txt == null || (txt != null && txt == "")) txt = " ";
+		timer = 0f;
+		txtIndex = 1;
+	}
+	public Text_Writer_Obj(TextMeshProUGUI _uiText, string _txt, float _speed, bool _whitespaces, bool useDeltaTime = true, Action callbackComplete = null) 
 	{
 		uiText = _uiText;
 		txt = _txt;
@@ -41,7 +53,7 @@ public class Text_Writer_Obj
 		timer = 0f;
 		txtIndex = 1;
 	}
-    public Text GetUiText() 
+    public TextMeshProUGUI GetUiText() 
 	{
         return uiText;
     }
