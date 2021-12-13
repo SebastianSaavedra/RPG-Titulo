@@ -134,32 +134,24 @@ public static class Dialogues
                 dialogue.Show();
                 dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
                 dialogue.ShowText("Suyai, ¿así que estas cumpliendo el desafío para finalmente ser reconocida como Machi?");
-                dialogue.ShowRightCharacterName("Nehuén");
+                dialogue.ShowRightCharacterName("Nehuen");
                 dialogue.HideLeftCharacter();
                 dialogue.HideLeftCharacterName();
             },() => {
-                dialogue.ShowText("");
-                dialogue.ShowText("La Anciana ya nos ha puesto al corriente, y nos ha pedido que no te dejemos volver hasta que cumplas la tarea que se te ha encomendado, la que consiste en recolectar al menos 6 hierbas.");
+                dialogue.ShowText("La Anciana ya nos ha puesto al corriente, y nos ha pedido que no te dejemos volver hasta que cumplas la tarea que se te ha encomendado, la que consiste en recolectar al menos 6 <q=herb> <c=greenHerb>hierbas.");
             },() => {
-                dialogue.ShowText("");
                 dialogue.ShowText("Aunque no se muy bien como son capaces de diferenciarlas.");
             },() => {
-                dialogue.ShowText("");
                 dialogue.ShowText("He oido que las Machis pueden distinguir facilmente los arbustos de donde poder sacar dichas hierbas.");
             },() => {
-                dialogue.ShowText("");
-                dialogue.ShowText("Dicen que en los arbustos con colores más vivos pueden crecer las plantas curativas, pero para mi, todos son del mismo color.");
+                dialogue.ShowText("Dicen que en los arbustos con <c=greenHerb> colores más vivos <c=normal> pueden crecer las plantas curativas, pero para mi, todos son del mismo color.");
             },() => {
-                dialogue.ShowText("");
                 dialogue.ShowText("Ahora que te di ese consejo es hora de que empieces, no quiero quedarme haciendo guardia hasta el anochecer.");
             },() => {
-                dialogue.ShowText("");
                 dialogue.ShowText("Si no sabes por donde empezar, podrias usar WASD o las Flechas direccionales para explorar la zona.");
             },() => {
-                dialogue.ShowText("");
                 dialogue.ShowText("Si ves algo sospechoso, no dudes en inspeccionarlo con SPACE.");
             },() => {
-                dialogue.ShowText("");
                 dialogue.ShowText("Por ultimo, puedes organizarte apretando ENTER.");
             },
             () => {
@@ -224,6 +216,7 @@ public static class Dialogues
             () => {
                 dialogue.Hide();
                 OverworldManager.StartOvermapRunning();
+                UnityEngine.Application.Quit();
             },
         }, true);
     }

@@ -35,11 +35,11 @@ public class PlayerOverworld : MonoBehaviour
 
     }
 
-    private void OnEnable()
-    {
+    //private void OnEnable()
+    //{
 
-        hierbasContadorTESTING.SetText("Hierbas: " + ResourceManager.instance.GetHerbsAmount().ToString());
-    }
+    //    hierbasContadorTESTING.SetText("Hierbas: " + ResourceManager.instance.GetHerbsAmount().ToString());
+    //}
 
     public void Setup(Character character)
     {

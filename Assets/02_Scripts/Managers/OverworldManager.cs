@@ -41,6 +41,8 @@ public class OverworldManager
     private List<ItemOverworld> itemList;
     private List<FollowerOverworld> followerList;
 
+    static Vector3 suyaiPos;
+
     public OverworldManager(PlayerOverworld playerOvermap)
     {
         instance = this;
@@ -71,6 +73,7 @@ public class OverworldManager
                 {
                     case Character.Type.Suyai:
                         playerOvermap.Setup(character);
+                        suyaiPos = playerOvermap.GetPosition();
                         break;
                     case Character.Type.Pedro:
                         SpawnFollower(character, new Vector3(-1, -1));
@@ -384,7 +387,7 @@ public class OverworldManager
 
     public static void SpawnFollower(Character character, Vector3 followOffset)
     {
-        Transform followerTransform = UnityEngine.Object.Instantiate(GameAssets.i.pfFollowerOvermap, character.position, Quaternion.identity);
+        Transform followerTransform = UnityEngine.Object.Instantiate(GameAssets.i.pfFollowerOvermap, suyaiPos - followOffset, Quaternion.identity);
         FollowerOverworld followerOvermap = followerTransform.GetComponent<FollowerOverworld>();
         followerOvermap.Setup(character, instance.playerOvermap, followOffset);
         instance.followerList.Add(followerOvermap);

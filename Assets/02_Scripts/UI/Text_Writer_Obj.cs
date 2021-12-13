@@ -6,8 +6,8 @@ using TMPro;
 
 public class Text_Writer_Obj 
 {
-	private TextMeshProUGUI tmpro;
-    private TextMeshProUGUI uiText;
+	private SuperTextMesh tmpro;
+    private SuperTextMesh uiText;
 	private string txt;
 	private float timer;
 	private float speed;
@@ -16,7 +16,7 @@ public class Text_Writer_Obj
     private bool useDeltaTime;
     private Action callbackComplete;
 	
-	public Text_Writer_Obj(TextMeshProUGUI _tmpro, string _txt, float _speed, bool _whitespaces) 
+	public Text_Writer_Obj(SuperTextMesh _tmpro, string _txt, float _speed, bool _whitespaces) 
 	{
 		tmpro = _tmpro;
 		txt = _txt;
@@ -28,7 +28,7 @@ public class Text_Writer_Obj
 		timer = 0f;
 		txtIndex = 1;
 	}
-	public Text_Writer_Obj(TextMeshProUGUI _uiText, string _txt, float _speed, bool _whitespaces, bool useDeltaTime = true)
+	public Text_Writer_Obj(SuperTextMesh _uiText, string _txt, float _speed, bool _whitespaces, bool useDeltaTime = true)
 	{
 		uiText = _uiText;
 		txt = _txt;
@@ -40,7 +40,7 @@ public class Text_Writer_Obj
 		timer = 0f;
 		txtIndex = 1;
 	}
-	public Text_Writer_Obj(TextMeshProUGUI _uiText, string _txt, float _speed, bool _whitespaces, bool useDeltaTime = true, Action callbackComplete = null) 
+	public Text_Writer_Obj(SuperTextMesh _uiText, string _txt, float _speed, bool _whitespaces, bool useDeltaTime = true, Action callbackComplete = null) 
 	{
 		uiText = _uiText;
 		txt = _txt;
@@ -53,7 +53,7 @@ public class Text_Writer_Obj
 		timer = 0f;
 		txtIndex = 1;
 	}
-    public TextMeshProUGUI GetUiText() 
+    public SuperTextMesh GetUiText() 
 	{
         return uiText;
     }

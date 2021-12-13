@@ -49,7 +49,7 @@ public static class GameData
             "Lican ray",
             "Alihuen",
             "Yenien",
-            "Kuyén",
+            "Kuyen",
             "Nahuelquin",
             "Yamai",
             "Caucaman",
@@ -67,8 +67,8 @@ public static class GameData
             "Chaiten",
             "Huilen",
             "Cobquecura",
-            "Cumelén",
-            "Ayelén",
+            "Cumelen",
+            "Ayelen",
         };
 
 

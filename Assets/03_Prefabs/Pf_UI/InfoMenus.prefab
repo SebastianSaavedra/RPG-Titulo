@@ -142,8 +142,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Hierbas : 7'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 27d6af45c55136e4ea6bfa3b94ad4884, type: 2}
+  m_sharedMaterial: {fileID: -6354949953719027776, guid: 27d6af45c55136e4ea6bfa3b94ad4884, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -276,8 +276,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Nombre
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 27d6af45c55136e4ea6bfa3b94ad4884, type: 2}
+  m_sharedMaterial: {fileID: -6354949953719027776, guid: 27d6af45c55136e4ea6bfa3b94ad4884, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -410,8 +410,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'PV : 17/ 29'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 27d6af45c55136e4ea6bfa3b94ad4884, type: 2}
+  m_sharedMaterial: {fileID: -6354949953719027776, guid: 27d6af45c55136e4ea6bfa3b94ad4884, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -486,7 +486,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5919312203927635876}
-  - component: {fileID: 677030581}
   m_Layer: 5
   m_Name: WindowChar2
   m_TagString: Untagged
@@ -518,19 +517,6 @@ RectTransform:
   m_AnchoredPosition: {x: 314, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &677030581
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 921651778107727464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4c73cfa8512de94ba1a38a507b8eb97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterWindowArray: []
 --- !u!1 &1591436161325576181
 GameObject:
   m_ObjectHideFlags: 0
@@ -598,8 +584,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Hierbas : 7'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 27d6af45c55136e4ea6bfa3b94ad4884, type: 2}
+  m_sharedMaterial: {fileID: -6354949953719027776, guid: 27d6af45c55136e4ea6bfa3b94ad4884, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -732,8 +718,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Hierbas : 7'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 27d6af45c55136e4ea6bfa3b94ad4884, type: 2}
+  m_sharedMaterial: {fileID: -6354949953719027776, guid: 27d6af45c55136e4ea6bfa3b94ad4884, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -866,8 +852,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'PV : 17/ 29'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 27d6af45c55136e4ea6bfa3b94ad4884, type: 2}
+  m_sharedMaterial: {fileID: -6354949953719027776, guid: 27d6af45c55136e4ea6bfa3b94ad4884, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -942,7 +928,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7158458472784525897}
-  - component: {fileID: 1049558205}
   m_Layer: 5
   m_Name: WindowChar1
   m_TagString: Untagged
@@ -974,19 +959,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1049558205
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3370665274647403156}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4c73cfa8512de94ba1a38a507b8eb97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterWindowArray: []
 --- !u!1 &3693785565381016312
 GameObject:
   m_ObjectHideFlags: 0
@@ -1129,8 +1101,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Nombre
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 27d6af45c55136e4ea6bfa3b94ad4884, type: 2}
+  m_sharedMaterial: {fileID: -6354949953719027776, guid: 27d6af45c55136e4ea6bfa3b94ad4884, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1205,6 +1177,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6743259162587262059}
+  - component: {fileID: 526985034}
   m_Layer: 5
   m_Name: InfoMenus
   m_TagString: Untagged
@@ -1234,6 +1207,34 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &526985034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6743259162587262058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4c73cfa8512de94ba1a38a507b8eb97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterWindowArray:
+  - window: {fileID: 6743259163110664715}
+    icon: {fileID: 3730793404218349006}
+    nombre: {fileID: 1489695174512922155}
+    vida: {fileID: 3961121800893925151}
+    recurso: {fileID: 4218217288069803267}
+  - window: {fileID: 3693785565381016312}
+    icon: {fileID: 8503984419939095215}
+    nombre: {fileID: 7976787916036232889}
+    vida: {fileID: 4745540497685378703}
+    recurso: {fileID: 2290925253848176409}
+  - window: {fileID: 8291486273407910329}
+    icon: {fileID: 4144906351037123662}
+    nombre: {fileID: 7735618065564863437}
+    vida: {fileID: 6880392515029830017}
+    recurso: {fileID: 6274574771531051893}
 --- !u!1 &6743259163110664715
 GameObject:
   m_ObjectHideFlags: 0
@@ -1451,8 +1452,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Nombre
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 27d6af45c55136e4ea6bfa3b94ad4884, type: 2}
+  m_sharedMaterial: {fileID: -6354949953719027776, guid: 27d6af45c55136e4ea6bfa3b94ad4884, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1602,7 +1603,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5281642537792393352}
-  - component: {fileID: 532039302}
   m_Layer: 5
   m_Name: WindowChar3
   m_TagString: Untagged
@@ -1634,19 +1634,6 @@ RectTransform:
   m_AnchoredPosition: {x: 630.45, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &532039302
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8296753553322797142}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4c73cfa8512de94ba1a38a507b8eb97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterWindowArray: []
 --- !u!1 &8771115912703466322
 GameObject:
   m_ObjectHideFlags: 0
@@ -1789,8 +1776,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'PV : 17/ 29'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 27d6af45c55136e4ea6bfa3b94ad4884, type: 2}
+  m_sharedMaterial: {fileID: -6354949953719027776, guid: 27d6af45c55136e4ea6bfa3b94ad4884, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

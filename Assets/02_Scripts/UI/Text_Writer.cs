@@ -28,12 +28,12 @@ public class Text_Writer : MonoBehaviour {
 		}
 	}
 	
-	public static void AddWriter(TextMeshProUGUI tmpro, string txt, float speed, bool whitespaces) 
+	public static void AddWriter(SuperTextMesh tmpro, string txt, float speed, bool whitespaces) 
 	{
         if (txt == null) txt = "";
 		instance.AddWriter_Instance(tmpro, txt,speed,whitespaces);
 	}
-	private void AddWriter_Instance(TextMeshProUGUI tmpro, string txt, float speed, bool whitespaces) 
+	private void AddWriter_Instance(SuperTextMesh tmpro, string txt, float speed, bool whitespaces) 
 	{
 		if (writerList == null) {
 			writerList = new List<Text_Writer_Obj>();
@@ -43,12 +43,12 @@ public class Text_Writer : MonoBehaviour {
 
 
 
-	public static void AddWriter(TextMeshProUGUI uiText, string txt, float speed, bool whitespaces, bool useDeltaTime = true)
+	public static void AddWriter(SuperTextMesh uiText, string txt, float speed, bool whitespaces, bool useDeltaTime = true)
 	{
 		if (txt == null) txt = "";
 		instance.AddWriter_Instance(uiText, txt, speed, whitespaces, useDeltaTime);
 	}
-	private void AddWriter_Instance(TextMeshProUGUI uiText, string txt, float speed, bool whitespaces, bool useDeltaTime = true)
+	private void AddWriter_Instance(SuperTextMesh uiText, string txt, float speed, bool whitespaces, bool useDeltaTime = true)
 	{
 		if (writerList == null)
 		{
@@ -58,7 +58,7 @@ public class Text_Writer : MonoBehaviour {
 	}
 
 
-	public static void ClearWriter(TextMeshProUGUI uiText)
+	public static void ClearWriter(SuperTextMesh uiText)
 	{
         if (instance.writerList != null) 
 		{
@@ -72,12 +72,12 @@ public class Text_Writer : MonoBehaviour {
             }
         }
 	}
-	public static void AddWriter(TextMeshProUGUI uiText, string txt, float speed, bool whitespaces, bool useDeltaTime = true, Action callbackComplete = null)
+	public static void AddWriter(SuperTextMesh uiText, string txt, float speed, bool whitespaces, bool useDeltaTime = true, Action callbackComplete = null)
 	{
 		if (txt == null) txt = "";
 		instance.AddWriter_Instance(uiText, txt, speed, whitespaces, useDeltaTime, callbackComplete);
 	}
-	private void AddWriter_Instance(TextMeshProUGUI uiText, string txt, float speed, bool whitespaces, bool useDeltaTime = true, Action callbackComplete = null)
+	private void AddWriter_Instance(SuperTextMesh uiText, string txt, float speed, bool whitespaces, bool useDeltaTime = true, Action callbackComplete = null)
 	{
 		if (writerList == null)
 		{
@@ -85,11 +85,11 @@ public class Text_Writer : MonoBehaviour {
 		}
 		writerList.Add(new Text_Writer_Obj(uiText, txt, speed, whitespaces, useDeltaTime, callbackComplete));
 	}
-	public static void RemoveWriter(TextMeshProUGUI uiText) 
+	public static void RemoveWriter(SuperTextMesh uiText) 
 	{
         instance.RemoveWriter_Instance(uiText);
     }
-    private void RemoveWriter_Instance(TextMeshProUGUI uiText) 
+    private void RemoveWriter_Instance(SuperTextMesh uiText) 
 	{
         if (writerList == null) return;
         for (int i=0; i<writerList.Count; i++) 
