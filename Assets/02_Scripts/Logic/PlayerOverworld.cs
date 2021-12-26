@@ -10,13 +10,11 @@ public class PlayerOverworld : MonoBehaviour
     private const float SPEED = 10f;
 
     [SerializeField] private LayerMask wallLayerMask;
+    [SerializeField] private UI_Inventory ui_Inventory;
     private Character_Anims charAnim;
-    public State state;
+    [HideInInspector] public State state;
     private HealthSystem healthSystem;
-    //private World_Bar healthWorldBar;
     private Character character;
-
-    public TextMeshProUGUI hierbasContadorTESTING;
 
     public enum State
     {
@@ -32,24 +30,14 @@ public class PlayerOverworld : MonoBehaviour
         instance = this;
         charAnim = gameObject.GetComponent<Character_Anims>();
         SetStateNormal();
-
     }
-
-    //private void OnEnable()
-    //{
-
-    //    hierbasContadorTESTING.SetText("Hierbas: " + ResourceManager.instance.GetHerbsAmount().ToString());
-    //}
-
     public void Setup(Character character)
     {
         this.character = character;
         transform.position = character.position;
         healthSystem = new HealthSystem(character.stats.healthMax);
         healthSystem.SetHealthAmount(character.stats.health);
-        //healthWorldBar = new World_Bar(transform, new Vector3(0, 10), new Vector3(15, 2), Color.grey, Color.red, healthSystem.GetHealthPercent(), UnityEngine.Random.Range(10000, 11000), new World_Bar.Outline { color = Color.black, size = .6f });
-        //healthSystem.OnHealthChanged += HealthSystem_OnHealthChanged;
-        //RefreshHealthBar();
+        character.SetHealthSystem(healthSystem);
 
         //RefreshTexture();
         
@@ -168,12 +156,13 @@ public class PlayerOverworld : MonoBehaviour
                 switch (itemOverworld.GetItem().GetItemType())
                 {
                     case Item.ItemType.MedicinalHerbs:
-                        if (itemOverworld.GetItem().GetAmount() >= 1)
+                        if (itemOverworld.GetItem().GetAmount() > 0 )
                         {
+                            //Debug.Log(itemOverworld.GetItem().GetItemType());
+                            Inventory.instance.AddItem(itemOverworld.GetItem());
                             QuestManager.instance.QuestProgress();
                             ResourceManager.instance.AddHerbs(itemOverworld.GetItem().GetAmount());
                             itemOverworld.GetItem().SetAmount(0);
-                            hierbasContadorTESTING.SetText("Hierbas: " + ResourceManager.instance.GetHerbsAmount().ToString());
                             SoundManager.PlaySound(SoundManager.Sound.Coin);
                             Debug.Log("A la planta le quedan: " + itemOverworld.GetItem().GetAmount() + " hierbas");
                         }
@@ -250,6 +239,16 @@ public class PlayerOverworld : MonoBehaviour
             transform.position += dir * (raycastHit.distance - .1f);
         }
     }
+
+    //private void UseItem(Item item)
+    //{
+    //    switch (item.GetItemType())
+    //    {
+    //        case Item.ItemType.MedicinalHerbs:
+    //            Heal(15);
+    //            break;
+    //    }
+    //}
 
     public int GetHealth()
     {

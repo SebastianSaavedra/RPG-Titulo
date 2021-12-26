@@ -6,7 +6,7 @@ public class FollowerOverworld : MonoBehaviour
 {
     public static FollowerOverworld instance;
 
-    private float speed = 15f;
+    private float speed = 9.5f;
 
     private Character_Anims charAnim;
     private Animator anim;
@@ -17,7 +17,6 @@ public class FollowerOverworld : MonoBehaviour
     private Vector3 followOffset;
     private Character character;
     private HealthSystem healthSystem;
-    //private World_Bar healthWorldBar;
 
     private enum State
     {
@@ -65,6 +64,7 @@ public class FollowerOverworld : MonoBehaviour
 
         healthSystem = new HealthSystem(character.stats.healthMax);
         healthSystem.SetHealthAmount(character.stats.health);
+        character.SetHealthSystem(healthSystem);
         //healthWorldBar = new World_Bar(transform, new Vector3(0, 10), new Vector3(15, 2), Color.grey, Color.red, healthSystem.GetHealthPercent(), UnityEngine.Random.Range(10000, 11000), new World_Bar.Outline { color = Color.black, size = .6f });
         //healthSystem.OnHealthChanged += HealthSystem_OnHealthChanged;
         //RefreshHealthBar();
@@ -127,6 +127,16 @@ public class FollowerOverworld : MonoBehaviour
     {
         state = State.Normal;
     }
+
+    //private void UseItem(Item item)
+    //{
+    //    switch (item.GetItemType())
+    //    {
+    //        case Item.ItemType.MedicinalHerbs:
+    //            Heal(15);
+    //            break;
+    //    }
+    //}
 
     private void HandleTargetMovePosition()
     {

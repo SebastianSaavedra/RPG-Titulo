@@ -154,7 +154,8 @@ public class DialogueController : MonoBehaviour {
         leftCharacterTransform.gameObject.SetActive(false);
     }
     
-    public void ShowRightCharacter(Sprite characterSprite, bool faded) {
+    public void ShowRightCharacter(Sprite characterSprite, bool faded) 
+    {
         rightCharacterTransform.gameObject.SetActive(true);
         rightCharacterTransform.GetComponent<Image>().sprite = characterSprite;
         rightCharacterTransform.GetComponent<Image>().color = new Color(1, 1, 1, 1f);

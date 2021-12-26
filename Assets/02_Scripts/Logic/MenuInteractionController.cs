@@ -12,8 +12,8 @@ public class MenuInteractionController : MonoBehaviour
     public List<GameObject> subMenus = new List<GameObject>();
     public GameObject mainMenu;
     public PopUpWindowController popUpWindowController;
-    public MenuStateController uiPartyController;
-    public GameObject topMenu, midMenu, bottomMenu;
+    public PartyUIController uiPartyController;
+    [HideInInspector] public GameObject actualLaneOpened;
     int index = 0;
     GameObject lastMenuOpened, currentMenuOpened;
 

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Audio;
+
 public class GameAssets : MonoBehaviour
 {
     private static GameAssets _i;
@@ -37,6 +38,9 @@ public class GameAssets : MonoBehaviour
     public Transform pfCoin;
     public Transform pfChatBubbleUI;
     public Transform pfChatOption;
+    public RectTransform pf_ItemSlot;
+    //public Transform pfPopUpWindow;
+    //public Transform pfPopUpWindowButton;
 
     [Header("Animators")]
     [Space(5)]
@@ -53,9 +57,12 @@ public class GameAssets : MonoBehaviour
     public Sprite spriteOWPedro, spriteOWArana, spriteOWChillpila, spriteOWAntay;
     public Sprite splashSuyai, splashPedro, splashChillpila, splashArana, splashAntay;
     public Sprite playerDialogueSprite, npc_1DialogueSprite, warriorNpcDialogueSprite;
+    public Sprite item_Herb, item_cualquiercosa;
     public List<Sprite> enemies = new List<Sprite>();
 
     public Quest[] questArray;
+
+    //public AudioMixerGroup audioMixer;
 
     public SoundAudioClip[] audioClipsArray;
 

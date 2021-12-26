@@ -15,6 +15,12 @@ public class OverworldManager
         Loader.LoadTargetScene(Loader.Scene.OverworldScene);
     }
 
+    public static void EscapedFromBattle()
+    {
+        Battle.enemyOverworld.PlayerEscapedBattle();
+        Loader.LoadTargetScene(Loader.Scene.OverworldScene);
+    }
+
     public static void LoadFromOvermapToBattle()
     {
         Loader.LoadTargetScene(Loader.Scene.BattleScene);

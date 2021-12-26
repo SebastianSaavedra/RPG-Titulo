@@ -174,6 +174,13 @@ public class CharacterBattle : MonoBehaviour
         Debug.Log("Salio del modo bloqueo");
     }
 
+    public void Revive()
+    {
+        //Revive Anim
+        Debug.Log(character.name + " fue revivido");
+        transform.eulerAngles = new Vector3(0, 0, 0);
+    }
+
     public void Damage(CharacterBattle attacker, int damageAmount, CharacterBattle characterAttacked)
     {
         //Vector3 bloodDir = (GetPosition() - attacker.GetPosition()).normalized;
@@ -211,7 +218,7 @@ public class CharacterBattle : MonoBehaviour
             }
             //playerAnims.GetUnitAnimation().PlayAnimForced(UnitAnim.GetUnitAnim("LyingUp"), 1f, null);
             //healthWorldBar.Hide();
-            transform.localScale = new Vector3(-1, 1, 1);
+            transform.eulerAngles = new Vector3(0, 0, 90);
             //gameObject.SetActive(false);
             //Destroy(gameObject);
         }
@@ -566,7 +573,7 @@ public class CharacterBattle : MonoBehaviour
         state = State.SlideToPosition;
     }
 
-    public void PlayAnimSpecialAttack(Action OnHit,Action OnComplete)
+    public void PlayAnimSpecial(Action OnHit,Action OnComplete)
     {
         playerAnims.PlaySpecialAttack(OnHit, OnComplete);
 

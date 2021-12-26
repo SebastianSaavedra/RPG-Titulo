@@ -59,6 +59,7 @@ MonoBehaviour:
   pfCoin: {fileID: 740378356030626837, guid: 8a842e0f3e27e974880a141e0b9a8b9a, type: 3}
   pfChatBubbleUI: {fileID: 0}
   pfChatOption: {fileID: 0}
+  pf_ItemSlot: {fileID: 2809455457114441785, guid: c5887062ac45ac7469a69d3353335627, type: 3}
   suyaiANIM: {fileID: 9100000, guid: f12bc6ecd7ec9bb4a94d78b4c02c7fbc, type: 2}
   pedroANIM: {fileID: 9100000, guid: 92d7085d1b370e74ab1045b36989edfa, type: 2}
   aranaANIM: {fileID: 9100000, guid: 2953abf012d3b9f48933f62342c1a879, type: 2}
@@ -80,6 +81,8 @@ MonoBehaviour:
   playerDialogueSprite: {fileID: 21300000, guid: 6f15fc5d26e8bda42ad26663858aa678, type: 3}
   npc_1DialogueSprite: {fileID: 5827935539512385037, guid: 7e6dc2ea2d0be764bac1dc66c10069d8, type: 3}
   warriorNpcDialogueSprite: {fileID: 21300000, guid: 170e201a23bd75a40bd92ca0633b5605, type: 3}
+  item_Herb: {fileID: 21300000, guid: 4bb9171947f126349b5145b4c0aea986, type: 3}
+  item_cualquiercosa: {fileID: 21300000, guid: 47fabf32008e41a42bdfcef2147e856a, type: 3}
   enemies:
   - {fileID: 21300000, guid: 2f50c32beb34dbb4687efa4f3b7e170b, type: 3}
   - {fileID: 21300000, guid: d2d0c1724bb61fe49ae74baa68e8c837, type: 3}
@@ -102,9 +105,6 @@ MonoBehaviour:
   - sound: 10
     audioClip: {fileID: 8300000, guid: 3254f01cd12b1ba4ebedce91da91644e, type: 3}
     volumen: 0.66
-  - sound: 12
-    audioClip: {fileID: 8300000, guid: 8ee46854bc6e47f448907f0b53a7e21d, type: 3}
-    volumen: 0.66
-  - sound: 17
+  - sound: 16
     audioClip: {fileID: 8300000, guid: e94c2cc3d7c61bf499e696059c59077c, type: 3}
     volumen: 0.66

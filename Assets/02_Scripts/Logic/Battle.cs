@@ -13,12 +13,14 @@ public class Battle
 
     public static Character character;
     public static GameData.EnemyEncounter enemyEncounter;
+    public static EnemyOverworld enemyOverworld;
 
-    public static void LoadEnemyEncounter(Character character, GameData.EnemyEncounter enemyEncounter)
+    public static void LoadEnemyEncounter(Character character, GameData.EnemyEncounter enemyEncounter, EnemyOverworld enemyOverworld)
     {
         OverworldManager.SaveAllCharacterPositions();
         Battle.character = character;
         Battle.enemyEncounter = enemyEncounter;
+        Battle.enemyOverworld = enemyOverworld;
         
         FunctionTimer.Create(OverworldManager.LoadFromOvermapToBattle, .7f);
     }
@@ -48,6 +50,7 @@ public class Battle
         OnMenu,
         EnemySelection,
         AllySelection,
+        DeadAllySelection,
         OnInventory,
         Busy,
     }
@@ -196,12 +199,19 @@ public class Battle
     }
 
     /// <summary>
-    /// Para cambiar de objetivo (Esta funcion debe ser usada desde el script BattleWindow)
+    /// Para cambiar de objetivo
     /// </summary>
     /// <param name="isUp"></param>
-    public void UITargetSelect(bool isUp, bool isTeam)
+    public void UITargetSelect(bool isUp, bool isTeam,bool isAlive)
     {
-        SetSelectedTargetCharacterBattle(GetNextCharacterBattle(selectedTargetCharacterBattle.GetLanePosition(), isUp, isTeam));
+        if (isAlive)
+        {
+            SetSelectedTargetCharacterBattle(GetNextCharacterBattle(selectedTargetCharacterBattle.GetLanePosition(), isUp, isTeam));
+        }
+        else
+        {
+            SetSelectedTargetCharacterBattle(GetNextDeadCharacterBattle(selectedTargetCharacterBattle.GetLanePosition(), isUp, isTeam));
+        }
     }
 
     private CharacterBattle GetNextCharacterBattle(LanePosition lanePosition, bool moveUp, bool isPlayerTeam)
@@ -215,12 +225,32 @@ public class Battle
         CharacterBattle characterBattle = null;
         do
         {
-            // Get next lane position
+            // Elige otra linea
             lanePosition = GetNextLanePosition(lanePosition, moveUp);
-            // Find character at that position
+            // Busca el pj que esta en esa linea
             characterBattle = GetCharacterBattleAt(lanePosition, isPlayerTeam);
-            if (characterBattle != null && characterBattle.IsDead()) characterBattle = null; // Ignore dead
-        } while (characterBattle == null);
+
+            if (characterBattle != null && characterBattle.IsDead())
+            {
+                characterBattle = null;
+            }
+        } 
+        while (characterBattle == null);
+
+        return characterBattle;
+    }
+
+    private CharacterBattle GetNextDeadCharacterBattle(LanePosition lanePosition, bool moveUp, bool isPlayerTeam)
+    {
+        CharacterBattle characterBattle = null;
+        do
+        {
+            // Elige otra linea
+            lanePosition = GetNextLanePosition(lanePosition, moveUp);
+            // Busca el pj que esta en esa linea
+            characterBattle = GetCharacterBattleAt(lanePosition, isPlayerTeam);
+        }
+        while (!characterBattle.IsDead());
 
         return characterBattle;
     }
@@ -282,18 +312,22 @@ public class Battle
 
     public void Update()
     {
-        if (state == State.EnemySelection || state == State.AllySelection)
+        if (state == State.EnemySelection || state == State.AllySelection || state == State.DeadAllySelection)
         {
             if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
             {
                 if (state == State.EnemySelection)
                 {
                     // Selecciona un pj de arriba
-                    UITargetSelect(true, false);
+                    UITargetSelect(true, false,true);
                 }
                 else if (state == State.AllySelection)
                 {
-                    UITargetSelect(true, true);
+                    UITargetSelect(true, true, true);
+                }
+                else if (state == State.DeadAllySelection)
+                {
+                    UITargetSelect(true, true, false);
                 }
             }
 
@@ -302,11 +336,15 @@ public class Battle
                 if (state == State.EnemySelection)
                 {
                     // Selecciona un pj de abajo
-                    UITargetSelect(false, false);
+                    UITargetSelect(false, false, true);
                 }
                 else if (state == State.AllySelection)
                 {
-                    UITargetSelect(false, true);
+                    UITargetSelect(false, true, true);
+                }
+                else if (state == State.DeadAllySelection)
+                {
+                    UITargetSelect(false, true, false);
                 }
             }
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
@@ -405,7 +443,7 @@ public class Battle
                         Vector3 slideToPositionToHeal = selectedTargetCharacterBattle.GetPosition() + new Vector3(-8f, 0);
                         activeCharacterBattle.SlideToPosition(slideToPositionToHeal, () =>
                         {
-                            activeCharacterBattle.PlayAnimSpecialAttack(() =>
+                            activeCharacterBattle.PlayAnimSpecial(() =>
                             {
                                 ResetCamera();
                                 activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
@@ -422,7 +460,7 @@ public class Battle
 
                     case "CuraGrupal":
                         SetCamera(activeCharacterBattle.GetPosition(), 30f);
-                        activeCharacterBattle.PlayAnimSpecialAttack(() =>
+                        activeCharacterBattle.PlayAnimSpecial(() =>
                         {
                             activeCharacterBattle.PlayIdleAnim();
                             ResetCamera();
@@ -448,7 +486,7 @@ public class Battle
                         Vector3 slideToPositionToRevive = selectedTargetCharacterBattle.GetPosition() + new Vector3(-8f, 0);
                         activeCharacterBattle.SlideToPosition(slideToPositionToRevive, () =>
                         {
-                            activeCharacterBattle.PlayAnimSpecialAttack(() =>
+                            activeCharacterBattle.PlayAnimSpecial(() =>
                             {
                                 ResetCamera();
                                 activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
@@ -457,6 +495,7 @@ public class Battle
                                 //Revive 1 pj
                                 //SoundManager.PlaySound(SoundManager.Sound.Heal);
                                 selectedTargetCharacterBattle.Heal((int)(selectedTargetCharacterBattle.GetMaxHealthAmount() * .25f));
+                                selectedTargetCharacterBattle.Revive();
                                 DamagePopups.Create(selectedTargetCharacterBattle.GetPosition(), selectedTargetCharacterBattle.GetHealthAmount().ToString(), Color.green);
                             });
                         });
@@ -465,7 +504,7 @@ public class Battle
 
                     case "Turnos":
                         SetCamera(activeCharacterBattle.GetPosition(), 30f);
-                        activeCharacterBattle.PlayAnimSpecialAttack(() =>
+                        activeCharacterBattle.PlayAnimSpecial(() =>
                         {
                             activeCharacterBattle.PlayIdleAnim();
                             ResetCamera();
@@ -485,7 +524,7 @@ public class Battle
                 BattleUI.instance.CloseBattleMenus();
 
                 SetCamera(activeCharacterBattle.GetPosition(), 30f);
-                activeCharacterBattle.PlayAnimSpecialAttack(() =>
+                activeCharacterBattle.PlayAnimSpecial(() =>
                 {
                     activeCharacterBattle.PlayIdleAnim();
                     ResetCamera();
@@ -510,7 +549,7 @@ public class Battle
                 SetCamera(middlePosition, 30f);
                 activeCharacterBattle.SlideToPosition(middlePosition, () =>
                 {
-                    activeCharacterBattle.PlayAnimSpecialAttack(() =>
+                    activeCharacterBattle.PlayAnimSpecial(() =>
                     {
                         // Debuff
                         //SoundManager.PlaySound(SoundManager.Sound.CharacterHit);
@@ -534,7 +573,7 @@ public class Battle
                 Vector3 slideToPosition = selectedTargetCharacterBattle.GetPosition() + new Vector3(-8f, 0);
                 activeCharacterBattle.SlideToPosition(slideToPosition, () =>
                 {
-                    activeCharacterBattle.PlayAnimSpecialAttack(() =>
+                    activeCharacterBattle.PlayAnimSpecial(() =>
                     {
                         ResetCamera();
                         activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
@@ -558,7 +597,7 @@ public class Battle
             case Character.Type.Chillpila:          // MAGE 
                 BattleUI.instance.CloseBattleMenus();
                 activeCharacterBattle.SlideToPosition(GetPosition(LanePosition.Middle, false) + new Vector3(-15, 0), () => {
-                    activeCharacterBattle.PlayAnimSpecialAttack(() => {
+                    activeCharacterBattle.PlayAnimSpecial(() => {
                         activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
                     }, () => {
                         // Dano en area
@@ -612,7 +651,6 @@ public class Battle
 
     private void ChooseNextActiveCharacter()
     {        
-        // Selecciona un enemigo
         if (GetAliveTeamCharacterBattleList(false).Count == 0)
         {
             // Se acaba el combate

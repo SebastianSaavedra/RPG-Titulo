@@ -17,8 +17,8 @@ public class Acelerar : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
             return;
         }
-        Destroy(this.gameObject);
     }
+
     void Update()
     {
         Time.timeScale = velocidadDeJuego;

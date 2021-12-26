@@ -171,7 +171,7 @@ public static class Dialogues
                 dialogue.Show();
                 dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
                 dialogue.ShowText("Ya no hay nada mas que pueda decirte Suyai, ¡Mucha Suerte!");
-                dialogue.ShowRightCharacterName(character.name);
+                dialogue.ShowRightCharacterName("Nehuen");
                 dialogue.HideLeftCharacter();
                 dialogue.HideLeftCharacterName();
             },
@@ -209,7 +209,7 @@ public static class Dialogues
                 dialogue.Show();
                 dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
                 dialogue.ShowText("Finalmente, has completado la misión que se te ha encomendado, vamos a la aldea.");
-                dialogue.ShowRightCharacterName(character.name);
+                dialogue.ShowRightCharacterName("Nehuen");
                 dialogue.HideLeftCharacter();
                 dialogue.HideLeftCharacterName();
             },

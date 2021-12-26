@@ -68,6 +68,7 @@ public class Character
     public Type type;
     public Stats stats;
     public string name;
+    public HealthSystem healthSystem;
     public Vector3 position;
     public GameData.EnemyEncounter enemyEncounter;
     public GameData.ShopContents shopContents;
@@ -133,8 +134,8 @@ public class Character
                 stats = new Stats
                 {
                     attack = 25,
-                    health = 110,
-                    healthMax = 110,
+                    health = 100,
+                    healthMax = 100,
                     defense = 1,
                     turns = 2
                 };
@@ -221,6 +222,16 @@ public class Character
         return isInPlayerTeam;
     }
 
+    public void SetHealthSystem(HealthSystem healthSystem)
+    {
+        this.healthSystem = healthSystem;
+    }
+
+    public HealthSystem GetHealthSystem()
+    {
+        return healthSystem;
+    }
+      
     public void ChangeLane(LanePosition lane)
     {
         lanePosition = lane;

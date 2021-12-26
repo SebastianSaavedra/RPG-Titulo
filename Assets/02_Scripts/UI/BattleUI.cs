@@ -183,7 +183,7 @@ public class BattleUI : MonoBehaviour
                 break;
             case "Run":
                 Debug.Log("Huiste del combate");
-                FunctionTimer.Create(OverworldManager.LoadBackToOvermap, .7f);
+                FunctionTimer.Create(OverworldManager.EscapedFromBattle, 1f);
                 break;
         }
         yield break;
@@ -229,12 +229,13 @@ public class BattleUI : MonoBehaviour
                             if (Battle.GetInstance().GetDeadTeamCharacterBattleList(true).Count > 0)
                             {
                                 radialMenu.SetActive(false);
-                                Battle.GetInstance().state = Battle.State.AllySelection;
+                                Battle.GetInstance().state = Battle.State.DeadAllySelection;
                                 Battle.GetInstance().SetSelectedTargetCharacterBattle(Battle.GetInstance().GetDeadTeamCharacterBattleList(true)[0]);
                                 Debug.Log("Revivir");
                             }
                             else
                             {
+                                SoundManager.PlaySound(SoundManager.Sound.Error);
                                 Debug.Log("No tienes aliados muertos!");
                             }
                             break;

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CodeMonkey.Utils;
+using MEC;
 
 public static class SoundManager
 {
@@ -20,7 +21,7 @@ public static class SoundManager
         BattleWin,
         BattleTheme,
         Heal,
-        Talking,
+        //Talking,
         Dash,
         ButtonPress,
         ButtonOver,
@@ -32,7 +33,7 @@ public static class SoundManager
     private static Dictionary<Sound, float> soundTimerDictionary;
     private static GameObject oneShotGameObject;
     private static AudioSource oneShotAudioSource;
-    public static int masterVolume;
+    public static float masterVolume;
 
     public static void Initialize()
     {
@@ -58,7 +59,9 @@ public static class SoundManager
             GameObject soundGameObject = new GameObject("Sound");
             soundGameObject.transform.position = position;
             AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
+            //audioSource.outputAudioMixerGroup = GameAssets.i.audioMixer;
             audioSource.clip = GetAudioClip(sound);
+            Timing.RunCoroutine(_WaitOneFrame());
             //audioSource.maxDistance = 100f;
             //audioSource.spatialBlend = 1f;
             //audioSource.rolloffMode = AudioRolloffMode.Linear;
@@ -69,13 +72,21 @@ public static class SoundManager
             Object.Destroy(soundGameObject, destroyTime);
         }
     }
+
+    static IEnumerator<float> _WaitOneFrame()
+    {
+       yield return Timing.WaitForOneFrame;
+    }
+
     public static void PlaySoundLoop(Sound sound)
     {
         if (CanPlaySound(sound))
         {
             GameObject soundGameObject = new GameObject("Sound");
             AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
+            //audioSource.outputAudioMixerGroup = GameAssets.i.audioMixer;
             audioSource.clip = GetAudioClip(sound);
+            Timing.RunCoroutine(_WaitOneFrame());
             audioSource.volume = (masterVolume / 10f) * GetSoundVolume(sound);
             audioSource.loop = true;
             audioSource.Play();
@@ -91,6 +102,8 @@ public static class SoundManager
                 oneShotGameObject = new GameObject("One Shot Sound");
                 oneShotAudioSource = oneShotGameObject.AddComponent<AudioSource>();
             }
+            //oneShotAudioSource.outputAudioMixerGroup = GameAssets.i.audioMixer;
+            Timing.RunCoroutine(_WaitOneFrame());
             oneShotAudioSource.volume = (masterVolume / 10f) * GetSoundVolume(sound);
             oneShotAudioSource.PlayOneShot(GetAudioClip(sound));
         }
@@ -150,7 +163,7 @@ public static class SoundManager
 
     public static void AddButtonSounds(this Button_UI buttonUI)
     {
-        buttonUI.ClickFunc += () => SoundManager.PlaySound(Sound.ButtonPress);
-        buttonUI.MouseOverOnceFunc += () => SoundManager.PlaySound(Sound.ButtonOver);
+        buttonUI.ClickFunc += () => PlaySound(Sound.ButtonPress);
+        buttonUI.MouseOverOnceFunc += () => PlaySound(Sound.ButtonOver);
     }
 }

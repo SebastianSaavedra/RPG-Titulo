@@ -19,6 +19,8 @@ public class EnemyOverworld : MonoBehaviour
     private float roamDistanceMax;
     private Vector3 roamPosition;
     private float waitTimer;
+    private float timer = 5f;
+
 
     private enum State
     {
@@ -41,19 +43,13 @@ public class EnemyOverworld : MonoBehaviour
         this.playerOvermap = playerOvermap;
         switch (character.type)
         {
-            default:
             case Character.Type.TESTENEMY:
                 sprite.sprite = GameAssets.i.spriteEnemy;
                 break;
         }
         spawnPosition = GetPosition();
         roamPosition = GetPosition();
-        roamDistanceMax = 5f;
-
-        //if (character.type == Character.Type.NormalEnemy1)  // || character.type == Character.Type.NormalEnemy2 || character.type == Character.Type.NormalEnemy3
-        //{
-        //    roamDistanceMax = 5f;
-        //}
+        roamDistanceMax = 3f;
 
         SetTargetMovePosition(GetPosition());
     }
@@ -66,6 +62,11 @@ public class EnemyOverworld : MonoBehaviour
     public void SaveCharacterPosition()
     {
         character.position = GetPosition();
+    }
+
+    public void PlayerEscapedBattle()
+    {
+        state = State.Busy;
     }
 
     private void Update()
@@ -83,6 +84,20 @@ public class EnemyOverworld : MonoBehaviour
                 HandleTargetMovePosition();
                 HandleMovement();
                 break;
+
+            case State.Busy:
+                //if (useUnscaledDeltaTime)
+                //{
+                //    timer -= Time.unscaledDeltaTime;
+                //}
+                timer -= Time.deltaTime;
+                if (timer <= 0)
+                {
+                    Debug.Log(character.name + "Volvio a su estado activo");
+                    state = State.Normal;
+                }
+
+                break;
         }
     }
 
@@ -93,7 +108,7 @@ public class EnemyOverworld : MonoBehaviour
 
     private void HandleRoaming()
     {
-        float minRoamDistance = 2f;
+        float minRoamDistance = 1.5f;
         if (Vector3.Distance(GetPosition(), roamPosition) < minRoamDistance)
         {
             // Near roam position, wait
@@ -102,7 +117,7 @@ public class EnemyOverworld : MonoBehaviour
             {
                 // Find new roam position
                 Vector3 roamDir = UtilsClass.GetRandomDir();
-                float roamDistance = UnityEngine.Random.Range(5f, roamDistanceMax);
+                float roamDistance = Random.Range(5f, roamDistanceMax);
                 RaycastHit2D raycastHit = Physics2D.Raycast(GetPosition(), roamDir, roamDistance);
                 if (raycastHit.collider != null)
                 {
@@ -112,18 +127,15 @@ public class EnemyOverworld : MonoBehaviour
                 }
                 roamPosition = GetPosition() + roamDir * roamDistance;
                 SetTargetMovePosition(roamPosition);
-                waitTimer = UnityEngine.Random.Range(1f, 5f);
+                waitTimer = Random.Range(1f, 5f);
             }
         }
     }
 
     private void HandleTargetMovePosition()
     {
-        float findTargetRange = 7.5f;
-        //if (character.type == Character.Type.NormalEnemy1) //  || character.type == Character.Type.NormalEnemy2 || character.type == Character.Type.NormalEnemy3
-        //{
-        //    findTargetRange = 60f;
-        //}
+        float findTargetRange = 6.75f;
+
         if (Vector3.Distance(GetPosition(), playerOvermap.GetPosition()) < findTargetRange)
         {
             // Player within find target range
@@ -178,51 +190,22 @@ public class EnemyOverworld : MonoBehaviour
                 state = State.Busy;
                 playerOvermap.state = PlayerOverworld.State.Busy;
                 SoundManager.PlaySound(SoundManager.Sound.BattleTransition);
-                Battle.LoadEnemyEncounter(character, character.enemyEncounter);
+                Battle.LoadEnemyEncounter(character, character.enemyEncounter,this);
                 break;
-            //case Character.Type.TESTENEMY:
-            //    {
-            //        //if (character.subType == Character.SubType.Enemy_HurtMeDaddy)
-            //        //{
-            //        //    // Special enemy
-            //        //    Cutscenes.Play_HurtMeDaddy(character);
-            //        //}
-            //        //else
-            //        //{
-            //        //}
-            //        // Normal battle
-            //        Battle.LoadEnemyEncounter(character, character.enemyEncounter);
-            //        break;
-            //    }
-            //case Character.Type.Enemy_MinionRed:
-            //    {
-            //        if (character.subType == Character.SubType.Enemy_HurtMeDaddy_2)
-            //        {
-            //            // Special enemy
-            //            Cutscenes.Play_HurtMeDaddy_2(character);
-            //        }
-            //        else
-            //        {
-            //            // Normal battle
-            //            BattleHandler.LoadEnemyEncounter(character, character.enemyEncounter);
-            //        }
-            //        break;
-            //    }
-            //case Character.Type.EvilMonster:
-            //    {
-            //        Cutscenes.Play_EvilMonster_1(character);
-            //        break;
-            //    }
-            //case Character.Type.EvilMonster_2:
-            //    {
-            //        Cutscenes.Play_EvilMonster_2(character);
-            //        break;
-            //    }
-            //case Character.Type.EvilMonster_3:
-            //    {
-            //        Cutscenes.Play_EvilMonster_3(character);
-            //        break;
-            //    }
+                //case Character.Type.TESTENEMY:
+                //    {
+                //        //if (character.subType == Character.SubType.Enemy_HurtMeDaddy)
+                //        //{
+                //        //    // Special enemy
+                //        //    Cutscenes.Play_HurtMeDaddy(character);
+                //        //}
+                //        //else
+                //        //{
+                //        // Normal battle
+                //        Battle.LoadEnemyEncounter(character, character.enemyEncounter);
+                //        //}
+                //        break;
+                //    }
         }
     }
 
