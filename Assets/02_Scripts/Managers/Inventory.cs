@@ -10,7 +10,7 @@ public class Inventory : MonoBehaviour
     public event EventHandler OnItemListChanged;
 
     List<Item> itemList = new List<Item>();
-    [HideInInspector] public List<ItemUI> battleItemsList = new List<ItemUI>();
+    private List<ItemUI> battleItemsList = new List<ItemUI>();
 
     void Awake()
     {

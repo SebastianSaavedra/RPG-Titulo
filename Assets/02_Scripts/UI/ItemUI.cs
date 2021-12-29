@@ -9,17 +9,13 @@ public class ItemUI : MonoBehaviour,ISelectHandler
     RectTransform rectTransform;
     UI_Inventory ui_Inventory;
     [HideInInspector] public Item item;
-    [SerializeField] GameObject marcoBattleItem;
+    public GameObject marcoBattleItem;
 
     public float Height => rectTransform.rect.height;
 
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
-    }
-
-    private void Start()
-    {
         ui_Inventory = gameObject.GetComponentInParent<UI_Inventory>();
     }
 

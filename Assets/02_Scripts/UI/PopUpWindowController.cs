@@ -121,36 +121,41 @@ public class PopUpWindowController : MonoBehaviour // Le asigne monobehaviour po
                 break;
 
             case "ItemDeCombate":
-                ItemUI lastItemInTheList;
-                if (ui_Inventory.GetInventory().battleItemsList.Count < 4)
-                {
-                    if (ui_Inventory.GetInventory().battleItemsList.Contains(ui_Inventory.GetSelectedItemGameObject().GetComponent<ItemUI>()))
-                    {
-                        SoundManager.PlaySound(SoundManager.Sound.Error);
-                    }
-                    else
-                    {
-                        ui_Inventory.GetInventory().battleItemsList.Add(ui_Inventory.GetSelectedItemGameObject().GetComponent<ItemUI>());
-                        ui_Inventory.GetSelectedItemGameObject().GetComponent<ItemUI>().GetBattleItemActiveImage().SetActive(true);
-                    }
-                }
-                else
-                {
-                    lastItemInTheList = ui_Inventory.GetInventory().battleItemsList[0];
-                    lastItemInTheList.GetBattleItemActiveImage().SetActive(false);
-                    ui_Inventory.GetInventory().battleItemsList.Remove(lastItemInTheList);
-
-                    ui_Inventory.GetSelectedItemGameObject().GetComponent<ItemUI>().GetBattleItemActiveImage().SetActive(true);
-                    ui_Inventory.GetInventory().battleItemsList.Add(ui_Inventory.GetSelectedItemGameObject().GetComponent<ItemUI>());
-
-                }
-                Timing.RunCoroutine(MenuInteractionController.instance._EventSystemReAssign(ui_Inventory.GetSelectedItemGameObject()));
-                Debug.Log("La cantidad de items en la lista es: " + ui_Inventory.GetInventory().battleItemsList.Count);
+                BattleItemLogic();
                 break;
 
             case "Dar objeto":
                 ui_Inventory.SelectCharacterToUseItem(itemSelected);
                 break;
         }
+    }
+
+    void BattleItemLogic()
+    {
+        ItemUI lastItemInTheList;
+        if (ui_Inventory.GetInventory().GetBattleItemList().Count < 4)
+        {
+            if (ui_Inventory.GetInventory().GetBattleItemList().Contains(ui_Inventory.GetSelectedItemGameObject().GetComponent<ItemUI>()))
+            {
+                SoundManager.PlaySound(SoundManager.Sound.Error);
+            }
+            else
+            {
+                ui_Inventory.GetInventory().GetBattleItemList().Add(ui_Inventory.GetSelectedItemGameObject().GetComponent<ItemUI>());
+                ui_Inventory.GetSelectedItemGameObject().GetComponent<ItemUI>().GetBattleItemActiveImage().SetActive(true);
+            }
+        }
+        else
+        {
+            lastItemInTheList = ui_Inventory.GetInventory().GetBattleItemList()[0];
+            lastItemInTheList.GetBattleItemActiveImage().SetActive(false);
+            ui_Inventory.GetInventory().GetBattleItemList().Remove(lastItemInTheList);
+
+            ui_Inventory.GetSelectedItemGameObject().GetComponent<ItemUI>().GetBattleItemActiveImage().SetActive(true);
+            ui_Inventory.GetInventory().GetBattleItemList().Add(ui_Inventory.GetSelectedItemGameObject().GetComponent<ItemUI>());
+
+        }
+        Timing.RunCoroutine(MenuInteractionController.instance._EventSystemReAssign(ui_Inventory.GetSelectedItemGameObject()));
+        Debug.Log("La cantidad de items en la lista es: " + ui_Inventory.GetInventory().GetBattleItemList().Count);
     }
 }

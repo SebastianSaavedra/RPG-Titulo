@@ -133,14 +133,14 @@ public class UI_Inventory : MonoBehaviour
 
     private void RefrestInventory()
     {
-        foreach (GameObject item in itemListBtns)
-        {
-            Destroy(item);
-        }
-        itemListBtns.Clear();
-
         if (inventory.GetItemList() != null)
         {
+            foreach (GameObject item in itemListBtns)
+            {
+                Destroy(item);
+            }
+            itemListBtns.Clear();
+
             foreach (Item item in inventory.GetItemList())
             {
                 RectTransform itemTemplate = Instantiate(GameAssets.i.pf_ItemSlot, itemContainer.transform);
@@ -152,7 +152,24 @@ public class UI_Inventory : MonoBehaviour
                 texto.text = item.GetItemInfo();
             }
             AssignBtnOrder();
+
+            //////////////////////////////////////////////////// 
+            Timing.RunCoroutine(_WaitOneFrame());
+            //////////////////////////////////////////////////// 
+            
+            if (inventory.GetBattleItemList().Count > 0)
+            {
+                foreach (ItemUI item in inventory.GetBattleItemList())
+                {
+                    item.marcoBattleItem.SetActive(true);
+                }
+            }
         }
+    }
+
+    IEnumerator<float> _WaitOneFrame()
+    {
+        yield return Timing.WaitForOneFrame;
     }
 
     public void AssignBtnOrder()

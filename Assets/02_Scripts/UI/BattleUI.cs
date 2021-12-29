@@ -179,11 +179,11 @@ public class BattleUI : MonoBehaviour
                 ExecuteSpecial();
                 break;
             case "Inventory":
-                Debug.Log("Inventario se abrio");
-                if (Inventory.instance.battleItemsList.Count != 0)
+                if (Inventory.instance.GetBattleItemList().Count > 0)
                 {
                     lastMenuActivated = submenuInventory;
                     submenuInventory.SetActive(true);
+                    Debug.Log("Inventario se abrio");
                 }
                 else
                 {

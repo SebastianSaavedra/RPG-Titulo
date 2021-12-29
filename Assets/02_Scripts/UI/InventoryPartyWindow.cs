@@ -114,7 +114,7 @@ public class InventoryPartyWindow : MonoBehaviour
         }
         if (ui_Inventory.itemListBtns.Count > 0)
         {
-            EventSystem.current.SetSelectedGameObject(ui_Inventory.itemListBtns[0]);
+            EventSystem.current.SetSelectedGameObject(ui_Inventory.itemListBtns[0].gameObject);
         }
         else
         {
