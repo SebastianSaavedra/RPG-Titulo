@@ -47,12 +47,13 @@ public class GameAssets : MonoBehaviour
 
     public RuntimeAnimatorController suyaiANIM;
     public RuntimeAnimatorController pedroANIM, aranaANIM, antayANIM,chillpilaANIM;
-    public RuntimeAnimatorController enemyANIM;
+    public RuntimeAnimatorController testEnemyANIM,fusileroANIM,lanceroANIM;
 
     [Header("Sprites")]
     [Space(5)]
 
-    public Sprite spriteEnemy;
+    public Sprite testEnemySprite;
+    public Sprite fusileroOWSprite,lanceroOWSprite;
     public Sprite questNpc_1, warriorNPC;
     public Sprite spriteOWPedro, spriteOWArana, spriteOWChillpila, spriteOWAntay;
     public Sprite splashSuyai, splashPedro, splashChillpila, splashArana, splashAntay;

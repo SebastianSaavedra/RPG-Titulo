@@ -12,18 +12,12 @@ public class OverworldManager
 
     public static void LoadBackToOvermap()
     {
-        Loader.LoadTargetScene(Loader.Scene.OverworldScene);
-    }
-
-    public static void EscapedFromBattle()
-    {
-        Battle.enemyOverworld.PlayerEscapedBattle();
-        Loader.LoadTargetScene(Loader.Scene.OverworldScene);
+        SceneManager.instance.LoadTargetScene(SceneManager.Scene.OverworldScene);
     }
 
     public static void LoadFromOvermapToBattle()
     {
-        Loader.LoadTargetScene(Loader.Scene.BattleScene);
+        SceneManager.instance.LoadTargetScene(SceneManager.Scene.BattleScene);
     }
 
     public static void SaveAllCharacterPositions()

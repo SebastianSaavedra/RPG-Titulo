@@ -110,9 +110,15 @@ public class CharacterBattle : MonoBehaviour
             /////////////////////////
             //ENEMIGOS
             /////////////////////////
-            
+
             case Character.Type.TESTENEMY:
-                anim.runtimeAnimatorController = GameAssets.i.enemyANIM;
+                anim.runtimeAnimatorController = GameAssets.i.testEnemyANIM;
+                break;
+            case Character.Type.Fusilero:
+                anim.runtimeAnimatorController = GameAssets.i.fusileroANIM;
+                break;
+            case Character.Type.Lancero:
+                anim.runtimeAnimatorController = GameAssets.i.lanceroANIM;
                 break;
         }
 
@@ -127,16 +133,16 @@ public class CharacterBattle : MonoBehaviour
         healthSystem.OnHealthChanged += HealthSystem_OnHealthChanged;
         //healthSystem.OnDead += HealthSystem_OnDead;
 
-        Timing.RunCoroutine(_WaitUntilAnimComplete("Base Layer.START"));
+        PlayIdleAnim();
     }
 
-    IEnumerator<float> _WaitUntilAnimComplete(string name)
-    {
-        anim.Play(name);
-        yield return Timing.WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
-        PlayIdleAnim();
-        yield break;
-    }
+    //IEnumerator<float> _WaitUntilAnimComplete(string name)
+    //{
+    //    anim.Play(name);
+    //    yield return Timing.WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+    //    PlayIdleAnim();
+    //    yield break;
+    //}
 
     //private void HealthSystem_OnDead(object sender, EventArgs e)
     //{

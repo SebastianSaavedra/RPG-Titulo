@@ -105,23 +105,8 @@ public class PlayerOverworld : MonoBehaviour
         state = State.Normal;
     }
 
-    private bool spawnedTankInteractKey;
-
     private void HandleInteract()
     {
-        //if (((int)GameData.state) < ((int)GameData.State.DefeatedTank))
-        //{
-        //    if (!spawnedTankInteractKey)
-        //    {
-        //        Character npcCharacter = GameData.GetCharacter(Character.Type.Villager_1);
-        //        if (Vector3.Distance(GetPosition(), npcCharacter.position) < 12f)
-        //        {
-        //            spawnedTankInteractKey = true;
-        //            Instantiate(GameAssets.i.pfKey, npcCharacter.position + new Vector3(0, 15), Quaternion.identity);
-        //        }
-        //    }
-        //}
-
         if (Input.GetKeyDown(KeyCode.Space))
         {
             NPCOverworld npcOverworld = OverworldManager.GetInstance().GetClosestNPC(GetPosition(), 1.5f);

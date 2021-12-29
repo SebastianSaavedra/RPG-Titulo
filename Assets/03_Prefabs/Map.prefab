@@ -2496,12 +2496,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4ae1a4e18e42d34da569c0593f1e71b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterType: 5
+  characterType: 6
   enemyEncounter:
     enemyBattleArray:
-    - characterType: 5
+    - characterType: 6
       lanePosition: 1
-    - characterType: 5
+    - characterType: 6
       lanePosition: 2
   npcDialogues:
     dialogues:
@@ -8141,10 +8141,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4ae1a4e18e42d34da569c0593f1e71b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterType: 5
+  characterType: 7
   enemyEncounter:
     enemyBattleArray:
-    - characterType: 5
+    - characterType: 7
       lanePosition: 0
   npcDialogues:
     dialogues:
@@ -13399,7 +13399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4ae1a4e18e42d34da569c0593f1e71b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterType: 9
+  characterType: 11
   enemyEncounter:
     enemyBattleArray: []
   npcDialogues:
@@ -16472,14 +16472,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4ae1a4e18e42d34da569c0593f1e71b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterType: 5
+  characterType: 6
   enemyEncounter:
     enemyBattleArray:
-    - characterType: 5
+    - characterType: 6
       lanePosition: 1
     - characterType: 5
       lanePosition: 0
-    - characterType: 5
+    - characterType: 7
       lanePosition: 2
   npcDialogues:
     dialogues:

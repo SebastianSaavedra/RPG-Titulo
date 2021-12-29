@@ -10,15 +10,19 @@ public class PopUpWindowController : MonoBehaviour // Le asigne monobehaviour po
     public static PopUpWindowController instance;
 
     PartyUIController partyUIController;
+    UI_Inventory ui_Inventory;
+    Item itemSelected;
     //List<GameObject> botones = new List<GameObject>();
     //Transform canvas;
     //public Transform window;
 
-    [SerializeField] GameObject firstButton,statsWindow;
+    [SerializeField] GameObject firstButton,statsWindow,btn2,setBattleItemBtn,giveItemBtn;
 
     private void Awake()
     {
         instance = this;
+        firstButton.SetActive(true);
+        statsWindow.SetActive(true);
         gameObject.SetActive(false);
     }
 
@@ -77,18 +81,30 @@ public class PopUpWindowController : MonoBehaviour // Le asigne monobehaviour po
         this.partyUIController = partyUIController;
         PlayerOverworld.instance.state = PlayerOverworld.State.SubMenu;
         gameObject.SetActive(true);
+        statsWindow.SetActive(true);
+        firstButton.SetActive(true);
+        btn2.SetActive(true);
+        setBattleItemBtn.SetActive(false);
+        giveItemBtn.SetActive(false);
         Timing.RunCoroutine(MenuInteractionController.instance._EventSystemReAssign(firstButton));
+    }
+
+    public void UI_InventoryPopUp(UI_Inventory ui_Inventory,Item item)
+    {
+        this.ui_Inventory = ui_Inventory;
+        itemSelected = item;
+        PlayerOverworld.instance.state = PlayerOverworld.State.SubMenu;
+        gameObject.SetActive(true);
+        statsWindow.SetActive(false);
+        firstButton.SetActive(false);
+        btn2.SetActive(false);
+        setBattleItemBtn.SetActive(true);
+        giveItemBtn.SetActive(true);
+        Timing.RunCoroutine(MenuInteractionController.instance._EventSystemReAssign(setBattleItemBtn));
     }
 
     public void Trigger(string accion)
     {
-        //switch(menuStateController.menus)
-        //{
-        //    case MenuStateController.MENUS.Equipo:
-        //        Timing.RunCoroutine(MenuInteractionController.instance._EventSystemReAssign(menuStateController.firstPick));
-        //        break;
-        //}
-
         switch (accion)
         {
             case "Stats":
@@ -99,8 +115,41 @@ public class PopUpWindowController : MonoBehaviour // Le asigne monobehaviour po
                 statsWindow.SetActive(true);
                 Timing.RunCoroutine(MenuInteractionController.instance._EventSystemReAssign(partyUIController.SaveGameObject()));
                 break;
+
             case "Cambiar":
                 Timing.RunCoroutine(MenuInteractionController.instance._EventSystemReAssign(partyUIController.menuStateController.firstPick));
+                break;
+
+            case "ItemDeCombate":
+                ItemUI lastItemInTheList;
+                if (ui_Inventory.GetInventory().battleItemsList.Count < 4)
+                {
+                    if (ui_Inventory.GetInventory().battleItemsList.Contains(ui_Inventory.GetSelectedItemGameObject().GetComponent<ItemUI>()))
+                    {
+                        SoundManager.PlaySound(SoundManager.Sound.Error);
+                    }
+                    else
+                    {
+                        ui_Inventory.GetInventory().battleItemsList.Add(ui_Inventory.GetSelectedItemGameObject().GetComponent<ItemUI>());
+                        ui_Inventory.GetSelectedItemGameObject().GetComponent<ItemUI>().GetBattleItemActiveImage().SetActive(true);
+                    }
+                }
+                else
+                {
+                    lastItemInTheList = ui_Inventory.GetInventory().battleItemsList[0];
+                    lastItemInTheList.GetBattleItemActiveImage().SetActive(false);
+                    ui_Inventory.GetInventory().battleItemsList.Remove(lastItemInTheList);
+
+                    ui_Inventory.GetSelectedItemGameObject().GetComponent<ItemUI>().GetBattleItemActiveImage().SetActive(true);
+                    ui_Inventory.GetInventory().battleItemsList.Add(ui_Inventory.GetSelectedItemGameObject().GetComponent<ItemUI>());
+
+                }
+                Timing.RunCoroutine(MenuInteractionController.instance._EventSystemReAssign(ui_Inventory.GetSelectedItemGameObject()));
+                Debug.Log("La cantidad de items en la lista es: " + ui_Inventory.GetInventory().battleItemsList.Count);
+                break;
+
+            case "Dar objeto":
+                ui_Inventory.SelectCharacterToUseItem(itemSelected);
                 break;
         }
     }

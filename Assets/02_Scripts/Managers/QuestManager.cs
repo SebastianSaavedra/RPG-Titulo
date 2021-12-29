@@ -13,10 +13,7 @@ public class QuestManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
-            return;
         }
-        Destroy(this.gameObject);
     }
 
     public void QuestProgress()

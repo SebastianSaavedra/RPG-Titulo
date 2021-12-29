@@ -21,7 +21,6 @@ public static class SoundManager
         BattleWin,
         BattleTheme,
         Heal,
-        //Talking,
         Dash,
         ButtonPress,
         ButtonOver,

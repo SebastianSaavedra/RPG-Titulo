@@ -23,7 +23,7 @@ public class BattleUI : MonoBehaviour
     public List<GameObject> buttons = new List<GameObject>();
 
     [Header("Submenus")]
-    [SerializeField] private GameObject submenuAttack, submenuSpecial, suyaiSpells;//, chillpilaSpells, aranaSpells, antaySpells;
+    [SerializeField] private GameObject submenuAttack, submenuSpecial, suyaiSpells, submenuInventory;//, chillpilaSpells, aranaSpells, antaySpells;
 
     [Header("SubBotones")]
     [SerializeField] List<SubButtons> subButtonsArray;
@@ -180,10 +180,21 @@ public class BattleUI : MonoBehaviour
                 break;
             case "Inventory":
                 Debug.Log("Inventario se abrio");
+                if (Inventory.instance.battleItemsList.Count != 0)
+                {
+                    lastMenuActivated = submenuInventory;
+                    submenuInventory.SetActive(true);
+                }
+                else
+                {
+                    SoundManager.PlaySound(SoundManager.Sound.Error);
+                }
                 break;
             case "Run":
                 Debug.Log("Huiste del combate");
-                FunctionTimer.Create(OverworldManager.EscapedFromBattle, 1f);
+                radialMenu.SetActive(false);
+                //DataKeeper.instance.SetEscapedFromBattle(true);
+                FunctionTimer.Create(OverworldManager.LoadBackToOvermap, 1f);
                 break;
         }
         yield break;

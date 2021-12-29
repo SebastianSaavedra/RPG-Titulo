@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CarryVariableThroughScene : MonoBehaviour
+public class DontDestroyOnLoadGameObject : MonoBehaviour
 {
-    public static CarryVariableThroughScene instance;
-
+    private static DontDestroyOnLoadGameObject instance;
     void Awake()
     {
         if (instance == null)
@@ -14,6 +13,9 @@ public class CarryVariableThroughScene : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
             return;
         }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
-
 }

@@ -9,6 +9,7 @@ public class ItemUI : MonoBehaviour,ISelectHandler
     RectTransform rectTransform;
     UI_Inventory ui_Inventory;
     [HideInInspector] public Item item;
+    [SerializeField] GameObject marcoBattleItem;
 
     public float Height => rectTransform.rect.height;
 
@@ -22,15 +23,26 @@ public class ItemUI : MonoBehaviour,ISelectHandler
         ui_Inventory = gameObject.GetComponentInParent<UI_Inventory>();
     }
 
+    public GameObject GetBattleItemActiveImage()
+    {
+        return marcoBattleItem;
+    }
+
+    public Item GetItem()
+    {
+        return item;
+    }
+
     public void UseItem()
     {
-        ui_Inventory.SelectCharacterToUseItem(item);
+        ui_Inventory.SetupPopUpWindow(item);
     }
 
     public void OnSelect(BaseEventData eventData)
     {
-        if(eventData!=null)
         Timing.RunCoroutine(_WaitOneFrame());
+        Debug.Log(gameObject.name);
+        if (eventData!=null && gameObject != null)
         ui_Inventory.SetSelectedItem(gameObject);
     }
 

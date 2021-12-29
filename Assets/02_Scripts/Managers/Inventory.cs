@@ -8,17 +8,15 @@ public class Inventory : MonoBehaviour
     public static Inventory instance;
 
     public event EventHandler OnItemListChanged;
-    //private Action<Item> useItemAction;
 
     List<Item> itemList = new List<Item>();
+    [HideInInspector] public List<ItemUI> battleItemsList = new List<ItemUI>();
 
     void Awake()
     {
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
-            return;
         }
     }
 
@@ -35,7 +33,6 @@ public class Inventory : MonoBehaviour
     public void AddItem(Item item)
     {
         itemList.Add(item);
-        //Debug.Log(item.GetItemType());
         OnItemListChanged?.Invoke(this,EventArgs.Empty);
     }
     
@@ -48,5 +45,10 @@ public class Inventory : MonoBehaviour
     public List<Item> GetItemList()
     {
         return itemList;
+    }
+
+    public List<ItemUI> GetBattleItemList()
+    {
+        return battleItemsList;
     }
 }

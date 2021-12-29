@@ -20,6 +20,8 @@ public class Character
             case Type.Jefe1:
                 return true;
             case Type.TESTENEMY:
+            case Type.Fusilero:
+            case Type.Lancero:
                 return false;
         }
     }
@@ -31,6 +33,7 @@ public class Character
         public int health;
         public int attack;
         public int defense;
+        public int critChance;
         public int damageChance;
         public int turns;
     }
@@ -44,6 +47,9 @@ public class Character
         Chillpila, // Mago oscuro Chillpila
 
         TESTENEMY,
+        Fusilero,
+        Lancero,
+
 
         Jefe1,
         //Jefe2,
@@ -90,7 +96,8 @@ public class Character
             health = 100,
             healthMax = 100,
             defense = 1,
-            damageChance = 75,
+            critChance = 5,
+            damageChance = 95,
             turns = 1,
         };
 
@@ -109,6 +116,7 @@ public class Character
                     health = 100,
                     healthMax = 100,
                     defense = 1,
+                    critChance = 5,
                     turns = 2
                 };
                 isInPlayerTeam = true;
@@ -123,6 +131,7 @@ public class Character
                     health = 90,
                     healthMax = 90,
                     defense = 1,
+                    critChance = 5,
                     turns = 2
                 };
                 isInPlayerTeam = true;
@@ -137,6 +146,7 @@ public class Character
                     health = 100,
                     healthMax = 100,
                     defense = 1,
+                    critChance = 5,
                     turns = 2
                 };
                 isInPlayerTeam = true;
@@ -151,6 +161,7 @@ public class Character
                     health = 125,
                     healthMax = 125,
                     defense = 2,
+                    critChance = 5,
                     turns = 3
                 };
                 //isInPlayerTeam = true;
@@ -165,6 +176,7 @@ public class Character
                     health = 110,
                     healthMax = 110,
                     defense = 1,
+                    critChance = 5,
                     turns = 3
                 };
                 //isInPlayerTeam = true;
@@ -177,10 +189,36 @@ public class Character
                 name = "TEST ENEMY";
                 stats = new Stats
                 {
-                    attack = 15,
+                    attack = 10,
                     health = 50,
-                    healthMax = 60,
-                    damageChance = 85,
+                    healthMax = 50,
+                    defense = 0,
+                    critChance = 5,
+                    damageChance = 90,
+                };
+                break;
+
+            case Type.Fusilero:
+                stats = new Stats
+                {
+                    attack = 18,
+                    health = 65,
+                    healthMax = 65,
+                    defense = 0,
+                    critChance = 5,
+                    damageChance = 95,
+                };
+                break;
+
+            case Type.Lancero:
+                stats = new Stats
+                {
+                    attack = 20,
+                    health = 75,
+                    healthMax = 75,
+                    defense = 1,
+                    critChance = 5,
+                    damageChance = 95,
                 };
                 break;
 
@@ -250,6 +288,8 @@ public class Character
             case Type.Chillpila:
                 return false;
             case Type.TESTENEMY:
+            case Type.Fusilero:
+            case Type.Lancero:
             case Type.Jefe1:
                 return true;
         }

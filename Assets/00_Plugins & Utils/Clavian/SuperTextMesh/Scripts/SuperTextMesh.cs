@@ -864,16 +864,16 @@ public class SuperTextMesh : MonoBehaviour { //MaskableGraphic... rip
 		UnInit();
 	}
 	void Init(){
-		//uiMode = t is RectTransform;
+        //uiMode = t is RectTransform;
 
-		#if UNITY_5_4_OR_NEWER
-		SceneManager.sceneLoaded += OnSceneLoaded; //hopefully not an issue if called multiple times?
+#if UNITY_5_4_OR_NEWER
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded; //hopefully not an issue if called multiple times?
 		#endif
 		Font.textureRebuilt += OnFontTextureRebuilt;
 	}
 	void UnInit(){
-		#if UNITY_5_4_OR_NEWER
-		SceneManager.sceneLoaded -= OnSceneLoaded;
+#if UNITY_5_4_OR_NEWER
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded -= OnSceneLoaded;
 		#endif
 		Font.textureRebuilt -= OnFontTextureRebuilt;
 		StopReadRoutine();

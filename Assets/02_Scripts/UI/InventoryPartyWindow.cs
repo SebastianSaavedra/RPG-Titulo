@@ -112,7 +112,14 @@ public class InventoryPartyWindow : MonoBehaviour
                 }
                 break;
         }
-        EventSystem.current.SetSelectedGameObject(ui_Inventory.itemListBtns[0]);
+        if (ui_Inventory.itemListBtns.Count > 0)
+        {
+            EventSystem.current.SetSelectedGameObject(ui_Inventory.itemListBtns[0]);
+        }
+        else
+        {
+            EventSystem.current.SetSelectedGameObject(ui_Inventory.GetBtnConsumibles());
+        }
     }
 
     private void TextSetup(Character character)

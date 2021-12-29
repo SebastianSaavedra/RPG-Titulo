@@ -65,8 +65,12 @@ MonoBehaviour:
   aranaANIM: {fileID: 9100000, guid: 2953abf012d3b9f48933f62342c1a879, type: 2}
   antayANIM: {fileID: 9100000, guid: 7474e35a5ef575a40ad26ccd23cb7f20, type: 2}
   chillpilaANIM: {fileID: 9100000, guid: 17276fb73c5e8d244be173111835a717, type: 2}
-  enemyANIM: {fileID: 9100000, guid: 488d572aeae6c2049905a1fda8af6d12, type: 2}
-  spriteEnemy: {fileID: 21300000, guid: 6d549ced5c29b0c4482ca4495e3b240e, type: 3}
+  testEnemyANIM: {fileID: 9100000, guid: 488d572aeae6c2049905a1fda8af6d12, type: 2}
+  fusileroANIM: {fileID: 9100000, guid: c19ae704a256148438ca8f7ea9ae5f29, type: 2}
+  lanceroANIM: {fileID: 9100000, guid: 17b3a48fb693cdb4aaa0a24b613f4f7c, type: 2}
+  testEnemySprite: {fileID: 21300000, guid: 6d549ced5c29b0c4482ca4495e3b240e, type: 3}
+  fusileroOWSprite: {fileID: 21300000, guid: 479513ac4100f8343b5cf6c698058e67, type: 3}
+  lanceroOWSprite: {fileID: 21300000, guid: 4fadd58adb949dc4b858424946a20ae4, type: 3}
   questNpc_1: {fileID: 0}
   warriorNPC: {fileID: 21300000, guid: 170e201a23bd75a40bd92ca0633b5605, type: 3}
   spriteOWPedro: {fileID: 21300000, guid: 2508f08a576af4e479843b9039b7f363, type: 3}
@@ -88,8 +92,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d2d0c1724bb61fe49ae74baa68e8c837, type: 3}
   - {fileID: 21300000, guid: 338ccf96607f83740b2bad42d77b445b, type: 3}
   - {fileID: 21300000, guid: 479513ac4100f8343b5cf6c698058e67, type: 3}
-  - {fileID: 21300000, guid: 20ef65180de12ad40a04c9b5442cc851, type: 3}
-  - {fileID: 21300000, guid: b24fef4d131ddd646b3fa1720f5d93a0, type: 3}
+  - {fileID: 21300000, guid: 4fadd58adb949dc4b858424946a20ae4, type: 3}
   - {fileID: 21300000, guid: 84d68abded98b554a9cc9029b17dbaf7, type: 3}
   - {fileID: 21300000, guid: 1a69d64fadc1e0b488a42633a25fc4f3, type: 3}
   questArray:

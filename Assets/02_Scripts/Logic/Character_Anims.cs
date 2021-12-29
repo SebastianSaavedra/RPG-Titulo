@@ -39,11 +39,6 @@ public class Character_Anims : MonoBehaviour
         characterSpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    private void Start()
-    {
-
-    }
-
     public void PlayAnimAttack(Action onHit, Action onAttackComplete)
     {
         Timing.RunCoroutine(_WaitUntilAnimComplete("Base Layer.ATTACK", onHit, onAttackComplete));
@@ -68,8 +63,9 @@ public class Character_Anims : MonoBehaviour
     {
         anim.Play("Base Layer.IDLE");
     }
-    public void PlayAnimStarter()
-    {
-        anim.Play("Base Layer.START");
-    }
+
+    //public void PlayAnimStarter()
+    //{
+    //    anim.Play("Base Layer.START");
+    //}
 }

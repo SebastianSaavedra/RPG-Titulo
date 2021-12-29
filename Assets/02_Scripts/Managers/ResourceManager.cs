@@ -34,10 +34,8 @@ public class ResourceManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
             return;
         }
-        Destroy(this.gameObject);
     }
 
     #region Money

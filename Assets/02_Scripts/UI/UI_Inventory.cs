@@ -33,12 +33,11 @@ public class UI_Inventory : MonoBehaviour
 
     private void OnEnable()
     {
-        itemContainer.localPosition = new Vector2(itemContainer.localPosition.x, 0);
         if (!firstTime)
         {
             firstTime = true;
+            itemContainer.localPosition = new Vector2(itemContainer.localPosition.x, 0);
             SetInventory();
-            RefrestInventory();
         }
     }
 
@@ -62,12 +61,31 @@ public class UI_Inventory : MonoBehaviour
         RefrestInventory();
     }
 
+    private void OnDestroy()
+    {
+        inventory.OnItemListChanged -= Inventory_OnItemListChanged;
+    }
+
     public void SelectCharacterToUseItem(Item item)
     {
         itemPicked = item;
 
         EventSystem.current.SetSelectedGameObject(firstPick);
 
+    }
+    public void SetupPopUpWindow(Item item)
+    {
+        interactionController.popUpWindowController.UI_InventoryPopUp(this, item);
+    }
+
+    public GameObject GetBtnConsumibles()
+    {
+        return btn_Consumibles;
+    }
+
+    public GameObject GetSelectedItemGameObject()
+    {
+        return selectedItem;
     }
 
     public Item GetItemPicked()
@@ -120,17 +138,21 @@ public class UI_Inventory : MonoBehaviour
             Destroy(item);
         }
         itemListBtns.Clear();
-        foreach (Item item in inventory.GetItemList())
+
+        if (inventory.GetItemList() != null)
         {
-            Transform itemTemplate = Instantiate(GameAssets.i.pf_ItemSlot,itemContainer.transform);
-            itemListBtns.Add(itemTemplate.gameObject);
-            itemTemplate.GetComponent<ItemUI>().item = item;
-            Image icon = itemTemplate.Find("Icon").GetComponent<Image>();
-            SuperTextMesh texto = itemTemplate.Find("Texto").GetComponent<SuperTextMesh>();
-            icon.sprite = item.GetSprite();
-            texto.text = item.GetItemInfo();
+            foreach (Item item in inventory.GetItemList())
+            {
+                RectTransform itemTemplate = Instantiate(GameAssets.i.pf_ItemSlot, itemContainer.transform);
+                itemListBtns.Add(itemTemplate.gameObject);
+                itemTemplate.GetComponent<ItemUI>().item = item;
+                Image icon = itemTemplate.Find("Icon").GetComponent<Image>();
+                SuperTextMesh texto = itemTemplate.Find("Texto").GetComponent<SuperTextMesh>();
+                icon.sprite = item.GetSprite();
+                texto.text = item.GetItemInfo();
+            }
+            AssignBtnOrder();
         }
-        AssignBtnOrder();
     }
 
     public void AssignBtnOrder()

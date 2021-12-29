@@ -11,7 +11,7 @@ public class EnemyOverworld : MonoBehaviour
     private Character_Anims charAnim;
     private Animator anim;
     private SpriteRenderer sprite;
-    private State state;
+    [HideInInspector] public State state;
     private Vector3 targetMovePosition;
     private Character character;
     private PlayerOverworld playerOvermap;
@@ -19,13 +19,14 @@ public class EnemyOverworld : MonoBehaviour
     private float roamDistanceMax;
     private Vector3 roamPosition;
     private float waitTimer;
-    private float timer = 5f;
+    private float timer = 2f;
 
 
-    private enum State
+    public enum State
     {
         Normal,
-        Busy
+        Waiting,
+        Busy,
     }
 
     private void Awake()
@@ -34,7 +35,17 @@ public class EnemyOverworld : MonoBehaviour
         charAnim = gameObject.GetComponent<Character_Anims>();
         anim = gameObject.GetComponent<Animator>();
         sprite = gameObject.GetComponent<SpriteRenderer>();
-        SetStateNormal();
+        //Debug.Log(DataKeeper.instance.GetEnemyOverworld() + " " + DataKeeper.instance.GetEscapedFromBattle());
+        //if (DataKeeper.instance.GetEnemyOverworld() == this && DataKeeper.instance.GetEscapedFromBattle() == true)
+        //{
+        //    Debug.Log("1");
+        SetStateWaiting();
+        //}
+        //else
+        //{
+        //    Debug.Log("2");
+        //    SetStateNormal();
+        //}
     }
 
     public void Setup(Character character, PlayerOverworld playerOvermap)
@@ -44,7 +55,13 @@ public class EnemyOverworld : MonoBehaviour
         switch (character.type)
         {
             case Character.Type.TESTENEMY:
-                sprite.sprite = GameAssets.i.spriteEnemy;
+                sprite.sprite = GameAssets.i.testEnemySprite;
+                break;
+            case Character.Type.Fusilero:
+                sprite.sprite = GameAssets.i.fusileroOWSprite;
+                break;
+            case Character.Type.Lancero:
+                sprite.sprite = GameAssets.i.lanceroOWSprite;
                 break;
         }
         spawnPosition = GetPosition();
@@ -64,13 +81,22 @@ public class EnemyOverworld : MonoBehaviour
         character.position = GetPosition();
     }
 
-    public void PlayerEscapedBattle()
-    {
-        state = State.Busy;
-    }
-
     private void Update()
     {
+        if (state == State.Waiting)
+        {
+            //if (useUnscaledDeltaTime)
+            //{
+            //    timer -= Time.unscaledDeltaTime;
+            //}
+            timer -= Time.deltaTime;
+            if (timer <= 0)
+            {
+                Debug.Log(character.name + " Volvio a su estado activo");
+                state = State.Normal;
+            }
+        }
+
         if (!OverworldManager.IsOvermapRunning())
         {
             //Idle Anim
@@ -85,25 +111,22 @@ public class EnemyOverworld : MonoBehaviour
                 HandleMovement();
                 break;
 
-            case State.Busy:
-                //if (useUnscaledDeltaTime)
-                //{
-                //    timer -= Time.unscaledDeltaTime;
-                //}
-                timer -= Time.deltaTime;
-                if (timer <= 0)
-                {
-                    Debug.Log(character.name + "Volvio a su estado activo");
-                    state = State.Normal;
-                }
-
-                break;
         }
     }
 
-    private void SetStateNormal()
+    public void SetStateNormal()
     {
         state = State.Normal;
+    }
+
+    public void SetStateWaiting()
+    {
+        state = State.Waiting;
+    }
+
+    public State GetState()
+    {
+        return state;
     }
 
     private void HandleRoaming()
@@ -190,7 +213,8 @@ public class EnemyOverworld : MonoBehaviour
                 state = State.Busy;
                 playerOvermap.state = PlayerOverworld.State.Busy;
                 SoundManager.PlaySound(SoundManager.Sound.BattleTransition);
-                Battle.LoadEnemyEncounter(character, character.enemyEncounter,this);
+                Battle.LoadEnemyEncounter(character, character.enemyEncounter);
+                //DataKeeper.instance.SetEnemyOverworld(this);
                 break;
                 //case Character.Type.TESTENEMY:
                 //    {

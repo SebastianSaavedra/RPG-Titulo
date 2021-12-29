@@ -15,12 +15,11 @@ public class Battle
     public static GameData.EnemyEncounter enemyEncounter;
     public static EnemyOverworld enemyOverworld;
 
-    public static void LoadEnemyEncounter(Character character, GameData.EnemyEncounter enemyEncounter, EnemyOverworld enemyOverworld)
+    public static void LoadEnemyEncounter(Character character, GameData.EnemyEncounter enemyEncounter)
     {
         OverworldManager.SaveAllCharacterPositions();
         Battle.character = character;
         Battle.enemyEncounter = enemyEncounter;
-        Battle.enemyOverworld = enemyOverworld;
         
         FunctionTimer.Create(OverworldManager.LoadFromOvermapToBattle, .7f);
     }
@@ -408,9 +407,25 @@ public class Battle
             int minDamage = (int)(damageBase * 0.8f);
             int maxDamage = (int)(damageBase * 1.2f);
             int damageAmount = Random.Range(minDamage, maxDamage);
-            selectedTargetCharacterBattle.Damage(activeCharacterBattle,damageAmount,selectedTargetCharacterBattle);
-            DamagePopups.Create(selectedTargetCharacterBattle.GetPosition(), damageAmount, false);
-            UtilsClass.ShakeCamera(.75f, .15f);
+            int finalDmg;
+
+            if (Random.Range(0, 100) <= activeCharacterBattle.stats.critChance)       //Critical Hit
+            {
+                damageAmount *= Random.Range((int)1.2f, (int)1.5f);
+                finalDmg = ((damageAmount * damageAmount) / (damageAmount + selectedTargetCharacterBattle.stats.defense));
+                Debug.Log("El daño critico es: " + finalDmg);
+                selectedTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount, selectedTargetCharacterBattle);
+                DamagePopups.Create(selectedTargetCharacterBattle.GetPosition(), finalDmg, true);
+                UtilsClass.ShakeCamera(1f, .1f);
+            }
+            else                                //Normal Hit
+            {
+                finalDmg = ((damageAmount * damageAmount) / (damageAmount + selectedTargetCharacterBattle.stats.defense));
+                selectedTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount, selectedTargetCharacterBattle);
+                DamagePopups.Create(selectedTargetCharacterBattle.GetPosition(), finalDmg, false);
+                UtilsClass.ShakeCamera(.75f, .15f);
+            }
+
             if (selectedTargetCharacterBattle.IsDead())
             {
                 if (activeCharacterBattle.GetCharacterType() == Character.Type.Chillpila)
@@ -774,17 +789,21 @@ public class Battle
                     if (Random.Range(0, 100) < damageChance)    // probabilidad de golpear al player
                     {
                         // Hit
-                        if (Random.Range(0, 100) <= 5)       //Critical Hit
+                        if (Random.Range(0, 100) <= activeCharacterBattle.stats.critChance)       //Critical Hit
                         {
-                            damageAmount *= (int)Random.Range((int)1.2f,(int)1.5f);
+                            damageAmount *= Random.Range((int)1.2f,(int)1.5f);
+                            int finalDmg = ((damageAmount * damageAmount) / (damageAmount + aiTargetCharacterBattle.stats.defense));
+                            Debug.Log("El daño critico es: " + finalDmg);
                             aiTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount, aiTargetCharacterBattle);
-                            DamagePopups.Create(aiTargetCharacterBattle.GetPosition(),damageAmount,true);
+                            DamagePopups.Create(aiTargetCharacterBattle.GetPosition(), finalDmg, true);
                             UtilsClass.ShakeCamera(1f, .1f);
                         }
                         else                                //Normal Hit
                         {
+                            int finalDmg = ((damageAmount * damageAmount) / (damageAmount + aiTargetCharacterBattle.stats.defense));
+                            Debug.Log("El daño normal es: " + finalDmg);
                             aiTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount, aiTargetCharacterBattle);
-                            DamagePopups.Create(aiTargetCharacterBattle.GetPosition(), damageAmount, false);
+                            DamagePopups.Create(aiTargetCharacterBattle.GetPosition(), finalDmg, false);
                             UtilsClass.ShakeCamera(.75f, .1f);
                         }
                     }
