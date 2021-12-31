@@ -25,7 +25,7 @@ public class GameManager_Overworld : MonoBehaviour
 
         OverworldManager.GetInstance().Start(transform);
 
-        cameraFollow.Setup(GetCameraPosition, () => cameraZoom, true, true);
+        //cameraFollow.Setup(GetCameraPosition, () => cameraZoom, true, true);
     }
 
     private void Update()

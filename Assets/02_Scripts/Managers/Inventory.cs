@@ -10,7 +10,8 @@ public class Inventory : MonoBehaviour
     public event EventHandler OnItemListChanged;
 
     List<Item> itemList = new List<Item>();
-    private List<ItemUI> battleItemsList = new List<ItemUI>();
+    List<ItemUI> battleItemsList = new List<ItemUI>();
+    //[HideInInspector] public ItemUI item1, item2, item3, item4;
 
     void Awake()
     {
@@ -46,6 +47,34 @@ public class Inventory : MonoBehaviour
     {
         return itemList;
     }
+
+    public void ResetBattleItemList()
+    {
+        battleItemsList.Clear();
+    }
+
+    //public void AddObjectAsReference(int x, ItemUI itemUI)
+    //{
+    //    switch (x)
+    //    {
+    //        case 0:
+    //            GameObject item1 = itemUI.gameObject;
+    //            this.item1 = item1.GetComponent<ItemUI>();
+    //            break;
+    //        case 1:
+    //            GameObject item2 = itemUI.gameObject;
+    //            this.item2 = item2.GetComponent<ItemUI>();
+    //            break;
+    //        case 2:
+    //            GameObject item3 = itemUI.gameObject;
+    //            this.item3 = item3.GetComponent<ItemUI>();
+    //            break;
+    //        case 3:
+    //            GameObject item4 = itemUI.gameObject;
+    //            this.item4 = item4.GetComponent<ItemUI>();
+    //            break;
+    //    }
+    //}
 
     public List<ItemUI> GetBattleItemList()
     {

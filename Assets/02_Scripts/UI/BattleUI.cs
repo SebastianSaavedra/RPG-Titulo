@@ -193,7 +193,6 @@ public class BattleUI : MonoBehaviour
             case "Run":
                 Debug.Log("Huiste del combate");
                 radialMenu.SetActive(false);
-                //DataKeeper.instance.SetEscapedFromBattle(true);
                 FunctionTimer.Create(OverworldManager.LoadBackToOvermap, 1f);
                 break;
         }

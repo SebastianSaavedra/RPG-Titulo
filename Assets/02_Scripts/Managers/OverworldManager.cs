@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CodeMonkey.Utils;
+using UnityEngine.SceneManagement;
 
 public class OverworldManager
 {
@@ -41,8 +41,6 @@ public class OverworldManager
     private List<ItemOverworld> itemList;
     private List<FollowerOverworld> followerList;
 
-    static Vector3 suyaiPos;
-
     public OverworldManager(PlayerOverworld playerOvermap)
     {
         instance = this;
@@ -56,6 +54,7 @@ public class OverworldManager
 
     public void Start(Transform transform)
     {
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded += SceneManager_sceneLoaded;
         StartOvermapRunning();
 
         foreach (Character character in GameData.characterList)
@@ -73,7 +72,6 @@ public class OverworldManager
                 {
                     case Character.Type.Suyai:
                         playerOvermap.Setup(character);
-                        suyaiPos = playerOvermap.GetPosition();
                         break;
                     case Character.Type.Pedro:
                         SpawnFollower(character, new Vector3(-1, -1));
@@ -85,7 +83,7 @@ public class OverworldManager
                         SpawnFollower(character, new Vector3(1, 1));
                         break;
                     case Character.Type.Antay:
-                        SpawnFollower(character, new Vector3(-1, -1));
+                        SpawnFollower(character, new Vector3(1, 1));
                         break;
                 }
             }
@@ -148,6 +146,11 @@ public class OverworldManager
         //{
         //    hitboxTransform.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
         //}
+    }
+
+    private void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
+    {
+        Inventory.instance.ResetBattleItemList();
     }
 
     string GetRandomString()
@@ -318,6 +321,11 @@ public class OverworldManager
         return null;
     }
 
+    public List<FollowerOverworld> GetFollowerList()
+    {
+        return followerList;
+    }
+
     public EnemyOverworld GetEnemy(Character.Type characterType)
     {
         foreach (EnemyOverworld enemyOvermap in enemyList)
@@ -385,21 +393,38 @@ public class OverworldManager
         if (instance.OnOvermapStopped != null) instance.OnOvermapStopped(instance, EventArgs.Empty);
     }
 
+    public static Vector3 GetSuyaiPos()
+    {
+        Vector3 suyaiPos = instance.playerOvermap.GetPosition();
+        return suyaiPos;
+    }
+
     public static void SpawnFollower(Character character, Vector3 followOffset)
     {
-        Transform followerTransform = UnityEngine.Object.Instantiate(GameAssets.i.pfFollowerOvermap, suyaiPos - followOffset, Quaternion.identity);
+        Transform followerTransform = UnityEngine.Object.Instantiate(GameAssets.i.pfFollowerOvermap, GetSuyaiPos() - followOffset, Quaternion.identity);
         FollowerOverworld followerOvermap = followerTransform.GetComponent<FollowerOverworld>();
         followerOvermap.Setup(character, instance.playerOvermap, followOffset);
         instance.followerList.Add(followerOvermap);
     }
 
-    //public static void ReplaceFollower(GameObject pjSale, Character pjEntra, Vector3 followOffset)
-    //{
-    //    Transform followerTransform = UnityEngine.Object.Instantiate(GameAssets.i.pfFollowerOvermap, pjEntra.position, Quaternion.identity);
-    //    FollowerOverworld followerOvermap = followerTransform.GetComponent<FollowerOverworld>();
-    //    followerOvermap.Setup(pjEntra, instance.playerOvermap, followOffset);
-    //    instance.followerList.Add(followerOvermap);
-    //}
+    public static void ReplaceFollower(Character pjSale, Character pjEntra, Vector3 followOffset)
+    {
+        for (int i = 0; i < instance.followerList.Count; i++)
+        {
+            if (instance.followerList[i].GetCharacter() == pjSale)
+            {
+                GameObject.Destroy(instance.followerList[i].gameObject);
+                instance.followerList.Remove(instance.followerList[i]);
+                break;
+            }
+        }
+
+        Transform followerTransform = UnityEngine.Object.Instantiate(GameAssets.i.pfFollowerOvermap, GetSuyaiPos() - followOffset, Quaternion.identity);
+        FollowerOverworld followerOvermap = followerTransform.GetComponent<FollowerOverworld>();
+        followerOvermap.Setup(pjEntra, instance.playerOvermap, followOffset);
+
+        instance.followerList.Add(followerOvermap);
+    }
 
     public static void SpawnEnemy(Character character)
     {

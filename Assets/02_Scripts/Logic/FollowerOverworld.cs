@@ -65,9 +65,6 @@ public class FollowerOverworld : MonoBehaviour
         healthSystem = new HealthSystem(character.stats.healthMax);
         healthSystem.SetHealthAmount(character.stats.health);
         character.SetHealthSystem(healthSystem);
-        //healthWorldBar = new World_Bar(transform, new Vector3(0, 10), new Vector3(15, 2), Color.grey, Color.red, healthSystem.GetHealthPercent(), UnityEngine.Random.Range(10000, 11000), new World_Bar.Outline { color = Color.black, size = .6f });
-        //healthSystem.OnHealthChanged += HealthSystem_OnHealthChanged;
-        //RefreshHealthBar();
 
         SetTargetMovePosition(playerOvermap.GetPosition() + followOffset);
     }
@@ -76,25 +73,6 @@ public class FollowerOverworld : MonoBehaviour
     {
         character.position = GetPosition();
     }
-
-    //private void HealthSystem_OnHealthChanged(object sender, EventArgs e)
-    //{
-    //    RefreshHealthBar();
-    //}
-
-    //public void RefreshHealthBar()
-    //{
-    //    healthWorldBar.SetSize(healthSystem.GetHealthPercent());
-    //    if (healthSystem.GetHealthPercent() >= 1f)
-    //    {
-    //        // Full health
-    //        healthWorldBar.Hide();
-    //    }
-    //    else
-    //    {
-    //        healthWorldBar.Show();
-    //    }
-    //}
 
     public Character GetCharacter()
     {

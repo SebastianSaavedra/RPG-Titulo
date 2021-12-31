@@ -26,9 +26,10 @@ public static class Dialogues
                                 dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
                             break;
                     }
+                    dialogue.ShowRightNameplate();
                     dialogue.ShowRightCharacterName(character.name);
                     dialogue.HideLeftCharacter();
-                    //dialogue.HideText();
+                    dialogue.HideLeftNameplate();
                     dialogue.HideLeftCharacterName();
                 },() => {
                     character.quest.questGoal.QuestStarted();
@@ -57,9 +58,10 @@ public static class Dialogues
                                 dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
                             break;
                     }
+                    dialogue.ShowRightNameplate();
                     dialogue.ShowRightCharacterName(character.name);
                     dialogue.HideLeftCharacter();
-                    //dialogue.HideText();
+                    dialogue.HideLeftNameplate();
                     dialogue.HideLeftCharacterName();
                 },() => {
                     dialogue.Hide();
@@ -88,9 +90,10 @@ public static class Dialogues
                                 dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
                             break;
                     }
+                    dialogue.ShowRightNameplate();
                     dialogue.ShowRightCharacterName(character.name);
                     dialogue.HideLeftCharacter();
-                    //dialogue.HideText();
+                    dialogue.HideLeftNameplate();
                     dialogue.HideLeftCharacterName();
                 },() => {
                     dialogue.Hide();
@@ -135,7 +138,9 @@ public static class Dialogues
                 dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
                 dialogue.ShowText("Suyai, ¿así que estas cumpliendo el desafío para finalmente ser reconocida como Machi?");
                 dialogue.ShowRightCharacterName("Nehuen");
+                dialogue.ShowRightNameplate();
                 dialogue.HideLeftCharacter();
+                dialogue.HideLeftNameplate();
                 dialogue.HideLeftCharacterName();
             },() => {
                 dialogue.ShowText("La Anciana ya nos ha puesto al corriente, y nos ha pedido que no te dejemos volver hasta que cumplas la tarea que se te ha encomendado, la que consiste en recolectar al menos 6 <q=herb> <c=greenHerb>hierbas.");
@@ -172,7 +177,9 @@ public static class Dialogues
                 dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
                 dialogue.ShowText("Ya no hay nada mas que pueda decirte Suyai, ¡Mucha Suerte!");
                 dialogue.ShowRightCharacterName("Nehuen");
+                dialogue.ShowRightNameplate();
                 dialogue.HideLeftCharacter();
+                dialogue.HideLeftNameplate();
                 dialogue.HideLeftCharacterName();
             },
             () => {
@@ -191,7 +198,9 @@ public static class Dialogues
                 dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
                 dialogue.ShowText("Lo siento Suyai, no puedo dejarte avanzar por acá.");
                 dialogue.ShowRightCharacterName(character.name);
+                dialogue.ShowRightNameplate();
                 dialogue.HideLeftCharacter();
+                dialogue.HideLeftNameplate();
                 dialogue.HideLeftCharacterName();
             },
             () => {
@@ -210,7 +219,9 @@ public static class Dialogues
                 dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
                 dialogue.ShowText("Finalmente, has completado la misión que se te ha encomendado, vamos a la aldea.");
                 dialogue.ShowRightCharacterName("Nehuen");
+                dialogue.ShowRightNameplate();
                 dialogue.HideLeftCharacter();
+                dialogue.HideLeftNameplate();
                 dialogue.HideLeftCharacterName();
             },
             () => {

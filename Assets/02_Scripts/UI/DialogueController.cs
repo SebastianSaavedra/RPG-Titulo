@@ -12,6 +12,8 @@ public class DialogueController : MonoBehaviour {
     public static DialogueController GetInstance() => instance;
 
     private Transform leftCharacterTransform;
+    private Transform leftCharacterNameplateTransform;
+    private Transform rightCharacterNameplateTransform;
     private Transform rightCharacterTransform;
     private UIChatBubble chatBubble;
     private TextMeshProUGUI leftCharacterNameText;
@@ -31,6 +33,9 @@ public class DialogueController : MonoBehaviour {
         leftCharacterNameText = transform.Find("LeftCharacterName").GetComponent<TextMeshProUGUI>();
         rightCharacterNameText = transform.Find("RightCharacterName").GetComponent<TextMeshProUGUI>();
 
+        leftCharacterNameplateTransform = transform.Find("LeftNameplate");
+        rightCharacterNameplateTransform = transform.Find("RightNameplate");
+
         ShowLeftCharacterName("");
         ShowRightCharacterName("");
 
@@ -38,6 +43,8 @@ public class DialogueController : MonoBehaviour {
 
         HideLeftCharacter();
         HideRightCharacter();
+        HideLeftNameplate();
+        HideRightNameplate();
 
         Hide();
     }
@@ -113,6 +120,24 @@ public class DialogueController : MonoBehaviour {
     public void ShowText(string text)
     {
         chatBubble.ShowText(text);
+    }
+
+    public void ShowLeftNameplate()
+    {
+        leftCharacterNameplateTransform.gameObject.SetActive(true);
+    }
+    public void ShowRightNameplate()
+    {
+        rightCharacterNameplateTransform.gameObject.SetActive(true);
+    }
+
+    public void HideLeftNameplate()
+    {
+        leftCharacterNameplateTransform.gameObject.SetActive(false);
+    }
+    public void HideRightNameplate()
+    {
+        rightCharacterNameplateTransform.gameObject.SetActive(false);
     }
 
     //public void HideText() {

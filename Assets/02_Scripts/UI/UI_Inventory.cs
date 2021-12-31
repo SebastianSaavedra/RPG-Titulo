@@ -29,6 +29,7 @@ public class UI_Inventory : MonoBehaviour
     private void Awake()
     {
         customNav.mode = Navigation.Mode.Explicit;
+        itemContainer.localPosition = new Vector2(itemContainer.localPosition.x, 0);
     }
 
     private void OnEnable()
@@ -36,7 +37,6 @@ public class UI_Inventory : MonoBehaviour
         if (!firstTime)
         {
             firstTime = true;
-            itemContainer.localPosition = new Vector2(itemContainer.localPosition.x, 0);
             SetInventory();
         }
     }
@@ -86,6 +86,11 @@ public class UI_Inventory : MonoBehaviour
     public GameObject GetSelectedItemGameObject()
     {
         return selectedItem;
+    }
+
+    public ItemUI GetSelectedItemGameObjectItemUI()
+    {
+        return selectedItem.GetComponent<ItemUI>();
     }
 
     public Item GetItemPicked()
@@ -156,14 +161,45 @@ public class UI_Inventory : MonoBehaviour
             //////////////////////////////////////////////////// 
             Timing.RunCoroutine(_WaitOneFrame());
             //////////////////////////////////////////////////// 
-            
-            if (inventory.GetBattleItemList().Count > 0)
-            {
-                foreach (ItemUI item in inventory.GetBattleItemList())
-                {
-                    item.marcoBattleItem.SetActive(true);
-                }
-            }
+            ///
+            //Debug.Log("El tamaño de la lista es: " + inventory.GetBattleItemList().Count);
+
+            //if (inventory.GetBattleItemList().Count > 0)
+            //{
+            //    for (int i = 0; i < Inventory.instance.GetBattleItemList().Count; i++)
+            //    {
+            //        Debug.Log("Antes del switch");
+            //        switch (i)
+            //        {
+            //            default:
+            //                Debug.Log("Esto no tuvo que haber ocurrido" + i);
+            //                break;
+
+            //            case 0:
+            //                inventory.item1 = Inventory.instance.GetBattleItemList()[0];
+            //                inventory.AddObjectAsReference(i, GetSelectedItemGameObjectItemUI());
+            //                inventory.item1.GetBattleItemActiveImage().SetActive(true);
+            //                break;
+            //            case 1:
+            //                inventory.item2 = Inventory.instance.GetBattleItemList()[1];
+            //                inventory.AddObjectAsReference(i, GetSelectedItemGameObjectItemUI());
+            //                inventory.item2.GetBattleItemActiveImage().SetActive(true);
+            //                break;
+            //            case 2:
+            //                Inventory.instance.item3 = Inventory.instance.GetBattleItemList()[2];
+            //                Inventory.instance.AddObjectAsReference(i, GetSelectedItemGameObjectItemUI());
+            //                inventory.item3.GetBattleItemActiveImage().SetActive(true);
+            //                break;
+            //            case 3:
+            //                Inventory.instance.item4 = Inventory.instance.GetBattleItemList()[3];
+            //                Inventory.instance.AddObjectAsReference(i, GetSelectedItemGameObjectItemUI());
+            //                inventory.item4.GetBattleItemActiveImage().SetActive(true);
+            //                break;
+            //        }
+            //        Debug.Log("Antes del switch");
+            //        Timing.RunCoroutine(_WaitOneFrame());
+            //    }
+            //}
         }
     }
 

@@ -22,7 +22,6 @@ public class PopUpWindowController : MonoBehaviour // Le asigne monobehaviour po
     {
         instance = this;
         firstButton.SetActive(true);
-        statsWindow.SetActive(true);
         gameObject.SetActive(false);
     }
 
@@ -81,7 +80,6 @@ public class PopUpWindowController : MonoBehaviour // Le asigne monobehaviour po
         this.partyUIController = partyUIController;
         PlayerOverworld.instance.state = PlayerOverworld.State.SubMenu;
         gameObject.SetActive(true);
-        statsWindow.SetActive(true);
         firstButton.SetActive(true);
         btn2.SetActive(true);
         setBattleItemBtn.SetActive(false);
@@ -95,7 +93,6 @@ public class PopUpWindowController : MonoBehaviour // Le asigne monobehaviour po
         itemSelected = item;
         PlayerOverworld.instance.state = PlayerOverworld.State.SubMenu;
         gameObject.SetActive(true);
-        statsWindow.SetActive(false);
         firstButton.SetActive(false);
         btn2.SetActive(false);
         setBattleItemBtn.SetActive(true);

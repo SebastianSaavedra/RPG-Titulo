@@ -147,7 +147,7 @@ public class PartyUIController : MonoBehaviour
 
     private void WhichCharacterAndLanes(Character pjEntra, Character pjSale)
     {
-        if (pjActual == suyai)
+        if (pjActual == suyai)  //Condicion solo para suyai
         {
             if (pjEntra.IsInPlayerTeam())
             {
@@ -176,7 +176,7 @@ public class PartyUIController : MonoBehaviour
                 //mensaje de q no puedes sacar a suyai del team
             }
         }
-        else
+        else    // Condicion para el resto del team q no sea suyai
         {
             if (pjEntra.IsInPlayerTeam())
             {
@@ -214,7 +214,7 @@ public class PartyUIController : MonoBehaviour
                         pjEntra.ChangeLane(Character.LanePosition.Down);
                         break;
                 }
-
+                OverworldManager.ReplaceFollower(pjSale,pjEntra,new Vector3(1,1));
             }
             Timing.RunCoroutine(interactionController._EventSystemReAssign(SaveGameObject()));
         }
