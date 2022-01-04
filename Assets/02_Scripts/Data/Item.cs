@@ -7,14 +7,60 @@ public class Item {
     public enum ItemType {
         MedicinalHerbs,
         Money,
-        Relleno,
+
+        Armor_1,
+        Armor_2,
+        Armor_3,
+        Armor_4,
+        Armor_5,
+
+        Helmet_1,
+        Helmet_2,
+        Helmet_3,
+        Helmet_4,
+        Helmet_5,
+
+        Weapon_1,
+        Weapon_2,
+        Weapon_3,
+        Weapon_4,
+        Weapon_5,
+
+        //PedroWeapon,
+        //ChillpilaWeapon,
+        //AranaWeapon,
+        //AntayWeapon,
 
     }
 
-    [HideInInspector] public  ItemType itemType;
+    public enum ItemSubType
+    {
+        None,
+        Consumable,
+        Equippable
+    }
+
+    //public enum ItemCLASSSubType
+    //{
+    //    SuyaiEquipment,
+    //    PedroEquipment,
+    //    AranaEquipment,
+    //    ChillpilaEquipment,
+    //    AntayEquipment
+    //}
+
+    [HideInInspector] public ItemType itemType;
+    [HideInInspector] public ItemSubType itemSubType;
+    //[HideInInspector] public ItemCLASSSubType itemCLASSSubType;
     [HideInInspector] public int amount;
     private Vector3 position;
     private bool isDestroyed;
+
+    public Item(ItemType itemType)
+    {
+        this.itemType = itemType;
+        isDestroyed = false;
+    }
 
     public Item(ItemType itemType, int amount)
     {
@@ -31,6 +77,83 @@ public class Item {
         isDestroyed = false;
     }
 
+    public ItemSubType GetItemSubtype(Item item)
+    {
+        switch (item.GetItemType())
+        {
+            default:
+
+            //Consumibles
+            case ItemType.MedicinalHerbs:
+                return ItemSubType.Consumable;
+
+            //Equipables
+            case ItemType.Helmet_1:
+            case ItemType.Helmet_2:
+            case ItemType.Helmet_3:
+            case ItemType.Helmet_4:
+            case ItemType.Helmet_5:
+            case ItemType.Armor_1:
+            case ItemType.Armor_2:
+            case ItemType.Armor_3:
+            case ItemType.Armor_4:
+            case ItemType.Armor_5:
+            case ItemType.Weapon_1:
+            case ItemType.Weapon_2:
+            case ItemType.Weapon_3:
+            case ItemType.Weapon_4:
+            case ItemType.Weapon_5:
+                return ItemSubType.Equippable;
+        }
+    }
+
+    //public ItemCLASSSubType GetEquipmentClassSubtype(Item item)
+    //{
+    //    switch (item.GetItemType())
+    //    {
+    //        default:
+    //        case ItemType.Armor_1:
+    //            return ItemCLASSSubType.SuyaiEquipment;
+    //        case ItemType.AranaWeapon:
+    //            return ItemCLASSSubType.AranaEquipment;
+    //        case ItemType.AntayWeapon:
+    //            return ItemCLASSSubType.AntayEquipment;
+    //        case ItemType.ChillpilaWeapon:
+    //            return ItemCLASSSubType.ChillpilaEquipment;
+    //        case ItemType.PedroWeapon:
+    //            return ItemCLASSSubType.PedroEquipment;
+    //    }
+    //}
+
+    public CharacterEquipment.EquipSlot GetEquipSlot()
+    {
+        switch (itemType)
+        {
+            default:
+            //case ItemType.ArmorNone:
+            case ItemType.Armor_1:
+            case ItemType.Armor_2:
+            case ItemType.Armor_3:
+            case ItemType.Armor_4:
+            case ItemType.Armor_5:
+                return CharacterEquipment.EquipSlot.Armor;
+            //case ItemType.HelmetNone:
+            case ItemType.Helmet_1:
+            case ItemType.Helmet_2:
+            case ItemType.Helmet_3:
+            case ItemType.Helmet_4:
+            case ItemType.Helmet_5:
+                return CharacterEquipment.EquipSlot.Helmet;
+            //case ItemType.SwordNone:
+            case ItemType.Weapon_1:
+            case ItemType.Weapon_2:
+            case ItemType.Weapon_3:
+            case ItemType.Weapon_4:
+            case ItemType.Weapon_5:
+                return CharacterEquipment.EquipSlot.Weapon;
+        }
+    }
+
     public Sprite GetSprite()
     {
         switch (itemType)
@@ -38,8 +161,26 @@ public class Item {
             default:
             case ItemType.MedicinalHerbs:
                 return GameAssets.i.item_Herb;
-            case ItemType.Relleno:
-                return GameAssets.i.item_cualquiercosa;
+            case ItemType.Weapon_1:
+                return GameAssets.i.item_Weapon1;
+            case ItemType.Armor_1:
+                return GameAssets.i.item_Armor1;
+            case ItemType.Helmet_1:
+                return GameAssets.i.item_Helmet1;
+        }
+    }
+
+    public int GetItemStats()
+    {
+        switch (itemType)
+        {
+            default:
+            case ItemType.Weapon_1:
+                return 1;
+            case ItemType.Armor_1:
+                return 1;
+            case ItemType.Helmet_1:
+                return 1;
         }
     }
 
@@ -50,8 +191,12 @@ public class Item {
             default:
             case ItemType.MedicinalHerbs:
                 return "Plantas que curan";
-            case ItemType.Relleno:
-                return "Items para testear el sistema del inventario";
+            case ItemType.Weapon_1:
+                return "Cultrun";
+            case ItemType.Armor_1:
+                return "Quetpám";
+            case ItemType.Helmet_1:
+                return "Trarilonco";
         }
     }
 

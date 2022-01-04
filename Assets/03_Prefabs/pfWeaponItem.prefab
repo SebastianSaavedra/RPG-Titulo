@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 740378356030626837}
   - component: {fileID: 6207582821118604137}
   - component: {fileID: 9095070404826837758}
-  - component: {fileID: -8231610463286626461}
   m_Layer: 0
-  m_Name: pfMonedaItem
+  m_Name: pfWeaponItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -70,10 +69,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: 3162716443692720789, guid: d0b692deba09dee428cbe54973c41db8, type: 3}
+  m_SortingLayerID: -524864849
+  m_SortingLayer: 2
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: f89a06d68f23d3144b38bcc9aa6d433e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -96,22 +95,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 951c521811c2b554ea48ce6d76ad2bd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &-8231610463286626461
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2651371375870236682}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c9694624b3df3da419cfcd32d073b573, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0

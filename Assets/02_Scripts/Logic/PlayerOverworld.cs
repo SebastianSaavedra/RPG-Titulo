@@ -10,11 +10,15 @@ public class PlayerOverworld : MonoBehaviour
     private const float SPEED = 10f;
 
     [SerializeField] private LayerMask wallLayerMask;
-    [SerializeField] private UI_Inventory ui_Inventory;
     private Character_Anims charAnim;
     [HideInInspector] public State state;
     private HealthSystem healthSystem;
     private Character character;
+
+    private InventoryPartyWindow inventoryPartyWindow;
+    [SerializeField] private CharacterEquipment characterEquipment;
+
+    public event EventHandler OnEquipChanged;
 
     public enum State
     {
@@ -29,8 +33,11 @@ public class PlayerOverworld : MonoBehaviour
     {
         instance = this;
         charAnim = gameObject.GetComponent<Character_Anims>();
+        inventoryPartyWindow = GameObject.Find("InventoryPartyWindow").GetComponent<InventoryPartyWindow>();
+        inventoryPartyWindow.SetCharacterEquipment(characterEquipment);
         SetStateNormal();
     }
+
     public void Setup(Character character)
     {
         this.character = character;
@@ -141,7 +148,7 @@ public class PlayerOverworld : MonoBehaviour
                 switch (itemOverworld.GetItem().GetItemType())
                 {
                     case Item.ItemType.MedicinalHerbs:
-                        if (itemOverworld.GetItem().GetAmount() > 0 )
+                        if (itemOverworld.GetItem().GetAmount() > 0)
                         {
                             //Debug.Log(itemOverworld.GetItem().GetItemType());
                             Inventory.instance.AddItem(itemOverworld.GetItem());
@@ -152,6 +159,17 @@ public class PlayerOverworld : MonoBehaviour
                             Debug.Log("A la planta le quedan: " + itemOverworld.GetItem().GetAmount() + " hierbas");
                         }
                         break;
+
+                        // Para testear el recoger armas y equiparlas
+                    //case Item.ItemType.Weapon_1:
+                    //    if (itemOverworld.GetItem().GetAmount() > 0)
+                    //    {
+                    //        //Debug.Log(itemOverworld.GetItem().GetItemType());
+                    //        Inventory.instance.AddItem(itemOverworld.GetItem());
+                    //        itemOverworld.GetItem().SetAmount(0);
+                    //        SoundManager.PlaySound(SoundManager.Sound.Coin);
+                    //    }
+                    //    break;
                 }
             }
         }
@@ -225,15 +243,65 @@ public class PlayerOverworld : MonoBehaviour
         }
     }
 
-    //private void UseItem(Item item)
-    //{
-    //    switch (item.GetItemType())
-    //    {
-    //        case Item.ItemType.MedicinalHerbs:
-    //            Heal(15);
-    //            break;
-    //    }
-    //}
+    public void SetEquipment(Item item)
+    {
+        SetEquipment(item.itemType);
+    }
+
+    public void SetEquipment(Item.ItemType itemType)
+    {
+        switch (itemType)
+        {
+            case Item.ItemType.Armor_1:
+            case Item.ItemType.Armor_2:
+            case Item.ItemType.Armor_3:
+            case Item.ItemType.Armor_4:
+            case Item.ItemType.Armor_5:
+                EquipArmor();
+                break;
+
+            case Item.ItemType.Helmet_1:
+            case Item.ItemType.Helmet_2:
+            case Item.ItemType.Helmet_3:
+            case Item.ItemType.Helmet_4:
+            case Item.ItemType.Helmet_5:
+                EquipHelmet();
+                break;
+
+            case Item.ItemType.Weapon_1:
+            case Item.ItemType.Weapon_2:
+            case Item.ItemType.Weapon_3:
+            case Item.ItemType.Weapon_4:
+            case Item.ItemType.Weapon_5:
+                EquipWeapon();
+                break;
+        }
+        OnEquipChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void EquipArmor()
+    {
+        Debug.Log(character.type + " se acaba de equipar una armadura");
+        character.stats.defense += 1;
+        character.stats.health += 10;
+        character.stats.healthMax = character.stats.health;
+        inventoryPartyWindow.RefreshTextStatsAfterEquippinItem(character);
+    }
+
+    private void EquipHelmet()
+    {
+        Debug.Log(character.type + " se acaba de equipar un casco");
+        character.stats.turns += 1;
+        inventoryPartyWindow.RefreshTextStatsAfterEquippinItem(character);
+    }
+
+    private void EquipWeapon()
+    {
+        Debug.Log(character.type + " se acaba de equipar un arma");
+        character.stats.attack += 2;
+        character.stats.critChance += 5;
+        inventoryPartyWindow.RefreshTextStatsAfterEquippinItem(character);
+    }
 
     public int GetHealth()
     {
@@ -246,18 +314,6 @@ public class PlayerOverworld : MonoBehaviour
         character.stats.health = healthSystem.GetHealthAmount();
     }
 
-    //private void DamageFlash()
-    //{
-    //    materialTintColor = new Color(1, 0, 0, 1f);
-    //    material.SetColor("_Tint", materialTintColor);
-    //}
-
-    //public void DamageKnockback(Vector3 knockbackDir, float knockbackDistance)
-    //{
-    //    transform.position += knockbackDir * knockbackDistance;
-    //    DamageFlash();
-    //}
-
     public Vector3 GetPosition()
     {
         return transform.position;
@@ -267,5 +323,4 @@ public class PlayerOverworld : MonoBehaviour
     {
         transform.position = position;
     }
-
 }

@@ -18,6 +18,8 @@ public class FollowerOverworld : MonoBehaviour
     private Character character;
     private HealthSystem healthSystem;
 
+    //public event EventHandler OnEquipChanged;
+
     private enum State
     {
         Normal,
@@ -150,6 +152,52 @@ public class FollowerOverworld : MonoBehaviour
             transform.position += moveDir * speed * Time.deltaTime;
         }
     }
+
+    //public void SetEquipment(Item.ItemType itemType)
+    //{
+    //    switch (itemType)
+    //    {
+    //        case Item.ItemType.Armor_1:
+    //        case Item.ItemType.Armor_2:
+    //        case Item.ItemType.Armor_3:
+    //        case Item.ItemType.Armor_4:
+    //        case Item.ItemType.Armor_5: 
+    //            EquipArmor(); 
+    //            break;
+
+    //        case Item.ItemType.Helmet_1:
+    //        case Item.ItemType.Helmet_2:
+    //        case Item.ItemType.Helmet_3:
+    //        case Item.ItemType.Helmet_4:
+    //        case Item.ItemType.Helmet_5: 
+    //            EquipHelmet(); 
+    //            break;
+
+    //        case Item.ItemType.Weapon_1:
+    //        case Item.ItemType.Weapon_2:
+    //        case Item.ItemType.Weapon_3:
+    //        case Item.ItemType.Weapon_4:
+    //        case Item.ItemType.Weapon_5: 
+    //            EquipWeapon(); 
+    //            break;
+    //    }
+    //    OnEquipChanged?.Invoke(this, EventArgs.Empty);
+    //}
+
+    //private void EquipArmor()
+    //{
+    //    throw new NotImplementedException();
+    //}
+
+    //private void EquipHelmet()
+    //{
+    //    throw new NotImplementedException();
+    //}
+
+    //private void EquipWeapon()
+    //{
+    //    throw new NotImplementedException();
+    //}
 
     public void Heal(int healAmount)
     {

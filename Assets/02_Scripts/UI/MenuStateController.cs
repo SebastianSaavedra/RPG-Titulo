@@ -8,7 +8,7 @@ public class MenuStateController : MonoBehaviour
     public enum MENUS
     {
         MainMenu,
-        Consumibles,
+        Inventario,
         Equipo,
         Equipamiento,
         Mapa,
@@ -28,7 +28,7 @@ public class MenuStateController : MonoBehaviour
             case MENUS.MainMenu:
                 Timing.RunCoroutine(MenuInteractionController.instance._EventSystemReAssign());
                 break;
-            case MENUS.Consumibles:
+            case MENUS.Inventario:
                 Timing.RunCoroutine(MenuInteractionController.instance._EventSystemReAssign(firstPick));
                 break;
             case MENUS.Equipo:

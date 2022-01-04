@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 67787419368690132}
   - component: {fileID: 1246729825564648902}
   - component: {fileID: 5987662413230653929}
+  - component: {fileID: 1630577136398860455}
   m_Layer: 0
   m_Name: pfPlayer
   m_TagString: Untagged
@@ -133,6 +134,19 @@ MonoBehaviour:
   wallLayerMask:
     serializedVersion: 2
     m_Bits: 8
-  ui_Inventory: {fileID: 0}
   state: 0
-  inventory: {fileID: 0}
+  inventoryPartyWindow: {fileID: 0}
+  characterEquipment: {fileID: 1630577136398860455}
+--- !u!114 &1630577136398860455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67787419368690134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d88a24de4663af542b2344abbb76bce2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 5987662413230653929}

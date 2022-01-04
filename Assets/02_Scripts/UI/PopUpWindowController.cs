@@ -87,7 +87,7 @@ public class PopUpWindowController : MonoBehaviour // Le asigne monobehaviour po
         Timing.RunCoroutine(MenuInteractionController.instance._EventSystemReAssign(firstButton));
     }
 
-    public void UI_InventoryPopUp(UI_Inventory ui_Inventory,Item item)
+    public void UI_InventoryPopUp(UI_Inventory ui_Inventory, Item item)
     {
         this.ui_Inventory = ui_Inventory;
         itemSelected = item;

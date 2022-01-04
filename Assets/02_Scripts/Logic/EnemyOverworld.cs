@@ -20,6 +20,7 @@ public class EnemyOverworld : MonoBehaviour
     private Vector3 roamPosition;
     private float waitTimer;
     private float timer = 2f;
+    [SerializeField] private LayerMask wallLayerMask;
 
 
     public enum State
@@ -35,17 +36,7 @@ public class EnemyOverworld : MonoBehaviour
         charAnim = gameObject.GetComponent<Character_Anims>();
         anim = gameObject.GetComponent<Animator>();
         sprite = gameObject.GetComponent<SpriteRenderer>();
-        //Debug.Log(DataKeeper.instance.GetEnemyOverworld() + " " + DataKeeper.instance.GetEscapedFromBattle());
-        //if (DataKeeper.instance.GetEnemyOverworld() == this && DataKeeper.instance.GetEscapedFromBattle() == true)
-        //{
-        //    Debug.Log("1");
         SetStateWaiting();
-        //}
-        //else
-        //{
-        //    Debug.Log("2");
-        //    SetStateNormal();
-        //}
     }
 
     public void Setup(Character character, PlayerOverworld playerOvermap)
@@ -92,7 +83,7 @@ public class EnemyOverworld : MonoBehaviour
             timer -= Time.deltaTime;
             if (timer <= 0)
             {
-                Debug.Log(character.name + " Volvio a su estado activo");
+                //Debug.Log(character.name + " Volvio a su estado activo");
                 state = State.Normal;
             }
         }
@@ -141,7 +132,7 @@ public class EnemyOverworld : MonoBehaviour
                 // Find new roam position
                 Vector3 roamDir = UtilsClass.GetRandomDir();
                 float roamDistance = Random.Range(5f, roamDistanceMax);
-                RaycastHit2D raycastHit = Physics2D.Raycast(GetPosition(), roamDir, roamDistance);
+                RaycastHit2D raycastHit = Physics2D.Raycast(GetPosition(), roamDir, roamDistance,wallLayerMask);
                 if (raycastHit.collider != null)
                 {
                     // Hit something
@@ -157,14 +148,14 @@ public class EnemyOverworld : MonoBehaviour
 
     private void HandleTargetMovePosition()
     {
-        float findTargetRange = 6.75f;
+        float findTargetRange = 6.7f;
 
         if (Vector3.Distance(GetPosition(), playerOvermap.GetPosition()) < findTargetRange)
         {
             // Player within find target range
             SetTargetMovePosition(playerOvermap.GetPosition());
         }
-        float attackRange = 1f;
+        float attackRange = 1.25f;
         if (Vector3.Distance(GetPosition(), playerOvermap.GetPosition()) < attackRange)
         {
             // Player within attack/interact range
@@ -214,7 +205,6 @@ public class EnemyOverworld : MonoBehaviour
                 playerOvermap.state = PlayerOverworld.State.Busy;
                 SoundManager.PlaySound(SoundManager.Sound.BattleTransition);
                 Battle.LoadEnemyEncounter(character, character.enemyEncounter);
-                //DataKeeper.instance.SetEnemyOverworld(this);
                 break;
                 //case Character.Type.TESTENEMY:
                 //    {

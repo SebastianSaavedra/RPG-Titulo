@@ -7,53 +7,55 @@ using UnityEngine.EventSystems;
 
 public class UI_Inventory : MonoBehaviour
 {
-    private Inventory inventory;
+    [SerializeField] private Inventory inventory;
     private GameObject selectedItem;
     private Item itemPicked;
 
     [SerializeField] private MenuInteractionController interactionController;
     [SerializeField] private MenuStateController menuInventario;
-    [SerializeField] private GameObject btn_Consumibles;
+    [SerializeField] private GameObject btn_Consumibles, btn_Equippables;
 
-    [SerializeField] private RectTransform itemContainer;
+    [SerializeField] private RectTransform itemContainerConsumables, itemContainerEquippables;
     [SerializeField] Image upArrow, downArrow;
+    //[SerializeField] GameObject equipables;
+    [SerializeField] GameObject originalFirstPick;
     [SerializeField] InventoryPartyWindow inventoryPartyWindow;
-    [SerializeField] GameObject firstPick;
+    GameObject firstPick;
 
     private bool firstTime = false;
 
-    [HideInInspector] public List<GameObject> itemListBtns;
+    [HideInInspector] public List<GameObject> itemListBtnsConsumables, itemListBtnsEquippables;
 
-    private Navigation customNav;
+    private Navigation buttonsNav;
 
     private void Awake()
     {
-        customNav.mode = Navigation.Mode.Explicit;
-        itemContainer.localPosition = new Vector2(itemContainer.localPosition.x, 0);
+        buttonsNav.mode = Navigation.Mode.Explicit;
+        itemContainerConsumables.localPosition = new Vector2(itemContainerConsumables.localPosition.x, 0);
+        itemContainerEquippables.localPosition = new Vector2(itemContainerEquippables.localPosition.x, 0);
     }
 
     private void OnEnable()
     {
+        firstPick = originalFirstPick;
         if (!firstTime)
         {
+            Debug.Log("Primera iniciacion del inventario consumible");
             firstTime = true;
             SetInventory();
         }
     }
 
+    private void Start()
+    {
+        menuInventario.gameObject.SetActive(false);
+        //equipables.SetActive(false);
+    }
+
     public void SetInventory()
     {
-        inventory = Inventory.instance;
         inventory.OnItemListChanged += Inventory_OnItemListChanged;
         RefrestInventory();
-        if (!inventoryPartyWindow.gameObject.activeInHierarchy)
-        {
-            inventoryPartyWindow.gameObject.SetActive(true);
-        }
-        if (menuInventario.gameObject.activeInHierarchy)
-        {
-            menuInventario.gameObject.SetActive(false);
-        }
     }
 
     private void Inventory_OnItemListChanged(object sender, System.EventArgs e)
@@ -73,6 +75,17 @@ public class UI_Inventory : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(firstPick);
 
     }
+
+    public void SetFirstPickConsumable()
+    {
+        firstPick = originalFirstPick;
+    }
+
+    public void SetFirstPickEquippable()
+    {
+        firstPick = inventoryPartyWindow.GetFirstPick();
+    }
+
     public void SetupPopUpWindow(Item item)
     {
         interactionController.popUpWindowController.UI_InventoryPopUp(this, item);
@@ -81,6 +94,11 @@ public class UI_Inventory : MonoBehaviour
     public GameObject GetBtnConsumibles()
     {
         return btn_Consumibles;
+    }
+
+    public GameObject GetBtnEquippables()
+    {
+        return btn_Equippables;
     }
 
     public GameObject GetSelectedItemGameObject()
@@ -109,15 +127,34 @@ public class UI_Inventory : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
             {
-                float scrollPos = Mathf.Clamp(GetIndex() - 4, 0, GetIndex()) * selectedItem.GetComponent<ItemUI>().Height;
-                itemContainer.localPosition = new Vector2(itemContainer.localPosition.x, scrollPos);
+                float scrollPos = Mathf.Clamp(GetIndexConsumables() - 4, 0, GetIndexConsumables()) * selectedItem.GetComponent<ItemUI>().Height;
+                if (itemContainerConsumables.gameObject.activeInHierarchy)
+                {
+                    itemContainerConsumables.localPosition = new Vector2(itemContainerConsumables.localPosition.x, scrollPos);
+                }
+                else if (itemContainerEquippables.gameObject.activeInHierarchy)
+                {
+                    itemContainerEquippables.localPosition = new Vector2(itemContainerEquippables.localPosition.x, scrollPos);
+                }
             }
 
-            bool showUpArrow = GetIndex() > 4;
-            upArrow.gameObject.SetActive(showUpArrow);
 
-            bool showDownArrow = GetIndex() + 4 < itemListBtns.Count;
-            downArrow.gameObject.SetActive(showDownArrow);
+            if (itemContainerConsumables.gameObject.activeInHierarchy)
+            {
+                bool showUpArrow = GetIndexConsumables() > 4;
+                upArrow.gameObject.SetActive(showUpArrow);
+
+                bool showDownArrow = GetIndexConsumables() + 4 < itemListBtnsConsumables.Count;
+                downArrow.gameObject.SetActive(showDownArrow);
+            }
+            else if (itemContainerEquippables.gameObject.activeInHierarchy)
+            {
+                bool showUpArrow = GetIndexEquippables() > 4;
+                upArrow.gameObject.SetActive(showUpArrow);
+
+                bool showDownArrow = GetIndexEquippables() + 4 < itemListBtnsEquippables.Count;
+                downArrow.gameObject.SetActive(showDownArrow);
+            }
         }
     }
 
@@ -131,122 +168,147 @@ public class UI_Inventory : MonoBehaviour
         return inventory;
     }
 
-    private int GetIndex()
+    private int GetIndexConsumables()
     {
-        return itemListBtns.IndexOf(selectedItem);
+        return itemListBtnsConsumables.IndexOf(selectedItem);
+    }
+
+    private int GetIndexEquippables()
+    {
+        return itemListBtnsEquippables.IndexOf(selectedItem);
     }
 
     private void RefrestInventory()
     {
-        if (inventory.GetItemList() != null)
+        if (inventory.GetItemList().Count != 0)
         {
-            foreach (GameObject item in itemListBtns)
+            foreach (GameObject item in itemListBtnsConsumables)
             {
                 Destroy(item);
             }
-            itemListBtns.Clear();
+            itemListBtnsConsumables.Clear();
 
-            foreach (Item item in inventory.GetItemList())
+            foreach (GameObject item in itemListBtnsEquippables)
             {
-                RectTransform itemTemplate = Instantiate(GameAssets.i.pf_ItemSlot, itemContainer.transform);
-                itemListBtns.Add(itemTemplate.gameObject);
-                itemTemplate.GetComponent<ItemUI>().item = item;
-                Image icon = itemTemplate.Find("Icon").GetComponent<Image>();
-                SuperTextMesh texto = itemTemplate.Find("Texto").GetComponent<SuperTextMesh>();
-                icon.sprite = item.GetSprite();
-                texto.text = item.GetItemInfo();
+                Destroy(item);
             }
-            AssignBtnOrder();
+            itemListBtnsEquippables.Clear();
 
             //////////////////////////////////////////////////// 
             Timing.RunCoroutine(_WaitOneFrame());
             //////////////////////////////////////////////////// 
-            ///
-            //Debug.Log("El tamaño de la lista es: " + inventory.GetBattleItemList().Count);
 
-            //if (inventory.GetBattleItemList().Count > 0)
-            //{
-            //    for (int i = 0; i < Inventory.instance.GetBattleItemList().Count; i++)
-            //    {
-            //        Debug.Log("Antes del switch");
-            //        switch (i)
-            //        {
-            //            default:
-            //                Debug.Log("Esto no tuvo que haber ocurrido" + i);
-            //                break;
+            foreach (Item item in inventory.GetItemList())
+            {
+                if (item.GetItemSubtype(item) == Item.ItemSubType.Consumable)
+                {
+                    RectTransform itemTemplate = Instantiate(GameAssets.i.pf_ItemSlot, itemContainerConsumables.transform);
+                    itemListBtnsConsumables.Add(itemTemplate.gameObject);
+                    itemTemplate.GetComponent<ItemUI>().item = item;
+                    Image icon = itemTemplate.Find("Icon").GetComponent<Image>();
+                    SuperTextMesh texto = itemTemplate.Find("Texto").GetComponent<SuperTextMesh>();
+                    icon.sprite = item.GetSprite();
+                    texto.text = item.GetItemInfo();
+                }
+                else if (item.GetItemSubtype(item) == Item.ItemSubType.Equippable)
+                {
+                    RectTransform itemTemplate = Instantiate(GameAssets.i.pf_ItemSlot, itemContainerEquippables.transform);
+                    itemListBtnsEquippables.Add(itemTemplate.gameObject);
+                    itemTemplate.GetComponent<ItemUI>().item = item;
+                    Image icon = itemTemplate.Find("Icon").GetComponent<Image>();
+                    SuperTextMesh texto = itemTemplate.Find("Texto").GetComponent<SuperTextMesh>();
+                    icon.sprite = item.GetSprite();
+                    texto.text = item.GetItemInfo();
+                }
+            }
+            AssignBtnOrder();
+        }
+    }
 
-            //            case 0:
-            //                inventory.item1 = Inventory.instance.GetBattleItemList()[0];
-            //                inventory.AddObjectAsReference(i, GetSelectedItemGameObjectItemUI());
-            //                inventory.item1.GetBattleItemActiveImage().SetActive(true);
-            //                break;
-            //            case 1:
-            //                inventory.item2 = Inventory.instance.GetBattleItemList()[1];
-            //                inventory.AddObjectAsReference(i, GetSelectedItemGameObjectItemUI());
-            //                inventory.item2.GetBattleItemActiveImage().SetActive(true);
-            //                break;
-            //            case 2:
-            //                Inventory.instance.item3 = Inventory.instance.GetBattleItemList()[2];
-            //                Inventory.instance.AddObjectAsReference(i, GetSelectedItemGameObjectItemUI());
-            //                inventory.item3.GetBattleItemActiveImage().SetActive(true);
-            //                break;
-            //            case 3:
-            //                Inventory.instance.item4 = Inventory.instance.GetBattleItemList()[3];
-            //                Inventory.instance.AddObjectAsReference(i, GetSelectedItemGameObjectItemUI());
-            //                inventory.item4.GetBattleItemActiveImage().SetActive(true);
-            //                break;
-            //        }
-            //        Debug.Log("Antes del switch");
-            //        Timing.RunCoroutine(_WaitOneFrame());
-            //    }
-            //}
+    public void AssignBtnOrder()
+    {
+        for (int i = 0; i < itemListBtnsConsumables.Count; i++)
+        {
+            if (itemListBtnsConsumables[i] == itemListBtnsConsumables[0])
+            {
+                buttonsNav.selectOnUp = itemListBtnsConsumables[itemListBtnsConsumables.Count - 1].GetComponent<Selectable>();
+            }
+            else
+            {
+                buttonsNav.selectOnUp = itemListBtnsConsumables[(i - 1)].GetComponent<Selectable>();
+            }
+
+            if (itemListBtnsConsumables[i] == itemListBtnsConsumables[itemListBtnsConsumables.Count - 1])
+            {
+                buttonsNav.selectOnDown = itemListBtnsConsumables[0].GetComponent<Selectable>();
+            }
+            else
+            {
+                buttonsNav.selectOnDown = itemListBtnsConsumables[(i + 1)].GetComponent<Selectable>();
+            }
+            buttonsNav.selectOnRight = btn_Consumibles.GetComponent<Selectable>();
+            itemListBtnsConsumables[i].GetComponent<Selectable>().navigation = buttonsNav;
+        }
+
+        for (int x = 0; x < itemListBtnsEquippables.Count; x++)
+        {
+            if (itemListBtnsEquippables[x] == itemListBtnsEquippables[0])
+            {
+                buttonsNav.selectOnUp = itemListBtnsEquippables[itemListBtnsEquippables.Count - 1].GetComponent<Selectable>();
+            }
+            else
+            {
+                buttonsNav.selectOnUp = itemListBtnsEquippables[(x - 1)].GetComponent<Selectable>();
+            }
+
+            if (itemListBtnsEquippables[x] == itemListBtnsEquippables[itemListBtnsEquippables.Count - 1])
+            {
+                buttonsNav.selectOnDown = itemListBtnsEquippables[0].GetComponent<Selectable>();
+            }
+            else
+            {
+                buttonsNav.selectOnDown = itemListBtnsEquippables[(x + 1)].GetComponent<Selectable>();
+            }
+            buttonsNav.selectOnRight = btn_Equippables.GetComponent<Selectable>();
+            itemListBtnsEquippables[x].GetComponent<Selectable>().navigation = buttonsNav;
+        }
+    }
+
+    public void NavigationAssignConsumables()
+    {
+        if (itemListBtnsConsumables.Count != 0)
+        {
+            buttonsNav.selectOnUp = btn_Consumibles.GetComponent<Selectable>().navigation.selectOnUp;
+            buttonsNav.selectOnDown = btn_Consumibles.GetComponent<Selectable>().navigation.selectOnDown;
+            buttonsNav.selectOnLeft = itemListBtnsConsumables[0].GetComponent<Selectable>();
+            btn_Consumibles.GetComponent<Selectable>().navigation = buttonsNav;
+            Timing.RunCoroutine(interactionController._EventSystemReAssign(itemListBtnsConsumables[0]));
+        }
+        else
+        {
+            SoundManager.PlaySound(SoundManager.Sound.Error);
+        }
+    }
+
+    public void NavigationAssignEquippables()
+    {
+        if (itemListBtnsEquippables.Count != 0)
+        {
+            buttonsNav.selectOnUp = btn_Equippables.GetComponent<Selectable>().navigation.selectOnUp;
+            buttonsNav.selectOnDown = btn_Equippables.GetComponent<Selectable>().navigation.selectOnDown;
+            buttonsNav.selectOnLeft = itemListBtnsEquippables[0].GetComponent<Selectable>();
+            btn_Equippables.GetComponent<Selectable>().navigation = buttonsNav;
+            Timing.RunCoroutine(interactionController._EventSystemReAssign(itemListBtnsEquippables[0]));
+        }
+        else
+        {
+            Debug.Log("No hay items");
+            SoundManager.PlaySound(SoundManager.Sound.Error);
         }
     }
 
     IEnumerator<float> _WaitOneFrame()
     {
         yield return Timing.WaitForOneFrame;
-    }
-
-    public void AssignBtnOrder()
-    {
-        for (int i = 0; i < itemListBtns.Count; i++)
-        {
-            if (itemListBtns[i] == itemListBtns[0])
-            {
-                customNav.selectOnUp = itemListBtns[itemListBtns.Count - 1].GetComponent<Selectable>();
-            }
-            else
-            {
-                customNav.selectOnUp = itemListBtns[(i - 1)].GetComponent<Selectable>();
-            }
-
-            if (itemListBtns[i] == itemListBtns[itemListBtns.Count - 1])
-            {
-                customNav.selectOnDown = itemListBtns[0].GetComponent<Selectable>();
-            }
-            else
-            {
-                customNav.selectOnDown = itemListBtns[(i + 1)].GetComponent<Selectable>();
-            }
-            customNav.selectOnRight = btn_Consumibles.GetComponent<Selectable>();
-            itemListBtns[i].GetComponent<Selectable>().navigation = customNav;
-        }
-    }
-
-    public void NavigationAssign()
-    {
-        if (itemListBtns.Count != 0)
-        {
-            customNav.selectOnUp = btn_Consumibles.GetComponent<Selectable>().navigation.selectOnUp;
-            customNav.selectOnDown = btn_Consumibles.GetComponent<Selectable>().navigation.selectOnDown;
-            customNav.selectOnLeft = itemListBtns[0].GetComponent<Selectable>();
-            btn_Consumibles.GetComponent<Selectable>().navigation = customNav;
-            Timing.RunCoroutine(interactionController._EventSystemReAssign(itemListBtns[0]));
-        }
-        else
-        {
-            SoundManager.PlaySound(SoundManager.Sound.Error);
-        }
     }
 }

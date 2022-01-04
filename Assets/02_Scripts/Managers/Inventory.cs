@@ -11,7 +11,6 @@ public class Inventory : MonoBehaviour
 
     List<Item> itemList = new List<Item>();
     List<ItemUI> battleItemsList = new List<ItemUI>();
-    //[HideInInspector] public ItemUI item1, item2, item3, item4;
 
     void Awake()
     {
@@ -21,14 +20,17 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    //private void Start()
-    //{
-    //    AddItem(new Item(Item.ItemType.MedicinalHerbs, 1));
-    //}
+    private void Start()
+    {
+        AddItem(new Item(Item.ItemType.MedicinalHerbs, 1));
+        AddItem(new Item(Item.ItemType.Weapon_1));
+        AddItem(new Item(Item.ItemType.Armor_1));
+        AddItem(new Item(Item.ItemType.Helmet_1));
+    }
 
-    //public void SetAction(Action<Item> useItemAction)
+    //private void Update()
     //{
-    //    this.useItemAction = useItemAction;
+    //    Debug.Log("La cantidad de items en el inventario es: " + itemList.Count);
     //}
 
     public void AddItem(Item item)
@@ -52,29 +54,6 @@ public class Inventory : MonoBehaviour
     {
         battleItemsList.Clear();
     }
-
-    //public void AddObjectAsReference(int x, ItemUI itemUI)
-    //{
-    //    switch (x)
-    //    {
-    //        case 0:
-    //            GameObject item1 = itemUI.gameObject;
-    //            this.item1 = item1.GetComponent<ItemUI>();
-    //            break;
-    //        case 1:
-    //            GameObject item2 = itemUI.gameObject;
-    //            this.item2 = item2.GetComponent<ItemUI>();
-    //            break;
-    //        case 2:
-    //            GameObject item3 = itemUI.gameObject;
-    //            this.item3 = item3.GetComponent<ItemUI>();
-    //            break;
-    //        case 3:
-    //            GameObject item4 = itemUI.gameObject;
-    //            this.item4 = item4.GetComponent<ItemUI>();
-    //            break;
-    //    }
-    //}
 
     public List<ItemUI> GetBattleItemList()
     {

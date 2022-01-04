@@ -14443,7 +14443,7 @@ GameObject:
   m_Component:
   - component: {fileID: 59890581252218857}
   - component: {fileID: 662267695144425406}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Confiner
   m_TagString: Untagged
   m_Icon: {fileID: 0}

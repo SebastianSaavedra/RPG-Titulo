@@ -452,9 +452,9 @@ public class OverworldManager
             case Item.ItemType.MedicinalHerbs:
                 prefab = GameAssets.i.pfMedicinalHerbs;
                 break;
-            case Item.ItemType.Money:
-                prefab = GameAssets.i.pfCoin;
-                break;
+            //case Item.ItemType.Weapon_1:
+            //    prefab = GameAssets.i.pfWeaponTEST;
+            //    break;
         }
         Transform itemTransform = UnityEngine.Object.Instantiate(prefab, item.GetPosition(), Quaternion.identity);
         ItemOverworld itemOverworld = itemTransform.GetComponent<ItemOverworld>();

@@ -35,7 +35,7 @@ public class GameAssets : MonoBehaviour
     public Transform damagePopup;
     public Transform dmgDebuff, blindDebuff, healthDebuff;
     public Transform pfMedicinalHerbs;
-    public Transform pfCoin;
+    public Transform pfWeaponTEST;
     public Transform pfChatBubbleUI;
     public Transform pfChatOption;
     public RectTransform pf_ItemSlot;
@@ -58,7 +58,7 @@ public class GameAssets : MonoBehaviour
     public Sprite spriteOWPedro, spriteOWArana, spriteOWChillpila, spriteOWAntay;
     public Sprite splashSuyai, splashPedro, splashChillpila, splashArana, splashAntay;
     public Sprite playerDialogueSprite, npc_1DialogueSprite, warriorNpcDialogueSprite;
-    public Sprite item_Herb, item_cualquiercosa;
+    public Sprite item_Herb,item_Weapon1,item_Helmet1,item_Armor1;
     public List<Sprite> enemies = new List<Sprite>();
 
     public Quest[] questArray;

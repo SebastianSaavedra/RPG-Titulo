@@ -8,6 +8,7 @@ public class ItemUI : MonoBehaviour,ISelectHandler
 {
     RectTransform rectTransform;
     UI_Inventory ui_Inventory;
+    //UI_Equippables ui_Equippables;
     [HideInInspector] public Item item;
     public GameObject marcoBattleItem;
 
@@ -16,7 +17,11 @@ public class ItemUI : MonoBehaviour,ISelectHandler
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
-        ui_Inventory = gameObject.GetComponentInParent<UI_Inventory>();
+    }
+
+    private void Start()
+    {
+        ui_Inventory = GameObject.Find("UI_Inventory").GetComponent<UI_Inventory>();
     }
 
     public GameObject GetBattleItemActiveImage()
@@ -31,15 +36,25 @@ public class ItemUI : MonoBehaviour,ISelectHandler
 
     public void UseItem()
     {
-        ui_Inventory.SetupPopUpWindow(item);
+        if (item.GetItemSubtype(item) == Item.ItemSubType.Consumable)
+        {
+            ui_Inventory.SetupPopUpWindow(item);
+        }
+        else if (item.GetItemSubtype(item) == Item.ItemSubType.Equippable)
+        {
+            ui_Inventory.SelectCharacterToUseItem(item);
+        }
     }
 
     public void OnSelect(BaseEventData eventData)
     {
         Timing.RunCoroutine(_WaitOneFrame());
-        Debug.Log(gameObject.name);
+        //Debug.Log(gameObject.name);
+
         if (eventData!=null && gameObject != null)
-        ui_Inventory.SetSelectedItem(gameObject);
+        {
+            ui_Inventory.SetSelectedItem(gameObject);
+        }
     }
 
     IEnumerator<float> _WaitOneFrame()
