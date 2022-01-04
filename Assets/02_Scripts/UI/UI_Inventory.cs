@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 public class UI_Inventory : MonoBehaviour
 {
-    [SerializeField] private Inventory inventory;
+    private Inventory inventory;
     private GameObject selectedItem;
     private Item itemPicked;
 
@@ -54,6 +54,7 @@ public class UI_Inventory : MonoBehaviour
 
     public void SetInventory()
     {
+        inventory = Inventory.instance;
         inventory.OnItemListChanged += Inventory_OnItemListChanged;
         RefrestInventory();
     }
@@ -180,19 +181,26 @@ public class UI_Inventory : MonoBehaviour
 
     private void RefrestInventory()
     {
+        Debug.Log("La cantidad de items en el inventario es: " + inventory.GetItemList().Count);
+
         if (inventory.GetItemList().Count != 0)
         {
-            foreach (GameObject item in itemListBtnsConsumables)
+            if (itemListBtnsConsumables.Count > 0)
             {
-                Destroy(item);
+                foreach (GameObject item in itemListBtnsConsumables)
+                {
+                    Destroy(item);
+                }
+                itemListBtnsConsumables.Clear();
             }
-            itemListBtnsConsumables.Clear();
-
-            foreach (GameObject item in itemListBtnsEquippables)
+            if (itemListBtnsEquippables.Count > 0)
             {
-                Destroy(item);
+                foreach (GameObject item in itemListBtnsEquippables)
+                {
+                    Destroy(item);
+                }
+                itemListBtnsEquippables.Clear();
             }
-            itemListBtnsEquippables.Clear();
 
             //////////////////////////////////////////////////// 
             Timing.RunCoroutine(_WaitOneFrame());
@@ -221,6 +229,7 @@ public class UI_Inventory : MonoBehaviour
                     texto.text = item.GetItemInfo();
                 }
             }
+            Debug.Log("Se instanciaron los items");
             AssignBtnOrder();
         }
     }
@@ -302,7 +311,6 @@ public class UI_Inventory : MonoBehaviour
         }
         else
         {
-            Debug.Log("No hay items");
             SoundManager.PlaySound(SoundManager.Sound.Error);
         }
     }

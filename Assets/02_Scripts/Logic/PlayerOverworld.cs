@@ -16,7 +16,6 @@ public class PlayerOverworld : MonoBehaviour
     private Character character;
 
     private InventoryPartyWindow inventoryPartyWindow;
-    [SerializeField] private CharacterEquipment characterEquipment;
 
     public event EventHandler OnEquipChanged;
 
@@ -34,7 +33,6 @@ public class PlayerOverworld : MonoBehaviour
         instance = this;
         charAnim = gameObject.GetComponent<Character_Anims>();
         inventoryPartyWindow = GameObject.Find("InventoryPartyWindow").GetComponent<InventoryPartyWindow>();
-        inventoryPartyWindow.SetCharacterEquipment(characterEquipment);
         SetStateNormal();
     }
 

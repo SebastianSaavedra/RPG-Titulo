@@ -30,7 +30,7 @@ public class Inventory : MonoBehaviour
 
     //private void Update()
     //{
-    //    Debug.Log("La cantidad de items en el inventario es: " + itemList.Count);
+    //    Debug.Log("La cantidad de items en el inventario es: " + GetItemList().Count);
     //}
 
     public void AddItem(Item item)

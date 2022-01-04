@@ -44,6 +44,7 @@ public class InventoryPartyWindow : MonoBehaviour
 
     private void OnEnable()
     {
+        characterEquipment = CharacterEquipment.instance;
         foreach (Character character in GameData.characterList)
         {
             if (character.IsInPlayerTeam())
@@ -251,11 +252,6 @@ public class InventoryPartyWindow : MonoBehaviour
     {
         // Item dropped in weapon slot
         characterEquipment.TryEquipItem(CharacterEquipment.EquipSlot.Weapon, e.item);
-    }
-
-    public void SetCharacterEquipment(CharacterEquipment characterEquipment)
-    {
-        this.characterEquipment = characterEquipment;
     }
 
     private void CharacterEquipment_OnEquipmentChanged(object sender, EventArgs e)

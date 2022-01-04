@@ -2,12 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class CharacterEquipment : MonoBehaviour {
-
+public class CharacterEquipment : MonoBehaviour 
+{
+    public static CharacterEquipment instance;
     public event EventHandler OnEquipmentChanged;
 
-    public enum EquipSlot {
+    public enum EquipSlot 
+    {
         Helmet,
         Armor,
         Weapon
@@ -22,14 +25,28 @@ public class CharacterEquipment : MonoBehaviour {
 
     private void Awake() 
     {
-        if (gameObject.GetComponent<PlayerOverworld>())
+        if (instance == null)
         {
-            player = gameObject.GetComponent<PlayerOverworld>();
+            instance = this;
         }
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+
+        //if (gameObject.GetComponent<PlayerOverworld>())
+        //{
+        //    player = gameObject.GetComponent<PlayerOverworld>();
+        //}
         //else if (gameObject.GetComponent<FollowerOverworld>())
         //{
         //    follower = gameObject.GetComponent<FollowerOverworld>();
         //}
+    }
+
+    private void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
+    {
+        if (GameObject.Find("pfPlayer"))
+        {
+            player = GameObject.Find("pfPlayer").GetComponent<PlayerOverworld>();
+        }
     }
 
     //private void Start()
@@ -40,19 +57,23 @@ public class CharacterEquipment : MonoBehaviour {
     //    }
     //}
 
-    public Item GetWeaponItem() {
+    public Item GetWeaponItem() 
+    {
         return weaponItem;
     }
 
-    public Item GetHelmetItem() {
+    public Item GetHelmetItem() 
+    {
         return helmetItem;
     }
 
-    public Item GetArmorItem() {
+    public Item GetArmorItem()
+    {
         return armorItem;
     }
 
-    private void SetWeaponItem(Item weaponItem) {
+    private void SetWeaponItem(Item weaponItem)
+    {
         this.weaponItem = weaponItem;
         //if (player)
         //{
@@ -66,7 +87,8 @@ public class CharacterEquipment : MonoBehaviour {
         OnEquipmentChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    private void SetHelmetItem(Item helmetItem) {
+    private void SetHelmetItem(Item helmetItem)
+    {
         this.helmetItem = helmetItem;
         //if (player)
         //{
@@ -80,7 +102,8 @@ public class CharacterEquipment : MonoBehaviour {
         OnEquipmentChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    private void SetArmorItem(Item armorItem) {
+    private void SetArmorItem(Item armorItem) 
+    {
         this.armorItem = armorItem;
         //if (player)
         //{
@@ -113,5 +136,4 @@ public class CharacterEquipment : MonoBehaviour {
             }
         }
     }
-
 }
