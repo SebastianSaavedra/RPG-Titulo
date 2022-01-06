@@ -36,7 +36,10 @@ public class ResourceManager : MonoBehaviour
             instance = this;
             return;
         }
+    }
 
+    private void Start()
+    {
         AddMoney(100);
         AddSouls(50);
         SetTattoosAmount(5);

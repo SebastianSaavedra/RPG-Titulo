@@ -1,7 +1,19 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using MEC;
 using TMPro;
+using System.Collections.Generic;
+
+[Serializable]
+public class ItemsBtns
+{
+    public GameObject itemBtn;
+    public TextMeshProUGUI CantidadTxt;
+    public Image icon;
+    public TextMeshProUGUI info;
+}
 
 public class UI_Shop : MonoBehaviour 
 {
@@ -10,7 +22,7 @@ public class UI_Shop : MonoBehaviour
     private Action onHide;
     private GameData.ShopContents shopContents;
 
-    [SerializeField] GameObject itemBtn1, itemBtn2, itemBtn3;
+    [SerializeField] ItemsBtns[] itemsBtns;
 
     private void Awake()
     {
@@ -20,10 +32,24 @@ public class UI_Shop : MonoBehaviour
         }
         GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
 
-        Color colorBtn1 = itemBtn1.transform.Find("Icon").GetComponent<Image>().color;
-        colorBtn1.a = 1f;
 
         Hide();
+    }
+
+    private void Start()
+    {
+        if (shopContents.healingHerbs > 0)
+        {
+            itemsBtns[0].icon.color = new Color(1, 1, 1, 1);
+            itemsBtns[0].CantidadTxt.color = new Color(0.1960784f, 0.1960784f, 0.1960784f, 1);
+            itemsBtns[0].info.color = new Color(0.1960784f, 0.1960784f, 0.1960784f, 1);
+        }
+        else
+        {
+            itemsBtns[0].icon.color = new Color(1, 1, 1, .3f);
+            itemsBtns[0].CantidadTxt.color = new Color(0.1960784f, 0.1960784f, 0.1960784f, .3f);
+            itemsBtns[0].info.color = new Color(0.1960784f, 0.1960784f, 0.1960784f, .3f);
+        }
     }
 
     public void Buy_HealingHerbs() 
@@ -51,13 +77,17 @@ public class UI_Shop : MonoBehaviour
         Debug.Log("Compraste otro item");
     }
 
-    private void Refresh() 
+    private void Refresh()
     {
-        itemBtn1.transform.Find("Cantidad").GetComponent<TextMeshProUGUI>().text = shopContents.healingHerbs.ToString();
+        Timing.RunCoroutine(_WaitOneFrame());
+
+        itemsBtns[0].CantidadTxt.SetText(shopContents.healingHerbs.ToString());
+
         if (shopContents.healingHerbs <= 0)
         {
-            Color colorBtn1 = itemBtn1.transform.Find("Icon").GetComponent<Image>().color;
-            colorBtn1.a = .33f;
+            itemsBtns[0].icon.color = new Color(1, 1, 1, .3f);
+            itemsBtns[0].CantidadTxt.color = new Color(0.1960784f, 0.1960784f, 0.1960784f, .3f);
+            itemsBtns[0].info.color = new Color(0.1960784f, 0.1960784f, 0.1960784f, .3f);
         }
     }
 
@@ -78,7 +108,16 @@ public class UI_Shop : MonoBehaviour
     {
         this.shopContents = shopContents;
         this.onHide = onHide;
+        MenuInteractionController.instance.SetShopState();
         gameObject.SetActive(true);
         Refresh();
+        EventSystem.current.SetSelectedGameObject(null);
+        Timing.RunCoroutine(_WaitOneFrame());
+        EventSystem.current.SetSelectedGameObject(itemsBtns[0].itemBtn);
+    }
+
+    public IEnumerator<float> _WaitOneFrame()
+    {
+        yield return Timing.WaitForOneFrame;
     }
 }

@@ -78,7 +78,6 @@ public class PopUpWindowController : MonoBehaviour // Le asigne monobehaviour po
     public void ActivatePartyWindow(PartyUIController partyUIController)
     {
         this.partyUIController = partyUIController;
-        PlayerOverworld.instance.state = PlayerOverworld.State.SubMenu;
         gameObject.SetActive(true);
         firstButton.SetActive(true);
         btn2.SetActive(true);
@@ -91,7 +90,6 @@ public class PopUpWindowController : MonoBehaviour // Le asigne monobehaviour po
     {
         this.ui_Inventory = ui_Inventory;
         itemSelected = item;
-        PlayerOverworld.instance.state = PlayerOverworld.State.SubMenu;
         gameObject.SetActive(true);
         firstButton.SetActive(false);
         btn2.SetActive(false);
@@ -114,7 +112,8 @@ public class PopUpWindowController : MonoBehaviour // Le asigne monobehaviour po
                 break;
 
             case "Cambiar":
-                Timing.RunCoroutine(MenuInteractionController.instance._EventSystemReAssign(partyUIController.menuStateController.firstPick));
+                Timing.RunCoroutine(MenuInteractionController.instance._EventSystemReAssign(partyUIController.GetFirstPick()));
+                partyUIController.interactionController.SetIsChoosingCharacterBool(true);
                 break;
 
             case "ItemDeCombate":

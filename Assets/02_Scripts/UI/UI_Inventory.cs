@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using MEC;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
 public class UI_Inventory : MonoBehaviour
 {
@@ -40,7 +41,7 @@ public class UI_Inventory : MonoBehaviour
         firstPick = originalFirstPick;
         if (!firstTime)
         {
-            Debug.Log("Primera iniciacion del inventario consumible");
+            //Debug.Log("Primera iniciacion del inventario consumible");
             firstTime = true;
             SetInventory();
         }
@@ -49,7 +50,7 @@ public class UI_Inventory : MonoBehaviour
     private void Start()
     {
         menuInventario.gameObject.SetActive(false);
-        //equipables.SetActive(false);
+        btn_Equippables.GetComponent<RectTransform>().DOLocalMoveX(551f, 1f);
     }
 
     public void SetInventory()
@@ -74,7 +75,7 @@ public class UI_Inventory : MonoBehaviour
         itemPicked = item;
 
         EventSystem.current.SetSelectedGameObject(firstPick);
-
+        interactionController.SetIsChoosingCharacterBool(true);
     }
 
     public void SetFirstPickConsumable()
@@ -181,7 +182,7 @@ public class UI_Inventory : MonoBehaviour
 
     private void RefrestInventory()
     {
-        Debug.Log("La cantidad de items en el inventario es: " + inventory.GetItemList().Count);
+        //Debug.Log("La cantidad de items en el inventario es: " + inventory.GetItemList().Count);
 
         if (inventory.GetItemList().Count != 0)
         {
@@ -229,7 +230,7 @@ public class UI_Inventory : MonoBehaviour
                     texto.text = item.GetItemInfo();
                 }
             }
-            Debug.Log("Se instanciaron los items");
+            //Debug.Log("Se instanciaron los items");
             AssignBtnOrder();
         }
     }

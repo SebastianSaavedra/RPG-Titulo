@@ -291,8 +291,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -33.0254, y: -36.8863}
+  m_AnchoredPosition: {x: 0, y: 20.5281}
+  m_SizeDelta: {x: -33.0254, y: -77.9424}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &13680070
 MonoBehaviour:
@@ -691,6 +691,7 @@ MonoBehaviour:
   interactionController: {fileID: 1633575257}
   firstPick: {fileID: 788950006}
   partyController: {fileID: 1985541786}
+  windowCharacterStats: {fileID: 1614299886}
 --- !u!114 &71237745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -992,6 +993,7 @@ MonoBehaviour:
   interactionController: {fileID: 1633575257}
   firstPick: {fileID: 0}
   partyController: {fileID: 0}
+  windowCharacterStats: {fileID: 0}
 --- !u!114 &100109322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1589,6 +1591,7 @@ MonoBehaviour:
   interactionController: {fileID: 1633575257}
   firstPick: {fileID: 0}
   partyController: {fileID: 0}
+  windowCharacterStats: {fileID: 0}
 --- !u!114 &144099224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2976,7 +2979,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1985541786}
         m_TargetAssemblyTypeName: PartyUIController, Assembly-CSharp
         m_MethodName: PopUpWindowSet
-        m_Mode: 5
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3894,6 +3897,7 @@ MonoBehaviour:
   interactionController: {fileID: 1633575257}
   firstPick: {fileID: 1467697884}
   partyController: {fileID: 0}
+  windowCharacterStats: {fileID: 0}
 --- !u!222 &550311253
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5499,7 +5503,7 @@ MonoBehaviour:
   alignment: 0
   lineCountLimit: 3
   textMat: {fileID: 2100000, guid: e490a80c3724140c0ad176edb075a09e, type: 2}
-  textMesh: {fileID: 934243011}
+  textMesh: {fileID: 1318975432}
   rawTopLeftBounds: {x: 708.85266, y: -23.75, z: 0}
   rawBottomRightBounds: {x: -708.85266, y: 23.75, z: 0}
   topLeftBounds: {x: 222.75006, y: 165.75, z: 0}
@@ -5537,7 +5541,7 @@ MonoBehaviour:
         m_CallState: 2
   debugMode: 0
   totalReadTime: 0.35000002
-  totalUnreadTime: 0.4895382
+  totalUnreadTime: 0.47026208
   currentReadTime: 0
   autoRead: 1
   rememberReadPosition: 1
@@ -6053,6 +6057,7 @@ MonoBehaviour:
   interactionController: {fileID: 1633575257}
   firstPick: {fileID: 0}
   partyController: {fileID: 0}
+  windowCharacterStats: {fileID: 0}
 --- !u!114 &816977383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6280,7 +6285,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 135.48767, y: -162.9177}
+  m_AnchoredPosition: {x: 135.48767, y: -139}
   m_SizeDelta: {x: -270.9753, y: -325.8354}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &827944404
@@ -6506,6 +6511,7 @@ MonoBehaviour:
   interactionController: {fileID: 1633575257}
   firstPick: {fileID: 1934184388}
   partyController: {fileID: 0}
+  windowCharacterStats: {fileID: 0}
 --- !u!1 &830804828
 GameObject:
   m_ObjectHideFlags: 0
@@ -7659,6 +7665,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1633575257}
+        m_TargetAssemblyTypeName: MenuInteractionController, Assembly-CSharp
+        m_MethodName: SetPartyState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &901056630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7973,170 +7991,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 925448397}
   m_CullTransparentMesh: 1
---- !u!43 &934243011
-Mesh:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  serializedVersion: 10
-  m_SubMeshes:
-  - serializedVersion: 2
-    firstByte: 0
-    indexCount: 48
-    topology: 0
-    baseVertex: 0
-    firstVertex: 0
-    vertexCount: 32
-    localAABB:
-      m_Center: {x: -613.1105, y: -8.90625, z: 0}
-      m_Extent: {x: 93.515625, y: 16.328125, z: 0}
-  m_Shapes:
-    vertices: []
-    shapes: []
-    channels: []
-    fullWeights: []
-  m_BindPose: []
-  m_BoneNameHashes: 
-  m_RootBoneNameHash: 0
-  m_BonesAABB: []
-  m_VariableBoneCountWeights:
-    m_Data: 
-  m_MeshCompression: 0
-  m_IsReadable: 1
-  m_KeepVertices: 1
-  m_KeepIndices: 1
-  m_IndexFormat: 0
-  m_IndexBuffer: 000001000200000002000300040005000600040006000700080009000a0008000a000b000c000d000e000c000e000f00100011001200100012001300140015001600140016001700180019001a0018001a001b001c001d001e001c001e001f00
-  m_VertexData:
-    serializedVersion: 3
-    m_VertexCount: 32
-    m_Channels:
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 3
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 12
-      format: 2
-      dimension: 4
-    - stream: 0
-      offset: 16
-      format: 0
-      dimension: 2
-    - stream: 0
-      offset: 24
-      format: 0
-      dimension: 2
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    m_DataSize: 1024
-    _typelessdata: 12a830c40080ed4000000000323232ff0000000000000000000000000000000092ca29c40080ed4000000000323232ff0000143d00000000000000000000000092ca29c400e0c9c100000000323232ff0000143d0000303d000000000000000012a830c400e0c9c100000000323232ff000000000000303d0000000000000000920c29c400800ec000000000323232ff0000143d00000000000000000000000092da23c400800ec000000000323232ff0000823d00000000000000000000000092da23c400e0c9c100000000323232ff0000823d0000f83c0000000000000000920c29c400e0c9c100000000323232ff0000143d0000f83c0000000000000000124c23c400800ec000000000323232ff0000f83c0000ac3d000000000000000012811bc400800ec000000000323232ff0000f83c0000303d000000000000000012811bc400e0c9c100000000323232ff000000000000303d0000000000000000124c23c400e0c9c100000000323232ff000000000000ac3d000000000000000012811bc40010b8c100000000323232ff0000823d00000000000000000000000012221bc40010b8c100000000323232ff0000863d00000000000000000000000012221bc400f0c3c100000000323232ff0000863d0000003b000000000000000012811bc400f0c3c100000000323232ff0000823d0000003b000000000000000012e818c40080ed4000000000323232ff0000143d0000f83c000000000000000012db11c40080ed4000000000323232ff0000963d0000f83c000000000000000012db11c400f0c3c100000000323232ff0000963d0000943d000000000000000012e818c400f0c3c100000000323232ff0000143d0000943d000000000000000012db11c400800ec000000000323232ff0000143d00000000000000000000000012a90cc400800ec000000000323232ff0000823d00000000000000000000000012a90cc400e0c9c100000000323232ff0000823d0000f83c000000000000000012db11c400e0c9c100000000323232ff0000143d0000f83c0000000000000000124a0cc40000bebf00000000323232ff0000003d0000ee3d0000000000000000922a06c40000bebf00000000323232ff0000003d0000ac3d0000000000000000922a06c400e0c9c100000000323232ff000000000000ac3d0000000000000000124a0cc400e0c9c100000000323232ff000000000000ee3d0000000000000000125a06c40040a64000000000323232ff0000963d00000000000000000000000012e601c40040a64000000000323232ff0000c63d00000000000000000000000012e601c400e0c9c100000000323232ff0000c63d0000243d0000000000000000125a06c400e0c9c100000000323232ff0000963d0000243d0000000000000000
-  m_CompressedMesh:
-    m_Vertices:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_UV:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Normals:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Tangents:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Weights:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_NormalSigns:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_TangentSigns:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_FloatColors:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_BoneIndices:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Triangles:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_UVInfo: 0
-  m_LocalAABB:
-    m_Center: {x: -613.1105, y: -8.90625, z: 0}
-    m_Extent: {x: 93.515625, y: 16.328125, z: 0}
-  m_MeshUsageFlags: 0
-  m_BakedConvexCollisionMesh: 
-  m_BakedTriangleCollisionMesh: 
-  m_MeshMetrics[0]: 1
-  m_MeshMetrics[1]: 1
-  m_MeshOptimizationFlags: 1
-  m_StreamData:
-    serializedVersion: 2
-    offset: 0
-    size: 0
-    path: 
 --- !u!1 &945267253
 GameObject:
   m_ObjectHideFlags: 0
@@ -9259,9 +9113,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b22416cd438f384eb4b8ee013474580, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemBtn1: {fileID: 598070770}
-  itemBtn2: {fileID: 2091382234}
-  itemBtn3: {fileID: 1237529741}
+  itemsBtns:
+  - itemBtn: {fileID: 598070770}
+    CantidadTxt: {fileID: 827944404}
+    icon: {fileID: 13680070}
+    info: {fileID: 557100962}
 --- !u!1 &1053448717
 GameObject:
   m_ObjectHideFlags: 0
@@ -11161,6 +11017,170 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1307738539}
   m_CullTransparentMesh: 1
+--- !u!43 &1318975432
+Mesh:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  serializedVersion: 10
+  m_SubMeshes:
+  - serializedVersion: 2
+    firstByte: 0
+    indexCount: 48
+    topology: 0
+    baseVertex: 0
+    firstVertex: 0
+    vertexCount: 32
+    localAABB:
+      m_Center: {x: -613.1105, y: -8.90625, z: 0}
+      m_Extent: {x: 93.515625, y: 16.328125, z: 0}
+  m_Shapes:
+    vertices: []
+    shapes: []
+    channels: []
+    fullWeights: []
+  m_BindPose: []
+  m_BoneNameHashes: 
+  m_RootBoneNameHash: 0
+  m_BonesAABB: []
+  m_VariableBoneCountWeights:
+    m_Data: 
+  m_MeshCompression: 0
+  m_IsReadable: 1
+  m_KeepVertices: 1
+  m_KeepIndices: 1
+  m_IndexFormat: 0
+  m_IndexBuffer: 000001000200000002000300040005000600040006000700080009000a0008000a000b000c000d000e000c000e000f00100011001200100012001300140015001600140016001700180019001a0018001a001b001c001d001e001c001e001f00
+  m_VertexData:
+    serializedVersion: 3
+    m_VertexCount: 32
+    m_Channels:
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 3
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 12
+      format: 2
+      dimension: 4
+    - stream: 0
+      offset: 16
+      format: 0
+      dimension: 2
+    - stream: 0
+      offset: 24
+      format: 0
+      dimension: 2
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    m_DataSize: 1024
+    _typelessdata: 12a830c40080ed4000000000323232ff0000ce3e0000293f000000000000000092ca29c40080ed4000000000323232ff00000c3f0000293f000000000000000092ca29c400e0c9c100000000323232ff00000c3f0000553f000000000000000012a830c400e0c9c100000000323232ff0000ce3e0000553f0000000000000000920c29c400800ec000000000323232ff0000183e00000000000000000000000092da23c400800ec000000000323232ff0000843e00000000000000000000000092da23c400e0c9c100000000323232ff0000843e0000f83d0000000000000000920c29c400e0c9c100000000323232ff0000183e0000f83d0000000000000000124c23c400800ec000000000323232ff00006a3f0000c03e000000000000000012811bc400800ec000000000323232ff00006a3f0000583e000000000000000012811bc400e0c9c100000000323232ff00004b3f0000583e0000000000000000124c23c400e0c9c100000000323232ff00004b3f0000c03e000000000000000012811bc40010b8c100000000323232ff000000000000303e000000000000000012221bc40010b8c100000000323232ff0000003c0000303e000000000000000012221bc400f0c3c100000000323232ff0000003c0000383e000000000000000012811bc400f0c3c100000000323232ff000000000000383e000000000000000012e818c40080ed4000000000323232ff0000f83e0000bc3e000000000000000012db11c40080ed4000000000323232ff0000223f0000bc3e000000000000000012db11c400f0c3c100000000323232ff0000223f0000093f000000000000000012e818c400f0c3c100000000323232ff0000f83e0000093f000000000000000012db11c400800ec000000000323232ff0000183e00000000000000000000000012a90cc400800ec000000000323232ff0000843e00000000000000000000000012a90cc400e0c9c100000000323232ff0000843e0000f83d000000000000000012db11c400e0c9c100000000323232ff0000183e0000f83d0000000000000000124a0cc40000bebf00000000323232ff00002c3f00002a3f0000000000000000922a06c40000bebf00000000323232ff00002c3f0000093f0000000000000000922a06c400e0c9c100000000323232ff00000c3f0000093f0000000000000000124a0cc400e0c9c100000000323232ff00000c3f00002a3f0000000000000000125a06c40040a64000000000323232ff0000423f00000000000000000000000012e601c40040a64000000000323232ff00005a3f00000000000000000000000012e601c400e0c9c100000000323232ff00005a3f0000243e0000000000000000125a06c400e0c9c100000000323232ff0000423f0000243e0000000000000000
+  m_CompressedMesh:
+    m_Vertices:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UV:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Normals:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Tangents:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Weights:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_NormalSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_TangentSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_FloatColors:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_BoneIndices:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Triangles:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UVInfo: 0
+  m_LocalAABB:
+    m_Center: {x: -613.1105, y: -8.90625, z: 0}
+    m_Extent: {x: 93.515625, y: 16.328125, z: 0}
+  m_MeshUsageFlags: 0
+  m_BakedConvexCollisionMesh: 
+  m_BakedTriangleCollisionMesh: 
+  m_MeshMetrics[0]: 1
+  m_MeshMetrics[1]: 1
+  m_MeshOptimizationFlags: 1
+  m_StreamData:
+    serializedVersion: 2
+    offset: 0
+    size: 0
+    path: 
 --- !u!1 &1323569462
 GameObject:
   m_ObjectHideFlags: 0
@@ -11956,7 +11976,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1985541786}
         m_TargetAssemblyTypeName: PartyUIController, Assembly-CSharp
         m_MethodName: PopUpWindowSet
-        m_Mode: 5
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -12472,7 +12492,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1985541786}
         m_TargetAssemblyTypeName: PartyUIController, Assembly-CSharp
         m_MethodName: PopUpWindowSet
-        m_Mode: 5
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -14380,6 +14400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 636dc68f729db3b4fb5a69d2f9c813d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  state: 0
   botonesMenus:
   - {fileID: 1934184388}
   - {fileID: 901056627}
@@ -14393,6 +14414,7 @@ MonoBehaviour:
   mainMenu: {fileID: 829954246}
   popUpWindowController: {fileID: 1119435175}
   uiPartyController: {fileID: 1985541786}
+  ui_Inventory: {fileID: 2013990592}
   actualLaneOpened: {fileID: 0}
 --- !u!114 &1633575258
 MonoBehaviour:
@@ -15804,6 +15826,7 @@ MonoBehaviour:
   interactionController: {fileID: 1633575257}
   firstPick: {fileID: 1373576340}
   partyController: {fileID: 0}
+  windowCharacterStats: {fileID: 0}
 --- !u!114 &1778481435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17174,6 +17197,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1633575257}
+        m_TargetAssemblyTypeName: MenuInteractionController, Assembly-CSharp
+        m_MethodName: SetInventoryState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1934184391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17540,7 +17575,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionController: {fileID: 1633575257}
-  menuStateController: {fileID: 71237744}
+  firstPick: {fileID: 788950006}
   topMenu: {fileID: 410972754}
   midMenu: {fileID: 1428572801}
   bottomMenu: {fileID: 1487100550}

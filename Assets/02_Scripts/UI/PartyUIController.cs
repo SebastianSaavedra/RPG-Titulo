@@ -6,8 +6,8 @@ using MEC;
 
 public class PartyUIController : MonoBehaviour
 {
-    [SerializeField] MenuInteractionController interactionController;
-    public MenuStateController menuStateController;
+    public MenuInteractionController interactionController;
+    [SerializeField] GameObject firstPick;
     public GameObject topMenu, midMenu, bottomMenu;
 
     //private
@@ -93,6 +93,11 @@ public class PartyUIController : MonoBehaviour
         return lastMenuPicked;
     }
 
+    public GameObject GetFirstPick()
+    {
+        return firstPick;
+    }
+
     public void CharacterInLanePicked()
     {
         switch (lastMenuPicked.name)
@@ -109,15 +114,11 @@ public class PartyUIController : MonoBehaviour
         }
     }
 
-    public void PopUpWindowSet(string comando)
+    public void PopUpWindowSet()
     {
-        switch (comando)
-        {
-            case "PartyOptions":
-                interactionController.popUpWindowController.ActivatePartyWindow(this);
-                break;
-        }
+        interactionController.popUpWindowController.ActivatePartyWindow(this);
     }
+
     public void SwitchCharacter(string charName)
     {
         switch (charName)

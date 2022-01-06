@@ -255,7 +255,7 @@ public static class Dialogues
 
                 UI_Shop.Show_Static(shopCharacter.shopContents, () => 
                 {
-                    OverworldManager.StartOvermapRunning();
+                    //OverworldManager.StartOvermapRunning();
                 });
             },
         }, true);

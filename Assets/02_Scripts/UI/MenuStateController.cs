@@ -20,6 +20,7 @@ public class MenuStateController : MonoBehaviour
     public MenuInteractionController interactionController;
     public GameObject firstPick;
     [SerializeField] PartyUIController partyController;
+    [SerializeField] WindowCharacterStats windowCharacterStats;
 
     private void OnEnable()
     {
@@ -33,6 +34,10 @@ public class MenuStateController : MonoBehaviour
                 break;
             case MENUS.Equipo:
                 Timing.RunCoroutine(MenuInteractionController.instance._EventSystemReAssign(partyController.topMenu));
+                if (windowCharacterStats.gameObject.activeInHierarchy)
+                {
+                    windowCharacterStats.gameObject.SetActive(false);
+                }
                 break;
             case MENUS.Equipamiento:
                 Timing.RunCoroutine(MenuInteractionController.instance._EventSystemReAssign());
