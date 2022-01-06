@@ -126,7 +126,7 @@ public class PlayerOverworld : MonoBehaviour
                     case Character.Type.WarriorNPC_1:
                         if (npcOverworld.GetCharacter().quest.questGoal.CanComplete())
                         {
-                            Dialogues.TestDialogue_3(npcOverworld.GetCharacter());
+                            Dialogues.TestDialogue_3();
                         }
                         else
                         {
@@ -135,6 +135,9 @@ public class PlayerOverworld : MonoBehaviour
                         break;
                     case Character.Type.WarriorNPC_2:
                         Dialogues.TestDialogue_2(npcOverworld.GetCharacter());
+                        break;
+                    case Character.Type.Shop:
+                        Dialogues.ShopDialogue(npcOverworld.GetCharacter());
                         break;
                         //case Character.Type.Shop:
                         //    Cutscenes.Play_Shop(npcOvermap.GetCharacter());
@@ -246,7 +249,7 @@ public class PlayerOverworld : MonoBehaviour
         SetEquipment(item.itemType);
     }
 
-    public void SetEquipment(Item.ItemType itemType)
+    private void SetEquipment(Item.ItemType itemType)
     {
         switch (itemType)
         {

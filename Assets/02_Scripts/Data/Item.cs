@@ -25,12 +25,6 @@ public class Item {
         Weapon_3,
         Weapon_4,
         Weapon_5,
-
-        //PedroWeapon,
-        //ChillpilaWeapon,
-        //AranaWeapon,
-        //AntayWeapon,
-
     }
 
     public enum ItemSubType
@@ -106,24 +100,6 @@ public class Item {
                 return ItemSubType.Equippable;
         }
     }
-
-    //public ItemCLASSSubType GetEquipmentClassSubtype(Item item)
-    //{
-    //    switch (item.GetItemType())
-    //    {
-    //        default:
-    //        case ItemType.Armor_1:
-    //            return ItemCLASSSubType.SuyaiEquipment;
-    //        case ItemType.AranaWeapon:
-    //            return ItemCLASSSubType.AranaEquipment;
-    //        case ItemType.AntayWeapon:
-    //            return ItemCLASSSubType.AntayEquipment;
-    //        case ItemType.ChillpilaWeapon:
-    //            return ItemCLASSSubType.ChillpilaEquipment;
-    //        case ItemType.PedroWeapon:
-    //            return ItemCLASSSubType.PedroEquipment;
-    //    }
-    //}
 
     public CharacterEquipment.EquipSlot GetEquipSlot()
     {

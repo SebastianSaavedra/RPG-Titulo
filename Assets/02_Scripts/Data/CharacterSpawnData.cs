@@ -9,6 +9,6 @@ public class CharacterSpawnData : MonoBehaviour
     public GameData.EnemyEncounter enemyEncounter;
     public GameData.NPCDialogues npcDialogues;
     public Quest quest;
-    //public GameData.ShopContents shopContents;
+    public GameData.ShopContents shopContents;
 
 }

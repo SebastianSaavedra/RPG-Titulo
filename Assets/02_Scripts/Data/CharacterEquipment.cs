@@ -74,47 +74,68 @@ public class CharacterEquipment : MonoBehaviour
 
     private void SetWeaponItem(Item weaponItem)
     {
-        this.weaponItem = weaponItem;
-        //if (player)
-        //{
-            player.SetEquipment(weaponItem.itemType);
+        if (this.weaponItem == null || this.weaponItem != weaponItem)
+        {
+            this.weaponItem = weaponItem;
+            //if (player)
+            //{
+            player.SetEquipment(weaponItem);
             Debug.Log("Se equipo un arma");
-        //}
-        //else if (follower)
-        //{
-        //    follower.SetEquipment(weaponItem.itemType);
-        //}
-        OnEquipmentChanged?.Invoke(this, EventArgs.Empty);
+            //}
+            //else if (follower)
+            //{
+            //    follower.SetEquipment(weaponItem.itemType);
+            //}
+            OnEquipmentChanged?.Invoke(this, EventArgs.Empty);
+        }
+        else
+        {
+            SoundManager.PlaySound(SoundManager.Sound.Error);
+        }
     }
 
     private void SetHelmetItem(Item helmetItem)
     {
-        this.helmetItem = helmetItem;
-        //if (player)
-        //{
-            player.SetEquipment(helmetItem.itemType);
+        if (this.helmetItem == null || this.helmetItem != helmetItem)
+        {
+            this.helmetItem = helmetItem;
+            //if (player)
+            //{
+            player.SetEquipment(helmetItem);
             Debug.Log("Se equipo un casco");
-        //}
-        //else if (follower)
-        //{
-        //    follower.SetEquipment(helmetItem.itemType);
-        //}
-        OnEquipmentChanged?.Invoke(this, EventArgs.Empty);
+            //}
+            //else if (follower)
+            //{
+            //    follower.SetEquipment(helmetItem.itemType);
+            //}
+            OnEquipmentChanged?.Invoke(this, EventArgs.Empty);
+        }
+        else
+        {
+            SoundManager.PlaySound(SoundManager.Sound.Error);
+        }
     }
 
-    private void SetArmorItem(Item armorItem) 
+    private void SetArmorItem(Item armorItem)
     {
-        this.armorItem = armorItem;
-        //if (player)
-        //{
-            player.SetEquipment(armorItem.itemType);
+        if (this.armorItem == null || this.armorItem != armorItem)
+        {
+            this.armorItem = armorItem;
+            //if (player)
+            //{
+            player.SetEquipment(armorItem);
             Debug.Log("Se equipo una armadura");
-        //}
-        //else if (follower)
-        //{
-        //    follower.SetEquipment(armorItem.itemType);
-        //}
-        OnEquipmentChanged?.Invoke(this, EventArgs.Empty);
+            //}
+            //else if (follower)
+            //{
+            //    follower.SetEquipment(armorItem.itemType);
+            //}
+            OnEquipmentChanged?.Invoke(this, EventArgs.Empty);
+        }
+        else
+        {
+            SoundManager.PlaySound(SoundManager.Sound.Error);
+        }
     }
 
     public void TryEquipItem(EquipSlot equipSlot, Item item) 

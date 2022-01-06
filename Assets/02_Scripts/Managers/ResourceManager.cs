@@ -13,12 +13,12 @@ public class ResourceManager : MonoBehaviour
     private int money;
 
     //Suyai
-    private int maxHerbs = 10;
+    private int maxHerbs = 100;
     private int herbs;
 
     //Chillquila
-    private int maxSouls = 50;
-    private int souls = 50;
+    private int maxSouls = 100;
+    private int souls;
 
     //Antay
     private int maxHits = 10;
@@ -26,7 +26,7 @@ public class ResourceManager : MonoBehaviour
 
     //Arana
     private int maxTattoos = 5;
-    private int tattoos = 5;
+    private int tattoos;
 
 
     void Awake()
@@ -36,6 +36,11 @@ public class ResourceManager : MonoBehaviour
             instance = this;
             return;
         }
+
+        AddMoney(100);
+        AddSouls(50);
+        SetTattoosAmount(5);
+        SetHitsAmount(10);
     }
 
     #region Money

@@ -196,7 +196,7 @@ public static class Dialogues
             () => {
                 dialogue.Show();
                 dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
-                dialogue.ShowText("Lo siento Suyai, no puedo dejarte avanzar por acá.");
+                dialogue.ShowText(character.npcDialogues.dialogues[0].dialogue[0]);
                 dialogue.ShowRightCharacterName(character.name);
                 dialogue.ShowRightNameplate();
                 dialogue.HideLeftCharacter();
@@ -209,7 +209,7 @@ public static class Dialogues
             },
         }, true);
     }
-    public static void TestDialogue_3(Character character)
+    public static void TestDialogue_3()
     {
         OverworldManager.StopOvermapRunning();
         DialogueController dialogue = DialogueController.GetInstance();
@@ -228,6 +228,35 @@ public static class Dialogues
                 dialogue.Hide();
                 OverworldManager.StartOvermapRunning();
                 UnityEngine.Application.Quit();
+            },
+        }, true);
+    }
+
+    public static void ShopDialogue(Character shopCharacter)
+    {
+        OverworldManager.StopOvermapRunning();
+        DialogueController dialogue = DialogueController.GetInstance();
+        dialogue.SetDialogueActions(new List<Action>() 
+        {
+            () => 
+            {
+                dialogue.Show();
+                dialogue.HideLeftCharacter();
+                dialogue.HideLeftCharacterName();
+                dialogue.HideLeftNameplate();
+                dialogue.ShowRightCharacter(GameAssets.i.npc_SHOP, false);
+                dialogue.ShowRightCharacterName(GameData.GetCharacterName(Character.Type.Shop));
+                dialogue.ShowRightNameplate();
+                dialogue.ShowText("¡Hola!, ¡te interesa ver lo que tengo?");
+            },
+            () => 
+            {
+                dialogue.Hide();
+
+                UI_Shop.Show_Static(shopCharacter.shopContents, () => 
+                {
+                    OverworldManager.StartOvermapRunning();
+                });
             },
         }, true);
     }

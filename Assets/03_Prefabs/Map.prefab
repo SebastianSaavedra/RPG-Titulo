@@ -2013,6 +2013,57 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &681195376544345972
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 692431686543632258}
+  - component: {fileID: 7658679979069681967}
+  m_Layer: 0
+  m_Name: NPC_Shop
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &692431686543632258
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 681195376544345972}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.73, y: -15.24, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6989693021506279504}
+  m_RootOrder: 21
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7658679979069681967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 681195376544345972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4ae1a4e18e42d34da569c0593f1e71b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterType: 9
+  enemyEncounter:
+    enemyBattleArray: []
+  npcDialogues:
+    dialogues: []
+  quest: {fileID: 0}
+  shopContents:
+    healingHerbs: 5
 --- !u!1 &710323427636551898
 GameObject:
   m_ObjectHideFlags: 0
@@ -2507,6 +2558,8 @@ MonoBehaviour:
     dialogues:
     - dialogue: []
   quest: {fileID: 0}
+  shopContents:
+    healingHerbs: 0
 --- !u!1 &967884093424027880
 GameObject:
   m_ObjectHideFlags: 0
@@ -3174,7 +3227,7 @@ GameObject:
   - component: {fileID: 3639200047790381658}
   - component: {fileID: 7536889948287761762}
   m_Layer: 0
-  m_Name: NPC_1 (1)
+  m_Name: NPC_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3214,6 +3267,8 @@ MonoBehaviour:
     - dialogue:
       - "Lo siento Suyai, no puedo dejarte avanzar por ac\xE1."
   quest: {fileID: 0}
+  shopContents:
+    healingHerbs: 0
 --- !u!1 &1299926336267490898
 GameObject:
   m_ObjectHideFlags: 0
@@ -8150,6 +8205,8 @@ MonoBehaviour:
     dialogues:
     - dialogue: []
   quest: {fileID: 0}
+  shopContents:
+    healingHerbs: 0
 --- !u!1 &3624138194940782671
 GameObject:
   m_ObjectHideFlags: 0
@@ -13405,6 +13462,8 @@ MonoBehaviour:
   npcDialogues:
     dialogues: []
   quest: {fileID: 11400000, guid: febe619589560b74f8863d0ebe1c6859, type: 2}
+  shopContents:
+    healingHerbs: 0
 --- !u!1 &6042158115478336143
 GameObject:
   m_ObjectHideFlags: 0
@@ -15242,7 +15301,7 @@ GameObject:
   - component: {fileID: 5963017399591455590}
   - component: {fileID: 8427955005131337541}
   m_Layer: 0
-  m_Name: NPC_1 (3)
+  m_Name: NPC_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15282,6 +15341,8 @@ MonoBehaviour:
     - dialogue:
       - "Lo siento Suyai, no puedo dejarte avanzar por ac\xE1."
   quest: {fileID: 0}
+  shopContents:
+    healingHerbs: 0
 --- !u!1 &6620799538541313095
 GameObject:
   m_ObjectHideFlags: 0
@@ -15655,6 +15716,7 @@ Transform:
   - {fileID: 3639200047790381658}
   - {fileID: 949894945654153182}
   - {fileID: 5963017399591455590}
+  - {fileID: 692431686543632258}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -16546,6 +16608,8 @@ MonoBehaviour:
     dialogues:
     - dialogue: []
   quest: {fileID: 0}
+  shopContents:
+    healingHerbs: 0
 --- !u!1 &7325109317394842280
 GameObject:
   m_ObjectHideFlags: 0
@@ -16932,7 +16996,7 @@ GameObject:
   - component: {fileID: 949894945654153182}
   - component: {fileID: 4717555032087818388}
   m_Layer: 0
-  m_Name: NPC_1 (2)
+  m_Name: NPC_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16972,6 +17036,8 @@ MonoBehaviour:
     - dialogue:
       - "Lo siento Suyai, no puedo dejarte avanzar por ac\xE1."
   quest: {fileID: 0}
+  shopContents:
+    healingHerbs: 0
 --- !u!1 &7559323680051342806
 GameObject:
   m_ObjectHideFlags: 0

@@ -30,12 +30,12 @@ public static class GameData
         isInit = true;
         SoundManager.Initialize();
         state = State.Start;
-        nombresMapucheArray = new string[] {
+        nombresMapucheArray = new string[] 
+        {
             "Nahuel",
             "Eluney",
             "Aukan",
             "Tahiel",
-            "Nehuen",
             "Ayun",
             "Ankatu",
             "Lautaro",
@@ -116,7 +116,7 @@ public static class GameData
                         npcDialogues = characterSpawnData.npcDialogues,
                         quest = characterSpawnData.quest,
 
-                        //shopContents = characterSpawnData.shopContents.Clone()
+                        shopContents = characterSpawnData.shopContents.Clone()
                     }
                 );
             }
@@ -220,13 +220,13 @@ public static class GameData
     [Serializable]
     public class ShopContents
     {
-        public int healthPotions;
+        public int healingHerbs;
 
         public ShopContents Clone()
         {
             return new ShopContents
             {
-                healthPotions = healthPotions
+                healingHerbs = healingHerbs
             };
         }
     }

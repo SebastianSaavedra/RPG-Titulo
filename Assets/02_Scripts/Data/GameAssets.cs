@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
 
 public class GameAssets : MonoBehaviour
 {
@@ -54,7 +53,7 @@ public class GameAssets : MonoBehaviour
 
     public Sprite testEnemySprite;
     public Sprite fusileroOWSprite,lanceroOWSprite;
-    public Sprite questNpc_1, warriorNPC;
+    public Sprite questNpc_1, warriorNPC,npc_SHOP;
     public Sprite spriteOWPedro, spriteOWArana, spriteOWChillpila, spriteOWAntay;
     public Sprite splashSuyai, splashPedro, splashChillpila, splashArana, splashAntay;
     public Sprite playerDialogueSprite, npc_1DialogueSprite, warriorNpcDialogueSprite;

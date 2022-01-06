@@ -7,9 +7,9 @@ public class GameManager_Overworld : MonoBehaviour
     private static GameManager_Overworld instance;
 
     public static GridPathfinding gridPathfinding;
-    [SerializeField] private CameraFollow cameraFollow;
+    //[SerializeField] private CameraFollow cameraFollow;
     [SerializeField] private PlayerOverworld playerOverworld;
-    [SerializeField] private float cameraZoom = 10f;
+    //[SerializeField] private float cameraZoom = 10f;
 
     private void Awake()
     {

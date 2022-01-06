@@ -6,7 +6,8 @@ using UnityEngine.UI;
 using CodeMonkey.Utils;
 using TMPro;
 
-public class DialogueController : MonoBehaviour {
+public class DialogueController : MonoBehaviour
+{
 
     private static DialogueController instance;
     public static DialogueController GetInstance() => instance;

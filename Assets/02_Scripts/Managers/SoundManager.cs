@@ -58,13 +58,8 @@ public static class SoundManager
             GameObject soundGameObject = new GameObject("Sound");
             soundGameObject.transform.position = position;
             AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
-            //audioSource.outputAudioMixerGroup = GameAssets.i.audioMixer;
             audioSource.clip = GetAudioClip(sound);
             Timing.RunCoroutine(_WaitOneFrame());
-            //audioSource.maxDistance = 100f;
-            //audioSource.spatialBlend = 1f;
-            //audioSource.rolloffMode = AudioRolloffMode.Linear;
-            //audioSource.dopplerLevel = 0f;
             audioSource.volume = (masterVolume / 10f) * GetSoundVolume(sound);
             audioSource.Play();
 

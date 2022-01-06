@@ -73,6 +73,7 @@ MonoBehaviour:
   lanceroOWSprite: {fileID: 21300000, guid: 4fadd58adb949dc4b858424946a20ae4, type: 3}
   questNpc_1: {fileID: 0}
   warriorNPC: {fileID: 21300000, guid: 170e201a23bd75a40bd92ca0633b5605, type: 3}
+  npc_SHOP: {fileID: 21300000, guid: f878f7f5edeab2749b10fb4f2f9eb250, type: 3}
   spriteOWPedro: {fileID: 21300000, guid: 2508f08a576af4e479843b9039b7f363, type: 3}
   spriteOWArana: {fileID: 21300000, guid: 843a560d664e92748b4633ceaffc2c32, type: 3}
   spriteOWChillpila: {fileID: 21300000, guid: d27f2c46446c3034dbbac0b4eb7d1265, type: 3}

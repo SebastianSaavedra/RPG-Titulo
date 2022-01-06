@@ -180,4 +180,13 @@ public class InfoMenuWindow : MonoBehaviour
 
         }
     }
+
+    private void OnDestroy()
+    {
+        ResourceManager.instance.OnMoneyChanged -= ResourceManager_OnResourceChanged;
+        ResourceManager.instance.OnHerbsChanged -= ResourceManager_OnResourceChanged;
+        ResourceManager.instance.OnSoulsChanged -= ResourceManager_OnResourceChanged;
+        ResourceManager.instance.OnTattoosChanged -= ResourceManager_OnResourceChanged;
+        ResourceManager.instance.OnHitsChanged -= ResourceManager_OnResourceChanged;
+    }
 }

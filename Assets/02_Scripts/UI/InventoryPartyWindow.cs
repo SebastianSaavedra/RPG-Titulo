@@ -18,12 +18,14 @@ public class PartyWindowInventory
 
 public class InventoryPartyWindow : MonoBehaviour
 {
-    public event EventHandler OnPartyStatsChanged;
-    public event EventHandler<OnItemDroppedEventArgs> OnItemDropped;
-    public class OnItemDroppedEventArgs : EventArgs
-    {
-        public Item item;
-    }
+    //public event EventHandler OnPartyStatsChanged;
+
+    //public event EventHandler<OnItemDroppedEventArgs> OnItemDropped;
+
+    //public class OnItemDroppedEventArgs : EventArgs
+    //{
+    //    public Item item;
+    //}
 
 
     [SerializeField] PartyWindowInventory[] partyWindowInventories;
@@ -205,7 +207,7 @@ public class InventoryPartyWindow : MonoBehaviour
         _defensa.SetText("Defensa: {0}", character.stats.defense);
         _turnos.SetText("Turnos: {0} ", character.stats.turns);
         _critChance.SetText("Critico: %{0} ", character.stats.critChance);
-        OnPartyStatsChanged?.Invoke(this, EventArgs.Empty);
+        //OnPartyStatsChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public void RefreshTextStatsAfterEquippinItem(Character character)

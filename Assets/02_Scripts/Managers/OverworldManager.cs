@@ -100,8 +100,11 @@ public class OverworldManager
                     npcOverworld = SpawnNPC(character);
                     break;
 
-                    //case Character.Type.Shop:
+                case Character.Type.Shop:
+                    npcOverworld = SpawnNPC(character);
+                    break;
             }
+
             switch (GameData.state)
             {
                 case GameData.State.Start:

@@ -53,9 +53,9 @@ public class NPCOverworld : MonoBehaviour
                 //Setear animator
                 break;
 
-                //case Character.Type.Shop:
-                //    material.mainTexture = GameAssets.i.t_Vendor;
-                //    break;
+            case Character.Type.Shop:
+                sprite.sprite = GameAssets.i.npc_SHOP;
+                break;
         }
 
         SetTargetMovePosition(GetPosition());
