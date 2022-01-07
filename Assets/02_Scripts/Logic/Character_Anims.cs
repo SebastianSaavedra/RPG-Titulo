@@ -2,36 +2,26 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using MEC;
-using CodeMonkey;
-using CodeMonkey.Utils;
 using UnityEngine;
 
-[Serializable]
-public class Animations
-{
+//[Serializable]
+//public class Animations
+//{
 
-    public WeaponAnims[] weaponAnimsArray;
+//    public WeaponAnims[] weaponAnimsArray;
 
-    [Serializable]
-    public struct WeaponAnims
-    {
-        public string weaponName;
-        public List<AnimationClip> anims;
-    }
-}
+//    [Serializable]
+//    public struct WeaponAnims
+//    {
+//        public string weaponName;
+//        public List<AnimationClip> anims;
+//    }
+//}
 
 public class Character_Anims : MonoBehaviour
 {
     [HideInInspector] public SpriteRenderer characterSpriteRenderer;
     [HideInInspector] public Animator anim;
-    //public Animations anims;
-
-    //IMPORTANTE    //IMPORTANTE    //IMPORTANTE
-    //                                                                                  //Listo
-    // Recuerda poner corutinas para que se termine las animaciones entre ataques!      //Listo
-    //                                                                                  //Listo
-    //IMPORTANTE    //IMPORTANTE    //IMPORTANTE
-
 
     private void Awake()
     {
@@ -62,6 +52,19 @@ public class Character_Anims : MonoBehaviour
     public void PlayAnimIdle()
     {
         anim.Play("Base Layer.IDLE");
+    }
+
+    public void PlayAnimMoving(Vector3 moveDir)
+    {
+        if (moveDir.x < 0)
+        {
+            characterSpriteRenderer.flipX = false;
+        }
+        else if(moveDir.x > 0)
+        {
+            characterSpriteRenderer.flipX = true;
+        }
+        anim.Play("Base Layer.WALKING");
     }
 
     //public void PlayAnimStarter()

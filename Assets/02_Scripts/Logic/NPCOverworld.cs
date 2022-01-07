@@ -5,7 +5,7 @@ public class NPCOverworld : MonoBehaviour
 {
     public static NPCOverworld instance;
 
-    private const float SPEED = 10f;
+    private const float SPEED = 9f;
 
     private Character_Anims charAnim;
     private Animator anim;
@@ -60,12 +60,25 @@ public class NPCOverworld : MonoBehaviour
 
         SetTargetMovePosition(GetPosition());
 
-        OverworldManager.GetInstance().OnOvermapStopped += NPCOvermap_OnOvermapStopped;
+        OverworldManager.GetInstance().OnOvermapStopped += NPCOverworld_OnOverworldStopped;
     }
 
-    private void NPCOvermap_OnOvermapStopped(object sender, EventArgs e)
+    private void OnDestroy()
     {
-        //Idle Anim
+        OverworldManager.GetInstance().OnOvermapStopped -= NPCOverworld_OnOverworldStopped;
+    }
+
+    private void NPCOverworld_OnOverworldStopped(object sender, OverworldManager.OnOvermapStoppedEventsArgs e)
+    {
+        switch (e.index)
+        {
+            case 0:
+                anim.speed = 0;
+                break;
+            case 1:
+                anim.speed = SPEED * .08f;
+                break;
+        }
     }
 
     public void SaveCharacterPosition()
@@ -121,6 +134,7 @@ public class NPCOverworld : MonoBehaviour
         {
             //playerBase.PlayMoveAnim(moveDir); movimiento segun dirección IMPORTANTE
             transform.position += moveDir * SPEED * Time.deltaTime;
+            charAnim.PlayAnimMoving(moveDir);
         }
     }
 

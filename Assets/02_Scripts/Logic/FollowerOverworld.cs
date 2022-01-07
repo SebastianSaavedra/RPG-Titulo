@@ -6,7 +6,7 @@ public class FollowerOverworld : MonoBehaviour
 {
     public static FollowerOverworld instance;
 
-    private float speed = 9.5f;
+    private float speed = 9f;
 
     private Character_Anims charAnim;
     private Animator anim;
@@ -46,19 +46,23 @@ public class FollowerOverworld : MonoBehaviour
             {
                 case Character.Type.Pedro:
                     sprite.sprite = GameAssets.i.spriteOWPedro;
-                    transform.localScale = Vector3.one * .9f;
+                    anim.runtimeAnimatorController = GameAssets.i.pedroOVERWORLDANIM;
+                    transform.localScale = Vector3.one * .95f;
                     break;
                 case Character.Type.Arana:
                     sprite.sprite = GameAssets.i.spriteOWArana;
-                    transform.localScale = Vector3.one * .9f;
+                    anim.runtimeAnimatorController = GameAssets.i.aranaOVERWORLDANIM;
+                    transform.localScale = Vector3.one * .95f;
                     break;
                 case Character.Type.Chillpila:
                     sprite.sprite = GameAssets.i.spriteOWChillpila;
-                    transform.localScale = Vector3.one * .9f;
+                    anim.runtimeAnimatorController = GameAssets.i.chillpilaOVERWORLDANIM;
+                    transform.localScale = Vector3.one * .95f;
                     break;
                 case Character.Type.Antay:
                     sprite.sprite = GameAssets.i.spriteOWAntay;
-                    transform.localScale = Vector3.one * .9f;
+                    anim.runtimeAnimatorController = GameAssets.i.antayOVERWORLDANIM;
+                    transform.localScale = Vector3.one * .95f;
                     break;
 
             }
@@ -69,6 +73,26 @@ public class FollowerOverworld : MonoBehaviour
         character.SetHealthSystem(healthSystem);
 
         SetTargetMovePosition(playerOvermap.GetPosition() + followOffset);
+
+        OverworldManager.GetInstance().OnOvermapStopped += FollowerOverworld_OnOvermapStopped;
+    }
+
+    private void OnDestroy()
+    {
+        OverworldManager.GetInstance().OnOvermapStopped -= FollowerOverworld_OnOvermapStopped;
+    }
+
+    private void FollowerOverworld_OnOvermapStopped(object sender, OverworldManager.OnOvermapStoppedEventsArgs e)
+    {
+        switch (e.index)
+        {
+            case 0:
+                anim.speed = 0;
+                break;
+            case 1:
+                anim.speed = speed * .08f;
+                break;
+        }
     }
 
     public void SaveCharacterPosition()
@@ -85,7 +109,6 @@ public class FollowerOverworld : MonoBehaviour
     {
         if (!OverworldManager.IsOvermapRunning())
         {
-            // Idle Anim
             return;
         }
 
@@ -120,12 +143,12 @@ public class FollowerOverworld : MonoBehaviour
 
     private void HandleTargetMovePosition()
     {
-        float tooFarDistance = .5f;
+        float tooFarDistance = 5f;
         if (Vector3.Distance(GetPosition(), playerOvermap.GetPosition()) > tooFarDistance)
         {
-            SetTargetMovePosition(playerOvermap.GetPosition() + followOffset);
+            SetTargetMovePosition(playerOvermap.GetPosition() - followOffset);
         }
-        float tooCloseDistance = .2f;
+        float tooCloseDistance = 1.25f;
         if (Vector3.Distance(GetPosition(), playerOvermap.GetPosition()) < tooCloseDistance)
         {
             SetTargetMovePosition(GetPosition());
@@ -144,12 +167,13 @@ public class FollowerOverworld : MonoBehaviour
         bool isIdle = moveDir.x == 0 && moveDir.y == 0;
         if (isIdle)
         {
-            // Idle Anim
+            charAnim.PlayAnimIdle();
         }
         else
         {
             //charAnim.PlayMoveAnim(moveDir); movimiento segun dirección IMPORTANTE
             transform.position += moveDir * speed * Time.deltaTime;
+            charAnim.PlayAnimMoving(moveDir);
         }
     }
 

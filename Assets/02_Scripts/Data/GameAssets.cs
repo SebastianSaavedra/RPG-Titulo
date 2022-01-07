@@ -44,8 +44,8 @@ public class GameAssets : MonoBehaviour
     [Header("Animators")]
     [Space(5)]
 
-    public RuntimeAnimatorController suyaiANIM;
-    public RuntimeAnimatorController pedroANIM, aranaANIM, antayANIM,chillpilaANIM;
+    public RuntimeAnimatorController suyaiBATTLEANIM;
+    public RuntimeAnimatorController pedroBATTLEANIM, aranaBATTLEANIM, antayBATTLEANIM,chillpilaBATTLEANIM,suyaiOVERWORLDANIM, pedroOVERWORLDANIM, aranaOVERWORLDANIM, antayOVERWORLDANIM, chillpilaOVERWORLDANIM;
     public RuntimeAnimatorController testEnemyANIM,fusileroANIM,lanceroANIM;
 
     [Header("Sprites")]

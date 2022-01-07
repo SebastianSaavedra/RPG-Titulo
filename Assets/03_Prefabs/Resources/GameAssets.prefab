@@ -60,11 +60,16 @@ MonoBehaviour:
   pfChatBubbleUI: {fileID: 0}
   pfChatOption: {fileID: 0}
   pf_ItemSlot: {fileID: 2809455457114441785, guid: c5887062ac45ac7469a69d3353335627, type: 3}
-  suyaiANIM: {fileID: 9100000, guid: f12bc6ecd7ec9bb4a94d78b4c02c7fbc, type: 2}
-  pedroANIM: {fileID: 9100000, guid: 92d7085d1b370e74ab1045b36989edfa, type: 2}
-  aranaANIM: {fileID: 9100000, guid: 2953abf012d3b9f48933f62342c1a879, type: 2}
-  antayANIM: {fileID: 9100000, guid: 7474e35a5ef575a40ad26ccd23cb7f20, type: 2}
-  chillpilaANIM: {fileID: 9100000, guid: 17276fb73c5e8d244be173111835a717, type: 2}
+  suyaiBATTLEANIM: {fileID: 9100000, guid: f12bc6ecd7ec9bb4a94d78b4c02c7fbc, type: 2}
+  pedroBATTLEANIM: {fileID: 9100000, guid: 92d7085d1b370e74ab1045b36989edfa, type: 2}
+  aranaBATTLEANIM: {fileID: 9100000, guid: 2953abf012d3b9f48933f62342c1a879, type: 2}
+  antayBATTLEANIM: {fileID: 9100000, guid: 7474e35a5ef575a40ad26ccd23cb7f20, type: 2}
+  chillpilaBATTLEANIM: {fileID: 9100000, guid: 17276fb73c5e8d244be173111835a717, type: 2}
+  suyaiOVERWORLDANIM: {fileID: 9100000, guid: 1e49007ecdadde143b94e3fa7d060ac6, type: 2}
+  pedroOVERWORLDANIM: {fileID: 9100000, guid: cca5c9b4616e3374ea157d8dc1307ac2, type: 2}
+  aranaOVERWORLDANIM: {fileID: 9100000, guid: 1baa32ed5200d3f4eb4a3142ba18a843, type: 2}
+  antayOVERWORLDANIM: {fileID: 9100000, guid: 413a10bd7e1ea7e45a037b40afbccef8, type: 2}
+  chillpilaOVERWORLDANIM: {fileID: 9100000, guid: 8d41b2cea8e11a6419bf1e798d350b17, type: 2}
   testEnemyANIM: {fileID: 9100000, guid: 488d572aeae6c2049905a1fda8af6d12, type: 2}
   fusileroANIM: {fileID: 9100000, guid: c19ae704a256148438ca8f7ea9ae5f29, type: 2}
   lanceroANIM: {fileID: 9100000, guid: 17b3a48fb693cdb4aaa0a24b613f4f7c, type: 2}

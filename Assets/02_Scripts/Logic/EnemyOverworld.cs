@@ -90,7 +90,6 @@ public class EnemyOverworld : MonoBehaviour
 
         if (!OverworldManager.IsOvermapRunning())
         {
-            //Idle Anim
             return;
         }
 

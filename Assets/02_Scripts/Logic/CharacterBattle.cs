@@ -91,20 +91,20 @@ public class CharacterBattle : MonoBehaviour
         switch (characterType)
         {
             case Character.Type.Suyai:
-                anim.runtimeAnimatorController = GameAssets.i.suyaiANIM;
+                anim.runtimeAnimatorController = GameAssets.i.suyaiBATTLEANIM;
                 //si es q el pj tiene una armadura es posible poner un if y cambiar de animator
                 break;
             case Character.Type.Antay:
-                anim.runtimeAnimatorController = GameAssets.i.antayANIM;
+                anim.runtimeAnimatorController = GameAssets.i.antayBATTLEANIM;
                 break;
             case Character.Type.Pedro:
-                anim.runtimeAnimatorController = GameAssets.i.pedroANIM;
+                anim.runtimeAnimatorController = GameAssets.i.pedroBATTLEANIM;
                 break;
             case Character.Type.Chillpila:
-                anim.runtimeAnimatorController = GameAssets.i.chillpilaANIM;
+                anim.runtimeAnimatorController = GameAssets.i.chillpilaBATTLEANIM;
                 break;
             case Character.Type.Arana:
-                anim.runtimeAnimatorController = GameAssets.i.aranaANIM;
+                anim.runtimeAnimatorController = GameAssets.i.aranaBATTLEANIM;
                 break;
 
             /////////////////////////

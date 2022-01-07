@@ -11,6 +11,7 @@ public class PlayerOverworld : MonoBehaviour
 
     [SerializeField] private LayerMask wallLayerMask;
     private Character_Anims charAnim;
+    private Animator animator;
     [HideInInspector] public State state;
     private HealthSystem healthSystem;
     private Character character;
@@ -30,7 +31,9 @@ public class PlayerOverworld : MonoBehaviour
     {
         instance = this;
         charAnim = gameObject.GetComponent<Character_Anims>();
+        animator = gameObject.GetComponent<Animator>();
         inventoryPartyWindow = GameObject.Find("InventoryPartyWindow").GetComponent<InventoryPartyWindow>();
+        transform.localScale = Vector3.one * .95f;
         SetStateNormal();
     }
 
@@ -46,12 +49,25 @@ public class PlayerOverworld : MonoBehaviour
         
         //Animación de caminar
 
-        OverworldManager.GetInstance().OnOvermapStopped += NPCOvermap_OnOvermapStopped;
+        OverworldManager.GetInstance().OnOvermapStopped += PlayerOverworld_OnOverworldStopped;
     }
 
-    private void NPCOvermap_OnOvermapStopped(object sender, EventArgs e)
+    private void OnDestroy()
     {
-        // Idle anim
+        OverworldManager.GetInstance().OnOvermapStopped -= PlayerOverworld_OnOverworldStopped;
+    }
+
+    private void PlayerOverworld_OnOverworldStopped(object sender, OverworldManager.OnOvermapStoppedEventsArgs e)
+    {
+        switch (e.index)
+        {
+            case 0:
+                animator.speed = 0;
+                break;
+            case 1:
+                animator.speed = SPEED * .08f;
+                break;
+        }
     }
 
     //public void RefreshTexture()        //CAMBIO DE EQUIPAMIENTO
@@ -67,28 +83,8 @@ public class PlayerOverworld : MonoBehaviour
         character.position = GetPosition();
     }
 
-    //private void HealthSystem_OnHealthChanged(object sender, EventArgs e)
-    //{
-    //    RefreshHealthBar();
-    //}
-
-    //private void RefreshHealthBar()
-    //{
-    //    healthWorldBar.SetSize(healthSystem.GetHealthPercent());
-    //    if (healthSystem.GetHealthPercent() >= 1f)
-    //    {
-    //        // Full health
-    //        healthWorldBar.Hide();
-    //    }
-    //    else
-    //    {
-    //        healthWorldBar.Show();
-    //    }
-    //}
-
     private void Update()
     {
-
         if (!OverworldManager.IsOvermapRunning())
         {
             return;
@@ -137,9 +133,6 @@ public class PlayerOverworld : MonoBehaviour
                     case Character.Type.Shop:
                         Dialogues.ShopDialogue(npcOverworld.GetCharacter());
                         break;
-                        //case Character.Type.Shop:
-                        //    Cutscenes.Play_Shop(npcOvermap.GetCharacter());
-                        //    break;
                 }
             }
             else if (itemOverworld != null)
@@ -200,49 +193,64 @@ public class PlayerOverworld : MonoBehaviour
         bool isIdle = moveX == 0 && moveY == 0;
         if (isIdle)
         {
-            // Idle Anim
+            charAnim.PlayAnimIdle();
         }
         else
         {
-            if (CanMoveTo(moveDir, SPEED * Time.deltaTime))
-            {
-                //charAnim.PlayMoveAnim(moveDir);  Animacion de moovimiento depende de la direccion
-                transform.position += moveDir * SPEED * Time.deltaTime;
-            }
-            else
-            {
-                //charAnim.PlayMoveAnim(moveDir);  Animacion de moovimiento depende de la direccion
-            }
+            //if (CanMoveTo(moveDir, SPEED * Time.deltaTime))
+            //{
+            //    charAnim.PlayAnimMoving(moveDir);
+            //    transform.position += moveDir * SPEED * Time.deltaTime;
+            //}
+            //else
+            //{
+            //    charAnim.PlayAnimMoving(moveDir);
+            //}
+            charAnim.PlayAnimMoving(moveDir);
+            transform.position += moveDir * SPEED * Time.deltaTime;
         }
     }
 
-    private bool IsOnTopOfWall()
-    {
-        RaycastHit2D raycastHit = Physics2D.CircleCast(GetPosition(), 1f, Vector2.zero, 0f, wallLayerMask);
-        return raycastHit.collider != null;
-    }
+    //private bool IsOnTopOfWall()
+    //{
+    //    RaycastHit2D raycastHit = Physics2D.CircleCast(new Vector2(GetPosition().x, GetPosition().y - 1.75f), .5f, Vector2.zero, wallLayerMask);
+    //    return raycastHit.collider != null;
+    //}
 
-    private bool CanMoveTo(Vector3 dir, float distance)
-    {
-        if (IsOnTopOfWall()) return true;
-        RaycastHit2D raycastHit = Physics2D.CircleCast(GetPosition(), 1f, dir, distance, wallLayerMask);
-        return raycastHit.collider == null;
-    }
+    //private bool CanMoveTo(Vector3 dir, float distance)
+    //{
+    //    if (IsOnTopOfWall()) return true;
+    //    RaycastHit2D raycastHit = Physics2D.CircleCast(new Vector2(GetPosition().x, GetPosition().y - 1.75f), .5f, dir, distance, wallLayerMask);
+    //    return raycastHit.collider == null;
+    //}
 
-    private void TryMoveTo(Vector3 dir, float distance)
-    {
-        RaycastHit2D raycastHit = Physics2D.CircleCast(GetPosition(), 1f, dir,distance, wallLayerMask);
-        if (raycastHit.collider == null)
-        {
-            transform.position += dir * distance;
-        }
-        else
-        {
-            transform.position += dir * (raycastHit.distance - .1f);
-        }
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    RaycastHit2D raycastHit = Physics2D.CircleCast(new Vector2(GetPosition().x, GetPosition().y - 1.75f), .5f, Vector2.zero, wallLayerMask);
+    //    Gizmos.DrawWireSphere(new Vector2(GetPosition().x,GetPosition().y - 1.75f),.5f);
+    //    if (raycastHit.collider != null)
+    //    {
+    //        Gizmos.color = Color.red;
+    //    }
+    //    else
+    //    {
+    //        Gizmos.color = Color.green;
+    //    }
+    //}
+        //private void TryMoveTo(Vector3 dir, float distance)
+        //{
+        //    RaycastHit2D raycastHit = Physics2D.CircleCast(GetPosition(), 1f, dir,distance, wallLayerMask);
+        //    if (raycastHit.collider == null)
+        //    {
+        //        transform.position += dir * distance;
+        //    }
+        //    else
+        //    {
+        //        transform.position += dir * (raycastHit.distance - .1f);
+        //    }
+        //}
 
-    public void SetEquipment(Item item)
+        public void SetEquipment(Item item)
     {
         SetEquipment(item.itemType);
     }

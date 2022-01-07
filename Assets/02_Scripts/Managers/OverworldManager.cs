@@ -29,7 +29,11 @@ public class OverworldManager
         foreach (EnemyOverworld enemyOvermap in instance.enemyList) { enemyOvermap.SaveCharacterPosition(); }
     }
 
-    public event EventHandler OnOvermapStopped;
+    public event EventHandler<OnOvermapStoppedEventsArgs> OnOvermapStopped;
+    public class OnOvermapStoppedEventsArgs : EventArgs
+    {
+        public int index;
+    }
 
     private PlayerOverworld playerOvermap;
 
@@ -365,19 +369,26 @@ public class OverworldManager
     public static void StartOvermapRunning()
     {
         instance.overmapRunning = true;
+        if (instance.OnOvermapStopped != null)
+        {
+            instance.OnOvermapStopped(instance, new OnOvermapStoppedEventsArgs { index = 1 });
+        }
     }
 
     public static void StopOvermapRunning()
     {
         instance.overmapRunning = false;
-        if (instance.OnOvermapStopped != null) instance.OnOvermapStopped(instance, EventArgs.Empty);
+        if (instance.OnOvermapStopped != null)
+        {
+            instance.OnOvermapStopped(instance, new OnOvermapStoppedEventsArgs { index = 0 });
+        }
     }
     public static void ContinueOvermapRunning()
     {
         instance.overmapRunning = true;
         if (instance.OnOvermapStopped != null)
         {
-            instance.OnOvermapStopped(instance, EventArgs.Empty);
+            instance.OnOvermapStopped(instance, new OnOvermapStoppedEventsArgs { index = 1 });
         }
 
     }
@@ -386,14 +397,17 @@ public class OverworldManager
         instance.overmapRunning = true;
         if (instance.OnOvermapStopped != null)
         {
-            instance.OnOvermapStopped(instance, EventArgs.Empty);
+            instance.OnOvermapStopped(instance, new OnOvermapStoppedEventsArgs { index = 1 });
         }
 
     }
     public void StopOvermap()
     {
         instance.overmapRunning = false;
-        if (instance.OnOvermapStopped != null) instance.OnOvermapStopped(instance, EventArgs.Empty);
+        if (instance.OnOvermapStopped != null)
+        {
+            instance.OnOvermapStopped(instance, new OnOvermapStoppedEventsArgs { index = 0 });
+        }
     }
 
     public static Vector3 GetSuyaiPos()
