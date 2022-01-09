@@ -516,7 +516,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 155716013551789895}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5224314791277258711}
@@ -549,7 +549,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 167466160689529808}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -40.987633, y: -52.69314, z: 5.741298}
+  m_LocalPosition: {x: -40.987633, y: -52.69314, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5224314791277258711}
@@ -713,7 +713,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 238820785031490737}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -41.396, y: -52.168, z: 4.79}
+  m_LocalPosition: {x: -41.396, y: -52.168, z: 3.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4590129234660515317}
@@ -1016,6 +1016,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &323995911060468588
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2080943031515220631}
+  m_Layer: 0
+  m_Name: Fogata
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2080943031515220631
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323995911060468588}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -62.1, y: 133.24, z: 25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 8197520093400268273}
+  m_Father: {fileID: 8737917312519808029}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &337475456054303196
 GameObject:
   m_ObjectHideFlags: 0
@@ -1123,11 +1154,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 345076826622666802}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -16.339996, y: -65.768005, z: 4.79}
+  m_LocalPosition: {x: -16.339996, y: -65.768005, z: 3.86}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4590129234660515317}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!212 &8914610528895166967
 SpriteRenderer:
@@ -1451,11 +1482,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 443884718395169190}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -16.339996, y: -66.806, z: 4.79}
+  m_LocalPosition: {x: -16.339996, y: -66.806, z: 3.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4590129234660515317}
-  m_RootOrder: 18
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!212 &9080287735805934041
 SpriteRenderer:
@@ -2612,7 +2643,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 710323427636551898}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.38, y: -27.68, z: 0}
+  m_LocalPosition: {x: -20.62, y: -70, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6989693021506279504}
@@ -2889,7 +2920,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 798440401069018137}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -35.6, y: -63.71, z: -2.058702}
+  m_LocalPosition: {x: -35.6, y: -63.71, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8635462981148641585}
@@ -2946,6 +2977,59 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &803992785407177847
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3937428418287216045}
+  - component: {fileID: 3580775819521211055}
+  m_Layer: 0
+  m_Name: NPC_Hombre2_Aldea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3937428418287216045
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 803992785407177847}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -27.46, y: -61.62, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6989693021506279504}
+  m_RootOrder: 25
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3580775819521211055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 803992785407177847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4ae1a4e18e42d34da569c0593f1e71b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterType: 15
+  enemyEncounter:
+    enemyBattleArray: []
+  npcDialogues:
+    dialogues:
+    - dialogue:
+      - "Lo siento Suyai, no puedo dejarte avanzar por ac\xE1."
+  quest: {fileID: 0}
+  shopContents:
+    healingHerbs: 0
 --- !u!1 &841406458637471907
 GameObject:
   m_ObjectHideFlags: 0
@@ -3084,7 +3168,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 914455105970375034}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -30.3, y: -46.4, z: 5.741298}
+  m_LocalPosition: {x: -30.3, y: -46.4, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8702649943289440477}
@@ -3386,7 +3470,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1015045396502634993}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -17.67, y: -42.58, z: 5.741298}
+  m_LocalPosition: {x: -17.67, y: -42.58, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8635462981148641585}
@@ -4042,11 +4126,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1235900082260004280}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -19.13, y: -63.043, z: 4.79}
+  m_LocalPosition: {x: -19.13, y: -63.043, z: 3.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4590129234660515317}
-  m_RootOrder: 22
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!212 &5413062711232929037
 SpriteRenderer:
@@ -4263,6 +4347,59 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1272655112355216842
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6156541627445478183}
+  - component: {fileID: 1634941267937607514}
+  m_Layer: 0
+  m_Name: NPC_Hombre1_Aldea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6156541627445478183
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1272655112355216842}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -28.38, y: -69.02, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6989693021506279504}
+  m_RootOrder: 24
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1634941267937607514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1272655112355216842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4ae1a4e18e42d34da569c0593f1e71b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterType: 14
+  enemyEncounter:
+    enemyBattleArray: []
+  npcDialogues:
+    dialogues:
+    - dialogue:
+      - "Lo siento Suyai, no puedo dejarte avanzar por ac\xE1."
+  quest: {fileID: 0}
+  shopContents:
+    healingHerbs: 0
 --- !u!1 &1287820272599797848
 GameObject:
   m_ObjectHideFlags: 0
@@ -4341,7 +4478,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1288772599069207424}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -31.02, y: -63.4, z: 5.741298}
+  m_LocalPosition: {x: -31.02, y: -63.4, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7482508394279337855}
@@ -4677,7 +4814,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4590129234660515317}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!212 &1602179562289734907
 SpriteRenderer:
@@ -5004,6 +5141,12 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4344287711302532243}
+  - {fileID: 8312616116125775153}
+  - {fileID: 2522532619487647969}
+  - {fileID: 1639774396778398967}
+  - {fileID: 4246889785508919750}
+  - {fileID: 2416750132053143777}
+  - {fileID: 4833879657180242174}
   m_Father: {fileID: 304427435874335716}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5308,7 +5451,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1599062857230304271}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -40.8, y: -37.16314, z: 4.3712983}
+  m_LocalPosition: {x: -40.8, y: -37.16314, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8635462981148641585}
@@ -6008,7 +6151,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1828173803789930558}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -17.72, y: -39.58, z: -2.058702}
+  m_LocalPosition: {x: -17.72, y: -39.58, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8635462981148641585}
@@ -6511,6 +6654,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1985346187772698152
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3506564422055069924}
+  m_Layer: 0
+  m_Name: Fogata
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3506564422055069924
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1985346187772698152}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.14, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 467945751406466933}
+  m_Father: {fileID: 8702649943289440477}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1987324897292351612
 GameObject:
   m_ObjectHideFlags: 0
@@ -6812,7 +6986,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2084376589704936900}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -39.77152, y: -60.176, z: 4.79}
+  m_LocalPosition: {x: -39.77152, y: -60.176, z: 3.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4590129234660515317}
@@ -7140,11 +7314,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2252466660536318632}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -16.426, y: -61.057003, z: 4.41}
+  m_LocalPosition: {x: -16.426, y: -61.057003, z: 3.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4590129234660515317}
-  m_RootOrder: 24
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!212 &3962583016383948815
 SpriteRenderer:
@@ -7525,6 +7699,59 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2460866765600097455
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8738883884538542285}
+  - component: {fileID: 3708294198307612368}
+  m_Layer: 0
+  m_Name: NPC_Nino2_Aldea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8738883884538542285
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2460866765600097455}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -9.99, y: -41.99, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6989693021506279504}
+  m_RootOrder: 29
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3708294198307612368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2460866765600097455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4ae1a4e18e42d34da569c0593f1e71b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterType: 19
+  enemyEncounter:
+    enemyBattleArray: []
+  npcDialogues:
+    dialogues:
+    - dialogue:
+      - "Lo siento Suyai, no puedo dejarte avanzar por ac\xE1."
+  quest: {fileID: 0}
+  shopContents:
+    healingHerbs: 0
 --- !u!1 &2463751357775368014
 GameObject:
   m_ObjectHideFlags: 0
@@ -7795,12 +8022,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2502665024455965805}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -17.64663, y: -66.28314, z: 5.741298}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: -17.64663, y: -66.28314, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4590129234660515317}
-  m_RootOrder: 14
+  m_Father: {fileID: 5224314791277258711}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!212 &9074377950293503982
 SpriteRenderer:
@@ -8673,6 +8900,62 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2719023790618232627
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4833879657180242174}
+  - component: {fileID: 8936447918976285130}
+  m_Layer: 3
+  m_Name: GranRuca_Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4833879657180242174
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2719023790618232627}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -19.97, y: -49.979, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1597881508363443257}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!68 &8936447918976285130
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2719023790618232627}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: 3.2994957, y: 3.4911613}
+  - {x: -3.2965412, y: 3.497635}
+  - {x: -3.305727, y: -0.016506195}
+  - {x: 3.28405, y: -0.00289917}
+  - {x: 3.299162, y: 3.4908066}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!1 &2772173814246258270
 GameObject:
   m_ObjectHideFlags: 0
@@ -9450,6 +9733,59 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &3027395930654877551
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2110526482873448947}
+  - component: {fileID: 5030293098058344930}
+  m_Layer: 0
+  m_Name: NPC_GuerreroMap_Aldea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2110526482873448947
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3027395930654877551}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -13.21, y: -35.83, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6989693021506279504}
+  m_RootOrder: 22
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5030293098058344930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3027395930654877551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4ae1a4e18e42d34da569c0593f1e71b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterType: 11
+  enemyEncounter:
+    enemyBattleArray: []
+  npcDialogues:
+    dialogues:
+    - dialogue:
+      - "Lo siento Suyai, no puedo dejarte avanzar por ac\xE1."
+  quest: {fileID: 0}
+  shopContents:
+    healingHerbs: 0
 --- !u!1 &3090215287112072743
 GameObject:
   m_ObjectHideFlags: 0
@@ -10162,11 +10498,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3249586669325057527}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -18.000996, y: -66.812, z: 4.79}
+  m_LocalPosition: {x: -18.000996, y: -66.812, z: 3.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4590129234660515317}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!212 &2419134433655203187
 SpriteRenderer:
@@ -10219,6 +10555,67 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &3418100538969245083
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2416750132053143777}
+  - component: {fileID: 655007600614389231}
+  m_Layer: 3
+  m_Name: Rucas_Colliders_3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2416750132053143777
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3418100538969245083}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -15.244, y: -66.961, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1597881508363443257}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!68 &655007600614389231
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3418100538969245083}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -14.149107, y: -5.680908}
+  - {x: -14.151582, y: -0.039108276}
+  - {x: 2.217082, y: -0.037902832}
+  - {x: 2.2127056, y: 3.4575653}
+  - {x: -7.973197, y: 3.5219116}
+  - {x: -7.9921446, y: 2.6553116}
+  - {x: -15.288627, y: 2.671936}
+  - {x: -15.287492, y: -0.47627258}
+  - {x: -17.22763, y: -0.46990204}
+  - {x: -17.262764, y: -5.7786903}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!1 &3420593878613932601
 GameObject:
   m_ObjectHideFlags: 0
@@ -10408,11 +10805,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3491165553438400877}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -17.828995, y: -64.824005, z: 4.79}
+  m_LocalPosition: {x: -17.828995, y: -64.824005, z: 3.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4590129234660515317}
-  m_RootOrder: 19
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!212 &6333059544493822530
 SpriteRenderer:
@@ -11613,7 +12010,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3880055066445537011}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -39.77152, y: -58.183, z: 4.41}
+  m_LocalPosition: {x: -39.77152, y: -58.183, z: 3.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4590129234660515317}
@@ -12023,11 +12420,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3951855882247778129}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -16.426, y: -63.05, z: 4.79}
+  m_LocalPosition: {x: -16.426, y: -63.05, z: 3.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4590129234660515317}
-  m_RootOrder: 21
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!212 &547132110220192325
 SpriteRenderer:
@@ -12433,7 +12830,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4084440699604224016}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -41.17, y: -54.624, z: 4.79}
+  m_LocalPosition: {x: -41.17, y: -54.624, z: 3.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4590129234660515317}
@@ -13373,6 +13770,59 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &4428489319064600109
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3458881770804004572}
+  - component: {fileID: 1190419670691555785}
+  m_Layer: 0
+  m_Name: NPC_Nina2_Aldea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3458881770804004572
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4428489319064600109}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -9.98, y: -45.03, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6989693021506279504}
+  m_RootOrder: 31
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1190419670691555785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4428489319064600109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4ae1a4e18e42d34da569c0593f1e71b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterType: 20
+  enemyEncounter:
+    enemyBattleArray: []
+  npcDialogues:
+    dialogues:
+    - dialogue:
+      - "Lo siento Suyai, no puedo dejarte avanzar por ac\xE1."
+  quest: {fileID: 0}
+  shopContents:
+    healingHerbs: 0
 --- !u!1 &4489922568769321466
 GameObject:
   m_ObjectHideFlags: 0
@@ -13402,6 +13852,7 @@ Transform:
   m_Children:
   - {fileID: 6701738536421751186}
   - {fileID: 7832664040540369935}
+  - {fileID: 2080943031515220631}
   m_Father: {fileID: 9052754906483720086}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13487,6 +13938,82 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &4498847360258260572
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2522532619487647969}
+  - component: {fileID: 4979339979986809011}
+  m_Layer: 3
+  m_Name: Plants_Colliders_2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2522532619487647969
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4498847360258260572}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.799, y: -62.88, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1597881508363443257}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!68 &4979339979986809011
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4498847360258260572}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: 0.50172496, y: -6.7095757}
+  - {x: -2.285337, y: -6.704838}
+  - {x: -5.3684144, y: -6.6995964}
+  - {x: -5.467626, y: -6.6931114}
+  - {x: -5.551024, y: -6.6615868}
+  - {x: -5.6307006, y: -6.6147194}
+  - {x: -5.705131, y: -6.542286}
+  - {x: -5.7474933, y: -6.4756126}
+  - {x: -5.7739034, y: -6.399723}
+  - {x: -5.797587, y: -6.311825}
+  - {x: -5.8102355, y: -6.2040977}
+  - {x: -5.80061, y: -0.56108475}
+  - {x: -5.7948937, y: -0.44771576}
+  - {x: -5.785625, y: -0.3759842}
+  - {x: -5.773663, y: -0.33104706}
+  - {x: -5.7610745, y: -0.29000473}
+  - {x: -5.7412896, y: -0.24206161}
+  - {x: -5.7136216, y: -0.1860733}
+  - {x: -5.669722, y: -0.13003159}
+  - {x: -5.631515, y: -0.09323883}
+  - {x: -5.588823, y: -0.06260681}
+  - {x: -5.5424514, y: -0.03381729}
+  - {x: -5.478988, y: -0.010398865}
+  - {x: -5.29936, y: 0.021007538}
+  - {x: 0.5, y: 0}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!1 &4512808290508673882
 GameObject:
   m_ObjectHideFlags: 0
@@ -13805,7 +14332,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4608986001099426698}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -39.681, y: -56.606, z: 4.79}
+  m_LocalPosition: {x: -39.681, y: -56.606, z: 3.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4590129234660515317}
@@ -13969,7 +14496,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4634084261898847297}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -35.855633, y: -36.94314, z: 5.741298}
+  m_LocalPosition: {x: -35.855633, y: -36.94314, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7482508394279337855}
@@ -15142,6 +15669,59 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &5036388800237017113
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3362787660721035337}
+  - component: {fileID: 7428832192520154542}
+  m_Layer: 0
+  m_Name: NPC_Mujer1_Aldea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3362787660721035337
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5036388800237017113}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -27.46, y: -54.7, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6989693021506279504}
+  m_RootOrder: 26
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7428832192520154542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5036388800237017113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4ae1a4e18e42d34da569c0593f1e71b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterType: 16
+  enemyEncounter:
+    enemyBattleArray: []
+  npcDialogues:
+    dialogues:
+    - dialogue:
+      - "Lo siento Suyai, no puedo dejarte avanzar por ac\xE1."
+  quest: {fileID: 0}
+  shopContents:
+    healingHerbs: 0
 --- !u!1 &5059170852978008564
 GameObject:
   m_ObjectHideFlags: 0
@@ -15172,6 +15752,60 @@ Transform:
   m_Father: {fileID: 6989693021506279504}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5062557521350266373
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4246889785508919750}
+  - component: {fileID: 7976202604585131345}
+  m_Layer: 3
+  m_Name: Rucas_Colliders_2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4246889785508919750
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5062557521350266373}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -19.972, y: -40.509, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1597881508363443257}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!68 &7976202604585131345
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5062557521350266373}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -15.519472, y: -0.053707123}
+  - {x: 2.2019138, y: 0.0345726}
+  - {x: 2.2151966, y: 5.8313828}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!1 &5198567774801499199
 GameObject:
   m_ObjectHideFlags: 0
@@ -15524,12 +16158,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5314143389157073353}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -17.642115, y: -62.517143, z: 5.741298}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: -17.642115, y: -62.517143, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4590129234660515317}
-  m_RootOrder: 20
+  m_Father: {fileID: 5224314791277258711}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!212 &2797742007861002866
 SpriteRenderer:
@@ -15853,7 +16487,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5344302028102521455}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -17.8, y: -54.3, z: 5.741298}
+  m_LocalPosition: {x: -17.8, y: -54.3, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7482508394279337855}
@@ -16332,7 +16966,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5601615005281629427}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -40.987633, y: -59.64314, z: 5.741298}
+  m_LocalPosition: {x: -40.987633, y: -59.64314, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5224314791277258711}
@@ -16744,7 +17378,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5743024574970286954}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -39.61, y: -51.221, z: 4.79}
+  m_LocalPosition: {x: -39.61, y: -51.221, z: 3.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4590129234660515317}
@@ -17123,7 +17757,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6032452906376492876}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -41.24, y: -66.89, z: 5.741298}
+  m_LocalPosition: {x: -41.24, y: -66.89, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8635462981148641585}
@@ -17448,7 +18082,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6141700735141304492}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -39.681, y: -53.212, z: 4.79}
+  m_LocalPosition: {x: -39.681, y: -53.212, z: 3.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4590129234660515317}
@@ -17694,7 +18328,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6162239176971634131}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -42.938, y: -51.236, z: 4.79}
+  m_LocalPosition: {x: -42.938, y: -51.236, z: 3.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4590129234660515317}
@@ -17976,7 +18610,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6195068832286012807}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -42.95, y: -60.176, z: 4.79}
+  m_LocalPosition: {x: -42.95, y: -60.176, z: 3.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4590129234660515317}
@@ -18443,6 +19077,59 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &6322783087819533687
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8996827545250668051}
+  - component: {fileID: 1999778424459070203}
+  m_Layer: 0
+  m_Name: NPC_Nino1_Aldea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8996827545250668051
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6322783087819533687}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -15.25, y: -69.98, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6989693021506279504}
+  m_RootOrder: 28
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1999778424459070203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6322783087819533687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4ae1a4e18e42d34da569c0593f1e71b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterType: 18
+  enemyEncounter:
+    enemyBattleArray: []
+  npcDialogues:
+    dialogues:
+    - dialogue:
+      - "Lo siento Suyai, no puedo dejarte avanzar por ac\xE1."
+  quest: {fileID: 0}
+  shopContents:
+    healingHerbs: 0
 --- !u!1 &6367297744295516933
 GameObject:
   m_ObjectHideFlags: 0
@@ -19842,6 +20529,63 @@ Transform:
   m_Father: {fileID: 6989693021506279504}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6896708305615459869
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1639774396778398967}
+  - component: {fileID: 4704033133964390058}
+  m_Layer: 3
+  m_Name: Rucas_Colliders_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1639774396778398967
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6896708305615459869}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.305, y: -57.868, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1597881508363443257}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!68 &4704033133964390058
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6896708305615459869}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: 4.3340616, y: 17.873878}
+  - {x: -1.6716638, y: 17.872025}
+  - {x: -1.667891, y: 10.868217}
+  - {x: -2.616012, y: 10.859348}
+  - {x: -2.615931, y: 0.009262085}
+  - {x: 4.234728, y: -0.01240921}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!1 &6985283856247051652
 GameObject:
   m_ObjectHideFlags: 0
@@ -19949,7 +20693,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6985861074818918954}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -39.681, y: -55.568, z: 4.79}
+  m_LocalPosition: {x: -39.681, y: -55.568, z: 3.86}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4590129234660515317}
@@ -20055,6 +20799,16 @@ Transform:
   - {fileID: 949894945654153182}
   - {fileID: 5963017399591455590}
   - {fileID: 692431686543632258}
+  - {fileID: 2110526482873448947}
+  - {fileID: 1196742081098097866}
+  - {fileID: 6156541627445478183}
+  - {fileID: 3937428418287216045}
+  - {fileID: 3362787660721035337}
+  - {fileID: 2900448992781669772}
+  - {fileID: 8996827545250668051}
+  - {fileID: 8738883884538542285}
+  - {fileID: 348413174324972030}
+  - {fileID: 3458881770804004572}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -20099,13 +20853,11 @@ Transform:
   - {fileID: 6893813936736946086}
   - {fileID: 2779538046247526607}
   - {fileID: 4059776363930052622}
-  - {fileID: 1616174729480758635}
   - {fileID: 6268400423212846871}
   - {fileID: 5869364076145660206}
   - {fileID: 1223430802833908588}
   - {fileID: 280515744068595239}
   - {fileID: 822728243556423935}
-  - {fileID: 6085132009855950138}
   - {fileID: 729342447774555124}
   - {fileID: 2106529193188263043}
   - {fileID: 8976527150884976264}
@@ -20272,6 +21024,8 @@ Transform:
   - {fileID: 1891332968831407218}
   - {fileID: 3254685945845284897}
   - {fileID: 7720355777709681504}
+  - {fileID: 6085132009855950138}
+  - {fileID: 1616174729480758635}
   m_Father: {fileID: 4509878672534574348}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -20792,7 +21546,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7218623373881536563}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -39.25, y: -63.72, z: 4.3712983}
+  m_LocalPosition: {x: -39.25, y: -63.72, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8635462981148641585}
@@ -21009,6 +21763,7 @@ Transform:
   - {fileID: 7482508394279337855}
   - {fileID: 4509878672534574348}
   - {fileID: 8635462981148641585}
+  - {fileID: 3506564422055069924}
   m_Father: {fileID: 6729273386664936850}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -21552,7 +22307,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7529997831992744213}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -40.987633, y: -56.083138, z: 5.741298}
+  m_LocalPosition: {x: -40.987633, y: -56.083138, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5224314791277258711}
@@ -22127,7 +22882,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7775749701948346292}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -30.509998, y: -36.94314, z: 5.741298}
+  m_LocalPosition: {x: -30.509998, y: -36.94314, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7482508394279337855}
@@ -22209,7 +22964,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7805489083915703494}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -17.8, y: -46.4, z: 5.741298}
+  m_LocalPosition: {x: -17.8, y: -46.4, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7482508394279337855}
@@ -22992,7 +23747,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8083120426226539978}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -41.342, y: -59.121, z: 4.79}
+  m_LocalPosition: {x: -41.342, y: -59.121, z: 3.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4590129234660515317}
@@ -23156,7 +23911,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8163183853073676761}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -42.97, y: -53.232, z: 4.79}
+  m_LocalPosition: {x: -42.97, y: -53.232, z: 3.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4590129234660515317}
@@ -23213,6 +23968,112 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &8170951722507897816
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1196742081098097866}
+  - component: {fileID: 6830630329102773202}
+  m_Layer: 0
+  m_Name: NPC_ViejaMachi_Aldea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1196742081098097866
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8170951722507897816}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -20.02, y: -51.03, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6989693021506279504}
+  m_RootOrder: 23
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6830630329102773202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8170951722507897816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4ae1a4e18e42d34da569c0593f1e71b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterType: 13
+  enemyEncounter:
+    enemyBattleArray: []
+  npcDialogues:
+    dialogues:
+    - dialogue:
+      - "Lo siento Suyai, no puedo dejarte avanzar por ac\xE1."
+  quest: {fileID: 0}
+  shopContents:
+    healingHerbs: 0
+--- !u!1 &8231491771569632496
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 348413174324972030}
+  - component: {fileID: 3569923582414052000}
+  m_Layer: 0
+  m_Name: NPC_Nina1_Aldea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &348413174324972030
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8231491771569632496}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -16.71, y: -70.02, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6989693021506279504}
+  m_RootOrder: 30
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3569923582414052000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8231491771569632496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4ae1a4e18e42d34da569c0593f1e71b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterType: 20
+  enemyEncounter:
+    enemyBattleArray: []
+  npcDialogues:
+    dialogues:
+    - dialogue:
+      - "Lo siento Suyai, no puedo dejarte avanzar por ac\xE1."
+  quest: {fileID: 0}
+  shopContents:
+    healingHerbs: 0
 --- !u!1 &8261469937835011732
 GameObject:
   m_ObjectHideFlags: 0
@@ -23757,11 +24618,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8332632298151327750}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -17.99648, y: -61.995003, z: 4.79}
+  m_LocalPosition: {x: -17.99648, y: -61.995003, z: 3.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4590129234660515317}
-  m_RootOrder: 23
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!212 &4128081623617563386
 SpriteRenderer:
@@ -24150,6 +25011,59 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemType: 0
   amount: 1
+--- !u!1 &8527642581988764007
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2900448992781669772}
+  - component: {fileID: 7756824128934129200}
+  m_Layer: 0
+  m_Name: NPC_Mujer2_Aldea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2900448992781669772
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8527642581988764007}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -30.55, y: -41.72, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6989693021506279504}
+  m_RootOrder: 27
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7756824128934129200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8527642581988764007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4ae1a4e18e42d34da569c0593f1e71b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterType: 17
+  enemyEncounter:
+    enemyBattleArray: []
+  npcDialogues:
+    dialogues:
+    - dialogue:
+      - "Lo siento Suyai, no puedo dejarte avanzar por ac\xE1."
+  quest: {fileID: 0}
+  shopContents:
+    healingHerbs: 0
 --- !u!1 &8537711097873853876
 GameObject:
   m_ObjectHideFlags: 0
@@ -24175,7 +25089,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8537711097873853876}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -25.779999, y: -63.4, z: 5.741298}
+  m_LocalPosition: {x: -25.779999, y: -63.4, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7482508394279337855}
@@ -24960,7 +25874,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8773659290001846899}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -41.342, y: -56.612, z: 4.79}
+  m_LocalPosition: {x: -41.342, y: -56.612, z: 3.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4590129234660515317}
@@ -25124,7 +26038,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8823986340505990957}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -17.8, y: -50.2, z: 5.741298}
+  m_LocalPosition: {x: -17.8, y: -50.2, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7482508394279337855}
@@ -25524,7 +26438,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6684039410370667697
 Transform:
   m_ObjectHideFlags: 0
@@ -25743,6 +26657,80 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &9101324321799631235
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8312616116125775153}
+  - component: {fileID: 2600675921014507677}
+  m_Layer: 3
+  m_Name: Plants_Colliders_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8312616116125775153
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9101324321799631235}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -34.757, y: -62.95, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1597881508363443257}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!68 &2600675921014507677
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9101324321799631235}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -0.5, y: 0}
+  - {x: 5.7823296, y: 0.011978149}
+  - {x: 5.9429913, y: 0.01877594}
+  - {x: 6.006151, y: 0.03412628}
+  - {x: 6.0582695, y: 0.05788803}
+  - {x: 6.1144676, y: 0.08880615}
+  - {x: 6.17083, y: 0.14763641}
+  - {x: 6.21183, y: 0.19550705}
+  - {x: 6.2456074, y: 0.2704277}
+  - {x: 6.275669, y: 0.3561058}
+  - {x: 6.293518, y: 0.4950447}
+  - {x: 6.295149, y: 9.425396}
+  - {x: 6.286154, y: 9.494041}
+  - {x: 6.2723446, y: 9.5612755}
+  - {x: 6.251707, y: 9.621174}
+  - {x: 6.222769, y: 9.67379}
+  - {x: 6.1560287, y: 9.77169}
+  - {x: 6.1084824, y: 9.811718}
+  - {x: 6.0547657, y: 9.844601}
+  - {x: 5.9626026, y: 9.882755}
+  - {x: 5.8562374, y: 9.899902}
+  - {x: 5.6146374, y: 9.900478}
+  - {x: -0.5099716, y: 9.895126}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!1 &9101616557944340864
 GameObject:
   m_ObjectHideFlags: 0
@@ -26015,3 +27003,155 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &3235152163053958296
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 3506564422055069924}
+    m_Modifications:
+    - target: {fileID: 3070306978679399404, guid: cee427783efc2b14c92d2d46c839040f, type: 3}
+      propertyPath: m_Name
+      value: Fogata
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070306978679399405, guid: cee427783efc2b14c92d2d46c839040f, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070306978679399405, guid: cee427783efc2b14c92d2d46c839040f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070306978679399405, guid: cee427783efc2b14c92d2d46c839040f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070306978679399405, guid: cee427783efc2b14c92d2d46c839040f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -31.21563
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070306978679399405, guid: cee427783efc2b14c92d2d46c839040f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -48.46314
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070306978679399405, guid: cee427783efc2b14c92d2d46c839040f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.1723623
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070306978679399405, guid: cee427783efc2b14c92d2d46c839040f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070306978679399405, guid: cee427783efc2b14c92d2d46c839040f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070306978679399405, guid: cee427783efc2b14c92d2d46c839040f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070306978679399405, guid: cee427783efc2b14c92d2d46c839040f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070306978679399405, guid: cee427783efc2b14c92d2d46c839040f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070306978679399405, guid: cee427783efc2b14c92d2d46c839040f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070306978679399405, guid: cee427783efc2b14c92d2d46c839040f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cee427783efc2b14c92d2d46c839040f, type: 3}
+--- !u!4 &467945751406466933 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3070306978679399405, guid: cee427783efc2b14c92d2d46c839040f, type: 3}
+  m_PrefabInstance: {fileID: 3235152163053958296}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6582181252754398748
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2080943031515220631}
+    m_Modifications:
+    - target: {fileID: 3070306978679399404, guid: cee427783efc2b14c92d2d46c839040f, type: 3}
+      propertyPath: m_Name
+      value: Fogata
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070306978679399405, guid: cee427783efc2b14c92d2d46c839040f, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070306978679399405, guid: cee427783efc2b14c92d2d46c839040f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070306978679399405, guid: cee427783efc2b14c92d2d46c839040f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070306978679399405, guid: cee427783efc2b14c92d2d46c839040f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -28.78
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070306978679399405, guid: cee427783efc2b14c92d2d46c839040f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -44.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070306978679399405, guid: cee427783efc2b14c92d2d46c839040f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.1723623
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070306978679399405, guid: cee427783efc2b14c92d2d46c839040f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070306978679399405, guid: cee427783efc2b14c92d2d46c839040f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070306978679399405, guid: cee427783efc2b14c92d2d46c839040f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070306978679399405, guid: cee427783efc2b14c92d2d46c839040f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070306978679399405, guid: cee427783efc2b14c92d2d46c839040f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070306978679399405, guid: cee427783efc2b14c92d2d46c839040f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070306978679399405, guid: cee427783efc2b14c92d2d46c839040f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070306978742136422, guid: cee427783efc2b14c92d2d46c839040f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070306979337210496, guid: cee427783efc2b14c92d2d46c839040f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070306980084360015, guid: cee427783efc2b14c92d2d46c839040f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cee427783efc2b14c92d2d46c839040f, type: 3}
+--- !u!4 &8197520093400268273 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3070306978679399405, guid: cee427783efc2b14c92d2d46c839040f, type: 3}
+  m_PrefabInstance: {fileID: 6582181252754398748}
+  m_PrefabAsset: {fileID: 0}
