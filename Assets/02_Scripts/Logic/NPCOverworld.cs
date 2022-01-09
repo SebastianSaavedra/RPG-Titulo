@@ -42,19 +42,44 @@ public class NPCOverworld : MonoBehaviour
         {
             case Character.Type.QuestNpc_1:
                 sprite.sprite = GameAssets.i.questNpc_1;
+                transform.localScale = Vector3.one * 0.75f;
                 //Setear animator
                 break;
-            case Character.Type.WarriorNPC_1:
+            case Character.Type.SoldadoMapuche_1:
                 sprite.sprite = GameAssets.i.warriorNPC;
+                transform.localScale = Vector3.one * 0.75f;
                 //Setear animator
                 break;
-            case Character.Type.WarriorNPC_2:
+            case Character.Type.SoldadoMapuche_2:
                 sprite.sprite = GameAssets.i.warriorNPC;
+                transform.localScale = Vector3.one * 0.75f;
                 //Setear animator
+                break;
+            case Character.Type.ViejaMachi:
+                sprite.sprite = GameAssets.i.npc_ViejaMachi;
+                transform.localScale = Vector3.one * 0.75f;
+                break;
+            case Character.Type.HombreMapuche_1:
+            case Character.Type.HombreMapuche_2:
+                sprite.sprite = GameAssets.i.npc_HombreMapuche;
+                break;
+            case Character.Type.MujerMapuche_1:
+            case Character.Type.MujerMapuche_2:
+                sprite.sprite = GameAssets.i.npc_MujerMapuche;
+                transform.localScale = Vector3.one * 0.75f;
+                break;
+            case Character.Type.NinoMapuche_1:
+            case Character.Type.NinoMapuche_2:
+                sprite.sprite = GameAssets.i.npc_NinoMapuche;
+                break;
+            case Character.Type.NinaMapuche_1:
+            case Character.Type.NinaMapuche_2:
+                sprite.sprite = GameAssets.i.npc_NinaMapuche;
                 break;
 
             case Character.Type.Shop:
                 sprite.sprite = GameAssets.i.npc_SHOP;
+                transform.localScale = Vector3.one * 0.75f;
                 break;
         }
 

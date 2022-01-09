@@ -57,8 +57,19 @@ public class Character
 
         Shop,
         QuestNpc_1,
-        WarriorNPC_1,
-        WarriorNPC_2,
+        SoldadoMapuche_1,
+        SoldadoMapuche_2,
+        ViejaMachi,
+        HombreMapuche_1,
+        HombreMapuche_2,
+        MujerMapuche_1,
+        MujerMapuche_2,
+        NinoMapuche_1,
+        NinoMapuche_2,
+        NinaMapuche_1,
+        NinaMapuche_2,
+
+
 
 
     }

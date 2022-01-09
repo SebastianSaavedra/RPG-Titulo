@@ -96,12 +96,28 @@ public class OverworldManager
             switch (character.type)
             {
                 case Character.Type.QuestNpc_1:
-                    character.name = GetRandomString();
+                    character.name = GetRandomString("Masculino");
                     npcOverworld = SpawnNPC(character);
                     break;
-                case Character.Type.WarriorNPC_1:
-                case Character.Type.WarriorNPC_2:
-                    character.name = GetRandomString();
+                case Character.Type.SoldadoMapuche_1:
+                case Character.Type.SoldadoMapuche_2:
+                case Character.Type.NinoMapuche_1:
+                case Character.Type.NinoMapuche_2:
+                case Character.Type.HombreMapuche_1:
+                case Character.Type.HombreMapuche_2:
+                    character.name = GetRandomString("Masculino");
+                    npcOverworld = SpawnNPC(character);
+                    break;
+                case Character.Type.ViejaMachi:
+                    character.name = "Kuyenray";
+                    npcOverworld = SpawnNPC(character);
+                    break;
+
+                case Character.Type.MujerMapuche_1:
+                case Character.Type.MujerMapuche_2:
+                case Character.Type.NinaMapuche_1:
+                case Character.Type.NinaMapuche_2:
+                    character.name = GetRandomString("Femenino");
                     npcOverworld = SpawnNPC(character);
                     break;
 
@@ -113,7 +129,7 @@ public class OverworldManager
             switch (GameData.state)
             {
                 case GameData.State.Start:
-                    if (character.type == Character.Type.WarriorNPC_1)
+                    if (character.type == Character.Type.SoldadoMapuche_1)
                     {
                         Dialogues.Play_Start(character);
                         GameData.state = GameData.State.Testing;
@@ -161,9 +177,16 @@ public class OverworldManager
         Inventory.instance.ResetBattleItemList();
     }
 
-    string GetRandomString()
+    string GetRandomString(string genero)
     {
-        return GameData.nombresMapucheArray[UnityEngine.Random.Range(0, GameData.nombresMapucheArray.Length)];
+        switch (genero)
+        {
+            default:
+            case "Masculino":
+                return GameData.nombresMasculinosMapucheArray[UnityEngine.Random.Range(0, GameData.nombresMasculinosMapucheArray.Length)];
+            case "Femenino":
+                return GameData.nombresFemeninosMapucheArray[UnityEngine.Random.Range(0, GameData.nombresFemeninosMapucheArray.Length)];
+        }
     }
 
     public void Update()

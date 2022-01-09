@@ -93,6 +93,7 @@ public class EnemyOverworld : MonoBehaviour
                 sprite.sprite = GameAssets.i.lanceroOWSprite;
                 break;
         }
+        transform.localScale = Vector3.one * 0.75f;
         spawnPosition = GetPosition();
         roamPosition = GetPosition();
         roamDistanceMax = 3f;

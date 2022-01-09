@@ -64,29 +64,26 @@ public class FollowerOverworld : MonoBehaviour
                     sprite.sprite = GameAssets.i.spriteOWPedro;
                     sprite.sortingOrder = 99;
                     anim.runtimeAnimatorController = GameAssets.i.pedroOVERWORLDANIM;
-                    transform.localScale = Vector3.one * .95f;
                     break;
                 case Character.Type.Arana:
                     sprite.sprite = GameAssets.i.spriteOWArana;
                     sprite.sortingOrder = 98;
                     anim.runtimeAnimatorController = GameAssets.i.aranaOVERWORLDANIM;
-                    transform.localScale = Vector3.one * .95f;
                     break;
                 case Character.Type.Chillpila:
                     sprite.sprite = GameAssets.i.spriteOWChillpila;
                     sprite.sortingOrder = 97;
                     anim.runtimeAnimatorController = GameAssets.i.chillpilaOVERWORLDANIM;
-                    transform.localScale = Vector3.one * .95f;
                     break;
                 case Character.Type.Antay:
                     sprite.sprite = GameAssets.i.spriteOWAntay;
                     sprite.sortingOrder = 96;
                     anim.runtimeAnimatorController = GameAssets.i.antayOVERWORLDANIM;
-                    transform.localScale = Vector3.one * .95f;
                     break;
 
             }
         }
+        transform.localScale = Vector3.one * 0.75f;
 
         healthSystem = new HealthSystem(character.stats.healthMax);
         healthSystem.SetHealthAmount(character.stats.health);

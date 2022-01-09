@@ -33,7 +33,7 @@ public class PlayerOverworld : MonoBehaviour
         charAnim = gameObject.GetComponent<Character_Anims>();
         animator = gameObject.GetComponent<Animator>();
         inventoryPartyWindow = GameObject.Find("InventoryPartyWindow").GetComponent<InventoryPartyWindow>();
-        transform.localScale = Vector3.one * .95f;
+        transform.localScale = Vector3.one * 0.75f;
         SetStateNormal();
     }
 
@@ -117,7 +117,7 @@ public class PlayerOverworld : MonoBehaviour
                     //case Character.Type.QuestNpc_1:
                     //    Dialogues.QuestDialogue(npcOverworld.GetCharacter());
                     //    break;
-                    case Character.Type.WarriorNPC_1:
+                    case Character.Type.SoldadoMapuche_1:
                         if (npcOverworld.GetCharacter().quest.questGoal.CanComplete())
                         {
                             Dialogues.TestDialogue_3();
@@ -127,7 +127,7 @@ public class PlayerOverworld : MonoBehaviour
                             Dialogues.TestDialogue_1(npcOverworld.GetCharacter());
                         }
                         break;
-                    case Character.Type.WarriorNPC_2:
+                    case Character.Type.SoldadoMapuche_2:
                         Dialogues.TestDialogue_2(npcOverworld.GetCharacter());
                         break;
                     case Character.Type.Shop:

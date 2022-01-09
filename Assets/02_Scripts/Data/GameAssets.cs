@@ -48,16 +48,18 @@ public class GameAssets : MonoBehaviour
     public RuntimeAnimatorController pedroBATTLEANIM, aranaBATTLEANIM, antayBATTLEANIM,chillpilaBATTLEANIM,suyaiOVERWORLDANIM, pedroOVERWORLDANIM, aranaOVERWORLDANIM, antayOVERWORLDANIM, chillpilaOVERWORLDANIM;
     public RuntimeAnimatorController testEnemyANIM,fusileroANIM,lanceroANIM;
 
-    [Header("Sprites")]
-    [Space(5)]
 
     public Sprite testEnemySprite;
     public Sprite fusileroOWSprite,lanceroOWSprite;
-    public Sprite questNpc_1, warriorNPC,npc_SHOP;
+
+    public Sprite questNpc_1, warriorNPC,npc_SHOP,npc_ViejaMachi,npc_HombreMapuche,npc_MujerMapuche,npc_NinoMapuche,npc_NinaMapuche;
     public Sprite spriteOWPedro, spriteOWArana, spriteOWChillpila, spriteOWAntay;
+
     public Sprite splashSuyai, splashPedro, splashChillpila, splashArana, splashAntay;
     public Sprite playerDialogueSprite, npc_1DialogueSprite, warriorNpcDialogueSprite;
+
     public Sprite item_Herb,item_Weapon1,item_Helmet1,item_Armor1;
+
     public List<Sprite> enemies = new List<Sprite>();
 
     public Quest[] questArray;

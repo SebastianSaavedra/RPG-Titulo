@@ -18,7 +18,8 @@ public static class GameData
     
     public static State state;
 
-    public static string[] nombresMapucheArray;
+    public static string[] nombresMasculinosMapucheArray;
+    public static string[] nombresFemeninosMapucheArray;
 
     public static void Init()
     {
@@ -30,7 +31,7 @@ public static class GameData
         isInit = true;
         SoundManager.Initialize();
         state = State.Start;
-        nombresMapucheArray = new string[] 
+        nombresMasculinosMapucheArray = new string[] 
         {
             "Nahuel",
             "Eluney",
@@ -69,7 +70,36 @@ public static class GameData
             "Cobquecura",
             "Cumelen",
             "Ayelen",
-        };
+        }; 
+        nombresFemeninosMapucheArray = new string[]
+         {
+            "Millaray",
+            "Sayen",
+            "Aimará",
+            "Ailin",
+            "Mailen",
+            "Ayelén",
+            "Aneley",
+            "Inara",
+            "Ailen",
+            "Amancay",
+            "Lihuén",
+            "Yanara",
+            "Lilen",
+            "Amaike",
+            "Maitén",
+            "Maitén",
+            "Rayen",
+            "Aliwe",
+            "Antumalen",
+            "Yerimen",
+            "Ayalen",
+            "Ayinray",
+            "Guacolda",
+            "Yankiray",
+            "Pire",
+            "Llanca",
+         };
 
 
         characterList = new List<Character>();

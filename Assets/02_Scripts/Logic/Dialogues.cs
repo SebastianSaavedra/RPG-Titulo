@@ -19,10 +19,27 @@ public static class Dialogues
                         case Character.Type.QuestNpc_1:
                                 dialogue.ShowRightCharacter(GameAssets.i.npc_1DialogueSprite, false);
                             break;
-                        case Character.Type.WarriorNPC_1:
+                        case Character.Type.SoldadoMapuche_1:
+                        case Character.Type.SoldadoMapuche_2:
                                 dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
                             break;
-                        case Character.Type.WarriorNPC_2:
+                        case Character.Type.ViejaMachi:
+                                dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
+                            break;
+                        case Character.Type.HombreMapuche_1:
+                        case Character.Type.HombreMapuche_2:
+                                dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
+                            break;
+                        case Character.Type.MujerMapuche_1:
+                        case Character.Type.MujerMapuche_2:
+                                dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
+                            break;
+                        case Character.Type.NinoMapuche_1:
+                        case Character.Type.NinoMapuche_2:
+                                dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
+                            break;
+                        case Character.Type.NinaMapuche_1:
+                        case Character.Type.NinaMapuche_2:
                                 dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
                             break;
                     }
@@ -51,10 +68,27 @@ public static class Dialogues
                         case Character.Type.QuestNpc_1:
                                 dialogue.ShowRightCharacter(GameAssets.i.npc_1DialogueSprite, false);
                             break;
-                        case Character.Type.WarriorNPC_1:
+                        case Character.Type.SoldadoMapuche_1:
+                        case Character.Type.SoldadoMapuche_2:
                                 dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
                             break;
-                        case Character.Type.WarriorNPC_2:
+                        case Character.Type.ViejaMachi:
+                                dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
+                            break;
+                        case Character.Type.HombreMapuche_1:
+                        case Character.Type.HombreMapuche_2:
+                                dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
+                            break;
+                        case Character.Type.MujerMapuche_1:
+                        case Character.Type.MujerMapuche_2:
+                                dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
+                            break;
+                        case Character.Type.NinoMapuche_1:
+                        case Character.Type.NinoMapuche_2:
+                                dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
+                            break;
+                        case Character.Type.NinaMapuche_1:
+                        case Character.Type.NinaMapuche_2:
                                 dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
                             break;
                     }
@@ -83,10 +117,10 @@ public static class Dialogues
                         case Character.Type.QuestNpc_1:
                                 dialogue.ShowRightCharacter(GameAssets.i.npc_1DialogueSprite, false);
                             break;
-                        case Character.Type.WarriorNPC_1:
+                        case Character.Type.SoldadoMapuche_1:
                                 dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
                             break;
-                        case Character.Type.WarriorNPC_2:
+                        case Character.Type.SoldadoMapuche_2:
                                 dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
                             break;
                     }
