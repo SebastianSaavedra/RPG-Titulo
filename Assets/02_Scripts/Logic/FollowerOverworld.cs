@@ -1,22 +1,29 @@
 using System;
 using UnityEngine;
-using CodeMonkey.Utils;
+using Pathfinding;
 
 public class FollowerOverworld : MonoBehaviour
 {
     public static FollowerOverworld instance;
 
-    private float speed = 9f;
+    private float SPEED = 8f;
 
     private Character_Anims charAnim;
     private Animator anim;
     private SpriteRenderer sprite;
     private State state;
-    private Vector3 targetMovePosition;
+    //private Vector3 targetMovePosition;
     private PlayerOverworld playerOvermap;
     private Vector3 followOffset;
     private Character character;
     private HealthSystem healthSystem;
+
+    //[SerializeField] private GameObject otherFollower;
+
+    [Header("Pathfinding")]
+    [SerializeField] AIDestinationSetter aiDestinationSetter;
+    [SerializeField] AIPath aiPath;
+    [SerializeField] Transform target;
 
     //public event EventHandler OnEquipChanged;
 
@@ -40,27 +47,40 @@ public class FollowerOverworld : MonoBehaviour
         this.playerOvermap = playerOvermap;
         this.followOffset = followOffset;
 
+        GameObject targetGameobject = new GameObject("target");
+        targetGameobject.transform.position = new Vector3(0, 0, 0);
+        target = targetGameobject.transform;
+        aiDestinationSetter.target = target;
+
+        aiPath.maxSpeed = SPEED;
+
+        float randomEndReachedDistance = UnityEngine.Random.Range(1.75f,5f);
+        aiPath.endReachedDistance = randomEndReachedDistance;
         if (character.IsInPlayerTeam())
         {
             switch (character.type)
             {
                 case Character.Type.Pedro:
                     sprite.sprite = GameAssets.i.spriteOWPedro;
+                    sprite.sortingOrder = 99;
                     anim.runtimeAnimatorController = GameAssets.i.pedroOVERWORLDANIM;
                     transform.localScale = Vector3.one * .95f;
                     break;
                 case Character.Type.Arana:
                     sprite.sprite = GameAssets.i.spriteOWArana;
+                    sprite.sortingOrder = 98;
                     anim.runtimeAnimatorController = GameAssets.i.aranaOVERWORLDANIM;
                     transform.localScale = Vector3.one * .95f;
                     break;
                 case Character.Type.Chillpila:
                     sprite.sprite = GameAssets.i.spriteOWChillpila;
+                    sprite.sortingOrder = 97;
                     anim.runtimeAnimatorController = GameAssets.i.chillpilaOVERWORLDANIM;
                     transform.localScale = Vector3.one * .95f;
                     break;
                 case Character.Type.Antay:
                     sprite.sprite = GameAssets.i.spriteOWAntay;
+                    sprite.sortingOrder = 96;
                     anim.runtimeAnimatorController = GameAssets.i.antayOVERWORLDANIM;
                     transform.localScale = Vector3.one * .95f;
                     break;
@@ -72,7 +92,7 @@ public class FollowerOverworld : MonoBehaviour
         healthSystem.SetHealthAmount(character.stats.health);
         character.SetHealthSystem(healthSystem);
 
-        SetTargetMovePosition(playerOvermap.GetPosition() + followOffset);
+        SetTargetMovePosition(playerOvermap.GetPosition());
 
         OverworldManager.GetInstance().OnOvermapStopped += FollowerOverworld_OnOvermapStopped;
     }
@@ -90,7 +110,7 @@ public class FollowerOverworld : MonoBehaviour
                 anim.speed = 0;
                 break;
             case 1:
-                anim.speed = speed * .08f;
+                anim.speed = SPEED * .08f;
                 break;
         }
     }
@@ -143,37 +163,52 @@ public class FollowerOverworld : MonoBehaviour
 
     private void HandleTargetMovePosition()
     {
-        float tooFarDistance = 5f;
-        if (Vector3.Distance(GetPosition(), playerOvermap.GetPosition()) > tooFarDistance)
+        //float tooFarDistance = 2f;
+        if (Vector3.Distance(GetPosition(), playerOvermap.GetPosition()) > aiPath.endReachedDistance + 1f)
         {
+            aiPath.maxSpeed = SPEED;
             SetTargetMovePosition(playerOvermap.GetPosition() - followOffset);
+            Debug.Log("Muy Lejos");
         }
-        float tooCloseDistance = 1.25f;
-        if (Vector3.Distance(GetPosition(), playerOvermap.GetPosition()) < tooCloseDistance)
+        //float tooCloseDistance = 1f;
+        if (Vector3.Distance(GetPosition(), playerOvermap.GetPosition()) < aiPath.endReachedDistance)
         {
-            SetTargetMovePosition(GetPosition());
+            Debug.Log("Muy cerca");
+            aiPath.maxSpeed = 0;
+            //SetTargetMovePosition(GetPosition());
         }
     }
 
     private void HandleMovement()
     {
-        float minMoveDistance = 5f;
-        Vector3 moveDir = new Vector3(0, 0);
-        if (Vector3.Distance(GetPosition(), targetMovePosition) > minMoveDistance)
-        {
-            moveDir = (targetMovePosition - GetPosition()).normalized;
-        }
+        //float minMoveDistance = 1f;
+        //Vector3 moveDir = new Vector3(0, 0);
+        Vector2 direction = (target.position - transform.position).normalized;
+        //if (Vector3.Distance(GetPosition(), target.position) > minMoveDistance)
+        //{
+        //    direction = (target.position - GetPosition()).normalized;
+        //}
 
-        bool isIdle = moveDir.x == 0 && moveDir.y == 0;
+        bool isIdle = aiPath.maxSpeed == 0;
         if (isIdle)
         {
+            Debug.Log(character.type + " en Idle");
             charAnim.PlayAnimIdle();
         }
         else
         {
-            //charAnim.PlayMoveAnim(moveDir); movimiento segun dirección IMPORTANTE
-            transform.position += moveDir * speed * Time.deltaTime;
-            charAnim.PlayAnimMoving(moveDir);
+            charAnim.PlayAnimMoving(direction);
+
+            //Debug.Log("La dirección de " + character.type + " es : " + direction);
+            //if (Vector2.Distance(transform.position, target.position) < minMoveDistance)
+            //{
+            //    aiPath.Move(direction * SPEED * Time.deltaTime);
+            //    charAnim.PlayAnimMoving(direction);
+            //}
+            //else
+            //{
+            //    Debug.Log("esta muy cerca");
+            //}
         }
     }
 
@@ -241,7 +276,9 @@ public class FollowerOverworld : MonoBehaviour
 
     public void SetTargetMovePosition(Vector3 targetMovePosition)
     {
-        this.targetMovePosition = targetMovePosition;
+        target.position = targetMovePosition;
+
+        //Debug.Log("La posicion del target es: " + target.position);
     }
 
 }

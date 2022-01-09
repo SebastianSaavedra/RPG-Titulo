@@ -2961,7 +2961,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6624255336841075323
 Transform:
   m_ObjectHideFlags: 0
@@ -4985,7 +4985,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1597881508363443257}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: AldeaMapuche
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8929,7 +8929,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4344287711302532243}
   - component: {fileID: 228783229624305673}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: EC_MapOutline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9706,7 +9706,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9137164643684006323}
   - component: {fileID: 1687704327556685221}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: EC_MapOutline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11194,7 +11194,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3748553757277084362}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BosqueColliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12991,7 +12991,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8143473877645785807}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: LagoColliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13388,7 +13388,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8737917312519808029
 Transform:
   m_ObjectHideFlags: 0
@@ -14877,7 +14877,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &703244721434143792
 Transform:
   m_ObjectHideFlags: 0
@@ -23223,7 +23223,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6007280801265651199}
   - component: {fileID: 331472961525811245}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: EC_MapOutline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25834,7 +25834,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7633437356856967938}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BosqueProfundo
   m_TagString: Untagged
   m_Icon: {fileID: 0}

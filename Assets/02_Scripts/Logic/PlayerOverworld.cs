@@ -7,7 +7,7 @@ public class PlayerOverworld : MonoBehaviour
 {
     public static PlayerOverworld instance;
 
-    private const float SPEED = 10f;
+    private const float SPEED = 8f;
 
     [SerializeField] private LayerMask wallLayerMask;
     private Character_Anims charAnim;
@@ -197,60 +197,61 @@ public class PlayerOverworld : MonoBehaviour
         }
         else
         {
-            //if (CanMoveTo(moveDir, SPEED * Time.deltaTime))
-            //{
-            //    charAnim.PlayAnimMoving(moveDir);
-            //    transform.position += moveDir * SPEED * Time.deltaTime;
-            //}
-            //else
-            //{
-            //    charAnim.PlayAnimMoving(moveDir);
-            //}
-            charAnim.PlayAnimMoving(moveDir);
-            transform.position += moveDir * SPEED * Time.deltaTime;
+            if (CanMoveTo(moveDir, SPEED * Time.deltaTime))
+            {
+                charAnim.PlayAnimMoving(moveDir);
+                transform.position += moveDir * SPEED * Time.deltaTime;
+            }
+            else
+            {
+                charAnim.PlayAnimMoving(moveDir);
+            }
+            //charAnim.PlayAnimMoving(moveDir);
+            //transform.position += moveDir * SPEED * Time.deltaTime;
         }
     }
 
-    //private bool IsOnTopOfWall()
-    //{
-    //    RaycastHit2D raycastHit = Physics2D.CircleCast(new Vector2(GetPosition().x, GetPosition().y - 1.75f), .5f, Vector2.zero, wallLayerMask);
-    //    return raycastHit.collider != null;
-    //}
+    private bool IsOnTopOfWall()
+    {
+        RaycastHit2D raycastHit = Physics2D.CircleCast(new Vector2(GetPosition().x, GetPosition().y - 1.75f), .5f, Vector2.zero, wallLayerMask);
+        return raycastHit.collider != null;
+    }
 
-    //private bool CanMoveTo(Vector3 dir, float distance)
-    //{
-    //    if (IsOnTopOfWall()) return true;
-    //    RaycastHit2D raycastHit = Physics2D.CircleCast(new Vector2(GetPosition().x, GetPosition().y - 1.75f), .5f, dir, distance, wallLayerMask);
-    //    return raycastHit.collider == null;
-    //}
+    private bool CanMoveTo(Vector3 dir, float distance)
+    {
+        if (IsOnTopOfWall()) return true;
+        RaycastHit2D raycastHit = Physics2D.CircleCast(new Vector2(GetPosition().x, GetPosition().y - 1.75f), .5f, dir, distance, wallLayerMask);
+        return raycastHit.collider == null;
+    }
 
-    //private void OnDrawGizmos()
+    private void OnDrawGizmos()
+    {
+        RaycastHit2D raycastHit = Physics2D.CircleCast(new Vector2(GetPosition().x, GetPosition().y - 1.75f), .5f, Vector2.zero, wallLayerMask);
+        Gizmos.DrawWireSphere(new Vector2(GetPosition().x, GetPosition().y - 1.75f), .5f);
+        if (raycastHit.collider != null)
+        {
+            Gizmos.color = Color.red;
+        }
+        else
+        {
+            Gizmos.color = Color.green;
+        }
+    }
+
+    //private void TryMoveTo(Vector3 dir, float distance)
     //{
-    //    RaycastHit2D raycastHit = Physics2D.CircleCast(new Vector2(GetPosition().x, GetPosition().y - 1.75f), .5f, Vector2.zero, wallLayerMask);
-    //    Gizmos.DrawWireSphere(new Vector2(GetPosition().x,GetPosition().y - 1.75f),.5f);
-    //    if (raycastHit.collider != null)
+    //    RaycastHit2D raycastHit = Physics2D.CircleCast(GetPosition(), 1f, dir,distance, wallLayerMask);
+    //    if (raycastHit.collider == null)
     //    {
-    //        Gizmos.color = Color.red;
+    //        transform.position += dir * distance;
     //    }
     //    else
     //    {
-    //        Gizmos.color = Color.green;
+    //        transform.position += dir * (raycastHit.distance - .1f);
     //    }
     //}
-        //private void TryMoveTo(Vector3 dir, float distance)
-        //{
-        //    RaycastHit2D raycastHit = Physics2D.CircleCast(GetPosition(), 1f, dir,distance, wallLayerMask);
-        //    if (raycastHit.collider == null)
-        //    {
-        //        transform.position += dir * distance;
-        //    }
-        //    else
-        //    {
-        //        transform.position += dir * (raycastHit.distance - .1f);
-        //    }
-        //}
 
-        public void SetEquipment(Item item)
+    public void SetEquipment(Item item)
     {
         SetEquipment(item.itemType);
     }
@@ -324,6 +325,11 @@ public class PlayerOverworld : MonoBehaviour
     public Vector3 GetPosition()
     {
         return transform.position;
+    }
+
+    public Transform GetTransform()
+    {
+        return transform;
     }
 
     public void SetPosition(Vector3 position)

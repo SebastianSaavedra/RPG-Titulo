@@ -5,7 +5,7 @@ public class NPCOverworld : MonoBehaviour
 {
     public static NPCOverworld instance;
 
-    private const float SPEED = 9f;
+    private const float SPEED = 8f;
 
     private Character_Anims charAnim;
     private Animator anim;

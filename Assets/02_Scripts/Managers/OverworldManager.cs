@@ -56,7 +56,7 @@ public class OverworldManager
         overmapRunning = true;
     }
 
-    public void Start(Transform transform)
+    public void Start()
     {
         UnityEngine.SceneManagement.SceneManager.sceneLoaded += SceneManager_sceneLoaded;
         StartOvermapRunning();
@@ -78,19 +78,20 @@ public class OverworldManager
                         playerOvermap.Setup(character);
                         break;
                     case Character.Type.Pedro:
-                        SpawnFollower(character, new Vector3(-1, -1));
+                        SpawnFollower(character, new Vector3(-1, 1));
                         break;
                     case Character.Type.Arana:
-                        SpawnFollower(character, new Vector3(1, 1));
+                        SpawnFollower(character, new Vector3(1, -1));
                         break;
                     case Character.Type.Chillpila:
-                        SpawnFollower(character, new Vector3(1, 1));
+                        SpawnFollower(character, new Vector3(-1, -1));
                         break;
                     case Character.Type.Antay:
                         SpawnFollower(character, new Vector3(1, 1));
                         break;
                 }
             }
+
             NPCOverworld npcOverworld;
             switch (character.type)
             {

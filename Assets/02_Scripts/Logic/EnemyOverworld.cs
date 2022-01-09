@@ -1,26 +1,41 @@
+using System.Collections.Generic;
 using UnityEngine;
 using CodeMonkey.Utils;
+using Pathfinding;
+using MEC;
 
 public class EnemyOverworld : MonoBehaviour
 {
-
     public static EnemyOverworld instance;
 
-    private const float SPEED = 5.5f;
+    private const float SPEED = 5.75f;
 
     private Character_Anims charAnim;
     private Animator anim;
     private SpriteRenderer sprite;
     [HideInInspector] public State state;
-    private Vector3 targetMovePosition;
     private Character character;
     private PlayerOverworld playerOvermap;
     private Vector3 spawnPosition;
     private float roamDistanceMax;
     private Vector3 roamPosition;
+    //private Vector3 targetMovePosition;
     private float waitTimer;
     private float timer = 2f;
     [SerializeField] private LayerMask wallLayerMask;
+
+    [Header("Pathfinding")]
+    [SerializeField] AIDestinationSetter aiDestinationSetter;
+    [SerializeField] AIPath aiPath;
+    [SerializeField] Transform target;
+    //[SerializeField] float speed = 200f;
+    //[SerializeField] float nextWaypointDistance = 3f;
+
+    //Path path;
+    //int currentWaypoint = 0;
+    //bool reachedEndOfPath = false;
+    //Seeker seeker;
+    bool huntingPlayer;
 
 
     public enum State
@@ -36,13 +51,36 @@ public class EnemyOverworld : MonoBehaviour
         charAnim = gameObject.GetComponent<Character_Anims>();
         anim = gameObject.GetComponent<Animator>();
         sprite = gameObject.GetComponent<SpriteRenderer>();
+        //seeker = gameObject.GetComponent<Seeker>();
+
         SetStateWaiting();
     }
+
+    //private void UpdatePath()
+    //{
+    //    if(seeker.IsDone())
+    //        seeker.StartPath(transform.position, target.position, OnPathComplete);
+    //}
+
+    //private void OnPathComplete(Path p)
+    //{
+    //    if (!p.error)
+    //    {
+    //        path = p;
+    //        currentWaypoint = 0;
+    //    }
+    //}
 
     public void Setup(Character character, PlayerOverworld playerOvermap)
     {
         this.character = character;
         this.playerOvermap = playerOvermap;
+        aiPath.maxSpeed = SPEED;
+
+        GameObject targetGameobject = new GameObject("target");
+        targetGameobject.transform.position = new Vector3(0,0,0);
+        target = targetGameobject.transform;
+
         switch (character.type)
         {
             case Character.Type.TESTENEMY:
@@ -74,20 +112,6 @@ public class EnemyOverworld : MonoBehaviour
 
     private void Update()
     {
-        if (state == State.Waiting)
-        {
-            //if (useUnscaledDeltaTime)
-            //{
-            //    timer -= Time.unscaledDeltaTime;
-            //}
-            timer -= Time.deltaTime;
-            if (timer <= 0)
-            {
-                //Debug.Log(character.name + " Volvio a su estado activo");
-                state = State.Normal;
-            }
-        }
-
         if (!OverworldManager.IsOvermapRunning())
         {
             return;
@@ -96,11 +120,27 @@ public class EnemyOverworld : MonoBehaviour
         switch (state)
         {
             case State.Normal:
-                HandleRoaming();
-                HandleTargetMovePosition();
+                FindTarget();
+
+                if (!huntingPlayer)
+                {
+                    HandleRoaming();
+                }
+                else
+                {
+                    TryAttackPlayer();
+                }
                 HandleMovement();
                 break;
 
+            case State.Waiting:
+                timer -= Time.deltaTime;
+                if (timer <= 0)
+                {
+                    //Debug.Log(character.name + " Volvio a su estado activo");
+                    state = State.Normal;
+                }
+                break;
         }
     }
 
@@ -118,6 +158,22 @@ public class EnemyOverworld : MonoBehaviour
     {
         return state;
     }
+
+    //private void Pathfind()
+    //{
+    //    if (path == null)
+    //        return;
+
+    //    if (currentWaypoint >= path.vectorPath.Count)
+    //    {
+    //        reachedEndOfPath = true;
+    //        return;
+    //    }
+    //    else
+    //    {
+    //        reachedEndOfPath = false;
+    //    }
+    //}
 
     private void HandleRoaming()
     {
@@ -145,7 +201,7 @@ public class EnemyOverworld : MonoBehaviour
         }
     }
 
-    private void HandleTargetMovePosition()
+    private void FindTarget()
     {
         float findTargetRange = 6.7f;
 
@@ -153,7 +209,18 @@ public class EnemyOverworld : MonoBehaviour
         {
             // Player within find target range
             SetTargetMovePosition(playerOvermap.GetPosition());
+            huntingPlayer = true;
+            Debug.Log("Hunting player: " + huntingPlayer);
         }
+        else
+        {
+            huntingPlayer = false;
+            Debug.Log("Hunting player: " + huntingPlayer);
+        }
+    }
+
+    private void TryAttackPlayer()
+    {
         float attackRange = 1.25f;
         if (Vector3.Distance(GetPosition(), playerOvermap.GetPosition()) < attackRange)
         {
@@ -164,23 +231,33 @@ public class EnemyOverworld : MonoBehaviour
 
     private void HandleMovement()
     {
-        float minMoveDistance = 1f;
-        Vector3 moveDir = new Vector3(0, 0);
-        if (Vector3.Distance(GetPosition(), targetMovePosition) > minMoveDistance)
-        {
-            moveDir = (targetMovePosition - GetPosition()).normalized;
-        }
+        //Pathfind();
+        //Vector2 direction = (path.vectorPath[currentWaypoint] - transform.position).normalized;
+        Vector2 direction = (aiPath.destination - transform.position).normalized;
+        //Vector2 force = direction * speed * Time.deltaTime;
 
-        bool isIdle = moveDir.x == 0 && moveDir.y == 0;
+        bool isIdle = direction.x == 0 && direction.y == 0;
         if (isIdle)
         {
-            // Idle Anim
+            Debug.Log(character.type + " Quieto");
+            //charAnim.PlayAnimIdle();
         }
         else
         {
+            //charAnim.PlayAnimMoving(direction);
             //charAnim.PlayMoveAnim(moveDir); movimiento segun dirección IMPORTANTE
-            transform.position += moveDir * SPEED * Time.deltaTime;
+            //if (Vector2.Distance(transform.position,aiPath.destination) > .1f )
+            //{
+            //    aiPath.Move(direction * SPEED * Time.deltaTime);
+            //}
         }
+
+        //float distance = Vector2.Distance(transform.position, aiPath.destination);
+
+        //if (distance < aiPath.pickNextWaypointDist)
+        //{
+        //    aiPath.++;
+        //}
     }
 
     public Vector3 GetPosition()
@@ -190,8 +267,27 @@ public class EnemyOverworld : MonoBehaviour
 
     public void SetTargetMovePosition(Vector3 targetMovePosition)
     {
-        this.targetMovePosition = targetMovePosition;
+        target.position = targetMovePosition;
+        aiDestinationSetter.target = target;
+
+        //Debug.Log("La posicion del target es: " + target.position);
+        //if (IsInvoking())
+        //{
+        //    CancelInvoke("UpdatePath");
+        //}
+        //UtilsClass.WaitOneFrame();
+        //InvokeRepeating("UpdatePath", 0, .5f);
     }
+
+    //private IEnumerator<float> _UpdatePathLoop()
+    //{
+    //    //float loopTimer = 0.5f;
+    //    while (true)
+    //    {
+    //        Timing.WaitForSeconds(.5f);
+    //        //UpdatePath();
+    //    }
+    //}
 
 
     private void HandleInteractionWithPlayer()
