@@ -20,7 +20,7 @@ public class Battle
         OverworldManager.SaveAllCharacterPositions();
         Battle.character = character;
         Battle.enemyEncounter = enemyEncounter;
-        
+
         FunctionTimer.Create(OverworldManager.LoadFromOvermapToBattle, .7f);
     }
 
@@ -28,6 +28,11 @@ public class Battle
     public List<CharacterBattle> characterBattleList;
     public CharacterBattle activeCharacterBattle;
     public CharacterBattle selectedTargetCharacterBattle;
+    public CharacterBattle aiTargetCharacterBattle;
+
+    private static Transform trenTrenCapturadoObj;
+    private static CharacterBattle trenTrenCapturadoCharacterBattle;
+
 
     private LanePosition lastPlayerActiveLanePosition;
     private LanePosition lastEnemyActiveLanePosition;
@@ -41,6 +46,7 @@ public class Battle
         Middle,
         Up,
         Down,
+        Captured,
     }
 
     public enum State
@@ -67,6 +73,15 @@ public class Battle
         CharacterBattle characterBattle = characterTransform.GetComponent<CharacterBattle>();
         characterBattle.Setup(characterType, lanePosition, GetPosition(lanePosition, isPlayerTeam), isPlayerTeam, character.stats,character);
         instance.characterBattleList.Add(characterBattle);
+        if (GameData.state == GameData.State.SavingTrenTren && characterType == Character.Type.TrenTren)
+        {
+            trenTrenCapturadoObj = Object.Instantiate(GameAssets.i.pfTrenTren, GetPosition(LanePosition.Captured, false),Quaternion.identity);
+            trenTrenCapturadoObj.transform.parent = characterTransform.transform;
+            trenTrenCapturadoObj.transform.localPosition = Vector3.zero;
+            trenTrenCapturadoObj.transform.localScale = new Vector3(1f, 1f, 1f);
+            trenTrenCapturadoCharacterBattle = characterBattle;
+            //instanciar el objeto y unirlo al parent del characterTransform
+        }
     }
 
     public static Vector3 GetPosition(LanePosition lanePosition, bool isPlayerTeam)
@@ -76,9 +91,10 @@ public class Battle
         switch (lanePosition)
         {
             default:
-            case LanePosition.Middle: return new Vector3(playerTeamMultiplier * 37.6f, -17.2f);
-            case LanePosition.Up: return new Vector3(playerTeamMultiplier * 67.8f, -6.2f);
-            case LanePosition.Down: return new Vector3(playerTeamMultiplier * 57.9f, -37.6f);
+            case LanePosition.Middle: return new Vector3(playerTeamMultiplier * 37.6f, -8.3f);
+            case LanePosition.Up: return new Vector3(playerTeamMultiplier * 67.8f, 5f);
+            case LanePosition.Down: return new Vector3(playerTeamMultiplier * 57.9f, -28.7f);
+            case LanePosition.Captured: return new Vector3(playerTeamMultiplier * -78f, -24f);
         }
 
     }
@@ -143,6 +159,11 @@ public class Battle
                 }
                 SpawnCharacter(character.type, lanePosition, true, character);
             }
+            if (GameData.state == GameData.State.SavingTrenTren && character.type == Character.Type.TrenTren)
+            {
+                Debug.Log("Spawneo a trentren!");
+                SpawnCharacter(character.type, LanePosition.Captured, true, character);
+            }
             ResourceManager.instance.RefreshResourcesUI();
         }
 
@@ -158,7 +179,18 @@ public class Battle
         lastPlayerActiveLanePosition = GetAliveTeamCharacterBattleList(true)[0].GetLanePosition();
         lastEnemyActiveLanePosition = GetNextLanePosition(GetAliveTeamCharacterBattleList(false)[0].GetLanePosition(), true);
 
-        state = State.WaitingForPlayer;
+        switch (GameData.state)
+        {
+            default:
+                state = State.WaitingForPlayer;
+                break;
+            case GameData.State.SavingTrenTren:
+                Dialogues.Play_TrenTrenDuringBattle();
+                break;
+            case GameData.State.FightingCaiCai:
+                Dialogues.Play_CaiCaiDuringBattle();
+                break;
+        }
     }
 
     private void ResetCamera()
@@ -400,7 +432,13 @@ public class Battle
         BattleUI.instance.lastMenuActivated = null;
         BattleUI.instance.battleMenus = BattleUI.BATTLEMENUS.None;
         SetCamera(selectedTargetCharacterBattle.GetPosition() + new Vector3(-5f, 0), 30f);
+        activeCharacterBattle.GetComponent<SpriteRenderer>().sortingOrder += 2;
         activeCharacterBattle.AttackTarget(selectedTargetCharacterBattle.GetPosition(), () =>
+        {
+            ResetCamera();
+            selectedTargetCharacterBattle.HideSelectionCircle();
+            activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .15f));
+        },() =>
         {
             //SoundManager.PlaySound(SoundManager.Sound.CharacterHit);
             int damageBase = activeCharacterBattle.GetAttack();
@@ -413,7 +451,7 @@ public class Battle
             {
                 damageAmount *= Random.Range((int)1.2f, (int)1.5f);
                 finalDmg = ((damageAmount * damageAmount) / (damageAmount + selectedTargetCharacterBattle.stats.defense));
-                Debug.Log("El daño critico es: " + finalDmg);
+                //Debug.Log("El daño critico es: " + finalDmg);
                 selectedTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount, selectedTargetCharacterBattle);
                 DamagePopups.Create(selectedTargetCharacterBattle.GetPosition(), finalDmg, true);
                 UtilsClass.ShakeCamera(1f, .1f);
@@ -432,13 +470,9 @@ public class Battle
                 {
                     ResourceManager.instance.AddSouls(Random.Range((int)(5 * 1.25f), (int)(5 * 1.5f)));
                 }
-                TestEvilMonsterKilled(selectedTargetCharacterBattle.GetCharacterType());
+                //WhichMonsterWasKilled(selectedTargetCharacterBattle.GetCharacterType());
             }
-        }, () =>
-        {
-            ResetCamera();
-            selectedTargetCharacterBattle.HideSelectionCircle();
-            activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
+            activeCharacterBattle.GetComponent<SpriteRenderer>().sortingOrder -= 2;
         });
     }
 
@@ -461,7 +495,7 @@ public class Battle
                             activeCharacterBattle.PlayAnimSpecial(() =>
                             {
                                 ResetCamera();
-                                activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
+                                activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .15f));
                             }, () =>
                             {
                                 //Heal Individual
@@ -479,7 +513,7 @@ public class Battle
                         {
                             activeCharacterBattle.PlayIdleAnim();
                             ResetCamera();
-                            FunctionTimer.Create(ChooseNextActiveCharacter, .2f);
+                            FunctionTimer.Create(ChooseNextActiveCharacter, .15f);
                         },
                         () => { });
 
@@ -504,7 +538,7 @@ public class Battle
                             activeCharacterBattle.PlayAnimSpecial(() =>
                             {
                                 ResetCamera();
-                                activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
+                                activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .15f));
                             }, () =>
                             {
                                 //Revive 1 pj
@@ -523,7 +557,7 @@ public class Battle
                         {
                             activeCharacterBattle.PlayIdleAnim();
                             ResetCamera();
-                            FunctionTimer.Create(ChooseNextActiveCharacter, .2f);
+                            FunctionTimer.Create(ChooseNextActiveCharacter, .15f);
                         }, () =>
                         {
                             //SoundManager.PlaySound(SoundManager.Sound.Heal);
@@ -543,7 +577,7 @@ public class Battle
                 {
                     activeCharacterBattle.PlayIdleAnim();
                     ResetCamera();
-                    FunctionTimer.Create(ChooseNextActiveCharacter, .2f);
+                    FunctionTimer.Create(ChooseNextActiveCharacter, .15f);
                 },
                 () => { });
 
@@ -564,7 +598,11 @@ public class Battle
                 SetCamera(middlePosition, 30f);
                 activeCharacterBattle.SlideToPosition(middlePosition, () =>
                 {
-                    activeCharacterBattle.PlayAnimSpecial(() =>
+                    activeCharacterBattle.PlayAnimSpecial( () =>
+                    {
+                        ResetCamera();
+                        activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .15f));
+                    }, () =>
                     {
                         // Debuff
                         //SoundManager.PlaySound(SoundManager.Sound.CharacterHit);
@@ -574,10 +612,6 @@ public class Battle
                             characterBattle.Debuff(number);
                         }
                         ResourceManager.instance.PayMoney(25);
-                    }, () =>
-                    {
-                        ResetCamera();
-                        activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
                     });
                 });
                 break;
@@ -591,7 +625,7 @@ public class Battle
                     activeCharacterBattle.PlayAnimSpecial(() =>
                     {
                         ResetCamera();
-                        activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
+                        activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .15f));
                     },() =>
                     {
                         // Un Golpe Fuerte
@@ -600,10 +634,10 @@ public class Battle
                         int damageAmount = 100;
                         selectedTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount, selectedTargetCharacterBattle);
                         DamagePopups.Create(selectedTargetCharacterBattle.GetPosition(), damageAmount, false);
-                        if (selectedTargetCharacterBattle.IsDead())
-                        {
-                            TestEvilMonsterKilled(selectedTargetCharacterBattle.GetCharacterType());
-                        }
+                        //if (selectedTargetCharacterBattle.IsDead())
+                        //{
+                        //    WhichMonsterWasKilled(selectedTargetCharacterBattle.GetCharacterType());
+                        //}
                     });
                 });
                 ResourceManager.instance.ConsumeTattoos(1);
@@ -613,7 +647,7 @@ public class Battle
                 BattleUI.instance.CloseBattleMenus();
                 activeCharacterBattle.SlideToPosition(GetPosition(LanePosition.Middle, false) + new Vector3(-15, 0), () => {
                     activeCharacterBattle.PlayAnimSpecial(() => {
-                        activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
+                        activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .15f));
                     }, () => {
                         // Dano en area
                         //SoundManager.PlaySound(SoundManager.Sound.GroundPound);
@@ -630,7 +664,7 @@ public class Battle
                             if (characterBattleList[i].IsDead())
                             {
                                 ResourceManager.instance.AddSouls(Random.Range((int)(5 * 1.25f), (int)(5 * 1.5f)));
-                                TestEvilMonsterKilled(characterBattleList[i].GetCharacterType());
+                                //WhichMonsterWasKilled(characterBattleList[i].GetCharacterType());
                             }
 
                         }
@@ -653,25 +687,34 @@ public class Battle
         return GetAliveTeamCharacterBattleList(isPlayerTeam).Count;
     }
 
-    private void TestEvilMonsterKilled(Character.Type character)
-    {
-        switch (character)
-        {
-            case Character.Type.TESTENEMY:
-                QuestManager.instance.QuestProgress();
-                //GameData.state = GameData.State.LostToEvilMonster_1;
-                break;
-        }
-    }
+    //private void WhichMonsterWasKilled(Character.Type character)
+    //{
+    //    switch (character)
+    //    {
+    //        case Character.Type.TrenTren:
+    //            //QuestManager.instance.QuestProgress();
+    //            GameData.state = GameData.State.TrenTrenSaved;
+
+    //            FunctionTimer.Create(OverworldManager.LoadBackToOvermap, .7f);
+    //            break;
+    //    }
+    //}
 
     private void ChooseNextActiveCharacter()
     {        
         if (GetAliveTeamCharacterBattleList(false).Count == 0)
         {
             // Se acaba el combate
-            Debug.Log("Se acabo el combate, Ganaste!");
+            //Debug.Log("Se acabo el combate, Ganaste!");
             // Desaparece el pj en el overmap
-            character.isDead = true;
+            if (character.type == Character.Type.TrenTren || character.type == Character.Type.CaiCai)
+            {
+                character.isDead = false;
+            }
+            else
+            {
+                character.isDead = true;
+            }
             // Se actualizan los valores de los characters
             foreach (CharacterBattle characterBattle in GetTeamCharacterBattleList(true))
             {
@@ -691,46 +734,18 @@ public class Battle
                     }
                 }
             }
-            //Debug.Log("El estado del GameData.state es: " + GameData.state);
-            //switch (GameData.state)
-            //{
-            //    case GameData.State.Start:
-            //        break;
-            //    case GameData.State.FightingHurtMeDaddy:
-            //        GameData.state = GameData.State.DefeatedHurtMeDaddy;
-            //        break;
-            //    case GameData.State.FightingHurtMeDaddy_2:
-            //        GameData.state = GameData.State.DefeatedHurtMeDaddy_2;
-            //        break;
-            //    case GameData.State.FightingTank:
-            //        GameData.state = GameData.State.DefeatedTank;
-            //        // Heal Tank
-            //        character.isDead = false;
-            //        character.AssignIsInPlayerTeam(true);
-            //        character.stats.health = character.stats.healthMax;
-            //        // Heal Player
-            //        Character uniqueCharacter = GameData.GetCharacter(Character.Type.Suyai);
-            //        uniqueCharacter.stats.health = uniqueCharacter.stats.healthMax;
-            //        break;
-            //    case GameData.State.FightingTavernAmbush:
-            //        GameData.state = GameData.State.SurvivedTavernAmbush;
-            //        break;
-            //    case GameData.State.FightingEvilMonster_1:
-            //        // Player Lost to Evil Monster
-            //        GameData.GetCharacter(Character.Type.Suyai).stats.health = 1;
-            //        GameData.GetCharacter(Character.Type.Antay).stats.health = 1;
-            //        GameData.GetCharacter(Character.Type.Pedro).stats.health = 1;
-            //        GameData.state = GameData.State.LostToEvilMonster_1;
-            //        break;
-            //    case GameData.State.FightingEvilMonster_2:
-            //        // Player Lost to Evil Monster
-            //        GameData.state = GameData.State.LostToEvilMonster_2;
-            //        break;
-            //    case GameData.State.FightingEvilMonster_3:
-            //        // Player Defeated Evil Monster
-            //        GameData.state = GameData.State.DefeatedEvilMonster;
-            //        break;
-            //}
+            switch (GameData.state)
+            {
+                case GameData.State.SavingTrenTren:
+                    GameData.state = GameData.State.TrenTrenSaved;
+                    GameData.cutsceneAlreadyWatched = false;
+                    break;
+                case GameData.State.FightingCaiCai:
+                    GameData.state = GameData.State.CaiCaiBeated;
+                    GameData.cutsceneAlreadyWatched = false;
+                    break;
+            }
+            Debug.Log("El estado del GameData.state es: " + GameData.state);
             //SoundManager.PlaySound(SoundManager.Sound.BattleWin);
             FunctionTimer.Create(OverworldManager.LoadBackToOvermap, .7f);
             return;
@@ -739,7 +754,7 @@ public class Battle
         if (TurnSystem.instance.ZeroTurns())
         {
             Debug.Log("Se te acabaron los turnos, vuela alto");
-            FunctionTimer.Create(OverworldManager.LoadBackToOvermap, .7f);
+            FunctionTimer.Create(OverworldManager.LoadGameOver, .7f);
             return;
         }
 
@@ -776,7 +791,14 @@ public class Battle
 
             FunctionTimer.Create(() => 
             {
-                CharacterBattle aiTargetCharacterBattle = GetAliveTeamCharacterBattleList(true)[Random.Range(0, GetAliveTeamCharacterBattleList(true).Count)];
+                if (GameData.state == GameData.State.SavingTrenTren)
+                {
+                    aiTargetCharacterBattle = trenTrenCapturadoCharacterBattle;
+                }
+                else
+                {
+                    aiTargetCharacterBattle = GetAliveTeamCharacterBattleList(true)[Random.Range(0, GetAliveTeamCharacterBattleList(true).Count)];
+                }
                 SetCamera(aiTargetCharacterBattle.GetPosition() + new Vector3(+5f, 0), 30f);
                 activeCharacterBattle.AttackTarget(aiTargetCharacterBattle.GetPosition(), () => 
                 {
@@ -793,7 +815,7 @@ public class Battle
                         {
                             damageAmount *= Random.Range((int)1.2f,(int)1.5f);
                             int finalDmg = ((damageAmount * damageAmount) / (damageAmount + aiTargetCharacterBattle.stats.defense));
-                            Debug.Log("El daño critico es: " + finalDmg);
+                            //Debug.Log("El daño critico es: " + finalDmg);
                             aiTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount, aiTargetCharacterBattle);
                             DamagePopups.Create(aiTargetCharacterBattle.GetPosition(), finalDmg, true);
                             UtilsClass.ShakeCamera(1f, .1f);
@@ -801,7 +823,7 @@ public class Battle
                         else                                //Normal Hit
                         {
                             int finalDmg = ((damageAmount * damageAmount) / (damageAmount + aiTargetCharacterBattle.stats.defense));
-                            Debug.Log("El daño normal es: " + finalDmg);
+                            //Debug.Log("El daño normal es: " + finalDmg);
                             aiTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount, aiTargetCharacterBattle);
                             DamagePopups.Create(aiTargetCharacterBattle.GetPosition(), finalDmg, false);
                             UtilsClass.ShakeCamera(.75f, .1f);
@@ -833,7 +855,7 @@ public class Battle
                 activeCharacterBattle.LetGoBlock();
             }
 
-            BattleUI.instance.radialMenu.SetActive(true);
+            BattleUI.instance.mainBattleMenu.SetActive(true);
             state = State.WaitingForPlayer;
         }
 

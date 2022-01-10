@@ -12,6 +12,12 @@ public class ZoneManager : MonoBehaviour
     [SerializeField] PlayerOverworld player;
     [SerializeField] Transform aldeaToBosque, bosqueToAldea, bosqueToLago, lagoToBosque, bosqueToBosqueP, bosquePToBosque,colliderAldeaToBosque;
 
+    [Space(10)]
+    [SerializeField] GameObject trenTrenBattleTrigger,caiCaiBattleTrigger,lakeAccess,villageAccess;//, guardia01, guardia02;
+
+    [Space(10)]
+    [SerializeField] List<GameObject> afterTrenTrenBattle = new List<GameObject>();
+
     private void Awake()
     {
         if (instance == null)
@@ -22,11 +28,50 @@ public class ZoneManager : MonoBehaviour
         player = GameObject.Find("pfPlayer").GetComponent<PlayerOverworld>();
     }
 
+    //private void Start()
+    //{
+    //    switch (GameData.state)
+    //    {
+    //        case GameData.State.TrenTrenSaved:
+    //            trenTrenBattleTrigger.SetActive(false);
+    //            confiner.m_BoundingShape2D = bosqueProfundoConfiner;
+    //            confiner.InvalidatePathCache();
+    //            break;
+    //    }
+    //}
+
+    public GameObject GetTrenTrenBattleTrigger() => trenTrenBattleTrigger;
+    public GameObject GetCaiCaiBattleTrigger() => caiCaiBattleTrigger;
+    public GameObject GetLakeAccess() => lakeAccess;
+    public GameObject GetVilageAccess() => villageAccess;
+    //public GameObject GetGuardia01() => guardia01;
+    //public GameObject GetGuardia02() => guardia02;
+    public PolygonCollider2D GetAldeaConfiner() => aldeaConfiner;
+    public PolygonCollider2D GetBosqueAraucConfiner() => bosqueAraucConfiner;
+    public PolygonCollider2D GetLagoConfiner() => lagoConfiner;
+    public PolygonCollider2D GetBosqueProfundoConfiner() => bosqueProfundoConfiner;
+
     public void ActivateColliderAldeaToBosque()
     {
         colliderAldeaToBosque.gameObject.SetActive(true);
     }
 
+    public void SetActiveGameobject(GameObject go, bool active)
+    {
+        go.SetActive(active);
+    }
+
+    public void SetConfiner(PolygonCollider2D confiner2D)
+    {
+        confiner.m_BoundingShape2D = confiner2D;
+        confiner.InvalidatePathCache();
+    }
+
+    public List<GameObject> GetAfterTrenTrenObjects()
+    {
+        return afterTrenTrenBattle;
+    }
+    
     public void AldeaToBosque()
     {
         //Transition FadeIn
@@ -37,6 +82,7 @@ public class ZoneManager : MonoBehaviour
         {
             follower.gameObject.transform.position = player.transform.position - follower.GetOffset();
         }
+        GameData.mapZoneState = GameData.MapZone.BosqueAraucarias;
         //Transition FadeOut
     }
 
@@ -50,6 +96,7 @@ public class ZoneManager : MonoBehaviour
         {
             follower.gameObject.transform.position = player.transform.position - follower.GetOffset();
         }
+        GameData.mapZoneState = GameData.MapZone.Aldea;
         //Transition FadeOut
 
     }
@@ -64,6 +111,7 @@ public class ZoneManager : MonoBehaviour
         {
             follower.gameObject.transform.position = player.transform.position - follower.GetOffset();
         }
+        GameData.mapZoneState = GameData.MapZone.Lago;
         //Transition FadeOut
 
     }
@@ -77,6 +125,7 @@ public class ZoneManager : MonoBehaviour
         {
             follower.gameObject.transform.position = player.transform.position - follower.GetOffset();
         }
+        GameData.mapZoneState = GameData.MapZone.BosqueProfundo;
         //Transition FadeOut
 
     }
@@ -90,6 +139,7 @@ public class ZoneManager : MonoBehaviour
         {
             follower.gameObject.transform.position = player.transform.position - follower.GetOffset();
         }
+        GameData.mapZoneState = GameData.MapZone.BosqueAraucarias;
         //Transition FadeOut
 
     }
@@ -103,6 +153,7 @@ public class ZoneManager : MonoBehaviour
         {
             follower.gameObject.transform.position = player.transform.position - follower.GetOffset();
         }
+        GameData.mapZoneState = GameData.MapZone.BosqueAraucarias;
         //Transition FadeOut
 
     }
@@ -110,5 +161,9 @@ public class ZoneManager : MonoBehaviour
     public void TrenTrenBeforeBattle()
     {
         Dialogues.Play_TrenTrenBeforeBattle(OverworldManager.GetInstance().GetTrenTrenCharacter());
+    }
+    public void CaicaiBeforeBattle()
+    {
+        Dialogues.Play_CaiCaiBeforeBattle(OverworldManager.GetInstance().GetCaiCaiCharacter());
     }
 }

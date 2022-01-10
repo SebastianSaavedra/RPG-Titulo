@@ -6,7 +6,7 @@ public class Item {
 
     public enum ItemType {
         MedicinalHerbs,
-        Money,
+        EscamaMarina,
 
         Armor_1,
         Armor_2,
@@ -97,6 +97,7 @@ public class Item {
             case ItemType.Weapon_3:
             case ItemType.Weapon_4:
             case ItemType.Weapon_5:
+            case ItemType.EscamaMarina:
                 return ItemSubType.Equippable;
         }
     }
@@ -143,6 +144,8 @@ public class Item {
                 return GameAssets.i.item_Armor1;
             case ItemType.Helmet_1:
                 return GameAssets.i.item_Helmet1;
+            case ItemType.EscamaMarina:
+                return GameAssets.i.item_EscamaMarina;
         }
     }
 
@@ -167,6 +170,8 @@ public class Item {
             default:
             case ItemType.MedicinalHerbs:
                 return "Plantas que curan";
+            case ItemType.EscamaMarina:
+                return "Pertenece a CaiCai... ¿Tendra uso?";
             case ItemType.Weapon_1:
                 return "Cultrun";
             case ItemType.Armor_1:

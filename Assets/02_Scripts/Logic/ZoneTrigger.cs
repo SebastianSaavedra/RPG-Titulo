@@ -19,4 +19,14 @@ public class ZoneTrigger : MonoBehaviour
             }
         }
     }
+
+    public void StopOvermap()
+    {
+        OverworldManager.StopOvermapRunning();
+    }
+
+    public void ContinueOvermap()
+    {
+        OverworldManager.ContinueOvermapRunning();
+    }
 }

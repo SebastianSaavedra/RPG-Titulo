@@ -39,6 +39,8 @@ public class GameAssets : MonoBehaviour
     public Transform pfChatOption;
     public Transform pfTrenTren;
     public Transform pfCaiCai;
+    public Transform pfPelotonLanceros,pfPelotonFusileros,pfPelotoFusileroYLancero;
+    public Transform pfMineralBronce, pfMineralCobre, pfMineralPlata, pfMineralOro;
     public RectTransform pf_ItemSlot;
     //public Transform pfPopUpWindow;
     //public Transform pfPopUpWindowButton;
@@ -48,7 +50,7 @@ public class GameAssets : MonoBehaviour
 
     public RuntimeAnimatorController suyaiBATTLEANIM;
     public RuntimeAnimatorController pedroBATTLEANIM, aranaBATTLEANIM, antayBATTLEANIM,chillpilaBATTLEANIM,suyaiOVERWORLDANIM, pedroOVERWORLDANIM, aranaOVERWORLDANIM, antayOVERWORLDANIM, chillpilaOVERWORLDANIM;
-    public RuntimeAnimatorController testEnemyANIM,fusileroANIM,lanceroANIM,anchimallenBattleANIM, anchimallenOverworldANIM, guiriviloANIM,piuchenANIM;
+    public RuntimeAnimatorController testEnemyANIM,fusileroANIM,lanceroANIM,anchimallenBattleANIM, anchimallenOverworldANIM, guiriviloANIM,piuchenANIM,trentrenBattleAnim,caicaiBattleAnim;
 
 
     public Sprite testEnemySprite;
@@ -60,7 +62,7 @@ public class GameAssets : MonoBehaviour
     public Sprite splashSuyai, splashPedro, splashChillpila, splashArana, splashAntay;
     public Sprite playerDialogueSprite, npc_1DialogueSprite, warriorNpcDialogueSprite;
 
-    public Sprite item_Herb,item_Weapon1,item_Helmet1,item_Armor1;
+    public Sprite item_Herb,item_Weapon1,item_Helmet1,item_Armor1,item_EscamaMarina;
 
     public List<Sprite> enemies = new List<Sprite>();
 

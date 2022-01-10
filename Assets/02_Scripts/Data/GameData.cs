@@ -11,14 +11,29 @@ public static class GameData
         Starting,
         AlreadyTalkedWithViejaMachi,
         SavingTrenTren,
+        TrenTrenSaved,
+        FightingCaiCai,
+        CaiCaiBeated,
+        Endgame,
         GameOver,
+    }
+
+    public enum MapZone
+    {
+        Aldea,
+        BosqueAraucarias,
+        Lago,
+        BosqueProfundo
     }
 
     private static bool isInit = false;
     public static List<Character> characterList;
     public static List<Item> itemList;
-    
+
     public static State state;
+    public static MapZone mapZoneState;
+
+    public static bool cutsceneAlreadyWatched;
 
     public static string[] nombresMasculinosMapucheArray;
     public static string[] nombresFemeninosMapucheArray;

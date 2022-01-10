@@ -61,6 +61,13 @@ MonoBehaviour:
   pfChatOption: {fileID: 0}
   pfTrenTren: {fileID: 5341325383846457469, guid: db0d82a611ba969458c9b37a73369ade, type: 3}
   pfCaiCai: {fileID: 2987255751878005320, guid: 357ba349c9526af44a87abf1d0983adb, type: 3}
+  pfPelotonLanceros: {fileID: 0}
+  pfPelotonFusileros: {fileID: 0}
+  pfPelotoFusileroYLancero: {fileID: 0}
+  pfMineralBronce: {fileID: 538586358298004914, guid: f6237da614f12884589801713be5d8d8, type: 3}
+  pfMineralCobre: {fileID: 4486838412710475304, guid: 6803856793bfb2b4698e210b046c318d, type: 3}
+  pfMineralPlata: {fileID: 3255913004261338983, guid: f9706cd3f7cedac4793a775430b4e665, type: 3}
+  pfMineralOro: {fileID: 5260693226285514096, guid: 3882b2c9ac0dfdc45b66a8b906421ce0, type: 3}
   pf_ItemSlot: {fileID: 2809455457114441785, guid: c5887062ac45ac7469a69d3353335627, type: 3}
   suyaiBATTLEANIM: {fileID: 9100000, guid: f12bc6ecd7ec9bb4a94d78b4c02c7fbc, type: 2}
   pedroBATTLEANIM: {fileID: 9100000, guid: 92d7085d1b370e74ab1045b36989edfa, type: 2}
@@ -79,6 +86,8 @@ MonoBehaviour:
   anchimallenOverworldANIM: {fileID: 9100000, guid: e82929ed48ca80b45a828dbe58ca5a6b, type: 2}
   guiriviloANIM: {fileID: 9100000, guid: 6aae6f5d9bfc23a4998aade0bc56a85a, type: 2}
   piuchenANIM: {fileID: 9100000, guid: 03ae3f6cdce70ca4eabfb504a6255a2c, type: 2}
+  trentrenBattleAnim: {fileID: 9100000, guid: 3f14c9c068718704b898444e87eee7bb, type: 2}
+  caicaiBattleAnim: {fileID: 9100000, guid: ce1fa287432daee46870e816f30b0f2a, type: 2}
   testEnemySprite: {fileID: 21300000, guid: 6d549ced5c29b0c4482ca4495e3b240e, type: 3}
   fusileroOWSprite: {fileID: 21300000, guid: 479513ac4100f8343b5cf6c698058e67, type: 3}
   lanceroOWSprite: {fileID: 21300000, guid: 4fadd58adb949dc4b858424946a20ae4, type: 3}
@@ -111,6 +120,7 @@ MonoBehaviour:
   item_Weapon1: {fileID: 21300000, guid: f9e557b113fbc3c4b81ec137fbeac1d2, type: 3}
   item_Helmet1: {fileID: 21300000, guid: e22455aecdcedc2468d6f0cec293e622, type: 3}
   item_Armor1: {fileID: 21300000, guid: 281ffacdaa32afb4e92e328ce45f2ef4, type: 3}
+  item_EscamaMarina: {fileID: 0}
   enemies:
   - {fileID: 21300000, guid: 2f50c32beb34dbb4687efa4f3b7e170b, type: 3}
   - {fileID: 21300000, guid: d2d0c1724bb61fe49ae74baa68e8c837, type: 3}

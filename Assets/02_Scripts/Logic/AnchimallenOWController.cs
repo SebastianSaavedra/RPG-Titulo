@@ -24,6 +24,7 @@ public class AnchimallenOWController : MonoBehaviour
                 }
                 else
                 {
+                    OverworldManager.ContinueOvermapRunning();
                     Destroy(gameObject);
                 }
             }

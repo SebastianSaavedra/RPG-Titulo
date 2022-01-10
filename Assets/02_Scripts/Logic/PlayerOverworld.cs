@@ -150,6 +150,20 @@ public class PlayerOverworld : MonoBehaviour
                                 break;
                         }
                         break;
+                    case Character.Type.SoldadoMapuche_2:
+                        if (GameData.state == GameData.State.CaiCaiBeated)
+                        {
+                            Dialogues.Play_Soldado_2(npcOverworld);
+                        }
+                        if (npcOverworld.GetAlreadyTalkedWithThisNPC())
+                        {
+                            Dialogues.Play_Soldado_2Repeat(npcOverworld);
+                        }
+                        else
+                        {
+                            Dialogues.Play_Soldado_2(npcOverworld);
+                        }
+                        break;
                     case Character.Type.HombreMapuche_1:
                         if (npcOverworld.GetAlreadyTalkedWithThisNPC())
                         {
@@ -245,7 +259,6 @@ public class PlayerOverworld : MonoBehaviour
                             //Debug.Log(itemOverworld.GetItem().GetItemType());
                             Inventory.instance.AddItem(itemOverworld.GetItem());
                             QuestManager.instance.QuestProgress();
-                            ResourceManager.instance.AddHerbs(itemOverworld.GetItem().GetAmount());
                             itemOverworld.GetItem().SetAmount(0);
                             SoundManager.PlaySound(SoundManager.Sound.Coin);
                             Debug.Log("A la planta le quedan: " + itemOverworld.GetItem().GetAmount() + " hierbas");

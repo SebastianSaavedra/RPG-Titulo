@@ -36,19 +36,36 @@ public class BattleUI : MonoBehaviour
 
     [HideInInspector] public string command;
     [HideInInspector] public string spellName;
-    [HideInInspector] public GameObject radialMenu;
+    [HideInInspector] public GameObject mainBattleMenu;
     int index = 0;
     [HideInInspector] public GameObject lastMenuActivated;
+
+    [SerializeField] GameObject menuRadial;
 
     private void Awake()
     {
         instance = this;
-        radialMenu = gameObject;
+        mainBattleMenu = gameObject;
         battleMenus = BATTLEMENUS.None;
     }
 
     private void Start()
     {
+        if (GameData.state != GameData.State.SavingTrenTren)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(buttons[0]);
+        }
+    }
+
+    public void TalkingInBattle()
+    {
+        menuRadial.SetActive(false);
+    }
+
+    public void FinishedTalkingInBattle()
+    {
+        menuRadial.SetActive(true);
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(buttons[0]);
     }
@@ -107,13 +124,13 @@ public class BattleUI : MonoBehaviour
         {
             Debug.Log(lastMenuActivated.name);
             lastMenuActivated.SetActive(true);
-            radialMenu.SetActive(true);
+            mainBattleMenu.SetActive(true);
             Timing.RunCoroutine(_EventSystemReAssign(subButtonsArray[index].subButtons[0]));
         }
         else
         {
             Timing.RunCoroutine(_EventSystemReAssign(buttons[index]));
-            radialMenu.SetActive(true);
+            mainBattleMenu.SetActive(true);
         }
     }
 
@@ -191,9 +208,16 @@ public class BattleUI : MonoBehaviour
                 }
                 break;
             case "Run":
-                Debug.Log("Huiste del combate");
-                radialMenu.SetActive(false);
-                FunctionTimer.Create(OverworldManager.LoadBackToOvermap, 1f);
+                if (GameData.state != GameData.State.SavingTrenTren)
+                {
+                    Debug.Log("Huiste del combate");
+                    mainBattleMenu.SetActive(false);
+                    FunctionTimer.Create(OverworldManager.LoadBackToOvermap, 1f);
+                }
+                else
+                {
+                    SoundManager.PlaySound(SoundManager.Sound.Error);
+                }
                 break;
         }
         yield break;
@@ -205,7 +229,7 @@ public class BattleUI : MonoBehaviour
         {
             lastMenuActivated.SetActive(false);
         }
-        radialMenu.SetActive(false);
+        mainBattleMenu.SetActive(false);
     }
 
     void ExecuteSpecial()
@@ -215,7 +239,7 @@ public class BattleUI : MonoBehaviour
             switch (Battle.GetInstance().activeCharacterBattle.GetCharacterType())
             {
                 case Character.Type.Arana:
-                    radialMenu.SetActive(false);
+                    mainBattleMenu.SetActive(false);
                     Battle.GetInstance().state = Battle.State.EnemySelection;
                     Battle.GetInstance().SetSelectedTargetCharacterBattle(Battle.GetInstance().GetAliveTeamCharacterBattleList(false)[0]);
                     command = "Special";
@@ -225,20 +249,20 @@ public class BattleUI : MonoBehaviour
                     switch (spellName)
                     {
                         case "Curar":
-                            radialMenu.SetActive(false);
+                            mainBattleMenu.SetActive(false);
                             Battle.GetInstance().state = Battle.State.AllySelection;
                             Battle.GetInstance().SetSelectedTargetCharacterBattle(Battle.GetInstance().GetAliveTeamCharacterBattleList(true)[0]);
                             Debug.Log("Cura individual");
                             break;
                         case "CuraGrupal":
-                            radialMenu.SetActive(false);
+                            mainBattleMenu.SetActive(false);
                             Battle.GetInstance()._Special();
                             Debug.Log("CuraGrupal");
                             break;
                         case "Revivir":
                             if (Battle.GetInstance().GetDeadTeamCharacterBattleList(true).Count > 0)
                             {
-                                radialMenu.SetActive(false);
+                                mainBattleMenu.SetActive(false);
                                 Battle.GetInstance().state = Battle.State.DeadAllySelection;
                                 Battle.GetInstance().SetSelectedTargetCharacterBattle(Battle.GetInstance().GetDeadTeamCharacterBattleList(true)[0]);
                                 Debug.Log("Revivir");
@@ -250,7 +274,7 @@ public class BattleUI : MonoBehaviour
                             }
                             break;
                         case "Turnos":
-                            radialMenu.SetActive(false);
+                            mainBattleMenu.SetActive(false);
                             Battle.GetInstance()._Special();
                             Debug.Log("Turnos");
                             break;

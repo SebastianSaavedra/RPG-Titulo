@@ -24,6 +24,7 @@ public class Character
             case Type.TESTENEMY:
             case Type.Fusilero:
             case Type.Lancero:
+            case Type.FusileroYLancero:
             case Type.Anchimallen:
             case Type.Guirivilo:
             case Type.Piuchen:
@@ -54,6 +55,7 @@ public class Character
         TESTENEMY,
         Fusilero,
         Lancero,
+        FusileroYLancero,
         Anchimallen,
         Guirivilo,
         Piuchen,
@@ -139,7 +141,7 @@ public class Character
                     healthMax = 100,
                     defense = 1,
                     critChance = 5,
-                    turns = 2
+                    turns = 4
                 };
                 isInPlayerTeam = true;
                 lanePosition = LanePosition.Middle;
@@ -154,7 +156,7 @@ public class Character
                     healthMax = 90,
                     defense = 1,
                     critChance = 5,
-                    turns = 2
+                    turns = 3
                 };
                 isInPlayerTeam = true;
                 lanePosition = LanePosition.Down;
@@ -184,7 +186,7 @@ public class Character
                     healthMax = 125,
                     defense = 2,
                     critChance = 5,
-                    turns = 3
+                    turns = 5
                 };
                 //isInPlayerTeam = true;
                 lanePosition = LanePosition.None;
@@ -199,7 +201,7 @@ public class Character
                     healthMax = 110,
                     defense = 1,
                     critChance = 5,
-                    turns = 3
+                    turns = 1
                 };
                 //isInPlayerTeam = true;
                 lanePosition = LanePosition.None;
@@ -248,8 +250,8 @@ public class Character
                 stats = new Stats
                 {
                     attack = 18,
-                    health = 75,
-                    healthMax = 75,
+                    health = 1,   //150
+                    healthMax = 1,
                     defense = 0,
                     critChance = 5,
                     damageChance = 95,
@@ -260,8 +262,8 @@ public class Character
                 stats = new Stats
                 {
                     attack = 20,
-                    health = 75,
-                    healthMax = 75,
+                    health = 1,   //150
+                    healthMax = 1,
                     defense = 1,
                     critChance = 5,
                     damageChance = 95,
@@ -272,8 +274,8 @@ public class Character
                 stats = new Stats
                 {
                     attack = 22,
-                    health = 80,
-                    healthMax = 80,
+                    health = 1,   //150
+                    healthMax = 1,
                     defense = 1,
                     critChance = 5,
                     damageChance = 95,
@@ -285,6 +287,18 @@ public class Character
                 {
                     health = 1000,
                     healthMax = 1000,
+                };
+                break;
+
+            case Type.CaiCai:
+                stats = new Stats
+                {
+                    attack = 25,
+                    health = 1,   //150
+                    healthMax = 1,
+                    defense = 1,
+                    critChance = 5,
+                    damageChance = 95,
                 };
                 break;
 
@@ -356,6 +370,7 @@ public class Character
             case Type.TESTENEMY:
             case Type.Fusilero:
             case Type.Lancero:
+            case Type.FusileroYLancero:
             case Type.Jefe1:
             case Type.Anchimallen:
             case Type.Guirivilo:

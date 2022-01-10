@@ -67,6 +67,10 @@ public class CharacterBattle : MonoBehaviour
     private void Start()
     {
         baseTint = GetComponent<SpriteRenderer>().material.color;
+        if (!character.IsInPlayerTeam())
+        {
+            spriteRen.sortingOrder -= 1;
+        }
     }
 
     public void Setup(Character.Type characterType, Battle.LanePosition lanePosition, Vector3 startingPosition, bool isPlayerTeam, Character.Stats stats, Character character)
@@ -129,6 +133,18 @@ public class CharacterBattle : MonoBehaviour
             case Character.Type.Piuchen:
                 anim.runtimeAnimatorController = GameAssets.i.piuchenANIM;
                 break;
+
+            /////////////////////////
+            //CAPTURADOS
+            /////////////////////////
+
+            //case Character.Type.TrenTren:
+            //    anim.runtimeAnimatorController = GameAssets.i.trentrenBattleAnim;
+            //    break;
+            //case Character.Type.CaiCai:
+            //    anim.runtimeAnimatorController = GameAssets.i.caicaiBattleAnim;
+            //    break;
+
         }
 
         if (isPlayerTeam)
@@ -284,14 +300,14 @@ public class CharacterBattle : MonoBehaviour
                 break;
             case 0:
                 {
-                    stats.attack -= 6;
+                    stats.attack /= 2;
                     //sprite = GameAssets.i.dmgDebuff.GetComponent<Sprite>();
                     Debug.Log("El daño total del enemigo es: " + stats.attack);
                     break;
                 }
             case 1:
                 {
-                    stats.damageChance = 33;
+                    stats.damageChance /=  2;
                     //sprite = GameAssets.i.blindDebuff.GetComponent<Sprite>();
                     Debug.Log("La probabilidad de atacar del enemigo es: " + stats.damageChance);
                     break;
