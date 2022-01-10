@@ -14,6 +14,7 @@ public class NPCOverworld : MonoBehaviour
     private Vector3 targetMovePosition;
     private PlayerOverworld playerOverworld;
     private Character character;
+    [SerializeField] private bool alreadyTalkedWithNPC;
     //public bool overrideOverworldRunning;
 
 
@@ -47,12 +48,12 @@ public class NPCOverworld : MonoBehaviour
                 break;
             case Character.Type.SoldadoMapuche_1:
                 sprite.sprite = GameAssets.i.warriorNPC;
-                transform.localScale = Vector3.one * 0.75f;
+                transform.localScale = Vector3.one * 0.85f;
                 //Setear animator
                 break;
             case Character.Type.SoldadoMapuche_2:
                 sprite.sprite = GameAssets.i.warriorNPC;
-                transform.localScale = Vector3.one * 0.75f;
+                transform.localScale = Vector3.one * 0.85f;
                 //Setear animator
                 break;
             case Character.Type.ViejaMachi:
@@ -62,6 +63,7 @@ public class NPCOverworld : MonoBehaviour
             case Character.Type.HombreMapuche_1:
             case Character.Type.HombreMapuche_2:
                 sprite.sprite = GameAssets.i.npc_HombreMapuche;
+                transform.localScale = Vector3.one * 0.85f;
                 break;
             case Character.Type.MujerMapuche_1:
             case Character.Type.MujerMapuche_2:
@@ -71,10 +73,20 @@ public class NPCOverworld : MonoBehaviour
             case Character.Type.NinoMapuche_1:
             case Character.Type.NinoMapuche_2:
                 sprite.sprite = GameAssets.i.npc_NinoMapuche;
+                transform.localScale = Vector3.one * 0.85f;
                 break;
             case Character.Type.NinaMapuche_1:
             case Character.Type.NinaMapuche_2:
                 sprite.sprite = GameAssets.i.npc_NinaMapuche;
+                transform.localScale = Vector3.one * 0.85f;
+                break;
+
+            case Character.Type.TrenTren:
+                sprite.sprite = GameAssets.i.trenTrenSprite;
+                break;
+
+            case Character.Type.CaiCai:
+                sprite.sprite = GameAssets.i.trenTrenSprite;
                 break;
 
             case Character.Type.Shop:
@@ -104,6 +116,16 @@ public class NPCOverworld : MonoBehaviour
                 anim.speed = SPEED * .08f;
                 break;
         }
+    }
+
+    public void SetTalkForTheFirstTime()
+    {
+        alreadyTalkedWithNPC = true;
+    }
+
+    public bool GetAlreadyTalkedWithThisNPC()
+    {
+        return alreadyTalkedWithNPC;
     }
 
     public void SaveCharacterPosition()

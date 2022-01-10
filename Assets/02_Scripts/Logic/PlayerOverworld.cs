@@ -16,6 +16,10 @@ public class PlayerOverworld : MonoBehaviour
     private HealthSystem healthSystem;
     private Character character;
 
+    [SerializeField] float radio;
+    Vector3 dir;
+    float distance;
+
     private InventoryPartyWindow inventoryPartyWindow;
 
     public event EventHandler OnEquipChanged;
@@ -114,21 +118,117 @@ public class PlayerOverworld : MonoBehaviour
             {
                 switch (npcOverworld.GetCharacter().type)
                 {
-                    //case Character.Type.QuestNpc_1:
-                    //    Dialogues.QuestDialogue(npcOverworld.GetCharacter());
-                    //    break;
-                    case Character.Type.SoldadoMapuche_1:
-                        if (npcOverworld.GetCharacter().quest.questGoal.CanComplete())
+                    case Character.Type.ViejaMachi:
+
+                        switch (GameData.state)
                         {
-                            Dialogues.TestDialogue_3();
+                            case GameData.State.Starting:
+                                Dialogues.Play_ViejaMachiQuest(npcOverworld.GetCharacter());
+                                break;
+                            case GameData.State.AlreadyTalkedWithViejaMachi:
+                                Dialogues.Play_ViejaMachiQuestPending(npcOverworld.GetCharacter());
+                                break;
+                        }
+
+                        break;
+                    case Character.Type.SoldadoMapuche_1:
+
+                        switch (GameData.state)
+                        {
+                            case GameData.State.Starting:
+                                Dialogues.Play_SoldadoAdvertenciaAntesDeHablarConMachi(npcOverworld.GetCharacter());
+                                break;
+                            case GameData.State.AlreadyTalkedWithViejaMachi:
+                                if (npcOverworld.GetAlreadyTalkedWithThisNPC())
+                                {
+                                    Dialogues.Play_SoldadoBuenaSuerte(npcOverworld.GetCharacter());
+                                }
+                                else
+                                {
+                                    Dialogues.Play_SoldadoAdvertenciaBosque(npcOverworld);
+                                }
+                                break;
+                        }
+                        break;
+                    case Character.Type.HombreMapuche_1:
+                        if (npcOverworld.GetAlreadyTalkedWithThisNPC())
+                        {
+                            Dialogues.Play_Hombre01Repeat(npcOverworld);
                         }
                         else
                         {
-                            Dialogues.TestDialogue_1(npcOverworld.GetCharacter());
+                            Dialogues.Play_Hombre01(npcOverworld);
                         }
                         break;
-                    case Character.Type.SoldadoMapuche_2:
-                        Dialogues.TestDialogue_2(npcOverworld.GetCharacter());
+                    case Character.Type.HombreMapuche_2:
+                        if (npcOverworld.GetAlreadyTalkedWithThisNPC())
+                        {
+                            Dialogues.Play_Hombre02Repeat(npcOverworld);
+                        }
+                        else
+                        {
+                            Dialogues.Play_Hombre02(npcOverworld);
+                        }
+                        break;
+                    case Character.Type.MujerMapuche_1:
+                        if (npcOverworld.GetAlreadyTalkedWithThisNPC())
+                        {
+                            Dialogues.Play_Mujer01Repeat(npcOverworld);
+                        }
+                        else
+                        {
+                            Dialogues.Play_Mujer01(npcOverworld);
+                        }
+                        break;
+                    case Character.Type.MujerMapuche_2:
+                        if (npcOverworld.GetAlreadyTalkedWithThisNPC())
+                        {
+                            Dialogues.Play_Mujer02Repeat(npcOverworld);
+                        }
+                        else
+                        {
+                            Dialogues.Play_Mujer02(npcOverworld);
+                        }
+                        break;
+                    case Character.Type.NinoMapuche_1:
+                        if (npcOverworld.GetAlreadyTalkedWithThisNPC())
+                        {
+                            Dialogues.Play_Nino01Repeat(npcOverworld);
+                        }
+                        else
+                        {
+                            Dialogues.Play_Nino01(npcOverworld);
+                        }
+                        break;
+                    case Character.Type.NinoMapuche_2:
+                        if (npcOverworld.GetAlreadyTalkedWithThisNPC())
+                        {
+                            Dialogues.Play_Nino02Repeat(npcOverworld);
+                        }
+                        else
+                        {
+                            Dialogues.Play_Nino02(npcOverworld);
+                        }
+                        break;
+                    case Character.Type.NinaMapuche_1:
+                        if (npcOverworld.GetAlreadyTalkedWithThisNPC())
+                        {
+                            Dialogues.Play_Nina01Repeat(npcOverworld);
+                        }
+                        else
+                        {
+                            Dialogues.Play_Nina01(npcOverworld);
+                        }
+                        break;
+                    case Character.Type.NinaMapuche_2:
+                        if (npcOverworld.GetAlreadyTalkedWithThisNPC())
+                        {
+                            Dialogues.Play_Nina02Repeat(npcOverworld);
+                        }
+                        else
+                        {
+                            Dialogues.Play_Nina02(npcOverworld);
+                        }
                         break;
                     case Character.Type.Shop:
                         Dialogues.ShopDialogue(npcOverworld.GetCharacter());
@@ -213,43 +313,34 @@ public class PlayerOverworld : MonoBehaviour
 
     private bool IsOnTopOfWall()
     {
-        RaycastHit2D raycastHit = Physics2D.CircleCast(new Vector2(GetPosition().x, GetPosition().y - 1.75f), .5f, Vector2.zero, wallLayerMask);
+        RaycastHit2D raycastHit = Physics2D.CircleCast(new Vector2(GetPosition().x, (GetPosition().y - 1)), radio, Vector2.zero, wallLayerMask);
+        //if (raycastHit.collider != null)
+        //{
+        //    Debug.Log("IsOnTopOfWall: " + raycastHit.collider.name);
+        //}
         return raycastHit.collider != null;
     }
 
     private bool CanMoveTo(Vector3 dir, float distance)
     {
         if (IsOnTopOfWall()) return true;
-        RaycastHit2D raycastHit = Physics2D.CircleCast(new Vector2(GetPosition().x, GetPosition().y - 1.75f), .5f, dir, distance, wallLayerMask);
+        this.dir = dir;
+        this.distance = distance;
+        RaycastHit2D raycastHit = Physics2D.CircleCast(new Vector2(GetPosition().x, (GetPosition().y - 1)), radio, dir, distance, wallLayerMask);
+        //if (raycastHit.collider != null)
+        //{
+        //    Debug.Log("CanMoveTo: " + raycastHit.collider.name);
+        //}
         return raycastHit.collider == null;
     }
 
     private void OnDrawGizmos()
     {
-        RaycastHit2D raycastHit = Physics2D.CircleCast(new Vector2(GetPosition().x, GetPosition().y - 1.75f), .5f, Vector2.zero, wallLayerMask);
-        Gizmos.DrawWireSphere(new Vector2(GetPosition().x, GetPosition().y - 1.75f), .5f);
-        if (raycastHit.collider != null)
-        {
-            Gizmos.color = Color.red;
-        }
-        else
-        {
-            Gizmos.color = Color.green;
-        }
-    }
+        Gizmos.color = Color.yellow;
+        RaycastHit2D raycastHit = Physics2D.CircleCast(GetPosition(), radio, dir, distance, wallLayerMask);
+        Gizmos.DrawWireSphere(new Vector2(GetPosition().x, (GetPosition().y - 1)) + (Vector2)dir,radio);
 
-    //private void TryMoveTo(Vector3 dir, float distance)
-    //{
-    //    RaycastHit2D raycastHit = Physics2D.CircleCast(GetPosition(), 1f, dir,distance, wallLayerMask);
-    //    if (raycastHit.collider == null)
-    //    {
-    //        transform.position += dir * distance;
-    //    }
-    //    else
-    //    {
-    //        transform.position += dir * (raycastHit.distance - .1f);
-    //    }
-    //}
+    }
 
     public void SetEquipment(Item item)
     {

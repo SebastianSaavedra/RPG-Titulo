@@ -3,140 +3,140 @@ using System.Collections.Generic;
 
 public static class Dialogues
 {
-    public static void QuestDialogue(Character character)
-    {
-        OverworldManager.StopOvermapRunning();
-        Character playerCharacter = GameData.GetCharacter(Character.Type.Suyai);
-        DialogueController dialogue = DialogueController.GetInstance();
-        if (character.quest.questGoal.questState == QuestGoal.QUESTSTATE.NONE)
-        {
-            dialogue.SetDialogueActions(new List<Action>() {
-                () => {
-                    dialogue.Show();
-                    dialogue.ShowText(character.quest._startDialogue);
-                    switch (character.type)
-                    {
-                        case Character.Type.QuestNpc_1:
-                                dialogue.ShowRightCharacter(GameAssets.i.npc_1DialogueSprite, false);
-                            break;
-                        case Character.Type.SoldadoMapuche_1:
-                        case Character.Type.SoldadoMapuche_2:
-                                dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
-                            break;
-                        case Character.Type.ViejaMachi:
-                                dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
-                            break;
-                        case Character.Type.HombreMapuche_1:
-                        case Character.Type.HombreMapuche_2:
-                                dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
-                            break;
-                        case Character.Type.MujerMapuche_1:
-                        case Character.Type.MujerMapuche_2:
-                                dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
-                            break;
-                        case Character.Type.NinoMapuche_1:
-                        case Character.Type.NinoMapuche_2:
-                                dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
-                            break;
-                        case Character.Type.NinaMapuche_1:
-                        case Character.Type.NinaMapuche_2:
-                                dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
-                            break;
-                    }
-                    dialogue.ShowRightNameplate();
-                    dialogue.ShowRightCharacterName(character.name);
-                    dialogue.HideLeftCharacter();
-                    dialogue.HideLeftNameplate();
-                    dialogue.HideLeftCharacterName();
-                },() => {
-                    character.quest.questGoal.QuestStarted();
-                    QuestManager.instance.quests.Add(character.quest);
-                    dialogue.Hide();
-                    OverworldManager.StartOvermapRunning();
-                },
-            }, true);
+    //public static void QuestDialogue(Character character)
+    //{
+    //    OverworldManager.StopOvermapRunning();
+    //    Character playerCharacter = GameData.GetCharacter(Character.Type.Suyai);
+    //    DialogueController dialogue = DialogueController.GetInstance();
+    //    if (character.quest.questGoal.questState == QuestGoal.QUESTSTATE.NONE)
+    //    {
+    //        dialogue.SetDialogueActions(new List<Action>() {
+    //            () => {
+    //                dialogue.Show();
+    //                dialogue.ShowText(character.quest._startDialogue);
+    //                switch (character.type)
+    //                {
+    //                    case Character.Type.QuestNpc_1:
+    //                            dialogue.ShowRightCharacter(GameAssets.i.npc_1DialogueSprite, false);
+    //                        break;
+    //                    case Character.Type.SoldadoMapuche_1:
+    //                    case Character.Type.SoldadoMapuche_2:
+    //                            dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
+    //                        break;
+    //                    case Character.Type.ViejaMachi:
+    //                            dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
+    //                        break;
+    //                    case Character.Type.HombreMapuche_1:
+    //                    case Character.Type.HombreMapuche_2:
+    //                            dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
+    //                        break;
+    //                    case Character.Type.MujerMapuche_1:
+    //                    case Character.Type.MujerMapuche_2:
+    //                            dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
+    //                        break;
+    //                    case Character.Type.NinoMapuche_1:
+    //                    case Character.Type.NinoMapuche_2:
+    //                            dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
+    //                        break;
+    //                    case Character.Type.NinaMapuche_1:
+    //                    case Character.Type.NinaMapuche_2:
+    //                            dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
+    //                        break;
+    //                }
+    //                dialogue.ShowRightNameplate();
+    //                dialogue.ShowRightCharacterName(character.name);
+    //                dialogue.HideLeftCharacter();
+    //                dialogue.HideLeftNameplate();
+    //                dialogue.HideLeftCharacterName();
+    //            },() => {
+    //                character.quest.questGoal.QuestStarted();
+    //                QuestManager.instance.quests.Add(character.quest);
+    //                dialogue.Hide();
+    //                OverworldManager.StartOvermapRunning();
+    //            },
+    //        }, true);
 
-        }
-        else if (character.quest.questGoal.CanComplete())
-        {
-            dialogue.SetDialogueActions(new List<Action>() {
-                () => {
-                    dialogue.Show();
-                    dialogue.ShowText(character.quest._completedDialogue);
-                    switch (character.type)
-                    {
-                        case Character.Type.QuestNpc_1:
-                                dialogue.ShowRightCharacter(GameAssets.i.npc_1DialogueSprite, false);
-                            break;
-                        case Character.Type.SoldadoMapuche_1:
-                        case Character.Type.SoldadoMapuche_2:
-                                dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
-                            break;
-                        case Character.Type.ViejaMachi:
-                                dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
-                            break;
-                        case Character.Type.HombreMapuche_1:
-                        case Character.Type.HombreMapuche_2:
-                                dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
-                            break;
-                        case Character.Type.MujerMapuche_1:
-                        case Character.Type.MujerMapuche_2:
-                                dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
-                            break;
-                        case Character.Type.NinoMapuche_1:
-                        case Character.Type.NinoMapuche_2:
-                                dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
-                            break;
-                        case Character.Type.NinaMapuche_1:
-                        case Character.Type.NinaMapuche_2:
-                                dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
-                            break;
-                    }
-                    dialogue.ShowRightNameplate();
-                    dialogue.ShowRightCharacterName(character.name);
-                    dialogue.HideLeftCharacter();
-                    dialogue.HideLeftNameplate();
-                    dialogue.HideLeftCharacterName();
-                },() => {
-                    dialogue.Hide();
-                    character.quest.questGoal.QuestCompleted();
-                    ResourceManager.instance.AddMoney(character.quest._moneyReward);
-                    OverworldManager.StartOvermapRunning();
-                },
-            }, true);
+    //    }
+    //    else if (character.quest.questGoal.CanComplete())
+    //    {
+    //        dialogue.SetDialogueActions(new List<Action>() {
+    //            () => {
+    //                dialogue.Show();
+    //                dialogue.ShowText(character.quest._completedDialogue);
+    //                switch (character.type)
+    //                {
+    //                    case Character.Type.QuestNpc_1:
+    //                            dialogue.ShowRightCharacter(GameAssets.i.npc_1DialogueSprite, false);
+    //                        break;
+    //                    case Character.Type.SoldadoMapuche_1:
+    //                    case Character.Type.SoldadoMapuche_2:
+    //                            dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
+    //                        break;
+    //                    case Character.Type.ViejaMachi:
+    //                            dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
+    //                        break;
+    //                    case Character.Type.HombreMapuche_1:
+    //                    case Character.Type.HombreMapuche_2:
+    //                            dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
+    //                        break;
+    //                    case Character.Type.MujerMapuche_1:
+    //                    case Character.Type.MujerMapuche_2:
+    //                            dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
+    //                        break;
+    //                    case Character.Type.NinoMapuche_1:
+    //                    case Character.Type.NinoMapuche_2:
+    //                            dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
+    //                        break;
+    //                    case Character.Type.NinaMapuche_1:
+    //                    case Character.Type.NinaMapuche_2:
+    //                            dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
+    //                        break;
+    //                }
+    //                dialogue.ShowRightNameplate();
+    //                dialogue.ShowRightCharacterName(character.name);
+    //                dialogue.HideLeftCharacter();
+    //                dialogue.HideLeftNameplate();
+    //                dialogue.HideLeftCharacterName();
+    //            },() => {
+    //                dialogue.Hide();
+    //                character.quest.questGoal.QuestCompleted();
+    //                ResourceManager.instance.AddMoney(character.quest._moneyReward);
+    //                OverworldManager.StartOvermapRunning();
+    //            },
+    //        }, true);
 
-        }
-        else if (character.quest.questGoal.questState == QuestGoal.QUESTSTATE.STARTED)
-        {
-            dialogue.SetDialogueActions(new List<Action>() {
-                () => {
-                    dialogue.Show();
-                    dialogue.ShowText(character.quest._inProgressDialogue);
-                    switch (character.type)
-                    {
-                        case Character.Type.QuestNpc_1:
-                                dialogue.ShowRightCharacter(GameAssets.i.npc_1DialogueSprite, false);
-                            break;
-                        case Character.Type.SoldadoMapuche_1:
-                                dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
-                            break;
-                        case Character.Type.SoldadoMapuche_2:
-                                dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
-                            break;
-                    }
-                    dialogue.ShowRightNameplate();
-                    dialogue.ShowRightCharacterName(character.name);
-                    dialogue.HideLeftCharacter();
-                    dialogue.HideLeftNameplate();
-                    dialogue.HideLeftCharacterName();
-                },() => {
-                    dialogue.Hide();
-                    OverworldManager.StartOvermapRunning();
-                },
-            }, true);
+    //    }
+    //    else if (character.quest.questGoal.questState == QuestGoal.QUESTSTATE.STARTED)
+    //    {
+    //        dialogue.SetDialogueActions(new List<Action>() {
+    //            () => {
+    //                dialogue.Show();
+    //                dialogue.ShowText(character.quest._inProgressDialogue);
+    //                switch (character.type)
+    //                {
+    //                    case Character.Type.QuestNpc_1:
+    //                            dialogue.ShowRightCharacter(GameAssets.i.npc_1DialogueSprite, false);
+    //                        break;
+    //                    case Character.Type.SoldadoMapuche_1:
+    //                            dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
+    //                        break;
+    //                    case Character.Type.SoldadoMapuche_2:
+    //                            dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
+    //                        break;
+    //                }
+    //                dialogue.ShowRightNameplate();
+    //                dialogue.ShowRightCharacterName(character.name);
+    //                dialogue.HideLeftCharacter();
+    //                dialogue.HideLeftNameplate();
+    //                dialogue.HideLeftCharacterName();
+    //            },() => {
+    //                dialogue.Hide();
+    //                OverworldManager.StartOvermapRunning();
+    //            },
+    //        }, true);
 
-        }
-    }
+    //    }
+    //}
 
     //public static void RandomNPCDialog(Character character)
     //{
@@ -162,67 +162,102 @@ public static class Dialogues
     //        },
     //    }, true);
     //}
-    public static void Play_Start(Character character)
+
+    public static void Play_StartViejaMachi(Character character)
     {
         OverworldManager.StopOvermapRunning();
         DialogueController dialogue = DialogueController.GetInstance();
-        dialogue.SetDialogueActions(new List<Action>() {
+        dialogue.SetDialogueActions(new List<Action>()
+        {
             () => {
                 dialogue.Show();
-                dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
-                dialogue.ShowText("Suyai, ¿así que estas cumpliendo el desafío para finalmente ser reconocida como Machi?");
-                dialogue.ShowRightCharacterName("Nehuen");
+                dialogue.ShowRightCharacter(GameAssets.i.npc_ViejaMachi, false);
+                dialogue.ShowText(character.npcDialogues.dialogues[0].dialogue[0]);
+                dialogue.ShowRightCharacterName(character.name);
                 dialogue.ShowRightNameplate();
                 dialogue.HideLeftCharacter();
                 dialogue.HideLeftNameplate();
                 dialogue.HideLeftCharacterName();
             },() => {
-                dialogue.ShowText("La Anciana ya nos ha puesto al corriente, y nos ha pedido que no te dejemos volver hasta que cumplas la tarea que se te ha encomendado, la que consiste en recolectar al menos 6 <q=herb> <c=greenHerb>hierbas.");
+                dialogue.ShowText(character.npcDialogues.dialogues[0].dialogue[1]);
             },() => {
-                dialogue.ShowText("Aunque no se muy bien como son capaces de diferenciarlas.");
+                dialogue.ShowText(character.npcDialogues.dialogues[0].dialogue[2]);
             },() => {
-                dialogue.ShowText("He oido que las Machis pueden distinguir facilmente los arbustos de donde poder sacar dichas hierbas.");
+                dialogue.ShowText(character.npcDialogues.dialogues[0].dialogue[3]);
             },() => {
-                dialogue.ShowText("Dicen que en los arbustos con <c=greenHerb> colores más vivos <c=normal> pueden crecer las plantas curativas, pero para mi, todos son del mismo color.");
+                dialogue.ShowText(character.npcDialogues.dialogues[0].dialogue[4]);
             },() => {
-                dialogue.ShowText("Ahora que te di ese consejo es hora de que empieces, no quiero quedarme haciendo guardia hasta el anochecer.");
-            },() => {
-                dialogue.ShowText("Si no sabes por donde empezar, podrias usar WASD o las Flechas direccionales para explorar la zona.");
-            },() => {
-                dialogue.ShowText("Si ves algo sospechoso, no dudes en inspeccionarlo con SPACE.");
-            },() => {
-                dialogue.ShowText("Por ultimo, puedes organizarte apretando ENTER.");
+                dialogue.Hide();
+                OverworldManager.StartOvermapRunning();
             },
+        }, true);
+    }
+
+    public static void Play_ViejaMachiQuest(Character character)
+    {
+        OverworldManager.StopOvermapRunning();
+        DialogueController dialogue = DialogueController.GetInstance();
+        dialogue.SetDialogueActions(new List<Action>()
+        {
             () => {
+                dialogue.Show();
+                dialogue.ShowRightCharacter(GameAssets.i.npc_ViejaMachi, false);
+                dialogue.ShowText(character.npcDialogues.dialogues[1].dialogue[0]);
+                dialogue.ShowRightCharacterName(character.name);
+                dialogue.ShowRightNameplate();
+                dialogue.HideLeftCharacter();
+                dialogue.HideLeftNameplate();
+                dialogue.HideLeftCharacterName();
+            },() => {
+                dialogue.ShowText(character.npcDialogues.dialogues[1].dialogue[1]);
+            },() => {
+                dialogue.ShowText(character.npcDialogues.dialogues[1].dialogue[2]);
+            },() => {
+                dialogue.ShowText(character.npcDialogues.dialogues[1].dialogue[3]);
+            },() => {
+                dialogue.ShowText(character.npcDialogues.dialogues[1].dialogue[4]);
+            },() => {
+                dialogue.ShowText(character.npcDialogues.dialogues[1].dialogue[5]);
+            },() => {
+                dialogue.ShowText(character.npcDialogues.dialogues[1].dialogue[6]);
+            },() => {
+                dialogue.ShowText(character.npcDialogues.dialogues[1].dialogue[7]);
+            },() => {
+                dialogue.ShowText(character.npcDialogues.dialogues[1].dialogue[8]);
+            },() => {
                 dialogue.Hide();
                 character.quest.questGoal.QuestStarted();
                 QuestManager.instance.quests.Add(character.quest);
+                GameData.state = GameData.State.AlreadyTalkedWithViejaMachi;
+                ZoneManager.instance.ActivateColliderAldeaToBosque();
                 OverworldManager.StartOvermapRunning();
             },
         }, true);
     }
-    public static void TestDialogue_1(Character character)
+
+    public static void Play_ViejaMachiQuestPending(Character character)
     {
         OverworldManager.StopOvermapRunning();
         DialogueController dialogue = DialogueController.GetInstance();
-        dialogue.SetDialogueActions(new List<Action>() {
+        dialogue.SetDialogueActions(new List<Action>()
+        {
             () => {
                 dialogue.Show();
-                dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
-                dialogue.ShowText("Ya no hay nada mas que pueda decirte Suyai, ¡Mucha Suerte!");
-                dialogue.ShowRightCharacterName("Nehuen");
+                dialogue.ShowRightCharacter(GameAssets.i.npc_ViejaMachi, false);
+                dialogue.ShowText(character.npcDialogues.dialogues[2].dialogue[0]);
+                dialogue.ShowRightCharacterName(character.name);
                 dialogue.ShowRightNameplate();
                 dialogue.HideLeftCharacter();
                 dialogue.HideLeftNameplate();
                 dialogue.HideLeftCharacterName();
-            },
-            () => {
+            },() => {
                 dialogue.Hide();
                 OverworldManager.StartOvermapRunning();
             },
         }, true);
     }
-    public static void TestDialogue_2(Character character)
+
+    public static void Play_SoldadoAdvertenciaAntesDeHablarConMachi(Character character)
     {
         OverworldManager.StopOvermapRunning();
         DialogueController dialogue = DialogueController.GetInstance();
@@ -238,12 +273,19 @@ public static class Dialogues
                 dialogue.HideLeftCharacterName();
             },
             () => {
+                dialogue.ShowText(character.npcDialogues.dialogues[0].dialogue[1]);
+            },
+            () => {
+                dialogue.ShowText(character.npcDialogues.dialogues[0].dialogue[2]);
+            },
+            () => {
                 dialogue.Hide();
                 OverworldManager.StartOvermapRunning();
             },
         }, true);
     }
-    public static void TestDialogue_3()
+
+    public static void Play_SoldadoAdvertenciaBosque(NPCOverworld npc)
     {
         OverworldManager.StopOvermapRunning();
         DialogueController dialogue = DialogueController.GetInstance();
@@ -251,8 +293,40 @@ public static class Dialogues
             () => {
                 dialogue.Show();
                 dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
-                dialogue.ShowText("Finalmente, has completado la misión que se te ha encomendado, vamos a la aldea.");
-                dialogue.ShowRightCharacterName("Nehuen");
+                dialogue.ShowText(npc.GetCharacter().npcDialogues.dialogues[1].dialogue[0]);
+                dialogue.ShowRightCharacterName(npc.GetCharacter().name);
+                dialogue.ShowRightNameplate();
+                dialogue.HideLeftCharacter();
+                dialogue.HideLeftNameplate();
+                dialogue.HideLeftCharacterName();
+            },
+            () => {
+                dialogue.ShowText(npc.GetCharacter().npcDialogues.dialogues[1].dialogue[1]);
+            },
+            () => {
+                dialogue.ShowText(npc.GetCharacter().npcDialogues.dialogues[1].dialogue[2]);
+            },
+            () => {
+                dialogue.ShowText(npc.GetCharacter().npcDialogues.dialogues[1].dialogue[3]);
+            },
+            () => {
+                dialogue.Hide();
+                npc.SetTalkForTheFirstTime();
+                OverworldManager.StartOvermapRunning();
+            },
+        }, true);
+    }
+
+    public static void Play_SoldadoBuenaSuerte(Character character)
+    {
+        OverworldManager.StopOvermapRunning();
+        DialogueController dialogue = DialogueController.GetInstance();
+        dialogue.SetDialogueActions(new List<Action>() {
+            () => {
+                dialogue.Show();
+                dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
+                dialogue.ShowText(character.npcDialogues.dialogues[2].dialogue[0]);
+                dialogue.ShowRightCharacterName(character.name);
                 dialogue.ShowRightNameplate();
                 dialogue.HideLeftCharacter();
                 dialogue.HideLeftNameplate();
@@ -261,7 +335,426 @@ public static class Dialogues
             () => {
                 dialogue.Hide();
                 OverworldManager.StartOvermapRunning();
-                UnityEngine.Application.Quit();
+            },
+        }, true);
+    }
+
+    public static void Play_Hombre01(NPCOverworld npc)
+    {
+        OverworldManager.StopOvermapRunning();
+        DialogueController dialogue = DialogueController.GetInstance();
+        dialogue.SetDialogueActions(new List<Action>() {
+            () => {
+                dialogue.Show();
+                dialogue.ShowRightCharacter(GameAssets.i.npc_HombreMapuche, false);
+                dialogue.ShowText(npc.GetCharacter().npcDialogues.dialogues[0].dialogue[0]);
+                dialogue.ShowRightCharacterName(npc.GetCharacter().name);
+                dialogue.ShowRightNameplate();
+                dialogue.HideLeftCharacter();
+                dialogue.HideLeftNameplate();
+                dialogue.HideLeftCharacterName();
+            },
+            () => {
+                dialogue.ShowText(npc.GetCharacter().npcDialogues.dialogues[0].dialogue[1]);
+            },
+            () => {
+                dialogue.ShowText(npc.GetCharacter().npcDialogues.dialogues[0].dialogue[2]);
+            },
+            () => {
+                dialogue.Hide();
+                npc.SetTalkForTheFirstTime();
+                OverworldManager.StartOvermapRunning();
+            },
+        }, true);
+    }
+
+    public static void Play_Hombre01Repeat(NPCOverworld npc)
+    {
+        OverworldManager.StopOvermapRunning();
+        DialogueController dialogue = DialogueController.GetInstance();
+        dialogue.SetDialogueActions(new List<Action>() {
+            () => {
+                dialogue.Show();
+                dialogue.ShowRightCharacter(GameAssets.i.npc_HombreMapuche, false);
+                dialogue.ShowText(npc.GetCharacter().npcDialogues.dialogues[1].dialogue[0]);
+                dialogue.ShowRightCharacterName(npc.GetCharacter().name);
+                dialogue.ShowRightNameplate();
+                dialogue.HideLeftCharacter();
+                dialogue.HideLeftNameplate();
+                dialogue.HideLeftCharacterName();
+            },
+            () => {
+                dialogue.Hide();
+                OverworldManager.StartOvermapRunning();
+            },
+        }, true);
+    }
+
+    public static void Play_Hombre02(NPCOverworld npc)
+    {
+        OverworldManager.StopOvermapRunning();
+        DialogueController dialogue = DialogueController.GetInstance();
+        dialogue.SetDialogueActions(new List<Action>() {
+            () => {
+                dialogue.Show();
+                dialogue.ShowRightCharacter(GameAssets.i.npc_HombreMapuche, false);
+                dialogue.ShowText(npc.GetCharacter().npcDialogues.dialogues[0].dialogue[0]);
+                dialogue.ShowRightCharacterName(npc.GetCharacter().name);
+                dialogue.ShowRightNameplate();
+                dialogue.HideLeftCharacter();
+                dialogue.HideLeftNameplate();
+                dialogue.HideLeftCharacterName();
+            },
+            () => {
+                dialogue.ShowText(npc.GetCharacter().npcDialogues.dialogues[0].dialogue[1]);
+            },
+            () => {
+                dialogue.Hide();
+                npc.SetTalkForTheFirstTime();
+                OverworldManager.StartOvermapRunning();
+            },
+        }, true);
+    }
+
+    public static void Play_Hombre02Repeat(NPCOverworld npc)
+    {
+        OverworldManager.StopOvermapRunning();
+        DialogueController dialogue = DialogueController.GetInstance();
+        dialogue.SetDialogueActions(new List<Action>() {
+            () => {
+                dialogue.Show();
+                dialogue.ShowRightCharacter(GameAssets.i.npc_HombreMapuche, false);
+                dialogue.ShowText(npc.GetCharacter().npcDialogues.dialogues[1].dialogue[0]);
+                dialogue.ShowRightCharacterName(npc.GetCharacter().name);
+                dialogue.ShowRightNameplate();
+                dialogue.HideLeftCharacter();
+                dialogue.HideLeftNameplate();
+                dialogue.HideLeftCharacterName();
+            },
+            () => {
+                dialogue.Hide();
+                OverworldManager.StartOvermapRunning();
+            },
+        }, true);
+    }
+
+    public static void Play_Mujer01(NPCOverworld npc)
+    {
+        OverworldManager.StopOvermapRunning();
+        DialogueController dialogue = DialogueController.GetInstance();
+        dialogue.SetDialogueActions(new List<Action>() {
+            () => {
+                dialogue.Show();
+                dialogue.ShowRightCharacter(GameAssets.i.npc_MujerMapuche, false);
+                dialogue.ShowText(npc.GetCharacter().npcDialogues.dialogues[0].dialogue[0]);
+                dialogue.ShowRightCharacterName(npc.GetCharacter().name);
+                dialogue.ShowRightNameplate();
+                dialogue.HideLeftCharacter();
+                dialogue.HideLeftNameplate();
+                dialogue.HideLeftCharacterName();
+            },
+            () => {
+                dialogue.Hide();
+                npc.SetTalkForTheFirstTime();
+                OverworldManager.StartOvermapRunning();
+            },
+        }, true);
+    }
+
+    public static void Play_Mujer01Repeat(NPCOverworld npc)
+    {
+        OverworldManager.StopOvermapRunning();
+        DialogueController dialogue = DialogueController.GetInstance();
+        dialogue.SetDialogueActions(new List<Action>() {
+            () => {
+                dialogue.Show();
+                dialogue.ShowRightCharacter(GameAssets.i.npc_MujerMapuche, false);
+                dialogue.ShowText(npc.GetCharacter().npcDialogues.dialogues[1].dialogue[0]);
+                dialogue.ShowRightCharacterName(npc.GetCharacter().name);
+                dialogue.ShowRightNameplate();
+                dialogue.HideLeftCharacter();
+                dialogue.HideLeftNameplate();
+                dialogue.HideLeftCharacterName();
+            },
+            () => {
+                dialogue.ShowText(npc.GetCharacter().npcDialogues.dialogues[1].dialogue[1]);
+            },
+            () => {
+                dialogue.Hide();
+                OverworldManager.StartOvermapRunning();
+            },
+        }, true);
+    }
+
+    public static void Play_Mujer02(NPCOverworld npc)
+    {
+        OverworldManager.StopOvermapRunning();
+        DialogueController dialogue = DialogueController.GetInstance();
+        dialogue.SetDialogueActions(new List<Action>() {
+            () => {
+                dialogue.Show();
+                dialogue.ShowRightCharacter(GameAssets.i.npc_MujerMapuche, false);
+                dialogue.ShowText(npc.GetCharacter().npcDialogues.dialogues[0].dialogue[0]);
+                dialogue.ShowRightCharacterName(npc.GetCharacter().name);
+                dialogue.ShowRightNameplate();
+                dialogue.HideLeftCharacter();
+                dialogue.HideLeftNameplate();
+                dialogue.HideLeftCharacterName();
+            },
+            () => {
+                dialogue.ShowText(npc.GetCharacter().npcDialogues.dialogues[0].dialogue[1]);
+            },
+            () => {
+                dialogue.ShowText(npc.GetCharacter().npcDialogues.dialogues[0].dialogue[2]);
+            },
+            () => {
+                dialogue.Hide();
+                npc.SetTalkForTheFirstTime();
+                OverworldManager.StartOvermapRunning();
+            },
+        }, true);
+    }
+
+    public static void Play_Mujer02Repeat(NPCOverworld npc)
+    {
+        OverworldManager.StopOvermapRunning();
+        DialogueController dialogue = DialogueController.GetInstance();
+        dialogue.SetDialogueActions(new List<Action>() {
+            () => {
+                dialogue.Show();
+                dialogue.ShowRightCharacter(GameAssets.i.npc_MujerMapuche, false);
+                dialogue.ShowText(npc.GetCharacter().npcDialogues.dialogues[1].dialogue[0]);
+                dialogue.ShowRightCharacterName(npc.GetCharacter().name);
+                dialogue.ShowRightNameplate();
+                dialogue.HideLeftCharacter();
+                dialogue.HideLeftNameplate();
+                dialogue.HideLeftCharacterName();
+            },
+            () => {
+                dialogue.ShowText(npc.GetCharacter().npcDialogues.dialogues[1].dialogue[1]);
+            },
+            () => {
+                dialogue.Hide();
+                OverworldManager.StartOvermapRunning();
+            },
+        }, true);
+    }
+
+    public static void Play_Nino01(NPCOverworld npc)
+    {
+        OverworldManager.StopOvermapRunning();
+        DialogueController dialogue = DialogueController.GetInstance();
+        dialogue.SetDialogueActions(new List<Action>() {
+            () => {
+                dialogue.Show();
+                dialogue.ShowRightCharacter(GameAssets.i.npc_NinoMapuche, false);
+                dialogue.ShowText(npc.GetCharacter().npcDialogues.dialogues[0].dialogue[0]);
+                dialogue.ShowRightCharacterName(npc.GetCharacter().name);
+                dialogue.ShowRightNameplate();
+                dialogue.HideLeftCharacter();
+                dialogue.HideLeftNameplate();
+                dialogue.HideLeftCharacterName();
+            },
+
+            () => {
+                dialogue.Hide();
+                npc.SetTalkForTheFirstTime();
+                OverworldManager.StartOvermapRunning();
+            },
+        }, true);
+    }
+
+    public static void Play_Nino01Repeat(NPCOverworld npc)
+    {
+        OverworldManager.StopOvermapRunning();
+        DialogueController dialogue = DialogueController.GetInstance();
+        dialogue.SetDialogueActions(new List<Action>() {
+            () => {
+                dialogue.Show();
+                dialogue.ShowRightCharacter(GameAssets.i.npc_NinoMapuche, false);
+                dialogue.ShowText(npc.GetCharacter().npcDialogues.dialogues[0].dialogue[1]);
+                dialogue.ShowRightCharacterName(npc.GetCharacter().name);
+                dialogue.ShowRightNameplate();
+                dialogue.HideLeftCharacter();
+                dialogue.HideLeftNameplate();
+                dialogue.HideLeftCharacterName();
+            },
+
+            () => {
+                dialogue.Hide();
+                OverworldManager.StartOvermapRunning();
+            },
+        }, true);
+    }
+
+    public static void Play_Nino02(NPCOverworld npc)
+    {
+        OverworldManager.StopOvermapRunning();
+        DialogueController dialogue = DialogueController.GetInstance();
+        dialogue.SetDialogueActions(new List<Action>() {
+            () => {
+                dialogue.Show();
+                dialogue.ShowRightCharacter(GameAssets.i.npc_NinoMapuche, false);
+                dialogue.ShowText(npc.GetCharacter().npcDialogues.dialogues[0].dialogue[0]);
+                dialogue.ShowRightCharacterName(npc.GetCharacter().name);
+                dialogue.ShowRightNameplate();
+                dialogue.HideLeftCharacter();
+                dialogue.HideLeftNameplate();
+                dialogue.HideLeftCharacterName();
+            },
+
+            () => {
+                dialogue.Hide();
+                npc.SetTalkForTheFirstTime();
+                OverworldManager.StartOvermapRunning();
+            },
+        }, true);
+    }
+
+    public static void Play_Nino02Repeat(NPCOverworld npc)
+    {
+        OverworldManager.StopOvermapRunning();
+        DialogueController dialogue = DialogueController.GetInstance();
+        dialogue.SetDialogueActions(new List<Action>() {
+            () => {
+                dialogue.Show();
+                dialogue.ShowRightCharacter(GameAssets.i.npc_NinoMapuche, false);
+                dialogue.ShowText(npc.GetCharacter().npcDialogues.dialogues[0].dialogue[1]);
+                dialogue.ShowRightCharacterName(npc.GetCharacter().name);
+                dialogue.ShowRightNameplate();
+                dialogue.HideLeftCharacter();
+                dialogue.HideLeftNameplate();
+                dialogue.HideLeftCharacterName();
+            },
+
+            () => {
+                dialogue.Hide();
+                npc.SetTalkForTheFirstTime();
+                OverworldManager.StartOvermapRunning();
+            },
+        }, true);
+    }
+
+    public static void Play_Nina01(NPCOverworld npc)
+    {
+        OverworldManager.StopOvermapRunning();
+        DialogueController dialogue = DialogueController.GetInstance();
+        dialogue.SetDialogueActions(new List<Action>() {
+            () => {
+                dialogue.Show();
+                dialogue.ShowRightCharacter(GameAssets.i.npc_NinaMapuche, false);
+                dialogue.ShowText(npc.GetCharacter().npcDialogues.dialogues[0].dialogue[0]);
+                dialogue.ShowRightCharacterName(npc.GetCharacter().name);
+                dialogue.ShowRightNameplate();
+                dialogue.HideLeftCharacter();
+                dialogue.HideLeftNameplate();
+                dialogue.HideLeftCharacterName();
+            },
+            () => {
+                dialogue.ShowText(npc.GetCharacter().npcDialogues.dialogues[0].dialogue[1]);
+            },
+            () => {
+                dialogue.Hide();
+                npc.SetTalkForTheFirstTime();
+                OverworldManager.StartOvermapRunning();
+            },
+        }, true);
+    }
+
+    public static void Play_Nina01Repeat(NPCOverworld npc)
+    {
+        OverworldManager.StopOvermapRunning();
+        DialogueController dialogue = DialogueController.GetInstance();
+        dialogue.SetDialogueActions(new List<Action>() {
+            () => {
+                dialogue.Show();
+                dialogue.ShowRightCharacter(GameAssets.i.npc_NinaMapuche, false);
+                dialogue.ShowText(npc.GetCharacter().npcDialogues.dialogues[0].dialogue[2]);
+                dialogue.ShowRightCharacterName(npc.GetCharacter().name);
+                dialogue.ShowRightNameplate();
+                dialogue.HideLeftCharacter();
+                dialogue.HideLeftNameplate();
+                dialogue.HideLeftCharacterName();
+            },
+            () => {
+                dialogue.Hide();
+                OverworldManager.StartOvermapRunning();
+            },
+        }, true);
+    }
+
+    public static void Play_Nina02(NPCOverworld npc)
+    {
+        OverworldManager.StopOvermapRunning();
+        DialogueController dialogue = DialogueController.GetInstance();
+        dialogue.SetDialogueActions(new List<Action>() {
+            () => {
+                dialogue.Show();
+                dialogue.ShowRightCharacter(GameAssets.i.npc_NinaMapuche, false);
+                dialogue.ShowText(npc.GetCharacter().npcDialogues.dialogues[0].dialogue[0]);
+                dialogue.ShowRightCharacterName(npc.GetCharacter().name);
+                dialogue.ShowRightNameplate();
+                dialogue.HideLeftCharacter();
+                dialogue.HideLeftNameplate();
+                dialogue.HideLeftCharacterName();
+            },
+            () => {
+                dialogue.ShowText(npc.GetCharacter().npcDialogues.dialogues[0].dialogue[1]);
+            },
+            () => {
+                dialogue.Hide();
+                npc.SetTalkForTheFirstTime();
+                OverworldManager.StartOvermapRunning();
+            },
+        }, true);
+    }
+
+    public static void Play_Nina02Repeat(NPCOverworld npc)
+    {
+        OverworldManager.StopOvermapRunning();
+        DialogueController dialogue = DialogueController.GetInstance();
+        dialogue.SetDialogueActions(new List<Action>() {
+            () => {
+                dialogue.Show();
+                dialogue.ShowRightCharacter(GameAssets.i.npc_NinaMapuche, false);
+                dialogue.ShowText(npc.GetCharacter().npcDialogues.dialogues[0].dialogue[2]);
+                dialogue.ShowRightCharacterName(npc.GetCharacter().name);
+                dialogue.ShowRightNameplate();
+                dialogue.HideLeftCharacter();
+                dialogue.HideLeftNameplate();
+                dialogue.HideLeftCharacterName();
+            },
+            () => {
+                dialogue.Hide();
+                OverworldManager.StartOvermapRunning();
+            },
+        }, true);
+    }
+
+
+
+
+
+    public static void Play_TrenTrenBeforeBattle(Character character)
+    {
+        OverworldManager.StopOvermapRunning();
+        DialogueController dialogue = DialogueController.GetInstance();
+        dialogue.SetDialogueActions(new List<Action>() 
+        {
+            () => {
+                dialogue.Show();
+                dialogue.ShowRightCharacter(GameAssets.i.trenTrenSprite, false);
+                dialogue.ShowText("Tu chica, por favor, ayúdame.");
+                dialogue.ShowRightCharacterName("TrenTren");
+                dialogue.ShowRightNameplate();
+                dialogue.HideLeftCharacter();
+                dialogue.HideLeftNameplate();
+                dialogue.HideLeftCharacterName();
+            },
+            () => {
+                GameData.state = GameData.State.SavingTrenTren;
+                SoundManager.PlaySound(SoundManager.Sound.BattleTransition);
+                Battle.LoadEnemyEncounter(character, character.enemyEncounter);
             },
         }, true);
     }

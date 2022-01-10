@@ -22,11 +22,11 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
-        AddItem(new Item(Item.ItemType.MedicinalHerbs, 1));
-        AddItem(new Item(Item.ItemType.MedicinalHerbs, 1));
-        AddItem(new Item(Item.ItemType.MedicinalHerbs, 1));
-        AddItem(new Item(Item.ItemType.MedicinalHerbs, 1));
-        AddItem(new Item(Item.ItemType.MedicinalHerbs, 1));
+        //AddItem(new Item(Item.ItemType.MedicinalHerbs, 1));
+        //AddItem(new Item(Item.ItemType.MedicinalHerbs, 1));
+        //AddItem(new Item(Item.ItemType.MedicinalHerbs, 1));
+        //AddItem(new Item(Item.ItemType.MedicinalHerbs, 1));
+        //AddItem(new Item(Item.ItemType.MedicinalHerbs, 1));
         AddItem(new Item(Item.ItemType.Weapon_1));
         AddItem(new Item(Item.ItemType.Armor_1));
         AddItem(new Item(Item.ItemType.Helmet_1));

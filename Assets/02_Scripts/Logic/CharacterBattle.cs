@@ -120,6 +120,15 @@ public class CharacterBattle : MonoBehaviour
             case Character.Type.Lancero:
                 anim.runtimeAnimatorController = GameAssets.i.lanceroANIM;
                 break;
+            case Character.Type.Anchimallen:
+                anim.runtimeAnimatorController = GameAssets.i.anchimallenBattleANIM;
+                break;
+            case Character.Type.Guirivilo:
+                anim.runtimeAnimatorController = GameAssets.i.guiriviloANIM;
+                break;
+            case Character.Type.Piuchen:
+                anim.runtimeAnimatorController = GameAssets.i.piuchenANIM;
+                break;
         }
 
         if (isPlayerTeam)

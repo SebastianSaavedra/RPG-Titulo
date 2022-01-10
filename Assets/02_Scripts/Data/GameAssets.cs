@@ -37,6 +37,8 @@ public class GameAssets : MonoBehaviour
     public Transform pfWeaponTEST;
     public Transform pfChatBubbleUI;
     public Transform pfChatOption;
+    public Transform pfTrenTren;
+    public Transform pfCaiCai;
     public RectTransform pf_ItemSlot;
     //public Transform pfPopUpWindow;
     //public Transform pfPopUpWindowButton;
@@ -46,11 +48,11 @@ public class GameAssets : MonoBehaviour
 
     public RuntimeAnimatorController suyaiBATTLEANIM;
     public RuntimeAnimatorController pedroBATTLEANIM, aranaBATTLEANIM, antayBATTLEANIM,chillpilaBATTLEANIM,suyaiOVERWORLDANIM, pedroOVERWORLDANIM, aranaOVERWORLDANIM, antayOVERWORLDANIM, chillpilaOVERWORLDANIM;
-    public RuntimeAnimatorController testEnemyANIM,fusileroANIM,lanceroANIM;
+    public RuntimeAnimatorController testEnemyANIM,fusileroANIM,lanceroANIM,anchimallenBattleANIM, anchimallenOverworldANIM, guiriviloANIM,piuchenANIM;
 
 
     public Sprite testEnemySprite;
-    public Sprite fusileroOWSprite,lanceroOWSprite;
+    public Sprite fusileroOWSprite, lanceroOWSprite, anchimallenOWSprite, guiriviloOWSprite, piuchenOWSprite, trenTrenSprite, caiCaiSprite;
 
     public Sprite questNpc_1, warriorNPC,npc_SHOP,npc_ViejaMachi,npc_HombreMapuche,npc_MujerMapuche,npc_NinoMapuche,npc_NinaMapuche;
     public Sprite spriteOWPedro, spriteOWArana, spriteOWChillpila, spriteOWAntay;

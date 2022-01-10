@@ -148,6 +148,11 @@ public class FollowerOverworld : MonoBehaviour
         state = State.Normal;
     }
 
+    public Vector3 GetOffset()
+    {
+        return followOffset;
+    }
+
     //private void UseItem(Item item)
     //{
     //    switch (item.GetItemType())
@@ -165,12 +170,12 @@ public class FollowerOverworld : MonoBehaviour
         {
             aiPath.maxSpeed = SPEED;
             SetTargetMovePosition(playerOvermap.GetPosition() - followOffset);
-            Debug.Log("Muy Lejos");
+            //Debug.Log("Muy Lejos");
         }
         //float tooCloseDistance = 1f;
         if (Vector3.Distance(GetPosition(), playerOvermap.GetPosition()) < aiPath.endReachedDistance)
         {
-            Debug.Log("Muy cerca");
+            //Debug.Log("Muy cerca");
             aiPath.maxSpeed = 0;
             //SetTargetMovePosition(GetPosition());
         }
@@ -189,7 +194,7 @@ public class FollowerOverworld : MonoBehaviour
         bool isIdle = aiPath.maxSpeed == 0;
         if (isIdle)
         {
-            Debug.Log(character.type + " en Idle");
+            //Debug.Log(character.type + " en Idle");
             charAnim.PlayAnimIdle();
         }
         else

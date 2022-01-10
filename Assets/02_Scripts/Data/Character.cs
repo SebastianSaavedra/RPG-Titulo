@@ -18,10 +18,15 @@ public class Character
             case Type.Chillpila:
 
             case Type.Jefe1:
+            case Type.TrenTren:
+            case Type.CaiCai:
                 return true;
             case Type.TESTENEMY:
             case Type.Fusilero:
             case Type.Lancero:
+            case Type.Anchimallen:
+            case Type.Guirivilo:
+            case Type.Piuchen:
                 return false;
         }
     }
@@ -49,6 +54,9 @@ public class Character
         TESTENEMY,
         Fusilero,
         Lancero,
+        Anchimallen,
+        Guirivilo,
+        Piuchen,
 
 
         Jefe1,
@@ -68,6 +76,9 @@ public class Character
         NinoMapuche_2,
         NinaMapuche_1,
         NinaMapuche_2,
+        TrenTren,
+        CaiCai,
+
 
 
 
@@ -233,6 +244,50 @@ public class Character
                 };
                 break;
 
+            case Type.Anchimallen:
+                stats = new Stats
+                {
+                    attack = 18,
+                    health = 75,
+                    healthMax = 75,
+                    defense = 0,
+                    critChance = 5,
+                    damageChance = 95,
+                };
+                break;
+
+            case Type.Guirivilo:
+                stats = new Stats
+                {
+                    attack = 20,
+                    health = 75,
+                    healthMax = 75,
+                    defense = 1,
+                    critChance = 5,
+                    damageChance = 95,
+                };
+                break;
+
+            case Type.Piuchen:
+                stats = new Stats
+                {
+                    attack = 22,
+                    health = 80,
+                    healthMax = 80,
+                    defense = 1,
+                    critChance = 5,
+                    damageChance = 95,
+                };
+                break;
+
+            case Type.TrenTren:
+                stats = new Stats
+                {
+                    health = 1000,
+                    healthMax = 1000,
+                };
+                break;
+
 
 
 
@@ -302,6 +357,9 @@ public class Character
             case Type.Fusilero:
             case Type.Lancero:
             case Type.Jefe1:
+            case Type.Anchimallen:
+            case Type.Guirivilo:
+            case Type.Piuchen:
                 return true;
         }
     }

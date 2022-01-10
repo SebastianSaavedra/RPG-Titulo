@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - PlayerZoneTrigger
   layers:
   - Default
   - TransparentFX
@@ -12,8 +13,8 @@ TagManager:
   - Water
   - UI
   - CameraConstraint
-  - 
-  - 
+  - ZoneTrigger
+  - Player
   - 
   - 
   - 

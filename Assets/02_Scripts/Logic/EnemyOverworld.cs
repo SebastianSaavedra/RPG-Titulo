@@ -92,6 +92,15 @@ public class EnemyOverworld : MonoBehaviour
             case Character.Type.Lancero:
                 sprite.sprite = GameAssets.i.lanceroOWSprite;
                 break;
+            case Character.Type.Anchimallen:
+                sprite.sprite = GameAssets.i.anchimallenOWSprite;
+                break;
+            case Character.Type.Guirivilo:
+                sprite.sprite = GameAssets.i.guiriviloOWSprite;
+                break;
+            case Character.Type.Piuchen:
+                sprite.sprite = GameAssets.i.piuchenOWSprite;
+                break;
         }
         transform.localScale = Vector3.one * 0.75f;
         spawnPosition = GetPosition();
@@ -211,12 +220,12 @@ public class EnemyOverworld : MonoBehaviour
             // Player within find target range
             SetTargetMovePosition(playerOvermap.GetPosition());
             huntingPlayer = true;
-            Debug.Log("Hunting player: " + huntingPlayer);
+            //Debug.Log("Hunting player: " + huntingPlayer);
         }
         else
         {
             huntingPlayer = false;
-            Debug.Log("Hunting player: " + huntingPlayer);
+            //Debug.Log("Hunting player: " + huntingPlayer);
         }
     }
 
@@ -240,7 +249,7 @@ public class EnemyOverworld : MonoBehaviour
         bool isIdle = direction.x == 0 && direction.y == 0;
         if (isIdle)
         {
-            Debug.Log(character.type + " Quieto");
+            //Debug.Log(character.type + " Quieto");
             //charAnim.PlayAnimIdle();
         }
         else

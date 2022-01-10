@@ -7,8 +7,10 @@ public static class GameData
 {
     public enum State
     {
-        Start,
-        Testing,
+        Intro,
+        Starting,
+        AlreadyTalkedWithViejaMachi,
+        SavingTrenTren,
         GameOver,
     }
 
@@ -30,7 +32,7 @@ public static class GameData
         //Debug.Log("Se iniciaron los datos del GAMEDATA");
         isInit = true;
         SoundManager.Initialize();
-        state = State.Start;
+        state = State.Intro;
         nombresMasculinosMapucheArray = new string[] 
         {
             "Nahuel",
@@ -193,25 +195,6 @@ public static class GameData
         }
         return null;
     }
-
-
-    //public static bool TrySpendHealthPotion()
-    //{
-    //    if (healthPotionCount > 0)
-    //    {
-    //        healthPotionCount--;
-    //        return true;
-    //    }
-    //    else
-    //    {
-    //        return false;
-    //    }
-    //}
-
-
-
-
-
 
     //Encuentro con enemigo/s
     [Serializable]

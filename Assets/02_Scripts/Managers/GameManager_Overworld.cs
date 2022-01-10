@@ -19,13 +19,7 @@ public class GameManager_Overworld : MonoBehaviour
 
     private void Start()
     {
-
-        //gridPathfinding = new GridPathfinding(new Vector3(-400, -400), new Vector3(400, 400), 5f);
-        //gridPathfinding.RaycastWalkable();
-
         OverworldManager.GetInstance().Start();
-
-        //cameraFollow.Setup(GetCameraPosition, () => cameraZoom, true, true);
     }
 
     private void Update()

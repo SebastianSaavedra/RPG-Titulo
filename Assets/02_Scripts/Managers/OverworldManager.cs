@@ -37,7 +37,7 @@ public class OverworldManager
 
     private PlayerOverworld playerOvermap;
 
-    static Transform firstFollowerSpawn;
+    private Character trenTrenChar;
 
     private bool overmapRunning;
     private List<EnemyOverworld> enemyList;
@@ -121,6 +121,15 @@ public class OverworldManager
                     npcOverworld = SpawnNPC(character);
                     break;
 
+                case Character.Type.TrenTren:
+                    Transform pfTren = GameObject.Instantiate(GameAssets.i.pfTrenTren, new Vector2(142.98f, -11.92f), Quaternion.identity);
+                    pfTren.localScale = Vector3.one * 2.440773f;
+                    trenTrenChar = character;
+                    break;
+                case Character.Type.CaiCai:
+                    GameObject.Instantiate(GameAssets.i.pfCaiCai, GameAssets.i.pfCaiCai.transform.position, Quaternion.identity);
+                    break;
+
                 case Character.Type.Shop:
                     npcOverworld = SpawnNPC(character);
                     break;
@@ -128,11 +137,11 @@ public class OverworldManager
 
             switch (GameData.state)
             {
-                case GameData.State.Start:
-                    if (character.type == Character.Type.SoldadoMapuche_1)
+                case GameData.State.Intro:
+                    if (character.type == Character.Type.ViejaMachi)
                     {
-                        Dialogues.Play_Start(character);
-                        GameData.state = GameData.State.Testing;
+                        Dialogues.Play_StartViejaMachi(character);
+                        GameData.state = GameData.State.Starting;
                     }
                     break;
             }
@@ -143,38 +152,16 @@ public class OverworldManager
             if (item.IsDestroyed()) continue;
             SpawnItem(item);
         }
-
-
-        //switch (GameData.state)
-        //{
-        //    case GameData.State.Start:
-        //        Dialogues.Play_Start();
-        //        GameData.state = GameData.State.Testing;
-        //        break;
-        //}
-
-
-        //transform.Find("Map").Find("Hitboxes").Find("TavernEntryHitbox").gameObject.SetActive(((int)GameData.state) < ((int)GameData.State.DefeatedTank));
-        //transform.Find("Map").Find("Hitboxes").Find("HurtMeDaddyHitbox").gameObject.SetActive(((int)GameData.state) < ((int)GameData.State.DefeatedHurtMeDaddy));
-        //transform.Find("Map").Find("Hitboxes").Find("HurtMeDaddy2Hitbox").gameObject.SetActive(((int)GameData.state) < ((int)GameData.State.DefeatedHurtMeDaddy_2));
-        //transform.Find("Map").Find("Hitboxes").Find("CastleBlockageHitbox").gameObject.SetActive(((int)GameData.state) < ((int)GameData.State.LostToEvilMonster_2));
-
-        //transform.Find("Map").Find("VillagerBlocker").gameObject.SetActive(((int)GameData.state) < ((int)GameData.State.DefeatedTank));
-
-        //transform.Find("Map").Find("Blockage").gameObject.SetActive(((int)GameData.state) < ((int)GameData.State.LostToEvilMonster_2));
-
-        ////transform.Find("Map").Find("Hitboxes").Find("HurtMeDaddyHitbox").GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
-        ////transform.Find("Map").Find("Hitboxes").Find("HurtMeDaddy2Hitbox").GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
-
-        //foreach (Transform hitboxTransform in transform.Find("Map").Find("Hitboxes"))
-        //{
-        //    hitboxTransform.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
-        //}
     }
 
     private void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
         Inventory.instance.ResetBattleItemList();
+    }
+
+    public Character GetTrenTrenCharacter()
+    {
+        return trenTrenChar;
     }
 
     string GetRandomString(string genero)
