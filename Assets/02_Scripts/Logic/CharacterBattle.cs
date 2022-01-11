@@ -315,6 +315,10 @@ public class CharacterBattle : MonoBehaviour
             case 2:
                 {
                     healthSystem.SetHealthAmount(healthSystem.GetHealthAmount() / 2);
+                    if (healthSystem.GetHealthAmount() < 1)
+                    {
+                        healthSystem.SetHealthAmount(1);
+                    }
                     //sprite = GameAssets.i.healthDebuff.GetComponent<Sprite>();
                     Debug.Log("La vida actual del enemigo es: " + healthSystem.GetHealthAmount());
                     break;

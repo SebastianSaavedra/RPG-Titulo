@@ -79,6 +79,7 @@ public class Item {
 
             //Consumibles
             case ItemType.MedicinalHerbs:
+            case ItemType.EscamaMarina:
                 return ItemSubType.Consumable;
 
             //Equipables
@@ -97,7 +98,6 @@ public class Item {
             case ItemType.Weapon_3:
             case ItemType.Weapon_4:
             case ItemType.Weapon_5:
-            case ItemType.EscamaMarina:
                 return ItemSubType.Equippable;
         }
     }

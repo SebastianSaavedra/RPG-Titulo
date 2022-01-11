@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using CodeMonkey.Utils;
 
 public static class Dialogues
 {
@@ -795,7 +796,8 @@ public static class Dialogues
             },
         }, true);
     }
-    public static void Play_TrenTrenDuringBattle()
+
+    public static void Play_TrenTrenStartingBattle()
     {
         Battle.GetInstance().state = Battle.State.Busy;
         BattleUI.instance.TalkingInBattle();
@@ -831,6 +833,31 @@ public static class Dialogues
             },
             () => {
                 dialogue.ShowText("Ahora derrota a los enemigos que me están atacando, me gustaría poder defenderme a mi mismo, pero estoy bastante debilitado a estas alturas.");
+            },
+            () => {
+                dialogue.Hide();
+                BattleUI.instance.FinishedTalkingInBattle();
+                Battle.GetInstance().state = Battle.State.WaitingForPlayer;
+            },
+        }, true);
+    }
+
+    public static void Play_TrenTrenDuringBattle()
+    {
+        Battle.GetInstance().state = Battle.State.Busy;
+        BattleUI.instance.TalkingInBattle();
+        DialogueController dialogue = DialogueController.GetInstance();
+        dialogue.SetDialogueActions(new List<Action>()
+        {
+            () => {
+                dialogue.Show();
+                dialogue.ShowRightCharacter(GameAssets.i.trenTrenSprite, false);
+                dialogue.ShowText("Rápido Suyai, intenta curarme con alguna de tus habilidades.");
+                dialogue.ShowRightCharacterName("TrenTren");
+                dialogue.ShowRightNameplate();
+                dialogue.HideLeftCharacter();
+                dialogue.HideLeftNameplate();
+                dialogue.HideLeftCharacterName();
             },
             () => {
                 dialogue.Hide();
@@ -1026,6 +1053,12 @@ public static class Dialogues
             },
             () => {
                 dialogue.ShowText("Y estaré mirando a lo lejos, esperando la oportunidad para acabar con todos de una buena vez.");
+            },
+            () => {
+                dialogue.HideRightCharacter();
+                dialogue.HideRightCharacterName();
+                dialogue.HideRightNameplate();
+                dialogue.ShowText("Has recibido <c=blue> Escama Marina </c> <q=Escama>, lo puedes encontrar en tu inventario");
             },
             () => {
                 dialogue.Hide();

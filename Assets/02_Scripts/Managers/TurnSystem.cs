@@ -8,6 +8,7 @@ public class TurnSystem : MonoBehaviour
     public event EventHandler OnTurnChanged;
 
     [HideInInspector] public int turns;
+    int totalAmount;
 
     private void Awake()
     {
@@ -17,6 +18,10 @@ public class TurnSystem : MonoBehaviour
     public void SetTurnCount(int turns)
     {
         this.turns += turns;
+        if (this.turns >= totalAmount)
+        {
+            totalAmount = this.turns;
+        }
         if (OnTurnChanged != null)
         {
             OnTurnChanged(this, EventArgs.Empty);
@@ -27,6 +32,12 @@ public class TurnSystem : MonoBehaviour
     {
         return turns;
     }
+
+    public int GetTotalAmountOfTurns()
+    {
+        return totalAmount;
+    }
+
     public bool ZeroTurns()
     {
         return turns <= 0;

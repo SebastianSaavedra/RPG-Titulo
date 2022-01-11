@@ -80,7 +80,7 @@ public class ZoneManager : MonoBehaviour
         player.transform.position = aldeaToBosque.position;
         foreach (FollowerOverworld follower in OverworldManager.GetInstance().GetFollowerList())
         {
-            follower.gameObject.transform.position = player.transform.position - follower.GetOffset();
+            follower.gameObject.transform.position = player.transform.position;
         }
         GameData.mapZoneState = GameData.MapZone.BosqueAraucarias;
         //Transition FadeOut
@@ -94,7 +94,7 @@ public class ZoneManager : MonoBehaviour
         player.transform.position = bosqueToAldea.position;
         foreach (FollowerOverworld follower in OverworldManager.GetInstance().GetFollowerList())
         {
-            follower.gameObject.transform.position = player.transform.position - follower.GetOffset();
+            follower.gameObject.transform.position = player.transform.position;
         }
         GameData.mapZoneState = GameData.MapZone.Aldea;
         //Transition FadeOut
@@ -109,7 +109,7 @@ public class ZoneManager : MonoBehaviour
         player.transform.position = bosqueToLago.position;
         foreach (FollowerOverworld follower in OverworldManager.GetInstance().GetFollowerList())
         {
-            follower.gameObject.transform.position = player.transform.position - follower.GetOffset();
+            follower.gameObject.transform.position = player.transform.position;
         }
         GameData.mapZoneState = GameData.MapZone.Lago;
         //Transition FadeOut
@@ -123,7 +123,7 @@ public class ZoneManager : MonoBehaviour
         player.transform.position = bosqueToBosqueP.position;
         foreach (FollowerOverworld follower in OverworldManager.GetInstance().GetFollowerList())
         {
-            follower.gameObject.transform.position = player.transform.position - follower.GetOffset();
+            follower.gameObject.transform.position = player.transform.position;
         }
         GameData.mapZoneState = GameData.MapZone.BosqueProfundo;
         //Transition FadeOut
@@ -137,7 +137,7 @@ public class ZoneManager : MonoBehaviour
         player.transform.position = lagoToBosque.position;
         foreach (FollowerOverworld follower in OverworldManager.GetInstance().GetFollowerList())
         {
-            follower.gameObject.transform.position = player.transform.position - follower.GetOffset();
+            follower.gameObject.transform.position = player.transform.position;
         }
         GameData.mapZoneState = GameData.MapZone.BosqueAraucarias;
         //Transition FadeOut
@@ -151,7 +151,7 @@ public class ZoneManager : MonoBehaviour
         player.transform.position = bosquePToBosque.position;
         foreach (FollowerOverworld follower in OverworldManager.GetInstance().GetFollowerList())
         {
-            follower.gameObject.transform.position = player.transform.position - follower.GetOffset();
+            follower.gameObject.transform.position = player.transform.position;
         }
         GameData.mapZoneState = GameData.MapZone.BosqueAraucarias;
         //Transition FadeOut

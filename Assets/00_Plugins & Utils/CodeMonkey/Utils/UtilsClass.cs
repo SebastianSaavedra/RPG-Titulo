@@ -1549,9 +1549,19 @@ namespace CodeMonkey.Utils
             Timing.RunCoroutine(_WaitOneFrame());
         }
 
+        public static void WaitForSeconds(float seconds)
+        {
+            Timing.RunCoroutine(_WaitSeconds(seconds));
+        }
+
         private static IEnumerator<float> _WaitOneFrame()
         {
             yield return Timing.WaitForOneFrame;
+        }
+
+        private static IEnumerator<float> _WaitSeconds(float seconds)
+        {
+            yield return Timing.WaitForSeconds(seconds);
         }
 
 

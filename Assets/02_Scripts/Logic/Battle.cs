@@ -30,7 +30,6 @@ public class Battle
     public CharacterBattle selectedTargetCharacterBattle;
     public CharacterBattle aiTargetCharacterBattle;
 
-    private static Transform trenTrenCapturadoObj;
     private static CharacterBattle trenTrenCapturadoCharacterBattle;
 
 
@@ -71,17 +70,30 @@ public class Battle
     {
         Transform characterTransform = Object.Instantiate(GameAssets.i.pfCharacterBattle, GetPosition(lanePosition, isPlayerTeam), Quaternion.identity);
         CharacterBattle characterBattle = characterTransform.GetComponent<CharacterBattle>();
-        characterBattle.Setup(characterType, lanePosition, GetPosition(lanePosition, isPlayerTeam), isPlayerTeam, character.stats,character);
-        instance.characterBattleList.Add(characterBattle);
         if (GameData.state == GameData.State.SavingTrenTren && characterType == Character.Type.TrenTren)
         {
-            trenTrenCapturadoObj = Object.Instantiate(GameAssets.i.pfTrenTren, GetPosition(LanePosition.Captured, false),Quaternion.identity);
+            characterBattle.Setup(characterType, lanePosition, GetPosition(lanePosition, isPlayerTeam), true, character.stats, character);
+            Transform trenTrenCapturadoObj;
+            trenTrenCapturadoObj = Object.Instantiate(GameAssets.i.pfTrenTren, GetPosition(lanePosition, isPlayerTeam), Quaternion.identity);
             trenTrenCapturadoObj.transform.parent = characterTransform.transform;
             trenTrenCapturadoObj.transform.localPosition = Vector3.zero;
             trenTrenCapturadoObj.transform.localScale = new Vector3(1f, 1f, 1f);
             trenTrenCapturadoCharacterBattle = characterBattle;
-            //instanciar el objeto y unirlo al parent del characterTransform
         }
+        else if (GameData.state == GameData.State.FightingCaiCai && characterType == Character.Type.CaiCai)
+        {
+            characterBattle.Setup(characterType, lanePosition, GetPosition(lanePosition, isPlayerTeam), isPlayerTeam, character.stats, character);
+            Transform caicaiTransform;
+            caicaiTransform = Object.Instantiate(GameAssets.i.pfCaiCai, GetPosition(lanePosition, isPlayerTeam), Quaternion.identity);
+            caicaiTransform.transform.parent = characterTransform.transform;
+            caicaiTransform.transform.localPosition = Vector3.zero;
+            caicaiTransform.transform.localScale = new Vector3(1f, 1f, 1f);
+        }
+        else
+        {
+            characterBattle.Setup(characterType, lanePosition, GetPosition(lanePosition, isPlayerTeam), isPlayerTeam, character.stats, character);
+        }
+        instance.characterBattleList.Add(characterBattle);
     }
 
     public static Vector3 GetPosition(LanePosition lanePosition, bool isPlayerTeam)
@@ -94,31 +106,60 @@ public class Battle
             case LanePosition.Middle: return new Vector3(playerTeamMultiplier * 37.6f, -8.3f);
             case LanePosition.Up: return new Vector3(playerTeamMultiplier * 67.8f, 5f);
             case LanePosition.Down: return new Vector3(playerTeamMultiplier * 57.9f, -28.7f);
-            case LanePosition.Captured: return new Vector3(playerTeamMultiplier * -78f, -24f);
+            case LanePosition.Captured: return new Vector3(playerTeamMultiplier * 78f, -24f);
         }
 
     }
 
     public static LanePosition GetNextLanePosition(LanePosition lanePosition, bool moveUp)
     {
-        if (moveUp)
+        if (GameData.state == GameData.State.FightingCaiCai)
         {
-            switch (lanePosition)
+            if (moveUp)
             {
-                default:
-                case LanePosition.Up: return LanePosition.Down;
-                case LanePosition.Middle: return LanePosition.Up;
-                case LanePosition.Down: return LanePosition.Middle;
+                switch (lanePosition)
+                {
+                    default:
+                    case LanePosition.Captured: return LanePosition.Down;
+                    case LanePosition.Up: return LanePosition.Down;
+                    case LanePosition.Middle: return LanePosition.Up;
+                    case LanePosition.Down: return LanePosition.Middle;
+                }
             }
+            else
+            {
+                switch (lanePosition)
+                {
+                    default:
+                    case LanePosition.Up: return LanePosition.Middle;
+                    case LanePosition.Middle: return LanePosition.Down;
+                    case LanePosition.Down: return LanePosition.Captured;
+                    case LanePosition.Captured: return LanePosition.Up;
+                }
+            }
+
         }
         else
         {
-            switch (lanePosition)
+            if (moveUp)
             {
-                default:
-                case LanePosition.Up: return LanePosition.Middle;
-                case LanePosition.Middle: return LanePosition.Down;
-                case LanePosition.Down: return LanePosition.Up;
+                switch (lanePosition)
+                {
+                    default:
+                    case LanePosition.Up: return LanePosition.Down;
+                    case LanePosition.Middle: return LanePosition.Up;
+                    case LanePosition.Down: return LanePosition.Middle;
+                }
+            }
+            else
+            {
+                switch (lanePosition)
+                {
+                    default:
+                    case LanePosition.Up: return LanePosition.Middle;
+                    case LanePosition.Middle: return LanePosition.Down;
+                    case LanePosition.Down: return LanePosition.Up;
+                }
             }
         }
     }
@@ -142,7 +183,7 @@ public class Battle
                 {
                     default:
                     case Character.Type.Suyai:
-                        lanePosition = (LanePosition)character.lanePosition; 
+                        lanePosition = (LanePosition)character.lanePosition;
                         break;
                     case Character.Type.Antay:
                         lanePosition = (LanePosition)character.lanePosition;
@@ -162,7 +203,7 @@ public class Battle
             if (GameData.state == GameData.State.SavingTrenTren && character.type == Character.Type.TrenTren)
             {
                 Debug.Log("Spawneo a trentren!");
-                SpawnCharacter(character.type, LanePosition.Captured, true, character);
+                SpawnCharacter(character.type, LanePosition.Captured, false, character);
             }
             ResourceManager.instance.RefreshResourcesUI();
         }
@@ -185,7 +226,7 @@ public class Battle
                 state = State.WaitingForPlayer;
                 break;
             case GameData.State.SavingTrenTren:
-                Dialogues.Play_TrenTrenDuringBattle();
+                Dialogues.Play_TrenTrenStartingBattle();
                 break;
             case GameData.State.FightingCaiCai:
                 Dialogues.Play_CaiCaiDuringBattle();
@@ -233,7 +274,7 @@ public class Battle
     /// Para cambiar de objetivo
     /// </summary>
     /// <param name="isUp"></param>
-    public void UITargetSelect(bool isUp, bool isTeam,bool isAlive)
+    public void UITargetSelect(bool isUp, bool isTeam, bool isAlive)
     {
         if (isAlive)
         {
@@ -243,6 +284,11 @@ public class Battle
         {
             SetSelectedTargetCharacterBattle(GetNextDeadCharacterBattle(selectedTargetCharacterBattle.GetLanePosition(), isUp, isTeam));
         }
+    }
+
+    public void SelectCapturedTarget()
+    {
+        SetSelectedTargetCharacterBattle(trenTrenCapturadoCharacterBattle);
     }
 
     private CharacterBattle GetNextCharacterBattle(LanePosition lanePosition, bool moveUp, bool isPlayerTeam)
@@ -345,6 +391,14 @@ public class Battle
     {
         if (state == State.EnemySelection || state == State.AllySelection || state == State.DeadAllySelection)
         {
+            if (GameData.state == GameData.State.SavingTrenTren && state == State.AllySelection)
+            {
+                if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
+                {
+                    SelectCapturedTarget();
+                }
+            }
+
             if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
             {
                 if (state == State.EnemySelection)
@@ -521,6 +575,10 @@ public class Battle
                             // Heal Grupal
                             //SoundManager.PlaySound(SoundManager.Sound.Heal);
                             List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(true);
+                            if(GameData.state == GameData.State.SavingTrenTren)
+                            {
+                                characterBattleList.Add(trenTrenCapturadoCharacterBattle);
+                            }
                             foreach (CharacterBattle characterBattle in characterBattleList)
                             {
                                 characterBattle.Heal(50);
@@ -856,7 +914,19 @@ public class Battle
             }
 
             BattleUI.instance.mainBattleMenu.SetActive(true);
-            state = State.WaitingForPlayer;
+
+            if (GameData.state == GameData.State.SavingTrenTren)
+            {
+                if (TurnSystem.instance.GetTurnCount() <= TurnSystem.instance.GetTotalAmountOfTurns() * 0.75f)
+                {
+                    Dialogues.Play_TrenTrenDuringBattle();
+                }
+                state = State.WaitingForPlayer;
+            }
+            else
+            {
+                state = State.WaitingForPlayer;
+            }
         }
 
         // Turn Start

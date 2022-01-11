@@ -129,10 +129,15 @@ public class OverworldManager
                     npcOverworld = SpawnNPC(character);
                     break;
                 case Character.Type.SoldadoMapuche_2:
-                    if (GameData.state != GameData.State.TrenTrenSaved)
+                    switch (GameData.state)
                     {
-                        character.name = GetRandomString("Masculino");
-                        npcOverworld = SpawnNPC(character);
+                        default:
+                            character.name = GetRandomString("Masculino");
+                            npcOverworld = SpawnNPC(character);
+                            break;
+                        case GameData.State.TrenTrenSaved:
+                        case GameData.State.CaiCaiBeated:
+                            break;
                     }
                     break;
 
@@ -158,15 +163,15 @@ public class OverworldManager
                     break;
 
                 case Character.Type.TrenTren:
-                    Transform pfTren = GameObject.Instantiate(GameAssets.i.pfTrenTren, new Vector2(142.98f, -11.92f), Quaternion.identity);
-                    pfTren.localScale = Vector3.one * 2.440773f;
+                    Transform pfTren = GameObject.Instantiate(GameAssets.i.pfTrenTren, character.position, Quaternion.identity);
+                    pfTren.localScale = Vector3.one * 3f;
                     trenTrenChar = character;
                     break;
                 case Character.Type.CaiCai:
                     if (GameData.state == GameData.State.TrenTrenSaved)
                     {
-                        Transform pfCaiCai = GameObject.Instantiate(GameAssets.i.pfCaiCai, new Vector2(32, 80), Quaternion.identity);
-                        pfCaiCai.localScale = Vector3.one * 4;
+                        Transform pfCaiCai = GameObject.Instantiate(GameAssets.i.pfCaiCai, character.position, Quaternion.identity);
+                        pfCaiCai.localScale = Vector3.one * 3f;
                         caicaiChar = character;
                     }
                     break;

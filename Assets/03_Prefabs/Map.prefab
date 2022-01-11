@@ -4841,7 +4841,7 @@ MonoBehaviour:
     enemyBattleArray:
     - characterType: 10
       lanePosition: 1
-    - characterType: 9
+    - characterType: 11
       lanePosition: 2
   npcDialogues:
     dialogues:
@@ -6762,7 +6762,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1350098543568048056}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 28.08, y: 43.15, z: 0}
+  m_LocalPosition: {x: 29, y: 44, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6989693021506279504}
@@ -6786,9 +6786,9 @@ MonoBehaviour:
     - characterType: 11
       lanePosition: 1
     - characterType: 27
-      lanePosition: 0
+      lanePosition: 3
     - characterType: 10
-      lanePosition: 2
+      lanePosition: 0
   npcDialogues:
     dialogues: []
   quest: {fileID: 0}
@@ -7004,7 +7004,7 @@ MonoBehaviour:
   characterType: 9
   enemyEncounter:
     enemyBattleArray:
-    - characterType: 9
+    - characterType: 10
       lanePosition: 1
     - characterType: 11
       lanePosition: 2
@@ -10566,7 +10566,7 @@ MonoBehaviour:
   characterType: 9
   enemyEncounter:
     enemyBattleArray:
-    - characterType: 9
+    - characterType: 10
       lanePosition: 1
     - characterType: 11
       lanePosition: 0
@@ -17015,7 +17015,7 @@ MonoBehaviour:
   characterType: 9
   enemyEncounter:
     enemyBattleArray:
-    - characterType: 9
+    - characterType: 10
       lanePosition: 0
     - characterType: 11
       lanePosition: 2
@@ -20046,9 +20046,9 @@ MonoBehaviour:
   characterType: 9
   enemyEncounter:
     enemyBattleArray:
-    - characterType: 9
+    - characterType: 11
       lanePosition: 1
-    - characterType: 9
+    - characterType: 11
       lanePosition: 2
   npcDialogues:
     dialogues:
@@ -25262,7 +25262,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5367362992482960073}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 126.26, y: -25.31, z: 0}
+  m_LocalPosition: {x: 131, y: -24, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6989693021506279504}
@@ -32087,7 +32087,7 @@ MonoBehaviour:
   characterType: 9
   enemyEncounter:
     enemyBattleArray:
-    - characterType: 9
+    - characterType: 11
       lanePosition: 2
     - characterType: 10
       lanePosition: 0
@@ -33246,7 +33246,7 @@ MonoBehaviour:
     enemyBattleArray:
     - characterType: 10
       lanePosition: 1
-    - characterType: 9
+    - characterType: 10
       lanePosition: 0
     - characterType: 11
       lanePosition: 2
@@ -35749,7 +35749,7 @@ MonoBehaviour:
     enemyBattleArray:
     - characterType: 10
       lanePosition: 1
-    - characterType: 9
+    - characterType: 11
       lanePosition: 2
   npcDialogues:
     dialogues:
@@ -35803,9 +35803,9 @@ MonoBehaviour:
   characterType: 9
   enemyEncounter:
     enemyBattleArray:
-    - characterType: 9
+    - characterType: 10
       lanePosition: 0
-    - characterType: 9
+    - characterType: 10
       lanePosition: 2
   npcDialogues:
     dialogues:
@@ -40538,33 +40538,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6989693021506279504}
     m_Modifications:
-    - target: {fileID: 1813163701244582840, guid: 357ba349c9526af44a87abf1d0983adb, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 2987255751878005320, guid: 357ba349c9526af44a87abf1d0983adb, type: 3}
       propertyPath: m_RootOrder
       value: 39
       objectReference: {fileID: 0}
     - target: {fileID: 2987255751878005320, guid: 357ba349c9526af44a87abf1d0983adb, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2987255751878005320, guid: 357ba349c9526af44a87abf1d0983adb, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2987255751878005320, guid: 357ba349c9526af44a87abf1d0983adb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 31.33
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2987255751878005320, guid: 357ba349c9526af44a87abf1d0983adb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 65.54
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2987255751878005320, guid: 357ba349c9526af44a87abf1d0983adb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.56
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2987255751878005320, guid: 357ba349c9526af44a87abf1d0983adb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -40997,20 +40985,12 @@ PrefabInstance:
       value: 37
       objectReference: {fileID: 0}
     - target: {fileID: 5341325383846457469, guid: db0d82a611ba969458c9b37a73369ade, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5341325383846457469, guid: db0d82a611ba969458c9b37a73369ade, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5341325383846457469, guid: db0d82a611ba969458c9b37a73369ade, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 142.29
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5341325383846457469, guid: db0d82a611ba969458c9b37a73369ade, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -11.92
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5341325383846457469, guid: db0d82a611ba969458c9b37a73369ade, type: 3}
       propertyPath: m_LocalPosition.z

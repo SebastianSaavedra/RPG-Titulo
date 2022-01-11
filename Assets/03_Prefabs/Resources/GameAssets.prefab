@@ -120,7 +120,7 @@ MonoBehaviour:
   item_Weapon1: {fileID: 21300000, guid: f9e557b113fbc3c4b81ec137fbeac1d2, type: 3}
   item_Helmet1: {fileID: 21300000, guid: e22455aecdcedc2468d6f0cec293e622, type: 3}
   item_Armor1: {fileID: 21300000, guid: 281ffacdaa32afb4e92e328ce45f2ef4, type: 3}
-  item_EscamaMarina: {fileID: 0}
+  item_EscamaMarina: {fileID: 21300000, guid: 4d1d23dd744b10f448c30b52361f5c1d, type: 3}
   enemies:
   - {fileID: 21300000, guid: 2f50c32beb34dbb4687efa4f3b7e170b, type: 3}
   - {fileID: 21300000, guid: d2d0c1724bb61fe49ae74baa68e8c837, type: 3}

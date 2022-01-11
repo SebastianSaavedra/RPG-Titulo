@@ -38,7 +38,7 @@ public class BattleUI : MonoBehaviour
     [HideInInspector] public string spellName;
     [HideInInspector] public GameObject mainBattleMenu;
     int index = 0;
-    [HideInInspector] public GameObject lastMenuActivated;
+     public GameObject lastMenuActivated;
 
     [SerializeField] GameObject menuRadial;
 
@@ -78,7 +78,6 @@ public class BattleUI : MonoBehaviour
             {
                 if (Battle.GetInstance().state == Battle.State.WaitingForPlayer)
                 {
-                    Debug.Log("Retrocedio 1 paso");
                     if (lastMenuActivated != null)
                     {
                         lastMenuActivated.SetActive(false);
@@ -208,15 +207,17 @@ public class BattleUI : MonoBehaviour
                 }
                 break;
             case "Run":
-                if (GameData.state != GameData.State.SavingTrenTren)
+                switch (GameData.state)
                 {
-                    Debug.Log("Huiste del combate");
-                    mainBattleMenu.SetActive(false);
-                    FunctionTimer.Create(OverworldManager.LoadBackToOvermap, 1f);
-                }
-                else
-                {
-                    SoundManager.PlaySound(SoundManager.Sound.Error);
+                    default:
+                        Debug.Log("Huiste del combate");
+                        mainBattleMenu.SetActive(false);
+                        FunctionTimer.Create(OverworldManager.LoadBackToOvermap, 1f);
+                        break;
+                    case GameData.State.SavingTrenTren:
+                    case GameData.State.FightingCaiCai:
+                        SoundManager.PlaySound(SoundManager.Sound.Error);
+                        break;
                 }
                 break;
         }
