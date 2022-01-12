@@ -13,7 +13,7 @@ public class ZoneManager : MonoBehaviour
     [SerializeField] Transform aldeaToBosque, bosqueToAldea, bosqueToLago, lagoToBosque, bosqueToBosqueP, bosquePToBosque,colliderAldeaToBosque;
 
     [Space(10)]
-    [SerializeField] GameObject trenTrenBattleTrigger,caiCaiBattleTrigger,lakeAccess,villageAccess;//, guardia01, guardia02;
+    [SerializeField] GameObject trenTrenBattleTrigger,caiCaiBattleTrigger,aldeaBattleTriger,guerreroDesesperadoTrigger;
 
     [Space(10)]
     [SerializeField] List<GameObject> afterTrenTrenBattle = new List<GameObject>();
@@ -28,24 +28,16 @@ public class ZoneManager : MonoBehaviour
         player = GameObject.Find("pfPlayer").GetComponent<PlayerOverworld>();
     }
 
-    //private void Start()
-    //{
-    //    switch (GameData.state)
-    //    {
-    //        case GameData.State.TrenTrenSaved:
-    //            trenTrenBattleTrigger.SetActive(false);
-    //            confiner.m_BoundingShape2D = bosqueProfundoConfiner;
-    //            confiner.InvalidatePathCache();
-    //            break;
-    //    }
-    //}
-
     public GameObject GetTrenTrenBattleTrigger() => trenTrenBattleTrigger;
     public GameObject GetCaiCaiBattleTrigger() => caiCaiBattleTrigger;
-    public GameObject GetLakeAccess() => lakeAccess;
-    public GameObject GetVilageAccess() => villageAccess;
-    //public GameObject GetGuardia01() => guardia01;
-    //public GameObject GetGuardia02() => guardia02;
+    public GameObject GetAldeaBattleTriger() => aldeaBattleTriger;
+    public GameObject GetGuerreroDesesperadoTrigger() => guerreroDesesperadoTrigger;
+    public Transform GetAldeaToBosque() => aldeaToBosque;
+    public Transform GetBosqueToAldea() => bosqueToAldea;
+    public Transform GetBosqueToLago() => bosqueToLago;
+    public Transform GetLagoToBosque() => lagoToBosque;
+    public Transform GetBosqueToBosqueP() => bosqueToBosqueP;
+    public Transform GetBosquePToBosque() => bosquePToBosque;
     public PolygonCollider2D GetAldeaConfiner() => aldeaConfiner;
     public PolygonCollider2D GetBosqueAraucConfiner() => bosqueAraucConfiner;
     public PolygonCollider2D GetLagoConfiner() => lagoConfiner;
@@ -59,6 +51,11 @@ public class ZoneManager : MonoBehaviour
     public void SetActiveGameobject(GameObject go, bool active)
     {
         go.SetActive(active);
+    }
+    public void SetActiveGameobject(GameObject go1, GameObject go2, bool active)
+    {
+        go1.SetActive(active);
+        go2.SetActive(active);
     }
 
     public void SetConfiner(PolygonCollider2D confiner2D)
@@ -74,6 +71,7 @@ public class ZoneManager : MonoBehaviour
     
     public void AldeaToBosque()
     {
+        OverworldManager.StopOvermapRunning();
         //Transition FadeIn
         confiner.m_BoundingShape2D = bosqueAraucConfiner;
         confiner.InvalidatePathCache();
@@ -84,10 +82,12 @@ public class ZoneManager : MonoBehaviour
         }
         GameData.mapZoneState = GameData.MapZone.BosqueAraucarias;
         //Transition FadeOut
+        OverworldManager.ContinueOvermapRunning();
     }
 
     public void BosqueToAldea()
     {
+        OverworldManager.StopOvermapRunning();
         //Transition FadeIn
         confiner.m_BoundingShape2D = aldeaConfiner;
         confiner.InvalidatePathCache();
@@ -98,11 +98,12 @@ public class ZoneManager : MonoBehaviour
         }
         GameData.mapZoneState = GameData.MapZone.Aldea;
         //Transition FadeOut
-
+        OverworldManager.ContinueOvermapRunning();
     }
 
     public void BosqueToLago()
     {
+        OverworldManager.StopOvermapRunning();
         //Transition FadeIn
         confiner.m_BoundingShape2D = lagoConfiner;
         confiner.InvalidatePathCache();
@@ -113,10 +114,11 @@ public class ZoneManager : MonoBehaviour
         }
         GameData.mapZoneState = GameData.MapZone.Lago;
         //Transition FadeOut
-
+        OverworldManager.ContinueOvermapRunning();
     }
     public void BosqueToBosqueP()
     {
+        OverworldManager.StopOvermapRunning();
         //Transition FadeIn
         confiner.m_BoundingShape2D = bosqueProfundoConfiner;
         confiner.InvalidatePathCache();
@@ -127,10 +129,11 @@ public class ZoneManager : MonoBehaviour
         }
         GameData.mapZoneState = GameData.MapZone.BosqueProfundo;
         //Transition FadeOut
-
+        OverworldManager.ContinueOvermapRunning();
     }
     public void LagoToBosque()
     {
+        OverworldManager.StopOvermapRunning();
         //Transition FadeIn
         confiner.m_BoundingShape2D = bosqueAraucConfiner;
         confiner.InvalidatePathCache();
@@ -141,10 +144,11 @@ public class ZoneManager : MonoBehaviour
         }
         GameData.mapZoneState = GameData.MapZone.BosqueAraucarias;
         //Transition FadeOut
-
+        OverworldManager.ContinueOvermapRunning();
     }
     public void BosquePToBosque()
     {
+        OverworldManager.StopOvermapRunning();
         //Transition FadeIn
         confiner.m_BoundingShape2D = bosqueAraucConfiner;
         confiner.InvalidatePathCache();
@@ -155,7 +159,7 @@ public class ZoneManager : MonoBehaviour
         }
         GameData.mapZoneState = GameData.MapZone.BosqueAraucarias;
         //Transition FadeOut
-
+        OverworldManager.ContinueOvermapRunning();
     }
 
     public void TrenTrenBeforeBattle()

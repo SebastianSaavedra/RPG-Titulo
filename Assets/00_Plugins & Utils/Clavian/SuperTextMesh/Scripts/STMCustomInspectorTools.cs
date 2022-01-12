@@ -48,7 +48,7 @@ static class STMCustomInspectorTools {
 		if(GUILayout.Button(buttonText)){
 			ScriptableObject newData = NewData(typeName);
 			if(newData != null){
-				AssetDatabase.CreateAsset(newData,AssetDatabase.GenerateUniqueAssetPath("Assets/Clavian/SuperTextMesh/Resources/" + folderName)); //save to file
+				AssetDatabase.CreateAsset(newData,AssetDatabase.GenerateUniqueAssetPath("Assets/00_Plugins & Utils/Clavian/SuperTextMesh/Resources/" + folderName)); //save to file
 				//Undo.undoRedoPerformed += OnUndoRedo; //subscribe to event
 				//Undo.RegisterCreatedObjectUndo(newData, buttonText);
 				AssetDatabase.Refresh();

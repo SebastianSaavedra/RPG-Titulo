@@ -61,9 +61,9 @@ MonoBehaviour:
   pfChatOption: {fileID: 0}
   pfTrenTren: {fileID: 5341325383846457469, guid: db0d82a611ba969458c9b37a73369ade, type: 3}
   pfCaiCai: {fileID: 2987255751878005320, guid: 357ba349c9526af44a87abf1d0983adb, type: 3}
-  pfPelotonLanceros: {fileID: 0}
-  pfPelotonFusileros: {fileID: 0}
-  pfPelotoFusileroYLancero: {fileID: 0}
+  pfPelotonLanceros: {fileID: 2260267953313882267, guid: 4fb35fd7fa0ba744ab4588f7ad313e96, type: 3}
+  pfPelotonFusileros: {fileID: 2260267953313882267, guid: 4fb35fd7fa0ba744ab4588f7ad313e96, type: 3}
+  pfPelotoFusileroYLancero: {fileID: 2260267953313882267, guid: 4fb35fd7fa0ba744ab4588f7ad313e96, type: 3}
   pfMineralBronce: {fileID: 538586358298004914, guid: f6237da614f12884589801713be5d8d8, type: 3}
   pfMineralCobre: {fileID: 4486838412710475304, guid: 6803856793bfb2b4698e210b046c318d, type: 3}
   pfMineralPlata: {fileID: 3255913004261338983, guid: f9706cd3f7cedac4793a775430b4e665, type: 3}
@@ -80,8 +80,8 @@ MonoBehaviour:
   antayOVERWORLDANIM: {fileID: 9100000, guid: 413a10bd7e1ea7e45a037b40afbccef8, type: 2}
   chillpilaOVERWORLDANIM: {fileID: 9100000, guid: 8d41b2cea8e11a6419bf1e798d350b17, type: 2}
   testEnemyANIM: {fileID: 9100000, guid: 488d572aeae6c2049905a1fda8af6d12, type: 2}
-  fusileroANIM: {fileID: 9100000, guid: c19ae704a256148438ca8f7ea9ae5f29, type: 2}
-  lanceroANIM: {fileID: 9100000, guid: 17b3a48fb693cdb4aaa0a24b613f4f7c, type: 2}
+  fusileroANIM: {fileID: 9100000, guid: ac9beb859b8077b47b43ac43e18dd2b6, type: 2}
+  lanceroANIM: {fileID: 9100000, guid: f30195e9c1db32b4e86bf1d1425f3557, type: 2}
   anchimallenBattleANIM: {fileID: 9100000, guid: 6cc8f583a0cd5f24e93a9ca0500d188f, type: 2}
   anchimallenOverworldANIM: {fileID: 9100000, guid: e82929ed48ca80b45a828dbe58ca5a6b, type: 2}
   guiriviloANIM: {fileID: 9100000, guid: 6aae6f5d9bfc23a4998aade0bc56a85a, type: 2}

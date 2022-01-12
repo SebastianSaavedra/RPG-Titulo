@@ -307,7 +307,7 @@ public static class Dialogues
             },
         }, true);
     }
-    public static void Play_Soldado_Agitado(NPCOverworld npc)
+    public static void Play_Soldado_Desesperado()
     {
         OverworldManager.StopOvermapRunning();
         DialogueController dialogue = DialogueController.GetInstance();
@@ -315,16 +315,27 @@ public static class Dialogues
             () => {
                 dialogue.Show();
                 dialogue.ShowRightCharacter(GameAssets.i.warriorNpcDialogueSprite, false);
-                dialogue.ShowText("<j> SUYAI, <d = 1> NOS ATACAN… <d/> <d = 1> LA ALDEA… <d/> <d = 1> NUESTRA GENTE");
-                dialogue.ShowRightCharacterName(npc.GetCharacter().name);
+                dialogue.GetSuperTextMesh().readDelay = .08f;
+                dialogue.ShowText("<j> SUYAI...");
+                dialogue.ShowRightCharacterName("Ankatu");
                 dialogue.ShowRightNameplate();
                 dialogue.HideLeftCharacter();
                 dialogue.HideLeftNameplate();
                 dialogue.HideLeftCharacterName();
             },
             () => {
+                dialogue.ShowText("<j> NOS ATACAN… ");
+            },
+            () => {
+                dialogue.ShowText("<j> LA ALDEA…");
+            },
+            () => {
+                dialogue.GetSuperTextMesh().readDelay = .03f;
+                dialogue.ShowText("<j> NUESTRA GENTE!");
+            },
+            () => {
                 dialogue.Hide();
-                npc.SetTalkForTheFirstTime();
+                //GameData.state = GameData.State.VillageInDanger;
                 OverworldManager.StartOvermapRunning();
             },
         }, true);
@@ -805,31 +816,31 @@ public static class Dialogues
         dialogue.SetDialogueActions(new List<Action>() {
             () => {
                 dialogue.Show();
-                dialogue.ShowRightCharacter(GameAssets.i.trenTrenSprite, false);
+                dialogue.ShowRightCharacter(GameAssets.i.trenTrenSprite, false, new UnityEngine.Vector3(901.8f,-412f,0f));
                 dialogue.ShowText("Puedo percibir que nunca has estado en un combate déjame guiarte.");
-                dialogue.ShowRightCharacterName("TrenTren");
-                dialogue.ShowRightNameplate();
+                dialogue.ShowRightCharacterName("TrenTren",new UnityEngine.Vector3(810.6998f,-241f,0f));
+                dialogue.ShowRightNameplate(new UnityEngine.Vector3(810.6998f,-241f,0f));
                 dialogue.HideLeftCharacter();
                 dialogue.HideLeftNameplate();
                 dialogue.HideLeftCharacterName();
             },
             () => {
-                dialogue.ShowText("Tienes un menú radial de combate con múltiples opciones");
+                dialogue.ShowText("Tienes un menú radial de combate con múltiples opciones.");
             },
             () => {
-                dialogue.ShowText("Si seleccionas arriba, puedes (ICONO) ATACAR o (ICONO) DEFENDER");
+                dialogue.ShowText("Si seleccionas arriba, puedes <q=ATACAR> ATACAR o <q=DEFENDER> DEFENDER.");
             },
             () => {
-                dialogue.ShowText("Si seleccionas derecha puedes usar una (ICONO) HABILIDAD.");
+                dialogue.ShowText("Si seleccionas derecha puedes usar una <q=HABILIDAD> HABILIDAD.");
             },
             () => {
                 dialogue.ShowText("Estas gastaran alguno de los recursos necesarios para ocuparla, así que mientras tengas dichos recursos, ocúpate de probar cada habilidad que tengas a tu disposición.");
             },
             () => {
-                dialogue.ShowText("Si seleccionas izquierda puedes entrar en tu (ICONO) INVENTARIO para usar algunos ítems en combate. Es importante que revises tu inventario siempre que puedas");
+                dialogue.ShowText("Si seleccionas izquierda puedes entrar en tu <q=INVENTARIO> INVENTARIO para usar algunos ítems en combate. Es importante que revises tu inventario siempre que puedas.");
             },
             () => {
-                dialogue.ShowText("Si seleccionas abajo puedes intentar (ICONO) ESCAPAR. Pero no siempre lo lograras, inténtalo cuando no exista otra opción.");
+                dialogue.ShowText("Si seleccionas abajo puedes intentar <q=ESCAPAR> ESCAPAR. Pero no siempre lo lograras, inténtalo cuando no exista otra opción.");
             },
             () => {
                 dialogue.ShowText("Ahora derrota a los enemigos que me están atacando, me gustaría poder defenderme a mi mismo, pero estoy bastante debilitado a estas alturas.");
@@ -851,10 +862,10 @@ public static class Dialogues
         {
             () => {
                 dialogue.Show();
-                dialogue.ShowRightCharacter(GameAssets.i.trenTrenSprite, false);
-                dialogue.ShowText("Rápido Suyai, intenta curarme con alguna de tus habilidades.");
-                dialogue.ShowRightCharacterName("TrenTren");
-                dialogue.ShowRightNameplate();
+                dialogue.ShowRightCharacter(GameAssets.i.trenTrenSprite, false, new UnityEngine.Vector3(901.8f,-412f,0f));
+                dialogue.ShowText("Rápido Suyai, intenta <c=green> curarme <c=normal> con alguna de tus <q=HABILIDAD> habilidades.");
+                dialogue.ShowRightCharacterName("TrenTren",new UnityEngine.Vector3(810.6998f,-241f,0f));
+                dialogue.ShowRightNameplate(new UnityEngine.Vector3(810.6998f,-241f,0f));
                 dialogue.HideLeftCharacter();
                 dialogue.HideLeftNameplate();
                 dialogue.HideLeftCharacterName();
@@ -875,10 +886,10 @@ public static class Dialogues
         dialogue.SetDialogueActions(new List<Action>() {
             () => {
                 dialogue.Show();
-                dialogue.ShowRightCharacter(GameAssets.i.caiCaiSprite, false);
+                dialogue.ShowRightCharacter(GameAssets.i.caiCaiSprite, false,new UnityEngine.Vector3(901.8f,-412f,0f));
                 dialogue.ShowText("Hace tiempo, nosotros velábamos por ustedes");
-                dialogue.ShowRightCharacterName("CaiCai");
-                dialogue.ShowRightNameplate();
+                dialogue.ShowRightCharacterName("CaiCai",new UnityEngine.Vector3(810.6998f,-241f,0f));
+                dialogue.ShowRightNameplate(new UnityEngine.Vector3(810.6998f,-241f,0f));
                 dialogue.HideLeftCharacter();
                 dialogue.HideLeftNameplate();
                 dialogue.HideLeftCharacterName();
@@ -893,7 +904,7 @@ public static class Dialogues
                 dialogue.ShowText("Dañando otras criaturas y a la propia naturaleza que tanto nos costo moldear y construir para ustedes.");
             },
             () => {
-                dialogue.ShowText("Eso solo demostró estupidez y que no eran dignos de nuestra preocupación");
+                dialogue.ShowText("Eso solo demostró estupidez y que no eran dignos de nuestra preocupación.");
             },
             () => {
                 dialogue.ShowText("Por lo que los dejamos a su suerte, esperando que se aniquilaran entre ustedes...");
@@ -919,10 +930,10 @@ public static class Dialogues
         dialogue.SetDialogueActions(new List<Action>() {
             () => {
                 dialogue.Show();
-                dialogue.ShowRightCharacter(GameAssets.i.trenTrenSprite, false);
-                dialogue.ShowText("Muchas gracias Suyai, permíteme presentarme, soy Trentren Vilu, serpiente terrestre. ");
-                dialogue.ShowRightCharacterName("TrenTren");
-                dialogue.ShowRightNameplate();
+                dialogue.ShowRightCharacter(GameAssets.i.trenTrenSprite, false, new UnityEngine.Vector3(901.8f,-412f,0f));
+                dialogue.ShowText("Muchas gracias Suyai, permíteme presentarme, soy Trentren Vilu, serpiente terrestre.");
+                dialogue.ShowRightCharacterName("TrenTren",new UnityEngine.Vector3(810.6998f,-241f,0f));
+                dialogue.ShowRightNameplate(new UnityEngine.Vector3(810.6998f,-241f,0f));
                 dialogue.HideLeftCharacter();
                 dialogue.HideLeftNameplate();
                 dialogue.HideLeftCharacterName();
@@ -955,10 +966,10 @@ public static class Dialogues
                 dialogue.ShowText("No será fácil hacer que te escuche, pero por lo que note, tienes carácter y sé que lograras convencerlo...");
             },
             () => {
-                dialogue.ShowText("...por las buenas o las malas");
+                dialogue.ShowText("...por las buenas o las malas.");
             },
             () => {
-                dialogue.ShowText("Quisiera ser yo quien se encargará de este asunto y no tener que involucrar a otros");
+                dialogue.ShowText("Quisiera ser yo quien se encargará de este asunto y no tener que involucrar a otros.");
             },
             () => {
                 dialogue.ShowText("Pero debo recuperarme aun para hacerle frente, y eso tomara tiempo.");
@@ -982,10 +993,10 @@ public static class Dialogues
         {
             () => {
                 dialogue.Show();
-                dialogue.ShowRightCharacter(GameAssets.i.trenTrenSprite, false);
+                dialogue.ShowRightCharacter(GameAssets.i.trenTrenSprite, false, new UnityEngine.Vector3(901.8f,-412f,0f));
                 dialogue.ShowText("Tu chica, por favor, ayúdame.");
-                dialogue.ShowRightCharacterName("TrenTren");
-                dialogue.ShowRightNameplate();
+                dialogue.ShowRightCharacterName("TrenTren",new UnityEngine.Vector3(810.6998f,-241f,0f));
+                dialogue.ShowRightNameplate(new UnityEngine.Vector3(810.6998f,-241f,0f));
                 dialogue.HideLeftCharacter();
                 dialogue.HideLeftNameplate();
                 dialogue.HideLeftCharacterName();
@@ -1007,10 +1018,10 @@ public static class Dialogues
         {
             () => {
                 dialogue.Show();
-                dialogue.ShowRightCharacter(GameAssets.i.caiCaiSprite, false);
+                dialogue.ShowRightCharacter(GameAssets.i.caiCaiSprite, false, new UnityEngine.Vector3(901.8f,-412f,0f));
                 dialogue.ShowText("Me contaron mis ayudantes que tu fuiste quien salvo a Trentren.");
-                dialogue.ShowRightCharacterName("CaiCai");
-                dialogue.ShowRightNameplate();
+                dialogue.ShowRightCharacterName("CaiCai",new UnityEngine.Vector3(810.6998f,-241f,0f));
+                dialogue.ShowRightNameplate(new UnityEngine.Vector3(810.6998f,-241f,0f));
                 dialogue.HideLeftCharacter();
                 dialogue.HideLeftNameplate();
                 dialogue.HideLeftCharacterName();
@@ -1027,6 +1038,82 @@ public static class Dialogues
         }, true);
     }
 
+    public static void Play_PrimerPeloton(Character character)
+    {
+        OverworldManager.StopOvermapRunning();
+        DialogueController dialogue = DialogueController.GetInstance();
+        dialogue.SetDialogueActions(new List<Action>()
+        {
+            () => {
+                dialogue.Show();
+                dialogue.ShowRightCharacter(GameAssets.i.fusileroOWSprite, false);
+                dialogue.ShowText("¡Acá hay otra persona…!");
+                dialogue.ShowRightCharacterName("Grupo de fusileros");
+                dialogue.ShowRightNameplate();
+                dialogue.HideLeftCharacter();
+                dialogue.HideLeftNameplate();
+                dialogue.HideLeftCharacterName();
+            },
+            () => {
+                dialogue.Hide();
+                SoundManager.PlaySound(SoundManager.Sound.BattleTransition);
+                GameData.state = GameData.State.PeleandoVSPrimerPeloton;
+                Battle.LoadEnemyEncounter(character, character.enemyEncounter);
+            },
+        }, true);
+    }
+
+    public static void Play_SegundoPeloton(Character character)
+    {
+        OverworldManager.StopOvermapRunning();
+        DialogueController dialogue = DialogueController.GetInstance();
+        dialogue.SetDialogueActions(new List<Action>()
+        {
+            () => {
+                dialogue.Show();
+                dialogue.ShowRightCharacter(GameAssets.i.lanceroOWSprite, false);
+                dialogue.ShowText("No te creas la gran cosa por haber derrotado a esos novatos, ahora te las veras con hombres de verdad.");
+                dialogue.ShowRightCharacterName("Grupo de Lanceros");
+                dialogue.ShowRightNameplate();
+                dialogue.HideLeftCharacter();
+                dialogue.HideLeftNameplate();
+                dialogue.HideLeftCharacterName();
+            },
+            () => {
+                dialogue.Hide();
+                SoundManager.PlaySound(SoundManager.Sound.BattleTransition);
+                GameData.state = GameData.State.PeleandoVSSegundoPeloton;
+                Battle.LoadEnemyEncounter(character, character.enemyEncounter);
+            },
+        }, true);
+    }
+
+    public static void Play_TercerPeloton(Character character)
+    {
+        OverworldManager.StopOvermapRunning();
+        DialogueController dialogue = DialogueController.GetInstance();
+        dialogue.SetDialogueActions(new List<Action>()
+        {
+            () => {
+                dialogue.Show();
+                dialogue.ShowLeftCharacter(GameAssets.i.fusileroOWSprite, false);
+                dialogue.ShowRightCharacter(GameAssets.i.lanceroOWSprite, false);
+                dialogue.ShowText("No hay que subestimarte, ahora te tomaremos en serio.");
+                dialogue.ShowRightCharacterName("Grupo de fusileros y Lanceros");
+                dialogue.ShowRightNameplate();
+                dialogue.HideLeftCharacter();
+                dialogue.HideLeftNameplate();
+                dialogue.HideLeftCharacterName();
+            },
+            () => {
+                dialogue.Hide();
+                SoundManager.PlaySound(SoundManager.Sound.BattleTransition);
+                GameData.state = GameData.State.PeleandoVSTercerPeloton;
+                Battle.LoadEnemyEncounter(character, character.enemyEncounter);
+            },
+        }, true);
+    }
+
     public static void Play_CaiCaiBeated()
     {
         OverworldManager.StopOvermapRunning();
@@ -1034,10 +1121,10 @@ public static class Dialogues
         dialogue.SetDialogueActions(new List<Action>() {
             () => {
                 dialogue.Show();
-                dialogue.ShowRightCharacter(GameAssets.i.caiCaiSprite, false);
+                dialogue.ShowRightCharacter(GameAssets.i.caiCaiSprite, false,new UnityEngine.Vector3(901.8f,-412f,0f));
                 dialogue.ShowText("Eres lo suficientemente resistente.");
-                dialogue.ShowRightCharacterName("CaiCai");
-                dialogue.ShowRightNameplate();
+                dialogue.ShowRightCharacterName("CaiCai",new UnityEngine.Vector3(810.6998f,-241f,0f));
+                dialogue.ShowRightNameplate(new UnityEngine.Vector3(810.6998f,-241f,0f));
                 dialogue.HideLeftCharacter();
                 dialogue.HideLeftNameplate();
                 dialogue.HideLeftCharacterName();
@@ -1049,7 +1136,7 @@ public static class Dialogues
                 dialogue.ShowText("Yo no soy la mayor de tus preocupaciones.");
             },
             () => {
-                dialogue.ShowText("Ya pronto se volverán a levantar en armas entre ustedes mortales");
+                dialogue.ShowText("Ya pronto se volverán a levantar en armas entre ustedes mortales.");
             },
             () => {
                 dialogue.ShowText("Y estaré mirando a lo lejos, esperando la oportunidad para acabar con todos de una buena vez.");
@@ -1058,7 +1145,7 @@ public static class Dialogues
                 dialogue.HideRightCharacter();
                 dialogue.HideRightCharacterName();
                 dialogue.HideRightNameplate();
-                dialogue.ShowText("Has recibido <c=blue> Escama Marina </c> <q=Escama>, lo puedes encontrar en tu inventario");
+                dialogue.ShowText("Has recibido <c=blue> Escama Marina </c> <q=Escama>, lo puedes encontrar en tu inventario.");
             },
             () => {
                 dialogue.Hide();
@@ -1068,6 +1155,241 @@ public static class Dialogues
             },
         }, true);
     }
+
+    public static void Play_ViejaMachiRescatada()
+    {
+        OverworldManager.StopOvermapRunning();
+        DialogueController dialogue = DialogueController.GetInstance();
+        dialogue.SetDialogueActions(new List<Action>()
+        {
+            () => {
+                dialogue.Show();
+                dialogue.ShowRightCharacter(GameAssets.i.npc_ViejaMachi, false);
+                dialogue.GetSuperTextMesh().readDelay = .06f;
+                dialogue.ShowText("<j> Suyai, llegaste en el peor momento, se han llevado a algunos de nosotros.");
+                dialogue.ShowRightCharacterName("Kuyenray");
+                dialogue.ShowRightNameplate();
+                dialogue.HideLeftCharacter();
+                dialogue.HideLeftNameplate();
+                dialogue.HideLeftCharacterName();
+            },
+            () => {
+                dialogue.ShowText("<j> Los que nos quedamos acá en la aldea algunos estamos heridos...");
+            },
+            () => {
+                dialogue.GetSuperTextMesh().readDelay = .03f;
+                dialogue.ShowText("Pero nos recuperaremos. ");
+            },
+            () => {
+                dialogue.ShowText("...<d=10>¿Como estas tu?");
+            },
+            () => {
+                dialogue.HideRightCharacter();
+                dialogue.HideRightCharacterName();
+                dialogue.HideRightNameplate();
+                dialogue.ShowLeftCharacter(GameAssets.i.splashSuyai, false);
+                dialogue.ShowLeftCharacterName("Suyai");
+                dialogue.ShowLeftNameplate();
+                dialogue.ShowText("     (Suyai le cuenta lo sucedido)");
+            },
+            () => {
+                dialogue.ShowRightCharacter(GameAssets.i.npc_ViejaMachi, false);
+                dialogue.ShowRightCharacterName("Kuyenray");
+                dialogue.ShowRightNameplate();
+                dialogue.HideLeftCharacter();
+                dialogue.HideLeftNameplate();
+                dialogue.HideLeftCharacterName();
+                dialogue.ShowText("<c=greenHerb> Trentren? <c=blue> Caicai? </c> Hace décadas que no escuchaba esos nombres...");
+            },
+            () => {
+                dialogue.ShowText("¿Estas seguras de lo que cuentas?...");
+            },
+            () => {
+                dialogue.HideRightCharacter();
+                dialogue.HideRightCharacterName();
+                dialogue.HideRightNameplate();
+                dialogue.ShowLeftCharacter(GameAssets.i.splashSuyai, false);
+                dialogue.ShowLeftCharacterName("Suyai");
+                dialogue.ShowLeftNameplate();
+                dialogue.ShowText("     Le muestras la <q=Escama> <c=blue> Escama Marina");
+            },
+            () => {
+                dialogue.HideLeftCharacter();
+                dialogue.HideLeftNameplate();
+                dialogue.HideLeftCharacterName();
+                dialogue.ShowRightCharacter(GameAssets.i.npc_ViejaMachi, false);
+                dialogue.ShowRightCharacterName("Kuyenray");
+                dialogue.ShowRightNameplate();
+                dialogue.GetSuperTextMesh().readDelay = 0.08f;
+                dialogue.ShowText("ESO… <d=5> ESO ES…");
+            },
+            () => {
+                dialogue.GetSuperTextMesh().readDelay = 0.06f;
+                dialogue.ShowText("Suyai, no puedo creerlo, pero tu historia parece ser cierta.");
+            },
+            () => {
+                dialogue.GetSuperTextMesh().readDelay = 0.03f;
+                dialogue.ShowText("Si es así, no puedes quedarte más tiempo por acá.");
+            },
+            () => {
+                dialogue.ShowText("Vuelve con Trentren y cuéntale acerca de tu encuentro con Caicai.");
+            },
+            () => {
+                dialogue.ShowText("Consigue que te preste su poder para enfrentar a estos enemigos.");
+            },
+            () => {
+                dialogue.GetSuperTextMesh().readDelay = 0.06f;
+                dialogue.ShowText("Si ellos han vuelto, puede que mas de estas criaturas ancestrales también lo hayan hecho...");
+            },
+            () => {
+                dialogue.GetSuperTextMesh().readDelay = 0.03f;
+                dialogue.ShowText("De ser así, podrías salir de viaje para encontrar a otras que aun no conoces.");
+            },
+            () => {
+                dialogue.ShowText("Y convencerlas de que se unan a nuestra lucha para traer de vuelta a nuestros amigos y familiares.");
+            },
+            () => {
+                dialogue.GetSuperTextMesh().readDelay = 0.1f;
+                dialogue.ShowText("...");
+            },
+            () => {
+                dialogue.GetSuperTextMesh().readDelay = 0.06f;
+                dialogue.ShowText("Cuídate Suyai...");
+            },
+            () => {
+                dialogue.GetSuperTextMesh().readDelay = 0.05f;
+                dialogue.ShowText("Es una misión importante para alguien como tú, pero no tenemos otra opción.");
+            },
+            () => {
+                dialogue.GetSuperTextMesh().readDelay = 0.03f;
+                dialogue.ShowText("Confío en ti.");
+            },
+            () => {
+                dialogue.Hide();
+                GameData.state = GameData.State.Endgame;
+                OverworldManager.StartOvermapRunning();
+            },
+        }, true);
+    }
+
+    public static void Play_MachiEndGame()
+    {
+        OverworldManager.StopOvermapRunning();
+        DialogueController dialogue = DialogueController.GetInstance();
+        dialogue.SetDialogueActions(new List<Action>()
+        {
+            () => {
+                dialogue.Show();
+                dialogue.ShowRightCharacter(GameAssets.i.npc_ViejaMachi, false);
+                dialogue.ShowText("¿Aun sigues por acá Suyai? No podemos perder mas tiempo. Debes partir ahora.");
+                dialogue.ShowRightCharacterName("Kuyenray");
+                dialogue.ShowRightNameplate();
+                dialogue.HideLeftCharacter();
+                dialogue.HideLeftNameplate();
+                dialogue.HideLeftCharacterName();
+            },
+            () => {
+                dialogue.Hide();
+                OverworldManager.StartOvermapRunning();
+            },
+        }, true);
+    }
+
+    public static void Play_NPCEndGame()
+    {
+        OverworldManager.StopOvermapRunning();
+        DialogueController dialogue = DialogueController.GetInstance();
+        dialogue.SetDialogueActions(new List<Action>()
+        {
+            () => {
+                dialogue.Show();
+                dialogue.ShowText("Esta muy shockeado como para prestarte atención en este momento.");
+                dialogue.HideLeftCharacter();
+                dialogue.HideLeftNameplate();
+                dialogue.HideLeftCharacterName();
+                dialogue.HideRightCharacter();
+                dialogue.HideRightCharacterName();
+                dialogue.HideRightNameplate();
+            },
+            () => {
+                dialogue.Hide();
+                OverworldManager.StartOvermapRunning();
+            },
+        }, true);
+    }
+
+    public static void Play_TrenTrenEndGame()
+    {
+        OverworldManager.StopOvermapRunning();
+        DialogueController dialogue = DialogueController.GetInstance();
+        dialogue.SetDialogueActions(new List<Action>()
+        {
+            () => {
+                dialogue.Show();
+                dialogue.HideRightCharacter();
+                dialogue.HideRightCharacterName();
+                dialogue.HideRightNameplate();
+                dialogue.ShowLeftCharacter(GameAssets.i.splashSuyai, false);
+                dialogue.ShowLeftCharacterName("Suyai");
+                dialogue.ShowLeftNameplate();
+                dialogue.ShowText("     Le muestras la <q=Escama> <c=blue> Escama Marina");
+            },
+            () => {
+                dialogue.HideLeftCharacter();
+                dialogue.HideLeftNameplate();
+                dialogue.HideLeftCharacterName();
+                dialogue.ShowRightCharacter(GameAssets.i.trenTrenSprite, false);
+                dialogue.ShowRightCharacterName("TrenTren");
+                dialogue.ShowRightNameplate();
+                dialogue.ShowText("Así que lo lograste Suyai.");
+            },
+            () => {
+                dialogue.ShowText("No estaba seguro de que lo conseguirías.");
+            },
+            () => {
+                dialogue.ShowText("Pero me alegro de que hayas salido con vida.");
+            },
+            () => {
+                dialogue.ShowText("Quiero ser sincero contigo y contarte lo que paso.");
+            },
+            () => {
+                dialogue.ShowText("Si, <d=5> es cierto que tras ver el egoísmo existente entre los mortales.");
+            },
+            () => {
+                dialogue.ShowText("Egoísmo que los llevo a levantarse en armas entre ustedes...");
+            },
+            () => {
+                dialogue.ShowText("Nosotros nos decepcionamos y alejamos.");
+            },
+            () => {
+                dialogue.ShowText("Pero algunos hemos estado observando a lo lejos y hemos visto como ustedes han ido evolucionando y como han cambiado.");
+            },
+            () => {
+                dialogue.ShowText("Por eso decidí darles una nueva oportunidad y me acerqué para informarles acerca del peligro inminente que se acercaba.");
+            },
+            () => {
+                dialogue.ShowText("Sin embargo, Caicai descubrió mis planes y me ataco debilitándome");
+            },
+            () => {
+                dialogue.ShowText("Por eso no pude avisar a tiempo y los enemigos llegaron a tu aldea.");
+            },
+            () => {
+                dialogue.ShowText("Permíteme pagar mi falta otorgándote mi poder para que puedas ocuparlo en batallas importantes.");
+            },
+            () => {
+                dialogue.ShowText("Aun debo recuperar fuerzas, así que no podrás ocupar mi habilidad aún.");
+            },
+            () => {
+                dialogue.ShowText("Mientras busquemos a otros como yo que quieran prestar su poder a ustedes, los mortales.");
+            },
+            () => {
+                dialogue.Hide();
+                //FadeIn
+            },
+        }, true);
+    }
+
+
 
     public static void ShopDialogue(Character shopCharacter)
     {

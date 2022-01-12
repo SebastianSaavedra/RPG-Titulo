@@ -31,6 +31,7 @@ public class Battle
     public CharacterBattle aiTargetCharacterBattle;
 
     private static CharacterBattle trenTrenCapturadoCharacterBattle;
+    private bool alreadyTrenTrenSpeaked;
 
 
     private LanePosition lastPlayerActiveLanePosition;
@@ -121,7 +122,7 @@ public class Battle
                 {
                     default:
                     case LanePosition.Captured: return LanePosition.Down;
-                    case LanePosition.Up: return LanePosition.Down;
+                    case LanePosition.Up: return LanePosition.Captured;
                     case LanePosition.Middle: return LanePosition.Up;
                     case LanePosition.Down: return LanePosition.Middle;
                 }
@@ -802,8 +803,18 @@ public class Battle
                     GameData.state = GameData.State.CaiCaiBeated;
                     GameData.cutsceneAlreadyWatched = false;
                     break;
+                case GameData.State.PeleandoVSPrimerPeloton:
+                    GameData.state = GameData.State.PrimerPelotonVencido;
+                    break;
+                case GameData.State.PeleandoVSSegundoPeloton:
+                    GameData.state = GameData.State.SegundoPelotonVencido;
+                    break;
+                case GameData.State.PeleandoVSTercerPeloton:
+                    GameData.state = GameData.State.TercerPelotonVencido;
+                    break;
             }
             Debug.Log("El estado del GameData.state es: " + GameData.state);
+            Debug.Log("El estado del GameData.MapZone es: " + GameData.mapZoneState);
             //SoundManager.PlaySound(SoundManager.Sound.BattleWin);
             FunctionTimer.Create(OverworldManager.LoadBackToOvermap, .7f);
             return;
@@ -858,7 +869,17 @@ public class Battle
                     aiTargetCharacterBattle = GetAliveTeamCharacterBattleList(true)[Random.Range(0, GetAliveTeamCharacterBattleList(true).Count)];
                 }
                 SetCamera(aiTargetCharacterBattle.GetPosition() + new Vector3(+5f, 0), 30f);
-                activeCharacterBattle.AttackTarget(aiTargetCharacterBattle.GetPosition(), () => 
+                activeCharacterBattle.GetComponent<SpriteRenderer>().sortingOrder += 2;
+                Vector3 targetPosition;
+                if (activeCharacterBattle.GetCharacterType() == Character.Type.Fusilero)
+                {
+                    targetPosition = new Vector3(aiTargetCharacterBattle.GetPosition().x - 2, aiTargetCharacterBattle.GetPosition().y, aiTargetCharacterBattle.GetPosition().z);
+                }
+                else
+                {
+                    targetPosition = aiTargetCharacterBattle.GetPosition();
+                }
+                activeCharacterBattle.AttackTarget(targetPosition, () => 
                 {
                     //SoundManager.PlaySound(SoundManager.Sound.CharacterHit);
                     int damageBase = activeCharacterBattle.GetAttack();
@@ -896,6 +917,7 @@ public class Battle
                 {
                     ResetCamera();
                     activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
+                    activeCharacterBattle.GetComponent<SpriteRenderer>().sortingOrder -= 2;
                     StatusInfo(activeCharacterBattle);
                 });
             }, .3f);
@@ -919,7 +941,11 @@ public class Battle
             {
                 if (TurnSystem.instance.GetTurnCount() <= TurnSystem.instance.GetTotalAmountOfTurns() * 0.75f)
                 {
-                    Dialogues.Play_TrenTrenDuringBattle();
+                    if (!alreadyTrenTrenSpeaked)
+                    {
+                        Dialogues.Play_TrenTrenDuringBattle();
+                        alreadyTrenTrenSpeaked = true;
+                    }
                 }
                 state = State.WaitingForPlayer;
             }

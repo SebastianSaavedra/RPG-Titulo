@@ -22,11 +22,6 @@ public class GameManager_Overworld : MonoBehaviour
         OverworldManager.GetInstance().Start();
     }
 
-    private void Update()
-    {
-        OverworldManager.GetInstance().Update();
-    }
-
     private Vector3 GetCameraPosition()
     {
         return playerOverworld.GetPosition();

@@ -56,6 +56,11 @@ public class NPCOverworld : MonoBehaviour
                 transform.localScale = Vector3.one * 0.85f;
                 //Setear animator
                 break;
+            case Character.Type.SoldadoDesesperado:
+                sprite.sprite = GameAssets.i.warriorNPC;
+                transform.localScale = Vector3.one * 0.85f;
+                //Setear animator
+                break;
             case Character.Type.ViejaMachi:
                 sprite.sprite = GameAssets.i.npc_ViejaMachi;
                 transform.localScale = Vector3.one * 0.75f;
@@ -81,13 +86,13 @@ public class NPCOverworld : MonoBehaviour
                 transform.localScale = Vector3.one * 0.85f;
                 break;
 
-            case Character.Type.TrenTren:
-                sprite.sprite = GameAssets.i.trenTrenSprite;
-                break;
+            //case Character.Type.TrenTren:
+            //    sprite.sprite = GameAssets.i.trenTrenSprite;
+            //    break;
 
-            case Character.Type.CaiCai:
-                sprite.sprite = GameAssets.i.trenTrenSprite;
-                break;
+            //case Character.Type.CaiCai:
+            //    sprite.sprite = GameAssets.i.trenTrenSprite;
+            //    break;
 
             case Character.Type.Shop:
                 sprite.sprite = GameAssets.i.npc_SHOP;

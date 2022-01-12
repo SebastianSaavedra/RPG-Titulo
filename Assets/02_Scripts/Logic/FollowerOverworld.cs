@@ -54,7 +54,7 @@ public class FollowerOverworld : MonoBehaviour
 
         aiPath.maxSpeed = SPEED;
 
-        float randomEndReachedDistance = UnityEngine.Random.Range(1.75f,5f);
+        float randomEndReachedDistance = UnityEngine.Random.Range(1.75f,4f);
         aiPath.endReachedDistance = randomEndReachedDistance;
         if (character.IsInPlayerTeam())
         {

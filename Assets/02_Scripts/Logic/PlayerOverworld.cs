@@ -112,7 +112,7 @@ public class PlayerOverworld : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            NPCOverworld npcOverworld = OverworldManager.GetInstance().GetClosestNPC(GetPosition(), 1.5f);
+            NPCOverworld npcOverworld = OverworldManager.GetInstance().GetClosestNPC(GetPosition(), 2f);
             ItemOverworld itemOverworld = OverworldManager.GetInstance().GetClosestItem(GetPosition(), 3.9f);
             if (npcOverworld != null)
             {
@@ -128,9 +128,23 @@ public class PlayerOverworld : MonoBehaviour
                             case GameData.State.AlreadyTalkedWithViejaMachi:
                                 Dialogues.Play_ViejaMachiQuestPending(npcOverworld.GetCharacter());
                                 break;
+                            case GameData.State.Endgame:
+                                Dialogues.Play_MachiEndGame();
+                                break;
                         }
-
                         break;
+
+                    case Character.Type.TrenTren:
+                        switch (GameData.state)
+                        {
+                            default:
+                                break;
+                            case GameData.State.Endgame:
+                                Dialogues.Play_TrenTrenEndGame();
+                                break;
+                        }
+                        break;
+
                     case Character.Type.SoldadoMapuche_1:
 
                         switch (GameData.state)
@@ -148,100 +162,182 @@ public class PlayerOverworld : MonoBehaviour
                                     Dialogues.Play_SoldadoAdvertenciaBosque(npcOverworld);
                                 }
                                 break;
+                            case GameData.State.Endgame:
+                                Dialogues.Play_NPCEndGame();
+                                break;
                         }
                         break;
+
                     case Character.Type.SoldadoMapuche_2:
-                        if (GameData.state == GameData.State.CaiCaiBeated)
+                        switch (GameData.state)
                         {
-                            Dialogues.Play_Soldado_2(npcOverworld);
+                            default:
+                                if (npcOverworld.GetAlreadyTalkedWithThisNPC())
+                                {
+                                    Dialogues.Play_Soldado_2Repeat(npcOverworld);
+                                }
+                                else
+                                {
+                                    Dialogues.Play_Soldado_2(npcOverworld);
+                                }
+                                break;
+                            case GameData.State.Endgame:
+                                Dialogues.Play_NPCEndGame();
+                                break;
                         }
-                        if (npcOverworld.GetAlreadyTalkedWithThisNPC())
+                        break;
+                    case Character.Type.SoldadoDesesperado:
+                        if (GameData.state == GameData.State.Endgame)
                         {
-                            Dialogues.Play_Soldado_2Repeat(npcOverworld);
+                            Dialogues.Play_NPCEndGame();
                         }
                         else
                         {
-                            Dialogues.Play_Soldado_2(npcOverworld);
+                            Dialogues.Play_Soldado_Desesperado();
                         }
                         break;
                     case Character.Type.HombreMapuche_1:
-                        if (npcOverworld.GetAlreadyTalkedWithThisNPC())
+                        switch (GameData.state)
                         {
-                            Dialogues.Play_Hombre01Repeat(npcOverworld);
-                        }
-                        else
-                        {
-                            Dialogues.Play_Hombre01(npcOverworld);
+                            default:
+                                if (npcOverworld.GetAlreadyTalkedWithThisNPC())
+                                {
+                                    Dialogues.Play_Hombre01Repeat(npcOverworld);
+                                }
+                                else
+                                {
+                                    Dialogues.Play_Hombre01(npcOverworld);
+                                }
+                                break;
+                            case GameData.State.Endgame:
+                                Dialogues.Play_NPCEndGame();
+                                break;
                         }
                         break;
                     case Character.Type.HombreMapuche_2:
-                        if (npcOverworld.GetAlreadyTalkedWithThisNPC())
+                        switch (GameData.state)
                         {
-                            Dialogues.Play_Hombre02Repeat(npcOverworld);
-                        }
-                        else
-                        {
-                            Dialogues.Play_Hombre02(npcOverworld);
+                            default:
+                                if (npcOverworld.GetAlreadyTalkedWithThisNPC())
+                                {
+                                    Dialogues.Play_Hombre02Repeat(npcOverworld);
+                                }
+                                else
+                                {
+                                    Dialogues.Play_Hombre02(npcOverworld);
+                                }
+                                break;
+                            case GameData.State.Endgame:
+                                Dialogues.Play_NPCEndGame();
+                                break;
                         }
                         break;
                     case Character.Type.MujerMapuche_1:
-                        if (npcOverworld.GetAlreadyTalkedWithThisNPC())
+                        switch (GameData.state)
                         {
-                            Dialogues.Play_Mujer01Repeat(npcOverworld);
-                        }
-                        else
-                        {
-                            Dialogues.Play_Mujer01(npcOverworld);
+                            default:
+                                if (npcOverworld.GetAlreadyTalkedWithThisNPC())
+                                {
+                                    Dialogues.Play_Mujer01Repeat(npcOverworld);
+                                }
+                                else
+                                {
+                                    Dialogues.Play_Mujer01(npcOverworld);
+                                }
+                                break;
+                            case GameData.State.Endgame:
+                                Dialogues.Play_NPCEndGame();
+                                break;
                         }
                         break;
                     case Character.Type.MujerMapuche_2:
-                        if (npcOverworld.GetAlreadyTalkedWithThisNPC())
+                        switch (GameData.state)
                         {
-                            Dialogues.Play_Mujer02Repeat(npcOverworld);
-                        }
-                        else
-                        {
-                            Dialogues.Play_Mujer02(npcOverworld);
+                            default:
+                                if (npcOverworld.GetAlreadyTalkedWithThisNPC())
+                                {
+                                    Dialogues.Play_Mujer02Repeat(npcOverworld);
+                                }
+                                else
+                                {
+                                    Dialogues.Play_Mujer02(npcOverworld);
+                                }
+                                break;
+                            case GameData.State.Endgame:
+                                Dialogues.Play_NPCEndGame();
+                                break;
                         }
                         break;
                     case Character.Type.NinoMapuche_1:
-                        if (npcOverworld.GetAlreadyTalkedWithThisNPC())
+                        switch (GameData.state)
                         {
-                            Dialogues.Play_Nino01Repeat(npcOverworld);
-                        }
-                        else
-                        {
-                            Dialogues.Play_Nino01(npcOverworld);
+                            default:
+                                if (npcOverworld.GetAlreadyTalkedWithThisNPC())
+                                {
+                                    Dialogues.Play_Nino01Repeat(npcOverworld);
+                                }
+                                else
+                                {
+                                    Dialogues.Play_Nino01(npcOverworld);
+                                }
+                                break;
+                            case GameData.State.Endgame:
+                                Dialogues.Play_NPCEndGame();
+                                break;
                         }
                         break;
                     case Character.Type.NinoMapuche_2:
-                        if (npcOverworld.GetAlreadyTalkedWithThisNPC())
+                        switch (GameData.state)
                         {
-                            Dialogues.Play_Nino02Repeat(npcOverworld);
-                        }
-                        else
-                        {
-                            Dialogues.Play_Nino02(npcOverworld);
+                            default:
+                                if (npcOverworld.GetAlreadyTalkedWithThisNPC())
+                                {
+                                    Dialogues.Play_Nino02Repeat(npcOverworld);
+                                }
+                                else
+                                {
+                                    Dialogues.Play_Nino02(npcOverworld);
+                                }
+                                break;
+                            case GameData.State.Endgame:
+                                Dialogues.Play_NPCEndGame();
+                                break;
                         }
                         break;
                     case Character.Type.NinaMapuche_1:
-                        if (npcOverworld.GetAlreadyTalkedWithThisNPC())
+                        switch (GameData.state)
                         {
-                            Dialogues.Play_Nina01Repeat(npcOverworld);
-                        }
-                        else
-                        {
-                            Dialogues.Play_Nina01(npcOverworld);
+                            default:
+                                if (npcOverworld.GetAlreadyTalkedWithThisNPC())
+                                {
+                                    Dialogues.Play_Nina01Repeat(npcOverworld);
+                                }
+                                else
+                                {
+                                    Dialogues.Play_Nina01(npcOverworld);
+                                }
+                                break;
+                            case GameData.State.Endgame:
+                                Dialogues.Play_NPCEndGame();
+                                break;
                         }
                         break;
                     case Character.Type.NinaMapuche_2:
-                        if (npcOverworld.GetAlreadyTalkedWithThisNPC())
+                        switch (GameData.state)
                         {
-                            Dialogues.Play_Nina02Repeat(npcOverworld);
-                        }
-                        else
-                        {
-                            Dialogues.Play_Nina02(npcOverworld);
+                            default:
+                                if (npcOverworld.GetAlreadyTalkedWithThisNPC())
+                                {
+                                    Dialogues.Play_Nina02Repeat(npcOverworld);
+                                }
+                                else
+                                {
+                                    Dialogues.Play_Nina02(npcOverworld);
+                                }
+                                break;
+                            case GameData.State.Endgame:
+                                Dialogues.Play_NPCEndGame();
+                                break;
                         }
                         break;
                     case Character.Type.Shop:

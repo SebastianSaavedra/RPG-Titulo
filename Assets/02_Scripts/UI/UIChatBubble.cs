@@ -37,6 +37,11 @@ public class UIChatBubble : MonoBehaviour
         //SoundManager.PlaySound(SoundManager.Sound.Talking, text.Length * textSpeed);
     }
 
+    public SuperTextMesh GetSuperTextMesh()
+    {
+        return superTextMesh;
+    }
+
     public void Hide() {
         gameObject.SetActive(false);
     }

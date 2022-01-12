@@ -22,20 +22,30 @@ public class DialogueController : MonoBehaviour
     private List<Action> actionList;
     private List<DialogueOption> dialogOptionList;
 
+
+    protected Transform leftCharacterPosition, rightCharacterPosition, leftCharacterNamePosition, rightCharacterNamePosition, leftCharacterNameplatePosition,rightCharacterNameplatePosition;
+
+
     private void Awake() 
     {
         instance = this;
 
         leftCharacterTransform = transform.Find("LeftCharacter");
+        leftCharacterPosition = leftCharacterTransform;
         rightCharacterTransform = transform.Find("RightCharacter");
+        rightCharacterPosition = rightCharacterTransform;
 
         chatBubble = transform.Find("ChatBubbleUI").GetComponent<UIChatBubble>();
 
         leftCharacterNameText = transform.Find("LeftCharacterName").GetComponent<TextMeshProUGUI>();
+        leftCharacterNamePosition = leftCharacterNameText.transform;
         rightCharacterNameText = transform.Find("RightCharacterName").GetComponent<TextMeshProUGUI>();
+        rightCharacterNamePosition = rightCharacterNameText.transform;
 
         leftCharacterNameplateTransform = transform.Find("LeftNameplate");
+        leftCharacterNameplatePosition = leftCharacterNameplateTransform;
         rightCharacterNameplateTransform = transform.Find("RightNameplate");
+        rightCharacterNameplatePosition = rightCharacterNameplateTransform;
 
         ShowLeftCharacterName("");
         ShowRightCharacterName("");
@@ -98,6 +108,11 @@ public class DialogueController : MonoBehaviour
         action();
     }
 
+    public SuperTextMesh GetSuperTextMesh()
+    {
+        return chatBubble.GetSuperTextMesh();
+    }
+
     public void ShowLeftCharacterName(string name) 
     {
         leftCharacterNameText.text = name;
@@ -105,6 +120,11 @@ public class DialogueController : MonoBehaviour
 
     public void ShowRightCharacterName(string name)
     {
+        rightCharacterNameText.text = name;
+    }
+    public void ShowRightCharacterName(string name,Vector3 position)
+    {
+        rightCharacterNameText.transform.localPosition = position;
         rightCharacterNameText.text = name;
     }
 
@@ -129,6 +149,11 @@ public class DialogueController : MonoBehaviour
     }
     public void ShowRightNameplate()
     {
+        rightCharacterNameplateTransform.gameObject.SetActive(true);
+    }
+    public void ShowRightNameplate(Vector3 position)
+    {
+        rightCharacterNameplateTransform.localPosition = position;
         rightCharacterNameplateTransform.gameObject.SetActive(true);
     }
 
@@ -179,13 +204,26 @@ public class DialogueController : MonoBehaviour
     public void HideLeftCharacter() {
         leftCharacterTransform.gameObject.SetActive(false);
     }
-    
-    public void ShowRightCharacter(Sprite characterSprite, bool faded) 
+
+    public void ShowRightCharacter(Sprite characterSprite, bool faded)
     {
         rightCharacterTransform.gameObject.SetActive(true);
         rightCharacterTransform.GetComponent<Image>().sprite = characterSprite;
         rightCharacterTransform.GetComponent<Image>().color = new Color(1, 1, 1, 1f);
-        if (faded) {
+        if (faded)
+        {
+            rightCharacterTransform.GetComponent<Image>().color = new Color(.4f, .4f, .4f, 1f);
+        }
+    }
+
+    public void ShowRightCharacter(Sprite characterSprite, bool faded, Vector3 position)
+    {
+        rightCharacterTransform.gameObject.SetActive(true);
+        rightCharacterTransform.localPosition = position;
+        rightCharacterTransform.GetComponent<Image>().sprite = characterSprite;
+        rightCharacterTransform.GetComponent<Image>().color = new Color(1, 1, 1, 1f);
+        if (faded)
+        {
             rightCharacterTransform.GetComponent<Image>().color = new Color(.4f, .4f, .4f, 1f);
         }
     }
@@ -204,10 +242,17 @@ public class DialogueController : MonoBehaviour
 
     public void Hide() {
         gameObject.SetActive(false);
+        leftCharacterTransform.localPosition = leftCharacterPosition.localPosition;
+        rightCharacterTransform.localPosition = rightCharacterPosition.localPosition;
+        leftCharacterNameplateTransform.localPosition = leftCharacterNameplatePosition.localPosition;
+        rightCharacterNameplateTransform.localPosition = rightCharacterNameplatePosition.localPosition;
+        leftCharacterNameText.transform.localPosition = leftCharacterNamePosition.localPosition;
+        rightCharacterNameText.transform.localPosition = rightCharacterNamePosition.localPosition;
     }
 
     public void Show() {
         gameObject.SetActive(true);
+        GetSuperTextMesh().readDelay = .03f;
     }
 
 

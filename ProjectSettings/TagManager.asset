@@ -51,9 +51,15 @@ TagManager:
   - name: Arbustos
     uniqueID: 3266887501
     locked: 0
+  - name: Fogata
+    uniqueID: 414083369
+    locked: 0
   - name: Personajes
     uniqueID: 1475217159
     locked: 0
   - name: Arboles
     uniqueID: 573948665
+    locked: 0
+  - name: Popups
+    uniqueID: 2850624601
     locked: 0

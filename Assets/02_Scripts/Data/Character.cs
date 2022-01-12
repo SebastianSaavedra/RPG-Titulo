@@ -69,6 +69,7 @@ public class Character
         QuestNpc_1,
         SoldadoMapuche_1,
         SoldadoMapuche_2,
+        SoldadoDesesperado,
         ViejaMachi,
         HombreMapuche_1,
         HombreMapuche_2,
@@ -226,8 +227,8 @@ public class Character
                 stats = new Stats
                 {
                     attack = 18,
-                    health = 65,
-                    healthMax = 65,
+                    health = 1,
+                    healthMax = 1,
                     defense = 0,
                     critChance = 5,
                     damageChance = 95,
@@ -238,8 +239,8 @@ public class Character
                 stats = new Stats
                 {
                     attack = 20,
-                    health = 75,
-                    healthMax = 75,
+                    health = 1,
+                    healthMax = 1,
                     defense = 1,
                     critChance = 5,
                     damageChance = 95,

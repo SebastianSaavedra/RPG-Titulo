@@ -86,12 +86,12 @@ public class EnemyOverworld : MonoBehaviour
             case Character.Type.TESTENEMY:
                 sprite.sprite = GameAssets.i.testEnemySprite;
                 break;
-            case Character.Type.Fusilero:
-                sprite.sprite = GameAssets.i.fusileroOWSprite;
-                break;
-            case Character.Type.Lancero:
-                sprite.sprite = GameAssets.i.lanceroOWSprite;
-                break;
+            //case Character.Type.Fusilero:
+            //    sprite.sprite = GameAssets.i.fusileroOWSprite;
+            //    break;
+            //case Character.Type.Lancero:
+            //    sprite.sprite = GameAssets.i.lanceroOWSprite;
+            //    break;
             case Character.Type.Anchimallen:
                 sprite.sprite = GameAssets.i.anchimallenOWSprite;
                 break;
@@ -127,30 +127,51 @@ public class EnemyOverworld : MonoBehaviour
             return;
         }
 
-        switch (state)
+        if (character.type == Character.Type.Lancero || character.type == Character.Type.Fusilero || character.type == Character.Type.FusileroYLancero)
         {
-            case State.Normal:
-                FindTarget();
-
-                if (!huntingPlayer)
-                {
-                    HandleRoaming();
-                }
-                else
-                {
+            switch (state)
+            {
+                case State.Normal:
                     TryAttackPlayer();
-                }
-                HandleMovement();
-                break;
+                    break;
 
-            case State.Waiting:
-                timer -= Time.deltaTime;
-                if (timer <= 0)
-                {
-                    //Debug.Log(character.name + " Volvio a su estado activo");
-                    state = State.Normal;
-                }
-                break;
+                case State.Waiting:
+                    timer -= Time.deltaTime;
+                    if (timer <= 0)
+                    {
+                        //Debug.Log(character.name + " Volvio a su estado activo");
+                        state = State.Normal;
+                    }
+                    break;
+            }
+        }
+        else
+        {
+            switch (state)
+            {
+                case State.Normal:
+                    FindTarget();
+
+                    if (!huntingPlayer)
+                    {
+                        HandleRoaming();
+                    }
+                    else
+                    {
+                        TryAttackPlayer();
+                    }
+                    HandleMovement();
+                    break;
+
+                case State.Waiting:
+                    timer -= Time.deltaTime;
+                    if (timer <= 0)
+                    {
+                        //Debug.Log(character.name + " Volvio a su estado activo");
+                        state = State.Normal;
+                    }
+                    break;
+            }
         }
     }
 
@@ -231,7 +252,11 @@ public class EnemyOverworld : MonoBehaviour
 
     private void TryAttackPlayer()
     {
-        float attackRange = 1.25f;
+        float attackRange = 1.5f;
+        if (character.type == Character.Type.Lancero || character.type == Character.Type.Fusilero || character.type == Character.Type.FusileroYLancero)
+        {
+            attackRange = 3f;
+        }
         if (Vector3.Distance(GetPosition(), playerOvermap.GetPosition()) < attackRange)
         {
             // Player within attack/interact range
