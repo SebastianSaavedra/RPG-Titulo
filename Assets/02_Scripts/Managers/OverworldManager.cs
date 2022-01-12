@@ -67,81 +67,68 @@ public class OverworldManager
     {
         UnityEngine.SceneManagement.SceneManager.sceneLoaded += SceneManager_sceneLoaded;
         StartOvermapRunning();
+        SoundManager.PlaySoundLoop(SoundManager.Sound.OverworldTheme);
 
         foreach (Character character in GameData.characterList)
         {
             if (character.isDead) continue;
             if (character.IsEnemy())
             {
-                switch (GameData.state)
+                switch (character.type)
                 {
-                    case GameData.State.TercerPelotonVencido:
-                    case GameData.State.Endgame:
-                    case GameData.State.CaiCaiBeated:
-                    case GameData.State.TrenTrenSaved:
-                        switch (character.type)
+                    default:
+                        SpawnEnemy(character);
+                        break;
+                    case Character.Type.Fusilero:
+                        switch (GameData.state)
                         {
-                            case Character.Type.Anchimallen:
+                            case GameData.State.PrimerPelotonVencido:
+                            case GameData.State.SegundoPelotonVencido:
+                            case GameData.State.CaiCaiBeated:
+                                SpawnEnemy(character);
+                                Transform pfFusilero = GameObject.Instantiate(GameAssets.i.pfPelotonFusileros, character.position, Quaternion.identity);
+                                pfFusilero.localScale = Vector3.one * 1f;
+                                fusilero = character;
+                                break;
+                        }
+                        break;
+                    case Character.Type.Lancero:
+                        switch (GameData.state)
+                        {
+                            case GameData.State.PrimerPelotonVencido:
+                            case GameData.State.SegundoPelotonVencido:
+                            case GameData.State.CaiCaiBeated:
+                                SpawnEnemy(character);
+                                Transform pfLancero = GameObject.Instantiate(GameAssets.i.pfPelotonLanceros, character.position, Quaternion.identity);
+                                pfLancero.localScale = Vector3.one * 1f;
+                                lancero = character;
+                                break;
+                        }
+                        break;
+                    case Character.Type.FusileroYLancero:
+                        switch (GameData.state)
+                        {
+                            case GameData.State.PrimerPelotonVencido:
+                            case GameData.State.SegundoPelotonVencido:
+                            case GameData.State.CaiCaiBeated:
+                                SpawnEnemy(character);
+                                Transform pfFusileroYLancero = GameObject.Instantiate(GameAssets.i.pfPelotoFusileroYLancero, character.position, Quaternion.identity);
+                                pfFusileroYLancero.localScale = Vector3.one * 1f;
+                                fusileroYLancero = character;
+                                break;
+                        }
+                        break;
+                    case Character.Type.Anchimallen:
+                        switch (GameData.state)
+                        {
+                            case GameData.State.TercerPelotonVencido:
+                            case GameData.State.Endgame:
+                            case GameData.State.CaiCaiBeated:
+                            case GameData.State.TrenTrenSaved:
                                 SpawnEnemy(character);
                                 break;
                         }
                         break;
-                }
-                if (GameData.state == GameData.State.TrenTrenSaved && character.type == Character.Type.Anchimallen || GameData.state == GameData.State.CaiCaiBeated && character.type == Character.Type.Anchimallen)
-                {
-                    SpawnEnemy(character);
-                }
-                else if(character.type != Character.Type.Anchimallen)
-                {
-                    switch (character.type)
-                    {
-                        default:
-                            SpawnEnemy(character);
-                            break;
-                        case Character.Type.Fusilero:
-                            switch(GameData.state)
-                            {
-                                case GameData.State.PrimerPelotonVencido:
-                                case GameData.State.SegundoPelotonVencido:
-                                case GameData.State.CaiCaiBeated:
-                                    Debug.Log("Spawneo: " + character.type);
-                                    SpawnEnemy(character);
-                                    Transform pfFusilero = GameObject.Instantiate(GameAssets.i.pfPelotonFusileros, character.position, Quaternion.identity);
-                                    pfFusilero.localScale = Vector3.one * 1f;
-                                    fusilero = character;
-                                    break;
-                            }
-                            break;
-                        case Character.Type.Lancero:
-                            switch (GameData.state)
-                            {
-                                case GameData.State.PrimerPelotonVencido:
-                                case GameData.State.SegundoPelotonVencido:
-                                case GameData.State.CaiCaiBeated:
-                                    Debug.Log("Spawneo: " + character.type);
-                                    SpawnEnemy(character);
-                                    Transform pfLancero = GameObject.Instantiate(GameAssets.i.pfPelotonLanceros, character.position, Quaternion.identity);
-                                    pfLancero.localScale = Vector3.one * 1f;
-                                    lancero = character;
-                                    break;
-                            }
-                            break;
-                        case Character.Type.FusileroYLancero:
-                            switch (GameData.state)
-                            {
-                                case GameData.State.PrimerPelotonVencido:
-                                case GameData.State.SegundoPelotonVencido:
-                                case GameData.State.CaiCaiBeated:
-                                    Debug.Log("Spawneo: " + character.type);
-                                    SpawnEnemy(character);
-                                    Transform pfFusileroYLancero = GameObject.Instantiate(GameAssets.i.pfPelotoFusileroYLancero, character.position, Quaternion.identity);
-                                    pfFusileroYLancero.localScale = Vector3.one * 1f;
-                                    fusileroYLancero = character;
-                                    break;
-                            }
-                            break;
-
-                    }
                 }
             }
 
@@ -264,7 +251,6 @@ public class OverworldManager
                 UtilsClass.WaitOneFrame();
                 Debug.Log("El estado en el overworld es: " + GameData.state);
                 ZoneManager.instance.SetConfiner(ZoneManager.instance.GetAldeaConfiner());
-                ZoneManager.instance.SetActiveGameobject(ZoneManager.instance.GetTrenTrenBattleTrigger(), true);
                 break;
             case GameData.State.TrenTrenSaved:
                 UtilsClass.WaitOneFrame();
@@ -287,9 +273,11 @@ public class OverworldManager
                             break;
                     }
                 }
-                ZoneManager.instance.SetActiveGameobject(ZoneManager.instance.GetCaiCaiBattleTrigger(), true);
-                ZoneManager.instance.SetActiveGameobject(ZoneManager.instance.GetBosqueToLago().gameObject, ZoneManager.instance.GetLagoToBosque().gameObject, true);
-                ZoneManager.instance.SetActiveGameobject(ZoneManager.instance.GetBosqueToAldea().gameObject, ZoneManager.instance.GetAldeaToBosque().gameObject, false);
+                ZoneManager.instance.GetCaiCaiBattleTrigger().SetActive(true);
+                ZoneManager.instance.GetBosqueToLagoPortal().SetActive(true);
+                ZoneManager.instance.GetLagoToBosquePortal().SetActive(true);
+                ZoneManager.instance.GetBosquePToBosquePortal().SetActive(true);
+                ZoneManager.instance.GetBosqueToBosquePPortal().SetActive(true);
                 foreach (GameObject item in ZoneManager.instance.GetAfterTrenTrenObjects())
                 {
                     item.SetActive(false);
@@ -321,9 +309,13 @@ public class OverworldManager
                             break;
                     }
                 }
-                ZoneManager.instance.SetActiveGameobject(ZoneManager.instance.GetAldeaBattleTriger(), true);
-                ZoneManager.instance.SetActiveGameobject(ZoneManager.instance.GetBosqueToLago().gameObject, ZoneManager.instance.GetLagoToBosque().gameObject, true);
-                ZoneManager.instance.SetActiveGameobject(ZoneManager.instance.GetBosqueToAldea().gameObject, ZoneManager.instance.GetAldeaToBosque().gameObject, true);
+                ZoneManager.instance.GetAldeaBattleTriger().SetActive(true);
+                ZoneManager.instance.GetBosqueToLagoPortal().SetActive(true);
+                ZoneManager.instance.GetLagoToBosquePortal().SetActive(true);
+                ZoneManager.instance.GetAldeaToBosquePortal().SetActive(true);
+                ZoneManager.instance.GetBosqueToAldeaPortal().SetActive(true);
+                ZoneManager.instance.GetBosquePToBosquePortal().SetActive(true);
+                ZoneManager.instance.GetBosqueToBosquePPortal().SetActive(true);
                 foreach (GameObject item in ZoneManager.instance.GetAfterTrenTrenObjects())
                 {
                     item.SetActive(false);
@@ -331,7 +323,7 @@ public class OverworldManager
                 if (!GameData.cutsceneAlreadyWatched)
                 {
                     ZoneManager.instance.SetConfiner(ZoneManager.instance.GetLagoConfiner());
-                    ZoneManager.instance.SetActiveGameobject(ZoneManager.instance.GetGuerreroDesesperadoTrigger(), true);
+                    ZoneManager.instance.GetGuerreroDesesperadoTrigger().SetActive(true);
                     Dialogues.Play_CaiCaiBeated();
                 }
                 break;
@@ -361,7 +353,6 @@ public class OverworldManager
                 {
                     item.SetActive(false);
                 }
-                playerOvermap.SetPosition(new Vector3(-13f, -43f, 0f));
                 Dialogues.Play_SegundoPeloton(fusilero);
                 break;
 
@@ -390,7 +381,6 @@ public class OverworldManager
                 {
                     item.SetActive(false);
                 }
-                playerOvermap.SetPosition(new Vector3(-19f, -43f, 0f));
                 Dialogues.Play_TercerPeloton(fusileroYLancero);
                 break;
 
@@ -415,13 +405,47 @@ public class OverworldManager
                             break;
                     }
                 }
-                ZoneManager.instance.SetActiveGameobject(ZoneManager.instance.GetBosqueToAldea().gameObject, ZoneManager.instance.GetAldeaToBosque().gameObject, true);
-                playerOvermap.SetPosition(new Vector3(-18f, -51f,0f));
+                ZoneManager.instance.GetBosqueToLagoPortal().SetActive(true);
+                ZoneManager.instance.GetLagoToBosquePortal().SetActive(true);
+                ZoneManager.instance.GetAldeaToBosquePortal().SetActive(true);
+                ZoneManager.instance.GetBosqueToAldeaPortal().SetActive(true);
+                ZoneManager.instance.GetBosquePToBosquePortal().SetActive(true);
+                ZoneManager.instance.GetBosqueToBosquePPortal().SetActive(true);
                 foreach (GameObject item in ZoneManager.instance.GetAfterTrenTrenObjects())
                 {
                     item.SetActive(false);
                 }
                 Dialogues.Play_ViejaMachiRescatada();
+                break;
+
+            case GameData.State.Endgame:
+                UtilsClass.WaitOneFrame();
+                Debug.Log("El estado en el overworld es: " + GameData.state);
+                switch (GameData.mapZoneState)
+                {
+                    case GameData.MapZone.BosqueAraucarias:
+                        ZoneManager.instance.SetConfiner(ZoneManager.instance.GetBosqueAraucConfiner());
+                        break;
+                    case GameData.MapZone.Aldea:
+                        ZoneManager.instance.SetConfiner(ZoneManager.instance.GetAldeaConfiner());
+                        break;
+                    case GameData.MapZone.Lago:
+                        ZoneManager.instance.SetConfiner(ZoneManager.instance.GetLagoConfiner());
+                        break;
+                    case GameData.MapZone.BosqueProfundo:
+                        ZoneManager.instance.SetConfiner(ZoneManager.instance.GetBosqueProfundoConfiner());
+                        break;
+                }
+                ZoneManager.instance.GetBosqueToLagoPortal().SetActive(true);
+                ZoneManager.instance.GetLagoToBosquePortal().SetActive(true);
+                ZoneManager.instance.GetAldeaToBosquePortal().SetActive(true);
+                ZoneManager.instance.GetBosqueToAldeaPortal().SetActive(true);
+                ZoneManager.instance.GetBosquePToBosquePortal().SetActive(true);
+                ZoneManager.instance.GetBosqueToBosquePPortal().SetActive(true);
+                foreach (GameObject item in ZoneManager.instance.GetAfterTrenTrenObjects())
+                {
+                    item.SetActive(false);
+                }
                 break;
         }
 

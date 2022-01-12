@@ -7,10 +7,13 @@ public class ZoneManager : MonoBehaviour
 {
     public static ZoneManager instance;
 
-    [SerializeField] CinemachineConfiner confiner;
+    CinemachineConfiner confiner;
+    PlayerOverworld player;
+
     [SerializeField] PolygonCollider2D aldeaConfiner, bosqueAraucConfiner, lagoConfiner, bosqueProfundoConfiner;
-    [SerializeField] PlayerOverworld player;
-    [SerializeField] Transform aldeaToBosque, bosqueToAldea, bosqueToLago, lagoToBosque, bosqueToBosqueP, bosquePToBosque,colliderAldeaToBosque;
+
+    [SerializeField] Transform aldeaToBosquePos, bosqueToAldeaPos, bosqueToLagoPos, lagoToBosquePos, bosqueToBosquePPos, bosquePToBosquePos;
+    [SerializeField] GameObject colliderAldeaToBosque,colliderBosqueToAldea, colliderBosqueToLago, colliderLagoToBosque, colliderBosqueToBosqueP, colliderBosquePToBosque;
 
     [Space(10)]
     [SerializeField] GameObject trenTrenBattleTrigger,caiCaiBattleTrigger,aldeaBattleTriger,guerreroDesesperadoTrigger;
@@ -32,31 +35,25 @@ public class ZoneManager : MonoBehaviour
     public GameObject GetCaiCaiBattleTrigger() => caiCaiBattleTrigger;
     public GameObject GetAldeaBattleTriger() => aldeaBattleTriger;
     public GameObject GetGuerreroDesesperadoTrigger() => guerreroDesesperadoTrigger;
-    public Transform GetAldeaToBosque() => aldeaToBosque;
-    public Transform GetBosqueToAldea() => bosqueToAldea;
-    public Transform GetBosqueToLago() => bosqueToLago;
-    public Transform GetLagoToBosque() => lagoToBosque;
-    public Transform GetBosqueToBosqueP() => bosqueToBosqueP;
-    public Transform GetBosquePToBosque() => bosquePToBosque;
+
+    public Transform GetAldeaToBosquePos() => aldeaToBosquePos;
+    public Transform GetBosqueToAldeaPos() => bosqueToAldeaPos;
+    public Transform GetBosqueToLagoPos() => bosqueToLagoPos;
+    public Transform GetLagoToBosquePos() => lagoToBosquePos;
+    public Transform GetBosqueToBosquePPos() => bosqueToBosquePPos;
+    public Transform GetBosquePToBosquePos() => bosquePToBosquePos;
+
+    public GameObject GetAldeaToBosquePortal() => colliderAldeaToBosque;
+    public GameObject GetBosqueToAldeaPortal() => colliderBosqueToAldea;
+    public GameObject GetBosqueToLagoPortal() => colliderBosqueToLago;
+    public GameObject GetLagoToBosquePortal() => colliderLagoToBosque;
+    public GameObject GetBosqueToBosquePPortal() => colliderBosqueToBosqueP;
+    public GameObject GetBosquePToBosquePortal() => colliderBosquePToBosque;
+
     public PolygonCollider2D GetAldeaConfiner() => aldeaConfiner;
     public PolygonCollider2D GetBosqueAraucConfiner() => bosqueAraucConfiner;
     public PolygonCollider2D GetLagoConfiner() => lagoConfiner;
     public PolygonCollider2D GetBosqueProfundoConfiner() => bosqueProfundoConfiner;
-
-    public void ActivateColliderAldeaToBosque()
-    {
-        colliderAldeaToBosque.gameObject.SetActive(true);
-    }
-
-    public void SetActiveGameobject(GameObject go, bool active)
-    {
-        go.SetActive(active);
-    }
-    public void SetActiveGameobject(GameObject go1, GameObject go2, bool active)
-    {
-        go1.SetActive(active);
-        go2.SetActive(active);
-    }
 
     public void SetConfiner(PolygonCollider2D confiner2D)
     {
@@ -75,7 +72,7 @@ public class ZoneManager : MonoBehaviour
         //Transition FadeIn
         confiner.m_BoundingShape2D = bosqueAraucConfiner;
         confiner.InvalidatePathCache();
-        player.transform.position = aldeaToBosque.position;
+        player.transform.position = aldeaToBosquePos.position;
         foreach (FollowerOverworld follower in OverworldManager.GetInstance().GetFollowerList())
         {
             follower.gameObject.transform.position = player.transform.position;
@@ -91,7 +88,7 @@ public class ZoneManager : MonoBehaviour
         //Transition FadeIn
         confiner.m_BoundingShape2D = aldeaConfiner;
         confiner.InvalidatePathCache();
-        player.transform.position = bosqueToAldea.position;
+        player.transform.position = bosqueToAldeaPos.position;
         foreach (FollowerOverworld follower in OverworldManager.GetInstance().GetFollowerList())
         {
             follower.gameObject.transform.position = player.transform.position;
@@ -107,7 +104,7 @@ public class ZoneManager : MonoBehaviour
         //Transition FadeIn
         confiner.m_BoundingShape2D = lagoConfiner;
         confiner.InvalidatePathCache();
-        player.transform.position = bosqueToLago.position;
+        player.transform.position = bosqueToLagoPos.position;
         foreach (FollowerOverworld follower in OverworldManager.GetInstance().GetFollowerList())
         {
             follower.gameObject.transform.position = player.transform.position;
@@ -122,7 +119,7 @@ public class ZoneManager : MonoBehaviour
         //Transition FadeIn
         confiner.m_BoundingShape2D = bosqueProfundoConfiner;
         confiner.InvalidatePathCache();
-        player.transform.position = bosqueToBosqueP.position;
+        player.transform.position = bosqueToBosquePPos.position;
         foreach (FollowerOverworld follower in OverworldManager.GetInstance().GetFollowerList())
         {
             follower.gameObject.transform.position = player.transform.position;
@@ -137,7 +134,7 @@ public class ZoneManager : MonoBehaviour
         //Transition FadeIn
         confiner.m_BoundingShape2D = bosqueAraucConfiner;
         confiner.InvalidatePathCache();
-        player.transform.position = lagoToBosque.position;
+        player.transform.position = lagoToBosquePos.position;
         foreach (FollowerOverworld follower in OverworldManager.GetInstance().GetFollowerList())
         {
             follower.gameObject.transform.position = player.transform.position;
@@ -152,7 +149,7 @@ public class ZoneManager : MonoBehaviour
         //Transition FadeIn
         confiner.m_BoundingShape2D = bosqueAraucConfiner;
         confiner.InvalidatePathCache();
-        player.transform.position = bosquePToBosque.position;
+        player.transform.position = bosquePToBosquePos.position;
         foreach (FollowerOverworld follower in OverworldManager.GetInstance().GetFollowerList())
         {
             follower.gameObject.transform.position = player.transform.position;

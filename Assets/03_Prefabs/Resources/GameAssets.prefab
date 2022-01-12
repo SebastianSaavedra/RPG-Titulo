@@ -135,13 +135,31 @@ MonoBehaviour:
   audioClipsArray:
   - sound: 8
     audioClip: {fileID: 8300000, guid: 25bd6f9af2e87da439ef7fab6323d808, type: 3}
-    volumen: 0.66
-  - sound: 6
-    audioClip: {fileID: 8300000, guid: be96a34dd94d46d44895f6da2d84111e, type: 3}
+    volumen: 0.5
+  - sound: 16
+    audioClip: {fileID: 8300000, guid: 5dc14a6df7b7bd94c8e5f8de4551317e, type: 3}
     volumen: 0.66
   - sound: 10
     audioClip: {fileID: 8300000, guid: 3254f01cd12b1ba4ebedce91da91644e, type: 3}
-    volumen: 0.66
-  - sound: 16
+    volumen: 0.5
+  - sound: 25
     audioClip: {fileID: 8300000, guid: e94c2cc3d7c61bf499e696059c59077c, type: 3}
+    volumen: 0.66
+  - sound: 11
+    audioClip: {fileID: 8300000, guid: f439b558d7376ec43bec9e33e5b3ac5b, type: 3}
+    volumen: 0.5
+  - sound: 0
+    audioClip: {fileID: 8300000, guid: a60efb7d753c49b4eb4547a5ebb2e538, type: 3}
+    volumen: 0.66
+  - sound: 15
+    audioClip: {fileID: 8300000, guid: 89d7fa7d2b05ae84488d64ac5604f847, type: 3}
+    volumen: 0.66
+  - sound: 18
+    audioClip: {fileID: 8300000, guid: 686eb8f6e1576e549975fe0207af8c8c, type: 3}
+    volumen: 0.66
+  - sound: 17
+    audioClip: {fileID: 8300000, guid: 5583f8132b831004a9df0a187e88a7bb, type: 3}
+    volumen: 0.66
+  - sound: 20
+    audioClip: {fileID: 8300000, guid: 9c4511cdd7b62524c8cb64773f9b508d, type: 3}
     volumen: 0.66

@@ -44,7 +44,21 @@ public class PlayerOverworld : MonoBehaviour
     public void Setup(Character character)
     {
         this.character = character;
-        transform.position = character.position;
+        switch (GameData.state)
+        {
+            default:
+                transform.position = character.position;
+                break;
+            case GameData.State.PrimerPelotonVencido:
+                SetPosition(new Vector3(-13f, -43f, 0f));
+                break;
+            case GameData.State.SegundoPelotonVencido:
+                SetPosition(new Vector3(-19f, -43f, 0f));
+                break;
+            case GameData.State.TercerPelotonVencido:
+                SetPosition(new Vector3(-18f, -51f, 0f));
+                break;
+        }
         healthSystem = new HealthSystem(character.stats.healthMax);
         healthSystem.SetHealthAmount(character.stats.health);
         character.SetHealthSystem(healthSystem);

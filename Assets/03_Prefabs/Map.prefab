@@ -14789,7 +14789,7 @@ GameObject:
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3179139698106403508
 Transform:
   m_ObjectHideFlags: 0
@@ -16172,7 +16172,7 @@ GameObject:
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6076879085833918794
 Transform:
   m_ObjectHideFlags: 0
@@ -16667,7 +16667,7 @@ GameObject:
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1357392582780549016
 Transform:
   m_ObjectHideFlags: 0
@@ -20296,13 +20296,18 @@ MonoBehaviour:
   lagoConfiner: {fileID: 374699399631073014}
   bosqueProfundoConfiner: {fileID: 1447831245610209452}
   player: {fileID: 0}
-  aldeaToBosque: {fileID: 7376193482666497576}
-  bosqueToAldea: {fileID: 6748498968063954048}
-  bosqueToLago: {fileID: 5014421232780233482}
-  lagoToBosque: {fileID: 4896722177170052078}
-  bosqueToBosqueP: {fileID: 2379114866252813305}
-  bosquePToBosque: {fileID: 4235186217196614866}
-  colliderAldeaToBosque: {fileID: 6268562425356643292}
+  aldeaToBosquePos: {fileID: 7376193482666497576}
+  bosqueToAldeaPos: {fileID: 6748498968063954048}
+  bosqueToLagoPos: {fileID: 5014421232780233482}
+  lagoToBosquePos: {fileID: 4896722177170052078}
+  bosqueToBosquePPos: {fileID: 2379114866252813305}
+  bosquePToBosquePos: {fileID: 4235186217196614866}
+  colliderAldeaToBosque: {fileID: 7402375308698994279}
+  colliderBosqueToAldea: {fileID: 3431888521855072118}
+  colliderBosqueToLago: {fileID: 1830298824475348887}
+  colliderLagoToBosque: {fileID: 3537858412390077504}
+  colliderBosqueToBosqueP: {fileID: 3136240429371470581}
+  colliderBosquePToBosque: {fileID: 7358551924973381408}
   trenTrenBattleTrigger: {fileID: 3981951348946776033}
   caiCaiBattleTrigger: {fileID: 3011244296074357630}
   aldeaBattleTriger: {fileID: 3600441883619233770}
@@ -33691,7 +33696,7 @@ GameObject:
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7297604228405473120
 Transform:
   m_ObjectHideFlags: 0

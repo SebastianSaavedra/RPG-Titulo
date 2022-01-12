@@ -333,6 +333,7 @@ public class EnemyOverworld : MonoBehaviour
                 // Battle!
                 state = State.Busy;
                 playerOvermap.state = PlayerOverworld.State.Busy;
+                OverworldManager.StopOvermapRunning();
                 SoundManager.PlaySound(SoundManager.Sound.BattleTransition);
                 Battle.LoadEnemyEncounter(character, character.enemyEncounter);
                 break;

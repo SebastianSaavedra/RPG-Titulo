@@ -230,7 +230,11 @@ public static class Dialogues
                 character.quest.questGoal.QuestStarted();
                 QuestManager.instance.quests.Add(character.quest);
                 GameData.state = GameData.State.AlreadyTalkedWithViejaMachi;
-                ZoneManager.instance.ActivateColliderAldeaToBosque();
+                ZoneManager.instance.GetAldeaToBosquePortal().SetActive(true);
+                ZoneManager.instance.GetBosqueToAldeaPortal().SetActive(true);
+                ZoneManager.instance.GetBosquePToBosquePortal().SetActive(true);
+                ZoneManager.instance.GetBosqueToBosquePPortal().SetActive(true);
+                ZoneManager.instance.GetTrenTrenBattleTrigger().SetActive(true);
                 OverworldManager.StartOvermapRunning();
             },
         }, true);
