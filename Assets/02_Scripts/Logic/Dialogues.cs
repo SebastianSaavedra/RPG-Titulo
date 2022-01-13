@@ -1387,7 +1387,7 @@ public static class Dialogues
             },
             () => {
                 dialogue.Hide();
-                //FadeIn
+                //UIFade.FadeIn();
             },
         }, true);
     }

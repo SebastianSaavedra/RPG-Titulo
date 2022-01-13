@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class AnimationEventCharacter : MonoBehaviour
 {
+    [SerializeField] private AbilityAnimData abilityAnimationContainer;
+
+    private void Awake()
+    {
+        abilityAnimationContainer = GameObject.Find("HabilidadAnimationContainer").GetComponent<AbilityAnimData>();
+    }
+
     public void PlaySoundEffect()
     {
         switch (Battle.GetInstance().activeCharacterBattle.GetCharacterType())
@@ -29,6 +36,15 @@ public class AnimationEventCharacter : MonoBehaviour
 
                     case "Special":
                         SoundManager.PlaySound(SoundManager.Sound.Thunder);
+
+                        List<CharacterBattle> characterBattleList = Battle.GetInstance().GetAliveTeamCharacterBattleList(false);
+
+                        for (int i = 0; i < characterBattleList.Count; i++)
+                        {
+                            Debug.Log("LA HABILIDAD DE LA CHILLPILA HIZO XD");
+                            abilityAnimationContainer.GetRayosList()[i].SetActive(true);
+                            abilityAnimationContainer.GetRayosList()[i].transform.position = characterBattleList[i].GetComponent<Transform>().position;
+                        }
                         break;
                 }
                 break;
@@ -37,6 +53,9 @@ public class AnimationEventCharacter : MonoBehaviour
                 {
                     case "Attack":
                         SoundManager.PlaySound(SoundManager.Sound.SlashAtk);
+                        break;
+
+                    case "Special":
                         break;
                 }
                 break;

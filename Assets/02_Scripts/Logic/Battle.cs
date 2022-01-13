@@ -496,7 +496,7 @@ public class Battle
 
         activeCharacterBattle.AttackTarget(selectedTargetCharacterBattle.GetPosition(), () =>
         {
-            SoundManager.PlaySound(SoundManager.Sound.MeleeAtk1);
+            //SoundManager.PlaySound(SoundManager.Sound.MeleeAtk1);
             int damageBase = activeCharacterBattle.GetAttack();
             int minDamage = (int)(damageBase * 0.8f);
             int maxDamage = (int)(damageBase * 1.2f);
@@ -563,7 +563,7 @@ public class Battle
             }
             activeCharacterBattle.AttackTarget(targetPosition, () =>
             {
-                SoundManager.PlaySound(SoundManager.Sound.MeleeAtk1);
+                //SoundManager.PlaySound(SoundManager.Sound.MeleeAtk1);
                 int damageBase = activeCharacterBattle.GetAttack();
                 int damageMin = (int)(damageBase * 0.8f);
                 int damageMax = (int)(damageBase * 1.0f);
@@ -624,7 +624,7 @@ public class Battle
                             activeCharacterBattle.PlayAnimSpecial(() =>
                             {
                                 //Heal Individual
-                                SoundManager.PlaySound(SoundManager.Sound.Heal);
+                                //SoundManager.PlaySound(SoundManager.Sound.Heal);
                                 selectedTargetCharacterBattle.Heal((int)(selectedTargetCharacterBattle.GetHealthAmount() * .2f));
                                 DamagePopups.Create(selectedTargetCharacterBattle.GetPosition(), ((int)(selectedTargetCharacterBattle.GetHealthAmount() * .2f)).ToString(), Color.green);
                             }, () =>
@@ -642,7 +642,7 @@ public class Battle
                         {
                             FunctionTimer.Create(() => {
                                 // Heal Grupal
-                                SoundManager.PlaySound(SoundManager.Sound.Heal);
+                                //SoundManager.PlaySound(SoundManager.Sound.Heal);
                                 List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(true);
                                 if (GameData.state == GameData.State.SavingTrenTren)
                                 {
@@ -672,7 +672,7 @@ public class Battle
                             activeCharacterBattle.PlayAnimSpecial(() =>
                             {
                                 //Revive 1 pj
-                                SoundManager.PlaySound(SoundManager.Sound.Heal);
+                                //SoundManager.PlaySound(SoundManager.Sound.Heal);
                                 selectedTargetCharacterBattle.Heal((int)(selectedTargetCharacterBattle.GetMaxHealthAmount() * .25f));
                                 selectedTargetCharacterBattle.Revive();
                                 DamagePopups.Create(selectedTargetCharacterBattle.GetPosition(), selectedTargetCharacterBattle.GetHealthAmount().ToString(), Color.green);
@@ -689,7 +689,7 @@ public class Battle
                         SetCamera(activeCharacterBattle.GetPosition(), 30f);
                         activeCharacterBattle.PlayAnimSpecial(() =>
                         {
-                            SoundManager.PlaySound(SoundManager.Sound.Heal);
+                            //SoundManager.PlaySound(SoundManager.Sound.Heal);
                             TurnSystem.instance.SetTurnCount(3);
                             DamagePopups.Create(activeCharacterBattle.GetPosition(), "¡Conseguiste 3 turnos extras!", Color.white);
                         }, () =>
@@ -711,7 +711,7 @@ public class Battle
                     activeCharacterBattle.PlayAnimSpecial(() =>
                     {
                         // Dano en area
-                        SoundManager.PlaySound(SoundManager.Sound.Buffs);
+                        //SoundManager.PlaySound(SoundManager.Sound.Buffs);
                         FunctionTimer.Create(() =>
                         {
                             // Buff all
@@ -783,7 +783,7 @@ public class Battle
                     activeCharacterBattle.PlayAnimSpecial(() =>
                     {
                         // Dano en area
-                        SoundManager.PlaySound(SoundManager.Sound.Thunder);
+                        //SoundManager.PlaySound(SoundManager.Sound.Thunder);
                         UtilsClass.ShakeCamera(2f, .15f);
                         int damageAmount = 30;
                         List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(false);

@@ -253,8 +253,8 @@ public class Character
                 stats = new Stats
                 {
                     attack = 18,
-                    health = 1,   //150
-                    healthMax = 1,
+                    health = 100,   //150
+                    healthMax = 100,
                     defense = 0,
                     critChance = 5,
                     damageChance = 95,

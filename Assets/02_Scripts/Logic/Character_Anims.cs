@@ -49,6 +49,11 @@ public class Character_Anims : MonoBehaviour
         yield break;
     }
 
+    public int GetCurrentAnimatorClipInfoLength()
+    {
+        return anim.GetCurrentAnimatorClipInfo(0).Length;
+    }
+
     public void PlayAnimIdle()
     {
         anim.Play("Base Layer.IDLE");
