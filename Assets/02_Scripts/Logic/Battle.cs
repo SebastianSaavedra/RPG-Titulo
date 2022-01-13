@@ -511,6 +511,10 @@ public class Battle
                 selectedTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount, selectedTargetCharacterBattle);
                 DamagePopups.Create(selectedTargetCharacterBattle.GetPosition(), finalDmg, true);
                 UtilsClass.ShakeCamera(1f, .1f);
+                if (activeCharacterBattle.GetCharacterType() == Character.Type.Chillpila)
+                {
+                    ResourceManager.instance.AddSouls(6);
+                }
             }
             else                                //Normal Hit
             {
@@ -518,6 +522,10 @@ public class Battle
                 selectedTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount, selectedTargetCharacterBattle);
                 DamagePopups.Create(selectedTargetCharacterBattle.GetPosition(), finalDmg, false);
                 UtilsClass.ShakeCamera(.75f, .15f);
+                if (activeCharacterBattle.GetCharacterType() == Character.Type.Chillpila)
+                {
+                    ResourceManager.instance.AddSouls(3);
+                }
             }
 
             if (selectedTargetCharacterBattle.IsDead())
@@ -625,7 +633,7 @@ public class Battle
                             {
                                 //Heal Individual
                                 //SoundManager.PlaySound(SoundManager.Sound.Heal);
-                                selectedTargetCharacterBattle.Heal((int)(selectedTargetCharacterBattle.GetHealthAmount() * .2f));
+                                selectedTargetCharacterBattle.Heal((int)(selectedTargetCharacterBattle.GetMaxHealthAmount() * .5f));
                                 DamagePopups.Create(selectedTargetCharacterBattle.GetPosition(), ((int)(selectedTargetCharacterBattle.GetHealthAmount() * .2f)).ToString(), Color.green);
                             }, () =>
                             {
@@ -650,8 +658,8 @@ public class Battle
                                 }
                                 foreach (CharacterBattle characterBattle in characterBattleList)
                                 {
-                                    characterBattle.Heal(50);
-                                    DamagePopups.Create(characterBattle.GetPosition(), "50", Color.green);
+                                    characterBattle.Heal(15);
+                                    DamagePopups.Create(characterBattle.GetPosition(), "15", Color.green);
                                 }
                                 ResourceManager.instance.ConsumeHerbs(characterBattleList.Count);
                             }, 1.2f);
@@ -763,7 +771,7 @@ public class Battle
                     activeCharacterBattle.PlayAnimSpecial(() =>
                     {
                         UtilsClass.ShakeCamera(2f, .15f);
-                        int damageAmount = 100;
+                        int damageAmount = 20;
                         selectedTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount, selectedTargetCharacterBattle);
                         DamagePopups.Create(selectedTargetCharacterBattle.GetPosition(), damageAmount, true);
                     }, () =>
@@ -785,7 +793,7 @@ public class Battle
                         // Dano en area
                         //SoundManager.PlaySound(SoundManager.Sound.Thunder);
                         UtilsClass.ShakeCamera(2f, .15f);
-                        int damageAmount = 30;
+                        int damageAmount = 10;
                         List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(false);
 
                         foreach (CharacterBattle characterBattle in characterBattleList)
@@ -793,16 +801,6 @@ public class Battle
                             
                             characterBattle.Damage(activeCharacterBattle, damageAmount, characterBattle);
                             DamagePopups.Create(characterBattle.GetPosition(), damageAmount, false);
-                        }
-
-                        for (int i = 0; i < characterBattleList.Count; i++)
-                        {
-                            if (characterBattleList[i].IsDead())
-                            {
-                                ResourceManager.instance.AddSouls(Random.Range((int)(5 * 1.25f), (int)(5 * 1.5f)));
-                                //WhichMonsterWasKilled(characterBattleList[i].GetCharacterType());
-                            }
-
                         }
                     }, () =>
                     {

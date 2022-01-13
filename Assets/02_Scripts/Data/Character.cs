@@ -139,9 +139,9 @@ public class Character
                 name = "Suyai";
                 stats = new Stats
                 {
-                    attack = 20,
-                    health = 100,
-                    healthMax = 100,
+                    attack = 10,
+                    health = 33,
+                    healthMax = 33,
                     defense = 1,
                     critChance = 5,
                     turns = 4
@@ -154,11 +154,11 @@ public class Character
                 name = "Chillpila";
                 stats = new Stats
                 {
-                    attack = 20,
-                    health = 90,
-                    healthMax = 90,
+                    attack = 7,
+                    health = 25,
+                    healthMax = 25,
                     defense = 1,
-                    critChance = 5,
+                    critChance = 10,
                     turns = 3
                 };
                 isInPlayerTeam = true;
@@ -169,11 +169,11 @@ public class Character
                 name = "Pedro";
                 stats = new Stats
                 {
-                    attack = 25,
-                    health = 100,
-                    healthMax = 100,
+                    attack = 7,
+                    health = 30,
+                    healthMax = 30,
                     defense = 1,
-                    critChance = 5,
+                    critChance = 15,
                     turns = 2
                 };
                 isInPlayerTeam = true;
@@ -184,11 +184,11 @@ public class Character
                 name = "Antay";
                 stats = new Stats
                 {
-                    attack = 20,
-                    health = 125,
-                    healthMax = 125,
-                    defense = 2,
-                    critChance = 5,
+                    attack = 10,
+                    health = 35,
+                    healthMax = 35,
+                    defense = 3,
+                    critChance = 8,
                     turns = 5
                 };
                 //isInPlayerTeam = true;
@@ -199,9 +199,9 @@ public class Character
                 name = "Arana";
                 stats = new Stats
                 {
-                    attack = 30,
-                    health = 110,
-                    healthMax = 110,
+                    attack = 13,
+                    health = 33,
+                    healthMax = 33,
                     defense = 1,
                     critChance = 5,
                     turns = 1
@@ -228,35 +228,35 @@ public class Character
             case Type.Fusilero:
                 stats = new Stats
                 {
-                    attack = 18,
-                    health = 1,
-                    healthMax = 1,
-                    defense = 0,
-                    critChance = 5,
-                    damageChance = 95,
+                    attack = 8,
+                    health = 32,
+                    healthMax = 32,
+                    defense = 1,
+                    critChance = 15,
+                    damageChance = 90,
                 };
                 break;
 
             case Type.Lancero:
                 stats = new Stats
                 {
-                    attack = 20,
-                    health = 1,
-                    healthMax = 1,
-                    defense = 1,
-                    critChance = 5,
-                    damageChance = 95,
+                    attack = 8,
+                    health = 32,
+                    healthMax = 32,
+                    defense = 3,
+                    critChance = 10,
+                    damageChance = 90,
                 };
                 break;
 
             case Type.Anchimallen:
                 stats = new Stats
                 {
-                    attack = 18,
-                    health = 100,   //150
-                    healthMax = 100,
-                    defense = 0,
-                    critChance = 5,
+                    attack = 8,
+                    health = 20,
+                    healthMax = 20,
+                    defense = 2,
+                    critChance = 18,
                     damageChance = 95,
                 };
                 break;
@@ -264,44 +264,45 @@ public class Character
             case Type.Guirivilo:
                 stats = new Stats
                 {
-                    attack = 20,
-                    health = 1,   //150
-                    healthMax = 1,
+                    attack = 10,
+                    health = 28,
+                    healthMax = 28,
                     defense = 1,
-                    critChance = 5,
-                    damageChance = 95,
+                    critChance = 10,
+                    damageChance = 90,
                 };
                 break;
 
             case Type.Piuchen:
                 stats = new Stats
                 {
-                    attack = 22,
-                    health = 1,   //150
-                    healthMax = 1,
-                    defense = 1,
-                    critChance = 5,
-                    damageChance = 95,
-                };
-                break;
-
-            case Type.TrenTren:
-                stats = new Stats
-                {
-                    health = 1000,
-                    healthMax = 1000,
+                    attack = 8,
+                    health = 56,
+                    healthMax = 56,
+                    defense = 4,
+                    critChance = 10,
+                    damageChance = 90,
                 };
                 break;
 
             case Type.CaiCai:
                 stats = new Stats
                 {
-                    attack = 25,
-                    health = 1,   //150
-                    healthMax = 1,
-                    defense = 1,
-                    critChance = 5,
-                    damageChance = 95,
+                    attack = 11,
+                    health = 150,
+                    healthMax = 150,
+                    defense = 4,
+                    critChance = 15,
+                    damageChance = 85,
+                };
+                break;
+
+            case Type.TrenTren:
+                stats = new Stats
+                {
+                    health = 120,
+                    healthMax = 120,
+                    defense = 0,
                 };
                 break;
 
