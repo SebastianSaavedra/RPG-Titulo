@@ -186,3 +186,6 @@ MonoBehaviour:
   - sound: 6
     audioClip: {fileID: 8300000, guid: 01d9c04770889ea4a9ad99ead22eda94, type: 3}
     volumen: 0.66
+  - sound: 12
+    audioClip: {fileID: 8300000, guid: be96a34dd94d46d44895f6da2d84111e, type: 3}
+    volumen: 0.66

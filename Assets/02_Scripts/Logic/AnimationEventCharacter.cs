@@ -23,6 +23,7 @@ public class AnimationEventCharacter : MonoBehaviour
                         break;
 
                     case "Special":
+                        Debug.Log("Suyai special");
                         SoundManager.PlaySound(SoundManager.Sound.Heal);
                         break;
                 }
@@ -41,9 +42,9 @@ public class AnimationEventCharacter : MonoBehaviour
 
                         for (int i = 0; i < characterBattleList.Count; i++)
                         {
-                            Debug.Log("LA HABILIDAD DE LA CHILLPILA HIZO XD");
                             abilityAnimationContainer.GetRayosList()[i].SetActive(true);
                             abilityAnimationContainer.GetRayosList()[i].transform.position = characterBattleList[i].GetComponent<Transform>().position;
+                            abilityAnimationContainer.GetRayosList()[i].transform.localScale = new Vector3(1.5f,1.5f,1f);
                         }
                         break;
                 }
@@ -56,6 +57,17 @@ public class AnimationEventCharacter : MonoBehaviour
                         break;
 
                     case "Special":
+                        switch (Battle.GetInstance().GetRandomPedroNumber())
+                        {
+                            case 0:
+                                abilityAnimationContainer.GetMonedaCruz().SetActive(true);
+                                abilityAnimationContainer.GetMonedaCruz().transform.position = new Vector3(9f,6f,0f);
+                                break;
+                            case 1:
+                                abilityAnimationContainer.GetMonedaCara().SetActive(true);
+                                abilityAnimationContainer.GetMonedaCara().transform.position = new Vector3(9f, 6f, 0f);                                
+                                break;
+                        }
                         break;
                 }
                 break;
@@ -80,21 +92,33 @@ public class AnimationEventCharacter : MonoBehaviour
 
                     case "Special":
                         SoundManager.PlaySound(SoundManager.Sound.HeavyAtk);
+
+                        switch (Battle.GetInstance().GetRandomNumber())
+                        {
+                            case 0:
+                                abilityAnimationContainer.GetMineralBronce().SetActive(true);
+                                break;
+                            case 1:
+                                abilityAnimationContainer.GetMineralCobre().SetActive(true);
+                                break;
+                            case 2:
+                                abilityAnimationContainer.GetMineralPlata().SetActive(true);
+                                break;
+                            case 3:
+                                abilityAnimationContainer.GetMineralOro().SetActive(true);
+                                break;
+                        }
                         break;
                 }
                 break;
-            //case Character.Type.Anchimallen:
-            //    switch (Battle.GetInstance().GetEnemyCommand())
-            //    {
-            //        case "Attack":
-            //            SoundManager.PlaySound(SoundManager.Sound.MeleeAtk1);
-            //            break;
-
-            //        case "Special":
-            //            SoundManager.PlaySound(SoundManager.Sound.Thunder);
-            //            break;
-            //    }
-            //    break;
+            case Character.Type.Anchimallen:
+                switch (Battle.GetInstance().GetEnemyCommand())
+                {
+                    case "Attack":
+                        SoundManager.PlaySound(SoundManager.Sound.SlapAtk);
+                        break;
+                }
+                break;
             case Character.Type.Piuchen:
                 switch (Battle.GetInstance().GetEnemyCommand())
                 {
@@ -140,6 +164,18 @@ public class AnimationEventCharacter : MonoBehaviour
 
                     case "Special":
                         SoundManager.PlaySound(SoundManager.Sound.SlashAtk);
+                        break;
+                }
+                break;
+            case Character.Type.CaiCai:
+                switch (Battle.GetInstance().GetEnemyCommand())
+                {
+                    case "Attack":
+                        SoundManager.PlaySound(SoundManager.Sound.MeleeAtk1);
+                        break;
+
+                    case "Special":
+                        SoundManager.PlaySound(SoundManager.Sound.TsunamiAtk);
                         break;
                 }
                 break;

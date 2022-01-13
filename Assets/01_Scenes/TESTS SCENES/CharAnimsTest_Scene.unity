@@ -2630,6 +2630,7 @@ GameObject:
   - component: {fileID: 830908493}
   - component: {fileID: 830908495}
   - component: {fileID: 830908494}
+  - component: {fileID: 830908496}
   m_Layer: 0
   m_Name: Atk
   m_TagString: Untagged
@@ -2721,6 +2722,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &830908496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830908492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 938abe34c2a511a4f95a92c4831b0dcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityAnimationContainer: {fileID: 0}
 --- !u!1 &832773220
 GameObject:
   m_ObjectHideFlags: 0
@@ -3226,6 +3240,7 @@ GameObject:
   - component: {fileID: 925289861}
   - component: {fileID: 925289863}
   - component: {fileID: 925289862}
+  - component: {fileID: 925289864}
   m_Layer: 0
   m_Name: Anchimallen 2.0
   m_TagString: Untagged
@@ -3306,7 +3321,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1475217159
   m_SortingLayer: 5
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 9a1f992bf2b9b6f4d9ce17674c04573f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -3318,6 +3333,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &925289864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 925289860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 938abe34c2a511a4f95a92c4831b0dcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityAnimationContainer: {fileID: 0}
 --- !u!1 &929118444
 GameObject:
   m_ObjectHideFlags: 0
@@ -5216,6 +5244,7 @@ GameObject:
   - component: {fileID: 1413287774}
   - component: {fileID: 1413287777}
   - component: {fileID: 1413287776}
+  - component: {fileID: 1413287778}
   m_Layer: 0
   m_Name: Atk
   m_TagString: Untagged
@@ -5415,6 +5444,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 191b651a21293dd49bc01ef0e049704a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1413287778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1413287772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 938abe34c2a511a4f95a92c4831b0dcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityAnimationContainer: {fileID: 0}
 --- !u!1 &1422429660
 GameObject:
   m_ObjectHideFlags: 0

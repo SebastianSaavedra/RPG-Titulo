@@ -287,11 +287,8 @@ public class BattleUI : MonoBehaviour
                     break;
 
                 default:
-                    if (Battle.GetInstance().activeCharacterBattle.TrySpendSpecial())
-                    {
-                        command = "Special";
-                        Battle.GetInstance()._Special();
-                    }
+                    command = "Special";
+                    Battle.GetInstance()._Special();
                     break;
             }
         }

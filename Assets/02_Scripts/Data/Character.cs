@@ -291,7 +291,7 @@ public class Character
                     attack = 11,
                     health = 56,
                     healthMax = 56,
-                    defense = 3,
+                    defense = 2,
                     critChance = 15,
                     damageChance = 85,
                 };

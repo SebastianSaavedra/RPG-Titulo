@@ -24,7 +24,7 @@ public class CharacterBattle : MonoBehaviour
     private Character.Type characterType;
     [HideInInspector] public Character.Stats stats;
     Character character;
-    private int health, attack, defense, damageChance;
+    private int health, attack, defense, damageChance, critChance;
     private Action onAttackHit;
     private Action onAttackComplete;
     private Action onSlideComplete;
@@ -106,6 +106,7 @@ public class CharacterBattle : MonoBehaviour
         attack = stats.attack;
         defense = stats.defense;
         damageChance = stats.damageChance;
+        critChance = stats.critChance;
 
         if (!isPlayerTeam)
         {
@@ -173,8 +174,7 @@ public class CharacterBattle : MonoBehaviour
         }
         healthSystem = new HealthSystem(stats.healthMax);
         healthSystem.SetHealthAmount(stats.health);
-        //
-        //healthWorldBar = new World_Bar(transform, healthWorldBarLocalPosition, new Vector3(12 * (stats.healthMax / 100f), 1.6f), Color.grey, Color.red, healthSystem.GetHealthPercent(), UnityEngine.Random.Range(1000, 2000), new World_Bar.Outline { color = Color.black, size = .6f });
+      
         healthSystem.OnHealthChanged += HealthSystem_OnHealthChanged;
         //healthSystem.OnDead += HealthSystem_OnDead;
 
@@ -229,7 +229,7 @@ public class CharacterBattle : MonoBehaviour
     {
         //Revive Anim
         Debug.Log(character.name + " fue revivido");
-        transform.eulerAngles = new Vector3(0, 0, 0);
+        playerAnims.PlayAnimIdle();
     }
 
     public void Damage(CharacterBattle attacker, int damageAmount, CharacterBattle characterAttacked)
@@ -245,13 +245,13 @@ public class CharacterBattle : MonoBehaviour
             if (!IsPlayerTeam())
             {
                 // Enemy
-                if (characterType != Character.Type.Jefe1)
-                {
-                    // Don't spawn Flying Body for Evil Monster
-                    Debug.Log("Se murio");
-                    //FlyingBody.Create(GameAssets.i.pfEnemyFlyingBody, GetPosition(), bloodDir);
-                    //SoundManager.PlaySound(SoundManager.Sound.CharacterDead);
-                }
+                //if (characterType != Character.Type.Jefe1)
+                //{
+                //    // Don't spawn Flying Body for Evil Monster
+                //    Debug.Log("Se murio");
+                //    //FlyingBody.Create(GameAssets.i.pfEnemyFlyingBody, GetPosition(), bloodDir);
+                //    //SoundManager.PlaySound(SoundManager.Sound.CharacterDead);
+                //}
                 gameObject.SetActive(false);
             }
             else
@@ -259,9 +259,10 @@ public class CharacterBattle : MonoBehaviour
                 // Player Team
                 //SoundManager.PlaySound(SoundManager.Sound.OooohNooo);
             }
+            playerAnims.PlayAnimDefeated();
             //playerAnims.GetUnitAnimation().PlayAnimForced(UnitAnim.GetUnitAnim("LyingUp"), 1f, null);
-            //healthWorldBar.Hide();
-            transform.eulerAngles = new Vector3(0, 0, 90);
+            ////healthWorldBar.Hide();
+            //transform.eulerAngles = new Vector3(0, 0, 90);
             //gameObject.SetActive(false);
             //Destroy(gameObject);
         }
@@ -286,13 +287,19 @@ public class CharacterBattle : MonoBehaviour
                 break;
             case 0:
                 stats.attack += 5;
-                Debug.Log("El daño de ahora es: " + stats.attack);
+                Debug.Log("El daño de " + characterType + " ahora es:" + stats.attack);
                 break;
             case 1:
-                Debug.Log("Experiencia al final del combate aumentada!");
+                stats.attack += 10;
+                Debug.Log("El daño de " + characterType + " ahora es:" + stats.attack);
                 break;
             case 2:
-                Debug.Log("Probabilidad de golpe critico aumentada!");
+                stats.defense += 2;
+                Debug.Log("La defensa de " + characterType + " ahora es:" + stats.defense);
+                break;
+            case 3:
+                stats.critChance += 50;
+                Debug.Log("El critico de " + characterType + " ahora es:" + stats.critChance);
                 break;
         }
     }
@@ -326,6 +333,11 @@ public class CharacterBattle : MonoBehaviour
                     }
                     //sprite = GameAssets.i.healthDebuff.GetComponent<Sprite>();
                     Debug.Log("La vida actual del enemigo es: " + healthSystem.GetHealthAmount());
+                    break;
+                }
+            case 3:
+                {
+                    Debug.Log("Otro debuff");
                     break;
                 }
         }

@@ -7,7 +7,6 @@ using MEC;
 
 public class Battle
 {
-
     private static Battle instance;
     public static Battle GetInstance() => instance;
 
@@ -33,6 +32,9 @@ public class Battle
 
     private static CharacterBattle trenTrenCapturadoCharacterBattle;
     private bool alreadyTrenTrenSpeaked;
+
+    private int randomNumber;
+    private int randomPedroNumber;
 
     private string enemyCommand;
 
@@ -616,7 +618,6 @@ public class Battle
     public void _Special()
     {
         state = State.Busy;
-        int number = Random.Range(0, 3);
         switch (activeCharacterBattle.GetCharacterType())
         {
             default:
@@ -716,46 +717,66 @@ public class Battle
 
                 activeCharacterBattle.SlideToPosition(GetPosition(LanePosition.Middle, false) + new Vector3(-45, 0), () =>
                 {
+                    List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(true);
                     activeCharacterBattle.PlayAnimSpecial(() =>
                     {
-                        // Dano en area
-                        //SoundManager.PlaySound(SoundManager.Sound.Buffs);
-                        FunctionTimer.Create(() =>
+                        randomNumber = Random.Range(0, 4);
+
+                        switch (randomNumber)
                         {
-                            // Buff all
-                            List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(true);
-                            foreach (CharacterBattle characterBattle in characterBattleList)
-                            {
-                                characterBattle.Buff(number);
-                            }
-                            ResourceManager.instance.ConsumeHits(1);
-                        }, 1.2f);
+                            case 0:
+                                foreach (CharacterBattle characterBattle in characterBattleList)
+                                {
+                                    characterBattle.Buff(randomNumber);
+                                }
+                                break;
+                            case 1:
+                                activeCharacterBattle.Buff(randomNumber);
+                                break;
+                            case 2:
+                                foreach (CharacterBattle characterBattle in characterBattleList)
+                                {
+                                    characterBattle.Buff(randomNumber);
+                                }
+                                break;
+                            case 3:
+                                activeCharacterBattle.Buff(randomNumber);
+                                break;
+                        }
+
                     }, () =>
                     {
                         activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
+                        ResourceManager.instance.ConsumeHits(1);
                     });
                 });
                 break;
 
             case Character.Type.Pedro:      // Debuffer - Trickster
                 BattleUI.instance.CloseBattleMenus();
+                randomPedroNumber = Random.Range(0,2);
+
                 SetCamera(middlePosition, 30f);
                 activeCharacterBattle.SlideToPosition(middlePosition, () =>
                 {
                     activeCharacterBattle.PlayAnimSpecial( () =>
                     {
-                        ResetCamera();
-                        activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
+                        // Debuff
+                        List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(false);
+                        if (randomPedroNumber >= 1)
+                        {
+                            randomNumber = Random.Range(0, 4);
+
+                            foreach (CharacterBattle characterBattle in characterBattleList)
+                            {
+                                characterBattle.Debuff(randomNumber);
+                            }
+                        }
                     }, () =>
                     {
-                        // Debuff
-                        //SoundManager.PlaySound(SoundManager.Sound.CharacterHit);
-                        List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(false);
-                        foreach (CharacterBattle characterBattle in characterBattleList)
-                        {
-                            characterBattle.Debuff(number);
-                        }
                         ResourceManager.instance.PayMoney(25);
+                        ResetCamera();
+                        activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
                     });
                 });
                 break;
@@ -793,12 +814,11 @@ public class Battle
                         // Dano en area
                         //SoundManager.PlaySound(SoundManager.Sound.Thunder);
                         UtilsClass.ShakeCamera(2f, .15f);
-                        int damageAmount = 10;
                         List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(false);
 
                         foreach (CharacterBattle characterBattle in characterBattleList)
                         {
-                            
+                            int damageAmount = Random.Range(10, 13);
                             characterBattle.Damage(activeCharacterBattle, damageAmount, characterBattle);
                             DamagePopups.Create(characterBattle.GetPosition(), damageAmount, false);
                         }
@@ -829,7 +849,7 @@ public class Battle
                             // Dano en area
                             //SoundManager.PlaySound(SoundManager.Sound.Thunder);
                             UtilsClass.ShakeCamera(1.5f, .175f);
-                            int damageAmount = Random.Range(10,26);
+                            int damageAmount = Random.Range(activeCharacterBattle.stats.attack, activeCharacterBattle.stats.attack + 2);
                             List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(true);
 
                             foreach (CharacterBattle characterBattle in characterBattleList)
@@ -842,8 +862,8 @@ public class Battle
                             activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
                         });
                     });
-
                     break;
+
                 case Character.Type.Lancero:
 
                     SetCamera(aiTargetCharacterBattle.GetPosition() + new Vector3(-5f, 0), 30f);
@@ -853,7 +873,8 @@ public class Battle
                         activeCharacterBattle.PlayAnimSpecial(() =>
                         {
                             UtilsClass.ShakeCamera(2f, .15f);
-                            int damageAmount = Random.Range(10, 26);
+                            int damageAmount = activeCharacterBattle.stats.attack;
+
                             aiTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount, aiTargetCharacterBattle);
                             DamagePopups.Create(aiTargetCharacterBattle.GetPosition(), damageAmount, true);
 
@@ -865,7 +886,6 @@ public class Battle
                             activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
                         });
                     });
-
                     break;
 
                 case Character.Type.Guirivilo:
@@ -877,7 +897,8 @@ public class Battle
                         activeCharacterBattle.PlayAnimSpecial(() =>
                         {
                             UtilsClass.ShakeCamera(2f, .15f);
-                            int damageAmount = Random.Range(10, 26);
+                            int damageAmount = activeCharacterBattle.stats.attack;
+
                             aiTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount, aiTargetCharacterBattle);
                             DamagePopups.Create(aiTargetCharacterBattle.GetPosition(), damageAmount, true);
 
@@ -889,13 +910,56 @@ public class Battle
                             activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
                         });
                     });
-
                     break;
 
                 case Character.Type.Piuchen:
 
-                    break;
-            }
+                SetCamera(aiTargetCharacterBattle.GetPosition() + new Vector3(-5f, 0), 30f);
+
+                activeCharacterBattle.SlideToPosition(slideToPosition, () =>
+                {
+                    activeCharacterBattle.PlayAnimSpecial(() =>
+                    {
+                        UtilsClass.ShakeCamera(2f, .15f);
+                        int damageAmount = activeCharacterBattle.stats.attack;
+                        aiTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount, aiTargetCharacterBattle);
+                        DamagePopups.Create(aiTargetCharacterBattle.GetPosition(), damageAmount, true);
+
+                        aiTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount, aiTargetCharacterBattle);
+                        DamagePopups.Create(aiTargetCharacterBattle.GetPosition(), damageAmount, true);
+                    }, () =>
+                    {
+                        ResetCamera();
+                        activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
+                    });
+                });
+                break;
+
+            case Character.Type.CaiCai:
+
+
+                activeCharacterBattle.SlideToPosition(GetPosition(LanePosition.Middle, false) + new Vector3(-25, 0), () =>
+                {
+                    activeCharacterBattle.PlayAnimSpecial(() =>
+                    {
+                        // Dano en area
+                        UtilsClass.ShakeCamera(2f, .2f);
+
+                        int damageAmount = Random.Range(activeCharacterBattle.stats.attack, activeCharacterBattle.stats.attack + 2);
+                        List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(true);
+
+                        foreach (CharacterBattle characterBattle in characterBattleList)
+                        {
+                            characterBattle.Damage(activeCharacterBattle, damageAmount, characterBattle);
+                            DamagePopups.Create(characterBattle.GetPosition(), damageAmount, false);
+                        }
+                    }, () =>
+                    {
+                        activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
+                    });
+                });
+                break;
+        }
     }
 
     public CharacterBattle GetActiveCharacterBattle()
@@ -986,7 +1050,8 @@ public class Battle
         if (TurnSystem.instance.ZeroTurns())
         {
             //Debug.Log("Se te acabaron los turnos, vuela alto");
-            FunctionTimer.Create(OverworldManager.LoadGameOver, .7f);
+            UIFade.FadeIn();
+            FunctionTimer.Create(OverworldManager.LoadGameOver, UIFade.GetTimer());
             return;
         }
 
@@ -1133,6 +1198,16 @@ public class Battle
         {
             character.statusSystem.TimerTick();
         }
+    }
+
+    public int GetRandomPedroNumber()
+    {
+        return randomPedroNumber;
+    }
+
+    public int GetRandomNumber()
+    {
+        return randomNumber;
     }
 
     public string GetEnemyCommand()

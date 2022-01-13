@@ -72,6 +72,11 @@ public class Character_Anims : MonoBehaviour
         anim.Play("Base Layer.WALKING");
     }
 
+    public void PlayAnimDefeated()
+    {
+        anim.Play("Base Layer.DEFEATED");
+    }
+
     //public void PlayAnimStarter()
     //{
     //    anim.Play("Base Layer.START");
