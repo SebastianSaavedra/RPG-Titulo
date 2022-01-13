@@ -413,7 +413,7 @@ public class CharacterBattle : MonoBehaviour
         switch (characterType)
         {
             case Character.Type.Pedro:
-                if (ResourceManager.instance.GetMoneyAmount() > 0)
+                if (ResourceManager.instance.GetMoneyAmount() > 25)
                 {
                     canSpecial = true;
                 }
@@ -453,7 +453,7 @@ public class CharacterBattle : MonoBehaviour
                 }
                 break;
             case Character.Type.Chillpila:
-                if (ResourceManager.instance.GetSoulsAmount() >= ResourceManager.instance.GetMaxSoulsAmount() / 5)
+                if (ResourceManager.instance.GetSoulsAmount() >= 6)
                 {
                     canSpecial = true;
                 }

@@ -140,8 +140,8 @@ public class Character
                 stats = new Stats
                 {
                     attack = 10,
-                    health = 33,
-                    healthMax = 33,
+                    health = 1,
+                    healthMax = 1,
                     defense = 1,
                     critChance = 5,
                     turns = 4
@@ -155,8 +155,8 @@ public class Character
                 stats = new Stats
                 {
                     attack = 7,
-                    health = 25,
-                    healthMax = 25,
+                    health = 1,
+                    healthMax = 1,
                     defense = 1,
                     critChance = 10,
                     turns = 3
@@ -170,8 +170,8 @@ public class Character
                 stats = new Stats
                 {
                     attack = 7,
-                    health = 30,
-                    healthMax = 30,
+                    health = 1,
+                    healthMax = 1,
                     defense = 1,
                     critChance = 15,
                     turns = 2
@@ -229,8 +229,8 @@ public class Character
                 stats = new Stats
                 {
                     attack = 8,
-                    health = 32,
-                    healthMax = 32,
+                    health = 24,
+                    healthMax = 24,
                     defense = 1,
                     critChance = 15,
                     damageChance = 90,
@@ -241,9 +241,9 @@ public class Character
                 stats = new Stats
                 {
                     attack = 8,
-                    health = 32,
-                    healthMax = 32,
-                    defense = 3,
+                    health = 26,
+                    healthMax = 26,
+                    defense = 2,
                     critChance = 10,
                     damageChance = 90,
                 };
@@ -277,9 +277,9 @@ public class Character
                 stats = new Stats
                 {
                     attack = 8,
-                    health = 56,
-                    healthMax = 56,
-                    defense = 4,
+                    health = 25,
+                    healthMax = 25,
+                    defense = 2,
                     critChance = 10,
                     damageChance = 90,
                 };
@@ -289,9 +289,9 @@ public class Character
                 stats = new Stats
                 {
                     attack = 11,
-                    health = 150,
-                    healthMax = 150,
-                    defense = 4,
+                    health = 56,
+                    healthMax = 56,
+                    defense = 3,
                     critChance = 15,
                     damageChance = 85,
                 };

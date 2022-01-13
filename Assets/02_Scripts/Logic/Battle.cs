@@ -634,7 +634,7 @@ public class Battle
                                 //Heal Individual
                                 //SoundManager.PlaySound(SoundManager.Sound.Heal);
                                 selectedTargetCharacterBattle.Heal((int)(selectedTargetCharacterBattle.GetMaxHealthAmount() * .5f));
-                                DamagePopups.Create(selectedTargetCharacterBattle.GetPosition(), ((int)(selectedTargetCharacterBattle.GetHealthAmount() * .2f)).ToString(), Color.green);
+                                DamagePopups.Create(selectedTargetCharacterBattle.GetPosition(), ((int)(selectedTargetCharacterBattle.GetHealthAmount() * .5f)).ToString(), Color.green);
                             }, () =>
                             {
                                 ResetCamera();
@@ -807,7 +807,7 @@ public class Battle
                         activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
                     });
                 });
-                ResourceManager.instance.ConsumeSouls((int)(characterBattleList.Count * 1.5f));
+                ResourceManager.instance.ConsumeSouls(4);
                 break;
         }
         BattleUI.instance.lastMenuActivated = null;
@@ -1002,7 +1002,7 @@ public class Battle
                     Character uniqueCharacter = GameData.GetCharacter(characterBattle.GetCharacterType());
                     if (uniqueCharacter != null)
                     {
-                        uniqueCharacter.stats.health = characterBattle.GetHealthAmount();
+                        uniqueCharacter.stats.health = characterBattle.GetMaxHealthAmount();
                     }
                 }
             }

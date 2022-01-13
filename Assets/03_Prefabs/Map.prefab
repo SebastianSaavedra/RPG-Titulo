@@ -6783,11 +6783,7 @@ MonoBehaviour:
   characterType: 28
   enemyEncounter:
     enemyBattleArray:
-    - characterType: 11
-      lanePosition: 1
     - characterType: 28
-      lanePosition: 3
-    - characterType: 10
       lanePosition: 0
   npcDialogues:
     dialogues: []

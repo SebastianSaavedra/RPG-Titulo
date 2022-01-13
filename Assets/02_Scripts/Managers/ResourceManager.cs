@@ -41,7 +41,7 @@ public class ResourceManager : MonoBehaviour
     private void Start()
     {
         AddMoney(100);
-        AddSouls(50);
+        AddSouls(6);
         SetTattoosAmount(5);
         SetHitsAmount(10);
     }
