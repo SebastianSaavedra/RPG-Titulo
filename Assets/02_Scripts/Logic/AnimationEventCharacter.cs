@@ -97,15 +97,23 @@ public class AnimationEventCharacter : MonoBehaviour
                         {
                             case 0:
                                 abilityAnimationContainer.GetMineralBronce().SetActive(true);
+                                abilityAnimationContainer.GetMineralBronce().transform.position = new Vector3(14,-19,0);
+
                                 break;
                             case 1:
                                 abilityAnimationContainer.GetMineralCobre().SetActive(true);
+                                abilityAnimationContainer.GetMineralCobre().transform.position = new Vector3(14, -19, 0);
+
                                 break;
                             case 2:
                                 abilityAnimationContainer.GetMineralPlata().SetActive(true);
+                                abilityAnimationContainer.GetMineralPlata().transform.position = new Vector3(14, -19, 0);
+
                                 break;
                             case 3:
                                 abilityAnimationContainer.GetMineralOro().SetActive(true);
+                                abilityAnimationContainer.GetMineralOro().transform.position = new Vector3(14, -19, 0);
+
                                 break;
                         }
                         break;
@@ -176,6 +184,7 @@ public class AnimationEventCharacter : MonoBehaviour
 
                     case "Special":
                         SoundManager.PlaySound(SoundManager.Sound.TsunamiAtk);
+
                         break;
                 }
                 break;
