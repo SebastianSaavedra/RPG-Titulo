@@ -161,9 +161,9 @@ public class CharacterBattle : MonoBehaviour
             //case Character.Type.TrenTren:
             //    anim.runtimeAnimatorController = GameAssets.i.trentrenBattleAnim;
             //    break;
-            //case Character.Type.CaiCai:
-            //    anim.runtimeAnimatorController = GameAssets.i.caicaiBattleAnim;
-            //    break;
+            case Character.Type.CaiCai:
+                anim.runtimeAnimatorController = GameAssets.i.caicaiBattleAnim;
+                break;
 
         }
 
@@ -470,15 +470,6 @@ public class CharacterBattle : MonoBehaviour
     {
         return statusSystem.HasStatus();
     }
-
-    //public void TickSpecialCooldown()
-    //{
-    //    if (stats.special > 0)
-    //    {
-    //        stats.special--;
-    //    }
-    //}
-
 
     private void Update()
     {

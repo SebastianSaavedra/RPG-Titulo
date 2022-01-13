@@ -9,7 +9,13 @@ public static class SoundManager
 
     public enum Sound
     {
-        Attack,
+        MeleeAtk1,
+        MeleeAtk2,
+        GunAtk,
+        HeavyAtk,
+        SlapAtk,
+        SlashAtk,
+        TsunamiAtk,
         Defense,
         CharacterHit,
         CharacterDamaged,

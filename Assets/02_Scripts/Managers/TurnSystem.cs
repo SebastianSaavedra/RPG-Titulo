@@ -7,12 +7,18 @@ public class TurnSystem : MonoBehaviour
 
     public event EventHandler OnTurnChanged;
 
+    [SerializeField] GameObject turnsCounterGameobject;
     [HideInInspector] public int turns;
     int totalAmount;
 
     private void Awake()
     {
         instance = this;
+    }
+
+    public GameObject GetTurnsCounterGameobject()
+    {
+        return turnsCounterGameobject;
     }
 
     public void SetTurnCount(int turns)

@@ -22,7 +22,7 @@ public class Battle
         Battle.character = character;
         Battle.enemyEncounter = enemyEncounter;
 
-        FunctionTimer.Create(OverworldManager.LoadFromOvermapToBattle, .7f);
+        FunctionTimer.Create(OverworldManager.LoadFromOvermapToBattle, UIFade.GetTimer());
     }
 
     private CameraFollow cameraFollow;
@@ -33,6 +33,8 @@ public class Battle
 
     private static CharacterBattle trenTrenCapturadoCharacterBattle;
     private bool alreadyTrenTrenSpeaked;
+
+    private string enemyCommand;
 
 
     private LanePosition lastPlayerActiveLanePosition;
@@ -86,9 +88,9 @@ public class Battle
         {
             characterBattle.Setup(characterType, lanePosition, GetPosition(lanePosition, isPlayerTeam), isPlayerTeam, character.stats, character);
             Transform caicaiTransform;
-            caicaiTransform = Object.Instantiate(GameAssets.i.pfCaiCai, GetPosition(lanePosition, isPlayerTeam), Quaternion.identity);
+            caicaiTransform = Object.Instantiate(GameAssets.i.pfColaCaiCai, GetPosition(lanePosition, isPlayerTeam), Quaternion.identity);
             caicaiTransform.transform.parent = characterTransform.transform;
-            caicaiTransform.transform.localPosition = Vector3.zero;
+            //caicaiTransform.transform.localPosition = Vector3.zero;
             caicaiTransform.transform.localScale = new Vector3(1f, 1f, 1f);
         }
         else
@@ -494,7 +496,7 @@ public class Battle
 
         activeCharacterBattle.AttackTarget(selectedTargetCharacterBattle.GetPosition(), () =>
         {
-            SoundManager.PlaySound(SoundManager.Sound.Attack);
+            SoundManager.PlaySound(SoundManager.Sound.MeleeAtk1);
             int damageBase = activeCharacterBattle.GetAttack();
             int minDamage = (int)(damageBase * 0.8f);
             int maxDamage = (int)(damageBase * 1.2f);
@@ -561,7 +563,7 @@ public class Battle
             }
             activeCharacterBattle.AttackTarget(targetPosition, () =>
             {
-                SoundManager.PlaySound(SoundManager.Sound.Attack);
+                SoundManager.PlaySound(SoundManager.Sound.MeleeAtk1);
                 int damageBase = activeCharacterBattle.GetAttack();
                 int damageMin = (int)(damageBase * 0.8f);
                 int damageMax = (int)(damageBase * 1.0f);
@@ -1117,12 +1119,12 @@ public class Battle
     {
         if (activeCharacterBattle.EnemyTrySpendSpecial())
         {
-            Debug.Log(activeCharacterBattle.GetCharacterType() + " ha usado un special");
+            enemyCommand = "Special";
             EnemySpecial();
         }
         else
         {
-            Debug.Log(activeCharacterBattle.GetCharacterType() + " ha atacado normal");
+            enemyCommand = "Attack";
             EnemyAttack();
         }
     }
@@ -1133,6 +1135,11 @@ public class Battle
         {
             character.statusSystem.TimerTick();
         }
+    }
+
+    public string GetEnemyCommand()
+    {
+        return enemyCommand;
     }
 
     //private void RefreshSelectedTargetCharacterBattle()

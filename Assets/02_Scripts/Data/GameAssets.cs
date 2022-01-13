@@ -38,7 +38,7 @@ public class GameAssets : MonoBehaviour
     public Transform pfChatBubbleUI;
     public Transform pfChatOption;
     public Transform pfTrenTren;
-    public Transform pfCaiCai;
+    public Transform pfCaiCai,pfColaCaiCai;
     public Transform pfPelotonLanceros,pfPelotonFusileros,pfPelotoFusileroYLancero;
     public Transform pfMineralBronce, pfMineralCobre, pfMineralPlata, pfMineralOro;
     public Transform anchimallenFire;
