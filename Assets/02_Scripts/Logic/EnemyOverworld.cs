@@ -124,7 +124,12 @@ public class EnemyOverworld : MonoBehaviour
     {
         if (!OverworldManager.IsOvermapRunning())
         {
+            aiPath.maxSpeed = 0;
             return;
+        }
+        else
+        {
+            aiPath.maxSpeed = SPEED;
         }
 
         if (character.type == Character.Type.Lancero || character.type == Character.Type.Fusilero || character.type == Character.Type.FusileroYLancero)
@@ -160,7 +165,7 @@ public class EnemyOverworld : MonoBehaviour
                     {
                         TryAttackPlayer();
                     }
-                    HandleMovement();
+                    //HandleMovement();
                     break;
 
                 case State.Waiting:

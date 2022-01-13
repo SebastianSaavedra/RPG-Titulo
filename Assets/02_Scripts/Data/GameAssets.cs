@@ -41,6 +41,7 @@ public class GameAssets : MonoBehaviour
     public Transform pfCaiCai;
     public Transform pfPelotonLanceros,pfPelotonFusileros,pfPelotoFusileroYLancero;
     public Transform pfMineralBronce, pfMineralCobre, pfMineralPlata, pfMineralOro;
+    public Transform anchimallenFire;
     public RectTransform pf_ItemSlot;
     //public Transform pfPopUpWindow;
     //public Transform pfPopUpWindowButton;

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using MEC;
 
 public class ZoneManager : MonoBehaviour
 {
@@ -68,95 +69,32 @@ public class ZoneManager : MonoBehaviour
     
     public void AldeaToBosque()
     {
-        OverworldManager.StopOvermapRunning();
-        //Transition FadeIn
-        confiner.m_BoundingShape2D = bosqueAraucConfiner;
-        confiner.InvalidatePathCache();
-        player.transform.position = aldeaToBosquePos.position;
-        foreach (FollowerOverworld follower in OverworldManager.GetInstance().GetFollowerList())
-        {
-            follower.gameObject.transform.position = player.transform.position;
-        }
-        GameData.mapZoneState = GameData.MapZone.BosqueAraucarias;
-        //Transition FadeOut
-        OverworldManager.ContinueOvermapRunning();
+        Timing.RunCoroutine(_WaitForFadeToComplete(bosqueAraucConfiner, aldeaToBosquePos.position, GameData.MapZone.BosqueAraucarias));
     }
 
     public void BosqueToAldea()
     {
-        OverworldManager.StopOvermapRunning();
-        //Transition FadeIn
-        confiner.m_BoundingShape2D = aldeaConfiner;
-        confiner.InvalidatePathCache();
-        player.transform.position = bosqueToAldeaPos.position;
-        foreach (FollowerOverworld follower in OverworldManager.GetInstance().GetFollowerList())
-        {
-            follower.gameObject.transform.position = player.transform.position;
-        }
-        GameData.mapZoneState = GameData.MapZone.Aldea;
-        //Transition FadeOut
-        OverworldManager.ContinueOvermapRunning();
+        Timing.RunCoroutine(_WaitForFadeToComplete(aldeaConfiner, bosqueToAldeaPos.position, GameData.MapZone.Aldea));
     }
 
     public void BosqueToLago()
     {
-        OverworldManager.StopOvermapRunning();
-        //Transition FadeIn
-        confiner.m_BoundingShape2D = lagoConfiner;
-        confiner.InvalidatePathCache();
-        player.transform.position = bosqueToLagoPos.position;
-        foreach (FollowerOverworld follower in OverworldManager.GetInstance().GetFollowerList())
-        {
-            follower.gameObject.transform.position = player.transform.position;
-        }
-        GameData.mapZoneState = GameData.MapZone.Lago;
-        //Transition FadeOut
-        OverworldManager.ContinueOvermapRunning();
+        Timing.RunCoroutine(_WaitForFadeToComplete(lagoConfiner, bosqueToLagoPos.position, GameData.MapZone.Lago));
     }
+
     public void BosqueToBosqueP()
     {
-        OverworldManager.StopOvermapRunning();
-        //Transition FadeIn
-        confiner.m_BoundingShape2D = bosqueProfundoConfiner;
-        confiner.InvalidatePathCache();
-        player.transform.position = bosqueToBosquePPos.position;
-        foreach (FollowerOverworld follower in OverworldManager.GetInstance().GetFollowerList())
-        {
-            follower.gameObject.transform.position = player.transform.position;
-        }
-        GameData.mapZoneState = GameData.MapZone.BosqueProfundo;
-        //Transition FadeOut
-        OverworldManager.ContinueOvermapRunning();
+        Timing.RunCoroutine(_WaitForFadeToComplete(bosqueProfundoConfiner, bosqueToBosquePPos.position, GameData.MapZone.BosqueProfundo));
     }
+
     public void LagoToBosque()
     {
-        OverworldManager.StopOvermapRunning();
-        //Transition FadeIn
-        confiner.m_BoundingShape2D = bosqueAraucConfiner;
-        confiner.InvalidatePathCache();
-        player.transform.position = lagoToBosquePos.position;
-        foreach (FollowerOverworld follower in OverworldManager.GetInstance().GetFollowerList())
-        {
-            follower.gameObject.transform.position = player.transform.position;
-        }
-        GameData.mapZoneState = GameData.MapZone.BosqueAraucarias;
-        //Transition FadeOut
-        OverworldManager.ContinueOvermapRunning();
+        Timing.RunCoroutine(_WaitForFadeToComplete(bosqueAraucConfiner, lagoToBosquePos.position, GameData.MapZone.BosqueAraucarias));
     }
+
     public void BosquePToBosque()
     {
-        OverworldManager.StopOvermapRunning();
-        //Transition FadeIn
-        confiner.m_BoundingShape2D = bosqueAraucConfiner;
-        confiner.InvalidatePathCache();
-        player.transform.position = bosquePToBosquePos.position;
-        foreach (FollowerOverworld follower in OverworldManager.GetInstance().GetFollowerList())
-        {
-            follower.gameObject.transform.position = player.transform.position;
-        }
-        GameData.mapZoneState = GameData.MapZone.BosqueAraucarias;
-        //Transition FadeOut
-        OverworldManager.ContinueOvermapRunning();
+        Timing.RunCoroutine(_WaitForFadeToComplete(bosqueAraucConfiner, bosquePToBosquePos.position, GameData.MapZone.BosqueAraucarias));
     }
 
     public void TrenTrenBeforeBattle()
@@ -166,5 +104,35 @@ public class ZoneManager : MonoBehaviour
     public void CaicaiBeforeBattle()
     {
         Dialogues.Play_CaiCaiBeforeBattle(OverworldManager.GetInstance().GetCaiCaiCharacter());
+    }
+
+    IEnumerator<float> _WaitForFadeToComplete(PolygonCollider2D confiner, Vector3 position, GameData.MapZone mapZone)
+    {
+        OverworldManager.StopOvermapRunning();
+        //UIFade.Show();
+        UIFade.FadeIn();
+        yield return Timing.WaitForSeconds(UIFade.GetTimer());
+        this.confiner.m_BoundingShape2D = confiner;
+        this.confiner.InvalidatePathCache();
+        player.transform.position = position;
+        GameData.mapZoneState = mapZone;
+
+        Timing.WaitUntilDone(_FollowerPositionUpdated());
+
+        UIFade.FadeOut();
+        yield return Timing.WaitForSeconds(UIFade.GetTimer());
+        //UIFade.Hide();
+        OverworldManager.ContinueOvermapRunning();
+    }
+
+    IEnumerator<float> _FollowerPositionUpdated()
+    {
+        foreach (FollowerOverworld follower in OverworldManager.GetInstance().GetFollowerList())
+        {
+            yield return Timing.WaitForOneFrame;
+            //follower.gameObject.transform.position = player.transform.position;
+            follower.GetAIPath().Teleport(player.transform.position, true);
+            follower.GetSeeker().CancelCurrentPathRequest();
+        }
     }
 }

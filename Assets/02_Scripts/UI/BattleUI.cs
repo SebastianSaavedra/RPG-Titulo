@@ -151,14 +151,14 @@ public class BattleUI : MonoBehaviour
                 Timing.RunCoroutine(_EventSystemReAssign(subButtonsArray[0].subButtons[0]));
                 battleMenus = BATTLEMENUS.Submenu;
                 lastMenuActivated = submenuAttack;
-                Debug.Log("Submenu de ataque activado");
+                //Debug.Log("Submenu de ataque activado");
                 break;
             case "Submenu.Special":
                 battleMenus = BATTLEMENUS.Submenu;
                 switch (Battle.GetInstance().activeCharacterBattle.GetCharacterType())
                 {
                     case Character.Type.Suyai:
-                        Debug.Log("Submenu de habilidades activado");
+                        //Debug.Log("Submenu de habilidades activado");
                         lastMenuActivated = submenuSpecial;
                         submenuSpecial.SetActive(true);
                         suyaiSpells.SetActive(true);
@@ -199,7 +199,7 @@ public class BattleUI : MonoBehaviour
                 {
                     lastMenuActivated = submenuInventory;
                     submenuInventory.SetActive(true);
-                    Debug.Log("Inventario se abrio");
+                    //Debug.Log("Inventario se abrio");
                 }
                 else
                 {
@@ -210,12 +210,16 @@ public class BattleUI : MonoBehaviour
                 switch (GameData.state)
                 {
                     default:
-                        Debug.Log("Huiste del combate");
+                        //Debug.Log("Huiste del combate");
                         mainBattleMenu.SetActive(false);
-                        FunctionTimer.Create(OverworldManager.LoadBackToOvermap, 1f);
+                        UIFade.FadeIn();
+                        FunctionTimer.Create(OverworldManager.LoadBackToOvermap, UIFade.GetTimer());
                         break;
                     case GameData.State.SavingTrenTren:
                     case GameData.State.FightingCaiCai:
+                    case GameData.State.PeleandoVSPrimerPeloton:
+                    case GameData.State.PeleandoVSSegundoPeloton:
+                    case GameData.State.PeleandoVSTercerPeloton:
                         SoundManager.PlaySound(SoundManager.Sound.Error);
                         break;
                 }
@@ -253,12 +257,12 @@ public class BattleUI : MonoBehaviour
                             mainBattleMenu.SetActive(false);
                             Battle.GetInstance().state = Battle.State.AllySelection;
                             Battle.GetInstance().SetSelectedTargetCharacterBattle(Battle.GetInstance().GetAliveTeamCharacterBattleList(true)[0]);
-                            Debug.Log("Cura individual");
+                            //Debug.Log("Cura individual");
                             break;
                         case "CuraGrupal":
                             mainBattleMenu.SetActive(false);
                             Battle.GetInstance()._Special();
-                            Debug.Log("CuraGrupal");
+                            //Debug.Log("CuraGrupal");
                             break;
                         case "Revivir":
                             if (Battle.GetInstance().GetDeadTeamCharacterBattleList(true).Count > 0)
@@ -266,18 +270,18 @@ public class BattleUI : MonoBehaviour
                                 mainBattleMenu.SetActive(false);
                                 Battle.GetInstance().state = Battle.State.DeadAllySelection;
                                 Battle.GetInstance().SetSelectedTargetCharacterBattle(Battle.GetInstance().GetDeadTeamCharacterBattleList(true)[0]);
-                                Debug.Log("Revivir");
+                                //Debug.Log("Revivir");
                             }
                             else
                             {
                                 SoundManager.PlaySound(SoundManager.Sound.Error);
-                                Debug.Log("No tienes aliados muertos!");
+                                //Debug.Log("No tienes aliados muertos!");
                             }
                             break;
                         case "Turnos":
                             mainBattleMenu.SetActive(false);
                             Battle.GetInstance()._Special();
-                            Debug.Log("Turnos");
+                            //Debug.Log("Turnos");
                             break;
                     }
                     break;

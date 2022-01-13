@@ -1169,7 +1169,7 @@ public static class Dialogues
             () => {
                 dialogue.Show();
                 dialogue.ShowRightCharacter(GameAssets.i.npc_ViejaMachi, false);
-                dialogue.GetSuperTextMesh().readDelay = .06f;
+                dialogue.GetSuperTextMesh().readDelay = .05f;
                 dialogue.ShowText("<j> Suyai, llegaste en el peor momento, se han llevado a algunos de nosotros.");
                 dialogue.ShowRightCharacterName("Kuyenray");
                 dialogue.ShowRightNameplate();
@@ -1228,7 +1228,7 @@ public static class Dialogues
                 dialogue.ShowText("ESO… <d=5> ESO ES…");
             },
             () => {
-                dialogue.GetSuperTextMesh().readDelay = 0.06f;
+                dialogue.GetSuperTextMesh().readDelay = 0.05f;
                 dialogue.ShowText("Suyai, no puedo creerlo, pero tu historia parece ser cierta.");
             },
             () => {
@@ -1242,7 +1242,7 @@ public static class Dialogues
                 dialogue.ShowText("Consigue que te preste su poder para enfrentar a estos enemigos.");
             },
             () => {
-                dialogue.GetSuperTextMesh().readDelay = 0.06f;
+                dialogue.GetSuperTextMesh().readDelay = 0.05f;
                 dialogue.ShowText("Si ellos han vuelto, puede que mas de estas criaturas ancestrales también lo hayan hecho...");
             },
             () => {
@@ -1257,11 +1257,10 @@ public static class Dialogues
                 dialogue.ShowText("...");
             },
             () => {
-                dialogue.GetSuperTextMesh().readDelay = 0.06f;
+                dialogue.GetSuperTextMesh().readDelay = 0.05f;
                 dialogue.ShowText("Cuídate Suyai...");
             },
             () => {
-                dialogue.GetSuperTextMesh().readDelay = 0.05f;
                 dialogue.ShowText("Es una misión importante para alguien como tú, pero no tenemos otra opción.");
             },
             () => {

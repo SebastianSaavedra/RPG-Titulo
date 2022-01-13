@@ -42,7 +42,7 @@ public class Character_Anims : MonoBehaviour
     IEnumerator<float> _WaitUntilAnimComplete(string name,Action onHIT, Action onATTACKCOMPLETE)
     {
         anim.Play(name);
-        yield return Timing.WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+        yield return Timing.WaitForSeconds(anim.GetCurrentAnimatorClipInfo(0).Length);
         onHIT();
         yield return Timing.WaitForOneFrame;
         onATTACKCOMPLETE();

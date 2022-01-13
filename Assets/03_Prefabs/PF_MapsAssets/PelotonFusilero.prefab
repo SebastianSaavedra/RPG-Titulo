@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2260267952817413386}
   - component: {fileID: 2260267952817413385}
   m_Layer: 0
-  m_Name: Fucilero
+  m_Name: Personajes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -93,7 +93,7 @@ Animator:
   m_GameObject: {fileID: 2260267952817413391}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5f3261072e4e8854dbe3c09c72a2da54, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4aa2e4ecb6b3b794dba25b7e5c0d5865, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 2260267952954726262}
   - component: {fileID: 2260267952954726261}
   m_Layer: 0
-  m_Name: Fucilero (1)
+  m_Name: Personajes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -195,7 +195,7 @@ Animator:
   m_GameObject: {fileID: 2260267952954725515}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5f3261072e4e8854dbe3c09c72a2da54, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4aa2e4ecb6b3b794dba25b7e5c0d5865, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -216,7 +216,7 @@ GameObject:
   - component: {fileID: 2260267953135711061}
   - component: {fileID: 2260267953135711060}
   m_Layer: 0
-  m_Name: Fucilero (2)
+  m_Name: Personajes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -297,7 +297,7 @@ Animator:
   m_GameObject: {fileID: 2260267953135711082}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5f3261072e4e8854dbe3c09c72a2da54, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4aa2e4ecb6b3b794dba25b7e5c0d5865, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -316,7 +316,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2260267953313882267}
   m_Layer: 0
-  m_Name: PelotonFucilero
+  m_Name: PelotonFusilero
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

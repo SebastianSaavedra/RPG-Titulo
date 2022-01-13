@@ -61,17 +61,18 @@ MonoBehaviour:
   pfChatOption: {fileID: 0}
   pfTrenTren: {fileID: 5341325383846457469, guid: db0d82a611ba969458c9b37a73369ade, type: 3}
   pfCaiCai: {fileID: 2987255751878005320, guid: 357ba349c9526af44a87abf1d0983adb, type: 3}
-  pfPelotonLanceros: {fileID: 2260267953313882267, guid: 4fb35fd7fa0ba744ab4588f7ad313e96, type: 3}
+  pfPelotonLanceros: {fileID: 3550193094505924272, guid: 2851451737420ce41aad0eb54e25554a, type: 3}
   pfPelotonFusileros: {fileID: 2260267953313882267, guid: 4fb35fd7fa0ba744ab4588f7ad313e96, type: 3}
-  pfPelotoFusileroYLancero: {fileID: 2260267953313882267, guid: 4fb35fd7fa0ba744ab4588f7ad313e96, type: 3}
+  pfPelotoFusileroYLancero: {fileID: 7025851399210898748, guid: 5636d7e55b9ce2d40a73bc64d0acaf3c, type: 3}
   pfMineralBronce: {fileID: 538586358298004914, guid: f6237da614f12884589801713be5d8d8, type: 3}
   pfMineralCobre: {fileID: 4486838412710475304, guid: 6803856793bfb2b4698e210b046c318d, type: 3}
   pfMineralPlata: {fileID: 3255913004261338983, guid: f9706cd3f7cedac4793a775430b4e665, type: 3}
   pfMineralOro: {fileID: 5260693226285514096, guid: 3882b2c9ac0dfdc45b66a8b906421ce0, type: 3}
+  anchimallenFire: {fileID: 495158190909151474, guid: 5d6a9552de2637346bff8047dda3d366, type: 3}
   pf_ItemSlot: {fileID: 2809455457114441785, guid: c5887062ac45ac7469a69d3353335627, type: 3}
   suyaiBATTLEANIM: {fileID: 9100000, guid: f12bc6ecd7ec9bb4a94d78b4c02c7fbc, type: 2}
   pedroBATTLEANIM: {fileID: 9100000, guid: 92d7085d1b370e74ab1045b36989edfa, type: 2}
-  aranaBATTLEANIM: {fileID: 9100000, guid: 2953abf012d3b9f48933f62342c1a879, type: 2}
+  aranaBATTLEANIM: {fileID: 9100000, guid: 8f3b8de167f0a4544a24b9f52f350016, type: 2}
   antayBATTLEANIM: {fileID: 9100000, guid: 7474e35a5ef575a40ad26ccd23cb7f20, type: 2}
   chillpilaBATTLEANIM: {fileID: 9100000, guid: 17276fb73c5e8d244be173111835a717, type: 2}
   suyaiOVERWORLDANIM: {fileID: 9100000, guid: 1e49007ecdadde143b94e3fa7d060ac6, type: 2}

@@ -36,10 +36,6 @@ public class CharacterBattle : MonoBehaviour
     private bool hasStatus;
     private bool isBlocking;
 
-    Sprite sprite;
-
-    Vector3 healthWorldBarLocalPosition = new Vector3(0, 13.25f);
-
     private enum State
     {
         Idle,
@@ -67,9 +63,33 @@ public class CharacterBattle : MonoBehaviour
     private void Start()
     {
         baseTint = GetComponent<SpriteRenderer>().material.color;
+        
+        switch (characterType)
+        {
+            case Character.Type.Arana:
+                anim.applyRootMotion = true;
+                break;
+            case Character.Type.Anchimallen:
+                anim.applyRootMotion = true;
+
+                Transform anchimallenFire;
+                anchimallenFire = Instantiate(GameAssets.i.anchimallenFire, transform.position, Quaternion.identity);
+                anchimallenFire.parent = transform;
+                anchimallenFire.localPosition = Vector3.zero;
+                anchimallenFire.localScale = new Vector3(1f, 1f, 1f);
+                break;
+            case Character.Type.Piuchen:
+            case Character.Type.Guirivilo:
+            case Character.Type.Lancero:
+            case Character.Type.Fusilero:
+                character.stats.special = UnityEngine.Random.Range(2, 5);
+                character.stats.specialMax = character.stats.special;
+                break;
+        }
         if (!character.IsInPlayerTeam())
         {
             spriteRen.sortingOrder -= 1;
+            Debug.Log(characterType + "Tiene esta cantidad de special " + character.stats.special + "y max " + character.stats.specialMax);
         }
     }
 
@@ -214,26 +234,18 @@ public class CharacterBattle : MonoBehaviour
 
     public void Damage(CharacterBattle attacker, int damageAmount, CharacterBattle characterAttacked)
     {
-        //Vector3 bloodDir = (GetPosition() - attacker.GetPosition()).normalized;
-        //Blood_Handler.SpawnBlood(GetPosition(), bloodDir);
-
         //SoundManager.PlaySound(SoundManager.Sound.CharacterDamaged);
         healthSystem.Damage(damageAmount, characterAttacked);
         DamageFlash();
 
-        //ANIMACION DE SER HITEADO
-        //playerAnims.GetUnitAnimation().PlayAnimForced(hitUnitAnimType, GetTargetDir(), 1f, (UnitAnim unitAnim) => 
-        //{
-        //    PlayIdleAnim();
-        //}, null, null);
-        //ANIMACION DE SER HITEADO
+
 
         if (IsDead())
         {
             if (!IsPlayerTeam())
             {
                 // Enemy
-                if (characterType != Character.Type.Jefe1) // && characterType != Character.Type.Jefe2 && characterType != Character.Type.Jefe3
+                if (characterType != Character.Type.Jefe1)
                 {
                     // Don't spawn Flying Body for Evil Monster
                     Debug.Log("Se murio");
@@ -256,13 +268,6 @@ public class CharacterBattle : MonoBehaviour
         else
         {
             // Knockback
-            /*
-            transform.position += bloodDir * 5f;
-            if (hitUnitAnim != null) {
-                state = State.Busy;
-                enemyBase.PlayHitAnimation(bloodDir * (Vector2.one * -1f), SetStateNormal);
-            }
-            */
         }
     }
 
@@ -377,10 +382,31 @@ public class CharacterBattle : MonoBehaviour
         return stats.attack;
     }
 
-    //public int GetSpecial()
-    //{
-    //    return stats.special;
-    //}
+    public int GetSpecial()
+    {
+        return stats.special;
+    }
+
+    public bool EnemyTrySpendSpecial()
+    {
+        if (stats.special <= 0)
+        {
+            stats.special = stats.specialMax;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public void TickSpecialCooldown()
+    {
+        if (stats.special > 0)
+        {
+            stats.special--;
+        }
+    }
 
     public bool TrySpendSpecial()
     {

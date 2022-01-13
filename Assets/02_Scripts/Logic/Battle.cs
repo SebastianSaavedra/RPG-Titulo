@@ -17,6 +17,7 @@ public class Battle
 
     public static void LoadEnemyEncounter(Character character, GameData.EnemyEncounter enemyEncounter)
     {
+        UIFade.FadeIn();
         OverworldManager.SaveAllCharacterPositions();
         Battle.character = character;
         Battle.enemyEncounter = enemyEncounter;
@@ -172,6 +173,8 @@ public class Battle
         cameraFollow.SetCameraMoveSpeed(10f);
         cameraFollow.SetCameraZoomSpeed(10f);
         ResetCamera();
+        //UIFade.Show();
+        UIFade.FadeOut();
         SoundManager.PlaySoundLoop(SoundManager.Sound.BattleTheme);
 
         // Se inicia el combate
@@ -488,14 +491,10 @@ public class Battle
         BattleUI.instance.battleMenus = BattleUI.BATTLEMENUS.None;
         SetCamera(selectedTargetCharacterBattle.GetPosition() + new Vector3(-5f, 0), 30f);
         activeCharacterBattle.GetComponent<SpriteRenderer>().sortingOrder += 2;
+
         activeCharacterBattle.AttackTarget(selectedTargetCharacterBattle.GetPosition(), () =>
         {
-            ResetCamera();
-            selectedTargetCharacterBattle.HideSelectionCircle();
-            activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .15f));
-        },() =>
-        {
-            //SoundManager.PlaySound(SoundManager.Sound.CharacterHit);
+            SoundManager.PlaySound(SoundManager.Sound.Attack);
             int damageBase = activeCharacterBattle.GetAttack();
             int minDamage = (int)(damageBase * 0.8f);
             int maxDamage = (int)(damageBase * 1.2f);
@@ -528,7 +527,80 @@ public class Battle
                 //WhichMonsterWasKilled(selectedTargetCharacterBattle.GetCharacterType());
             }
             activeCharacterBattle.GetComponent<SpriteRenderer>().sortingOrder -= 2;
+        },() =>
+        {
+            ResetCamera();
+            selectedTargetCharacterBattle.HideSelectionCircle();
+            activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
         });
+    }
+
+    public void EnemyAttack()
+    {
+        FunctionTimer.Create(() =>
+        {
+            if (GameData.state == GameData.State.SavingTrenTren)
+            {
+                aiTargetCharacterBattle = trenTrenCapturadoCharacterBattle;
+            }
+            else
+            {
+                aiTargetCharacterBattle = GetAliveTeamCharacterBattleList(true)[Random.Range(0, GetAliveTeamCharacterBattleList(true).Count)];
+            }
+            SetCamera(aiTargetCharacterBattle.GetPosition() + new Vector3(+5f, 0), 30f);
+            activeCharacterBattle.GetComponent<SpriteRenderer>().sortingOrder += 2;
+            Vector3 targetPosition;
+
+            if (activeCharacterBattle.GetCharacterType() == Character.Type.Fusilero)
+            {
+                targetPosition = new Vector3(aiTargetCharacterBattle.GetPosition().x + 30, aiTargetCharacterBattle.GetPosition().y, aiTargetCharacterBattle.GetPosition().z);
+            }
+            else
+            {
+                targetPosition = aiTargetCharacterBattle.GetPosition();
+            }
+            activeCharacterBattle.AttackTarget(targetPosition, () =>
+            {
+                SoundManager.PlaySound(SoundManager.Sound.Attack);
+                int damageBase = activeCharacterBattle.GetAttack();
+                int damageMin = (int)(damageBase * 0.8f);
+                int damageMax = (int)(damageBase * 1.0f);
+                int damageAmount = Random.Range(damageMin, damageMax);
+                int damageChance = activeCharacterBattle.stats.damageChance;
+                if (Random.Range(0, 100) < damageChance)    // probabilidad de golpear al player
+                {
+                    // Hit
+                    if (Random.Range(0, 100) <= activeCharacterBattle.stats.critChance)       //Critical Hit
+                    {
+                        damageAmount *= Random.Range((int)1.2f, (int)1.5f);
+                        int finalDmg = ((damageAmount * damageAmount) / (damageAmount + aiTargetCharacterBattle.stats.defense));
+                        //Debug.Log("El daño critico es: " + finalDmg);
+                        aiTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount, aiTargetCharacterBattle);
+                        DamagePopups.Create(aiTargetCharacterBattle.GetPosition(), finalDmg, true);
+                        UtilsClass.ShakeCamera(1f, .1f);
+                    }
+                    else                                //Normal Hit
+                    {
+                        int finalDmg = ((damageAmount * damageAmount) / (damageAmount + aiTargetCharacterBattle.stats.defense));
+                        //Debug.Log("El daño normal es: " + finalDmg);
+                        aiTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount, aiTargetCharacterBattle);
+                        DamagePopups.Create(aiTargetCharacterBattle.GetPosition(), finalDmg, false);
+                        UtilsClass.ShakeCamera(.75f, .1f);
+                    }
+                }
+                else
+                {
+                    // Miss
+                    DamagePopups.Create(activeCharacterBattle.GetPosition(), "FALLO", UtilsClass.GetColorFromString("00B4FF"));
+                }
+            }, () =>
+            {
+                ResetCamera();
+                activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
+                activeCharacterBattle.GetComponent<SpriteRenderer>().sortingOrder -= 2;
+                StatusInfo(activeCharacterBattle);
+            });
+        }, .3f);
     }
 
     public void _Special()
@@ -549,14 +621,14 @@ public class Battle
                         {
                             activeCharacterBattle.PlayAnimSpecial(() =>
                             {
-                                ResetCamera();
-                                activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .15f));
+                                //Heal Individual
+                                SoundManager.PlaySound(SoundManager.Sound.Heal);
+                                selectedTargetCharacterBattle.Heal((int)(selectedTargetCharacterBattle.GetHealthAmount() * .2f));
+                                DamagePopups.Create(selectedTargetCharacterBattle.GetPosition(), ((int)(selectedTargetCharacterBattle.GetHealthAmount() * .2f)).ToString(), Color.green);
                             }, () =>
                             {
-                                //Heal Individual
-                                //SoundManager.PlaySound(SoundManager.Sound.Heal);
-                                selectedTargetCharacterBattle.Heal((int)(selectedTargetCharacterBattle.GetHealthAmount() * .2f));
-                                DamagePopups.Create(selectedTargetCharacterBattle.GetPosition(),((int)(selectedTargetCharacterBattle.GetHealthAmount() * .2f)).ToString(), Color.green);
+                                ResetCamera();
+                                activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
                             });
                         });
                         ResourceManager.instance.ConsumeHerbs(1);
@@ -566,27 +638,28 @@ public class Battle
                         SetCamera(activeCharacterBattle.GetPosition(), 30f);
                         activeCharacterBattle.PlayAnimSpecial(() =>
                         {
+                            FunctionTimer.Create(() => {
+                                // Heal Grupal
+                                SoundManager.PlaySound(SoundManager.Sound.Heal);
+                                List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(true);
+                                if (GameData.state == GameData.State.SavingTrenTren)
+                                {
+                                    characterBattleList.Add(trenTrenCapturadoCharacterBattle);
+                                }
+                                foreach (CharacterBattle characterBattle in characterBattleList)
+                                {
+                                    characterBattle.Heal(50);
+                                    DamagePopups.Create(characterBattle.GetPosition(), "50", Color.green);
+                                }
+                                ResourceManager.instance.ConsumeHerbs(characterBattleList.Count);
+                            }, 1.2f);
+                        },
+                        () => 
+                        {
                             activeCharacterBattle.PlayIdleAnim();
                             ResetCamera();
-                            FunctionTimer.Create(ChooseNextActiveCharacter, .15f);
-                        },
-                        () => { });
-
-                        FunctionTimer.Create(() => {
-                            // Heal Grupal
-                            //SoundManager.PlaySound(SoundManager.Sound.Heal);
-                            List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(true);
-                            if(GameData.state == GameData.State.SavingTrenTren)
-                            {
-                                characterBattleList.Add(trenTrenCapturadoCharacterBattle);
-                            }
-                            foreach (CharacterBattle characterBattle in characterBattleList)
-                            {
-                                characterBattle.Heal(50);
-                                DamagePopups.Create(characterBattle.GetPosition(), "50", Color.green);
-                            }
-                            ResourceManager.instance.ConsumeHerbs(characterBattleList.Count);
-                        }, 1.2f);
+                            FunctionTimer.Create(ChooseNextActiveCharacter, .2f);
+                        });
                         break;
 
                     case "Revivir":
@@ -596,15 +669,15 @@ public class Battle
                         {
                             activeCharacterBattle.PlayAnimSpecial(() =>
                             {
-                                ResetCamera();
-                                activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .15f));
-                            }, () =>
-                            {
                                 //Revive 1 pj
-                                //SoundManager.PlaySound(SoundManager.Sound.Heal);
+                                SoundManager.PlaySound(SoundManager.Sound.Heal);
                                 selectedTargetCharacterBattle.Heal((int)(selectedTargetCharacterBattle.GetMaxHealthAmount() * .25f));
                                 selectedTargetCharacterBattle.Revive();
                                 DamagePopups.Create(selectedTargetCharacterBattle.GetPosition(), selectedTargetCharacterBattle.GetHealthAmount().ToString(), Color.green);
+                            }, () =>
+                            {
+                                ResetCamera();
+                                activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
                             });
                         });
                         ResourceManager.instance.ConsumeHerbs(1);
@@ -614,14 +687,14 @@ public class Battle
                         SetCamera(activeCharacterBattle.GetPosition(), 30f);
                         activeCharacterBattle.PlayAnimSpecial(() =>
                         {
-                            activeCharacterBattle.PlayIdleAnim();
-                            ResetCamera();
-                            FunctionTimer.Create(ChooseNextActiveCharacter, .15f);
+                            SoundManager.PlaySound(SoundManager.Sound.Heal);
+                            TurnSystem.instance.SetTurnCount(3);
+                            DamagePopups.Create(activeCharacterBattle.GetPosition(), "¡Conseguiste 3 turnos extras!", Color.white);
                         }, () =>
                         {
-                            //SoundManager.PlaySound(SoundManager.Sound.Heal);
-                            TurnSystem.instance.SetTurnCount(3);
-                            DamagePopups.Create(activeCharacterBattle.GetPosition(),"¡Conseguiste 3 turnos extras!", Color.white);
+                            activeCharacterBattle.PlayIdleAnim();
+                            ResetCamera();
+                            FunctionTimer.Create(ChooseNextActiveCharacter, .2f);
                         });
                         ResourceManager.instance.ConsumeHerbs(3);
                         break;
@@ -631,25 +704,27 @@ public class Battle
             case Character.Type.Antay:      //Tank
                 BattleUI.instance.CloseBattleMenus();
 
-                SetCamera(activeCharacterBattle.GetPosition(), 30f);
-                activeCharacterBattle.PlayAnimSpecial(() =>
+                activeCharacterBattle.SlideToPosition(GetPosition(LanePosition.Middle, false) + new Vector3(-45, 0), () =>
                 {
-                    activeCharacterBattle.PlayIdleAnim();
-                    ResetCamera();
-                    FunctionTimer.Create(ChooseNextActiveCharacter, .15f);
-                },
-                () => { });
-
-                FunctionTimer.Create(() => {
-                    // Buff all
-                    //SoundManager.PlaySound(SoundManager.Sound.Buff);
-                    List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(true);
-                    foreach (CharacterBattle characterBattle in characterBattleList)
+                    activeCharacterBattle.PlayAnimSpecial(() =>
                     {
-                        characterBattle.Buff(number);
-                    }
-                    ResourceManager.instance.ConsumeHits(1);
-                }, 1.2f);
+                        // Dano en area
+                        SoundManager.PlaySound(SoundManager.Sound.Buffs);
+                        FunctionTimer.Create(() =>
+                        {
+                            // Buff all
+                            List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(true);
+                            foreach (CharacterBattle characterBattle in characterBattleList)
+                            {
+                                characterBattle.Buff(number);
+                            }
+                            ResourceManager.instance.ConsumeHits(1);
+                        }, 1.2f);
+                    }, () =>
+                    {
+                        activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
+                    });
+                });
                 break;
 
             case Character.Type.Pedro:      // Debuffer - Trickster
@@ -660,7 +735,7 @@ public class Battle
                     activeCharacterBattle.PlayAnimSpecial( () =>
                     {
                         ResetCamera();
-                        activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .15f));
+                        activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
                     }, () =>
                     {
                         // Debuff
@@ -677,26 +752,22 @@ public class Battle
 
             case Character.Type.Arana:      // DAMAGE DEALER
                 BattleUI.instance.CloseBattleMenus();
+
                 SetCamera(selectedTargetCharacterBattle.GetPosition() + new Vector3(-5f, 0), 30f);
                 Vector3 slideToPosition = selectedTargetCharacterBattle.GetPosition() + new Vector3(-8f, 0);
+
                 activeCharacterBattle.SlideToPosition(slideToPosition, () =>
                 {
                     activeCharacterBattle.PlayAnimSpecial(() =>
                     {
-                        ResetCamera();
-                        activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .15f));
-                    },() =>
-                    {
-                        // Un Golpe Fuerte
-                        //SoundManager.PlaySound(SoundManager.Sound.CharacterHit);
                         UtilsClass.ShakeCamera(2f, .15f);
                         int damageAmount = 100;
                         selectedTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount, selectedTargetCharacterBattle);
-                        DamagePopups.Create(selectedTargetCharacterBattle.GetPosition(), damageAmount, false);
-                        //if (selectedTargetCharacterBattle.IsDead())
-                        //{
-                        //    WhichMonsterWasKilled(selectedTargetCharacterBattle.GetCharacterType());
-                        //}
+                        DamagePopups.Create(selectedTargetCharacterBattle.GetPosition(), damageAmount, true);
+                    }, () =>
+                    {
+                        ResetCamera();
+                        activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
                     });
                 });
                 ResourceManager.instance.ConsumeTattoos(1);
@@ -704,20 +775,24 @@ public class Battle
 
             case Character.Type.Chillpila:          // MAGE 
                 BattleUI.instance.CloseBattleMenus();
-                activeCharacterBattle.SlideToPosition(GetPosition(LanePosition.Middle, false) + new Vector3(-15, 0), () => {
-                    activeCharacterBattle.PlayAnimSpecial(() => {
-                        activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .15f));
-                    }, () => {
+
+                activeCharacterBattle.SlideToPosition(GetPosition(LanePosition.Middle, false) + new Vector3(-25, 0), () => 
+                {
+                    activeCharacterBattle.PlayAnimSpecial(() =>
+                    {
                         // Dano en area
-                        //SoundManager.PlaySound(SoundManager.Sound.GroundPound);
+                        SoundManager.PlaySound(SoundManager.Sound.Thunder);
                         UtilsClass.ShakeCamera(2f, .15f);
                         int damageAmount = 30;
                         List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(false);
+
                         foreach (CharacterBattle characterBattle in characterBattleList)
                         {
-                            characterBattle.Damage(activeCharacterBattle, damageAmount,characterBattle);
+                            
+                            characterBattle.Damage(activeCharacterBattle, damageAmount, characterBattle);
                             DamagePopups.Create(characterBattle.GetPosition(), damageAmount, false);
                         }
+
                         for (int i = 0; i < characterBattleList.Count; i++)
                         {
                             if (characterBattleList[i].IsDead())
@@ -727,6 +802,9 @@ public class Battle
                             }
 
                         }
+                    }, () =>
+                    {
+                        activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
                     });
                 });
                 ResourceManager.instance.ConsumeSouls((int)(characterBattleList.Count * 1.5f));
@@ -734,6 +812,90 @@ public class Battle
         }
         BattleUI.instance.lastMenuActivated = null;
         BattleUI.instance.battleMenus = BattleUI.BATTLEMENUS.None;
+    }
+
+    public void EnemySpecial()
+    {
+            aiTargetCharacterBattle = GetAliveTeamCharacterBattleList(true)[Random.Range(0, GetAliveTeamCharacterBattleList(true).Count)];
+            Vector3 slideToPosition = aiTargetCharacterBattle.GetPosition() + new Vector3(-8f, 0);
+            switch (activeCharacterBattle.GetCharacterType())
+            {
+                case Character.Type.Fusilero:
+
+                    activeCharacterBattle.SlideToPosition(GetPosition(LanePosition.Middle, false) + new Vector3(-25, 0), () =>
+                    {
+                        activeCharacterBattle.PlayAnimSpecial(() =>
+                        {
+                            // Dano en area
+                            //SoundManager.PlaySound(SoundManager.Sound.Thunder);
+                            UtilsClass.ShakeCamera(1.5f, .175f);
+                            int damageAmount = Random.Range(10,26);
+                            List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(true);
+
+                            foreach (CharacterBattle characterBattle in characterBattleList)
+                            {
+                                characterBattle.Damage(activeCharacterBattle, damageAmount, characterBattle);
+                                DamagePopups.Create(characterBattle.GetPosition(), damageAmount, false);
+                            }
+                        }, () =>
+                        {
+                            activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
+                        });
+                    });
+
+                    break;
+                case Character.Type.Lancero:
+
+                    SetCamera(aiTargetCharacterBattle.GetPosition() + new Vector3(-5f, 0), 30f);
+
+                    activeCharacterBattle.SlideToPosition(slideToPosition, () =>
+                    {
+                        activeCharacterBattle.PlayAnimSpecial(() =>
+                        {
+                            UtilsClass.ShakeCamera(2f, .15f);
+                            int damageAmount = Random.Range(10, 26);
+                            aiTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount, aiTargetCharacterBattle);
+                            DamagePopups.Create(aiTargetCharacterBattle.GetPosition(), damageAmount, true);
+
+                            aiTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount, aiTargetCharacterBattle);
+                            DamagePopups.Create(aiTargetCharacterBattle.GetPosition(), damageAmount, true);
+                        }, () =>
+                        {
+                            ResetCamera();
+                            activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
+                        });
+                    });
+
+                    break;
+
+                case Character.Type.Guirivilo:
+
+                    SetCamera(aiTargetCharacterBattle.GetPosition() + new Vector3(-5f, 0), 30f);
+
+                    activeCharacterBattle.SlideToPosition(slideToPosition, () =>
+                    {
+                        activeCharacterBattle.PlayAnimSpecial(() =>
+                        {
+                            UtilsClass.ShakeCamera(2f, .15f);
+                            int damageAmount = Random.Range(10, 26);
+                            aiTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount, aiTargetCharacterBattle);
+                            DamagePopups.Create(aiTargetCharacterBattle.GetPosition(), damageAmount, true);
+
+                            aiTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount, aiTargetCharacterBattle);
+                            DamagePopups.Create(aiTargetCharacterBattle.GetPosition(), damageAmount, true);
+                        }, () =>
+                        {
+                            ResetCamera();
+                            activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
+                        });
+                    });
+
+                    break;
+
+                case Character.Type.Piuchen:
+
+                    break;
+            }
     }
 
     public CharacterBattle GetActiveCharacterBattle()
@@ -813,16 +975,17 @@ public class Battle
                     GameData.state = GameData.State.TercerPelotonVencido;
                     break;
             }
-            Debug.Log("El estado del GameData.state es: " + GameData.state);
-            Debug.Log("El estado del GameData.MapZone es: " + GameData.mapZoneState);
+            //Debug.Log("El estado del GameData.state es: " + GameData.state);
+            //Debug.Log("El estado del GameData.MapZone es: " + GameData.mapZoneState);
             //SoundManager.PlaySound(SoundManager.Sound.BattleWin);
-            FunctionTimer.Create(OverworldManager.LoadBackToOvermap, .7f);
+            UIFade.FadeIn();
+            FunctionTimer.Create(OverworldManager.LoadBackToOvermap, UIFade.GetTimer());
             return;
         }
 
         if (TurnSystem.instance.ZeroTurns())
         {
-            Debug.Log("Se te acabaron los turnos, vuela alto");
+            //Debug.Log("Se te acabaron los turnos, vuela alto");
             FunctionTimer.Create(OverworldManager.LoadGameOver, .7f);
             return;
         }
@@ -830,7 +993,7 @@ public class Battle
         if (GetAliveTeamCharacterBattleList(true).Count == 0)
         {
             // Perdio
-            Debug.Log("Perdiste el combate, ganaron los enemigos :(");
+            //Debug.Log("Perdiste el combate, ganaron los enemigos :(");
 
             foreach (CharacterBattle characterBattle in GetTeamCharacterBattleList(true))
             {
@@ -844,7 +1007,8 @@ public class Battle
                 }
             }
 
-            FunctionTimer.Create(OverworldManager.LoadBackToOvermap, .7f);
+            UIFade.FadeIn();
+            FunctionTimer.Create(OverworldManager.LoadBackToOvermap, UIFade.GetTimer());
             return;
         }
 
@@ -858,69 +1022,55 @@ public class Battle
             );
             lastEnemyActiveLanePosition = activeCharacterBattle.GetLanePosition();
 
-            FunctionTimer.Create(() => 
+            if (GameData.state == GameData.State.SavingTrenTren)
             {
-                if (GameData.state == GameData.State.SavingTrenTren)
+                switch (activeCharacterBattle.GetCharacterType())
                 {
-                    aiTargetCharacterBattle = trenTrenCapturadoCharacterBattle;
+                    case Character.Type.Fusilero:
+                        EnemyAttack();
+                        break;
+                    case Character.Type.Lancero:
+                        EnemyAttack();
+                        break;
+                    case Character.Type.Anchimallen:
+                        EnemyAttack();
+                        break;
+                    case Character.Type.Guirivilo:
+                        EnemyAttack();
+                        break;
+                    case Character.Type.Piuchen:
+                        EnemyAttack();
+                        break;
+                    case Character.Type.CaiCai:
+                        EnemyAttack();
+                        break;
                 }
-                else
+            }
+            else
+            {
+                switch (activeCharacterBattle.GetCharacterType())
                 {
-                    aiTargetCharacterBattle = GetAliveTeamCharacterBattleList(true)[Random.Range(0, GetAliveTeamCharacterBattleList(true).Count)];
+                    case Character.Type.Fusilero:
+                        EnemyAttackOrSpecial();
+                        break;
+                    case Character.Type.Lancero:
+                        EnemyAttackOrSpecial();
+                        break;
+                    case Character.Type.Anchimallen:
+                        EnemyAttack();
+                        break;
+                    case Character.Type.Guirivilo:
+                        EnemyAttack();
+                        break;
+                    case Character.Type.Piuchen:
+                        EnemyAttack();
+                        break;
+                    case Character.Type.CaiCai:
+                        EnemyAttack();
+                        break;
                 }
-                SetCamera(aiTargetCharacterBattle.GetPosition() + new Vector3(+5f, 0), 30f);
-                activeCharacterBattle.GetComponent<SpriteRenderer>().sortingOrder += 2;
-                Vector3 targetPosition;
-                if (activeCharacterBattle.GetCharacterType() == Character.Type.Fusilero)
-                {
-                    targetPosition = new Vector3(aiTargetCharacterBattle.GetPosition().x - 2, aiTargetCharacterBattle.GetPosition().y, aiTargetCharacterBattle.GetPosition().z);
-                }
-                else
-                {
-                    targetPosition = aiTargetCharacterBattle.GetPosition();
-                }
-                activeCharacterBattle.AttackTarget(targetPosition, () => 
-                {
-                    //SoundManager.PlaySound(SoundManager.Sound.CharacterHit);
-                    int damageBase = activeCharacterBattle.GetAttack();
-                    int damageMin = (int)(damageBase * 0.8f);
-                    int damageMax = (int)(damageBase * 1.0f);
-                    int damageAmount = Random.Range(damageMin, damageMax);
-                    int damageChance = activeCharacterBattle.stats.damageChance;
-                    if (Random.Range(0, 100) < damageChance)    // probabilidad de golpear al player
-                    {
-                        // Hit
-                        if (Random.Range(0, 100) <= activeCharacterBattle.stats.critChance)       //Critical Hit
-                        {
-                            damageAmount *= Random.Range((int)1.2f,(int)1.5f);
-                            int finalDmg = ((damageAmount * damageAmount) / (damageAmount + aiTargetCharacterBattle.stats.defense));
-                            //Debug.Log("El daño critico es: " + finalDmg);
-                            aiTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount, aiTargetCharacterBattle);
-                            DamagePopups.Create(aiTargetCharacterBattle.GetPosition(), finalDmg, true);
-                            UtilsClass.ShakeCamera(1f, .1f);
-                        }
-                        else                                //Normal Hit
-                        {
-                            int finalDmg = ((damageAmount * damageAmount) / (damageAmount + aiTargetCharacterBattle.stats.defense));
-                            //Debug.Log("El daño normal es: " + finalDmg);
-                            aiTargetCharacterBattle.Damage(activeCharacterBattle, damageAmount, aiTargetCharacterBattle);
-                            DamagePopups.Create(aiTargetCharacterBattle.GetPosition(), finalDmg, false);
-                            UtilsClass.ShakeCamera(.75f, .1f);
-                        }
-                    }
-                    else
-                    {
-                        // Miss
-                        DamagePopups.Create(activeCharacterBattle.GetPosition(), "FALLO", UtilsClass.GetColorFromString("00B4FF"));
-                    }
-                }, () => 
-                {
-                    ResetCamera();
-                    activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
-                    activeCharacterBattle.GetComponent<SpriteRenderer>().sortingOrder -= 2;
-                    StatusInfo(activeCharacterBattle);
-                });
-            }, .3f);
+            }
+            activeCharacterBattle.TickSpecialCooldown();
         }
 
         else
@@ -960,6 +1110,20 @@ public class Battle
         {
             TurnSystem.instance.TurnDecrease();
             Debug.Log("Turn Start");
+        }
+    }
+
+    public void EnemyAttackOrSpecial()
+    {
+        if (activeCharacterBattle.EnemyTrySpendSpecial())
+        {
+            Debug.Log(activeCharacterBattle.GetCharacterType() + " ha usado un special");
+            EnemySpecial();
+        }
+        else
+        {
+            Debug.Log(activeCharacterBattle.GetCharacterType() + " ha atacado normal");
+            EnemyAttack();
         }
     }
 

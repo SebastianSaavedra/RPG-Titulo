@@ -24,6 +24,7 @@ public class FollowerOverworld : MonoBehaviour
     [SerializeField] AIDestinationSetter aiDestinationSetter;
     [SerializeField] AIPath aiPath;
     [SerializeField] Transform target;
+    Seeker seeker;
 
     //public event EventHandler OnEquipChanged;
 
@@ -38,6 +39,7 @@ public class FollowerOverworld : MonoBehaviour
         charAnim = gameObject.GetComponent<Character_Anims>();
         anim = gameObject.GetComponent<Animator>();
         sprite = gameObject.GetComponent<SpriteRenderer>();
+        seeker = gameObject.GetComponent<Seeker>();
         SetStateNormal();
     }
 
@@ -54,7 +56,7 @@ public class FollowerOverworld : MonoBehaviour
 
         aiPath.maxSpeed = SPEED;
 
-        float randomEndReachedDistance = UnityEngine.Random.Range(1.75f,4f);
+        float randomEndReachedDistance = UnityEngine.Random.Range(1.75f,3.2f);
         aiPath.endReachedDistance = randomEndReachedDistance;
         if (character.IsInPlayerTeam())
         {
@@ -281,6 +283,26 @@ public class FollowerOverworld : MonoBehaviour
         target.position = targetMovePosition;
 
         //Debug.Log("La posicion del target es: " + target.position);
+    }
+
+    public AIPath GetAIPath()
+    {
+        return aiPath;
+    }
+
+    public AIDestinationSetter GetAIDestinationSetter()
+    {
+        return aiDestinationSetter;
+    }
+
+    public Seeker GetSeeker()
+    {
+        return seeker;
+    }
+
+    public Transform GetAITarget()
+    {
+        return target;
     }
 
 }

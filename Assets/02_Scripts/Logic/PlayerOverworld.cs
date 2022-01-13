@@ -368,9 +368,9 @@ public class PlayerOverworld : MonoBehaviour
                         {
                             //Debug.Log(itemOverworld.GetItem().GetItemType());
                             Inventory.instance.AddItem(itemOverworld.GetItem());
-                            QuestManager.instance.QuestProgress();
+                            //QuestManager.instance.QuestProgress();
                             itemOverworld.GetItem().SetAmount(0);
-                            SoundManager.PlaySound(SoundManager.Sound.Coin);
+                            SoundManager.PlaySound(SoundManager.Sound.Herbs);
                             Debug.Log("A la planta le quedan: " + itemOverworld.GetItem().GetAmount() + " hierbas");
                         }
                         break;

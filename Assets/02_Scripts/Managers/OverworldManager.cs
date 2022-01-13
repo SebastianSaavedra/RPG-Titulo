@@ -67,6 +67,8 @@ public class OverworldManager
     {
         UnityEngine.SceneManagement.SceneManager.sceneLoaded += SceneManager_sceneLoaded;
         StartOvermapRunning();
+        //UIFade.Show();
+        UIFade.FadeOut();
         SoundManager.PlaySoundLoop(SoundManager.Sound.OverworldTheme);
 
         foreach (Character character in GameData.characterList)
@@ -250,6 +252,7 @@ public class OverworldManager
             case GameData.State.AlreadyTalkedWithViejaMachi:
                 UtilsClass.WaitOneFrame();
                 Debug.Log("El estado en el overworld es: " + GameData.state);
+                GameData.mapZoneState = GameData.MapZone.Aldea;
                 ZoneManager.instance.SetConfiner(ZoneManager.instance.GetAldeaConfiner());
                 break;
             case GameData.State.TrenTrenSaved:
@@ -284,6 +287,7 @@ public class OverworldManager
                 }
                 if (!GameData.cutsceneAlreadyWatched)
                 {
+                    GameData.mapZoneState = GameData.MapZone.BosqueProfundo;
                     ZoneManager.instance.SetConfiner(ZoneManager.instance.GetBosqueProfundoConfiner());
                     Dialogues.Play_TrenTrenSaved();
                 }
@@ -322,6 +326,7 @@ public class OverworldManager
                 }
                 if (!GameData.cutsceneAlreadyWatched)
                 {
+                    GameData.mapZoneState = GameData.MapZone.Lago;
                     ZoneManager.instance.SetConfiner(ZoneManager.instance.GetLagoConfiner());
                     ZoneManager.instance.GetGuerreroDesesperadoTrigger().SetActive(true);
                     Dialogues.Play_CaiCaiBeated();
@@ -331,23 +336,21 @@ public class OverworldManager
             case GameData.State.PrimerPelotonVencido:
                 UtilsClass.WaitOneFrame();
                 Debug.Log("El estado en el overworld es: " + GameData.state);
-                if (GameData.cutsceneAlreadyWatched)
+                GameData.mapZoneState = GameData.MapZone.Aldea;
+                switch (GameData.mapZoneState)
                 {
-                    switch (GameData.mapZoneState)
-                    {
-                        case GameData.MapZone.BosqueAraucarias:
-                            ZoneManager.instance.SetConfiner(ZoneManager.instance.GetBosqueAraucConfiner());
-                            break;
-                        case GameData.MapZone.Aldea:
-                            ZoneManager.instance.SetConfiner(ZoneManager.instance.GetAldeaConfiner());
-                            break;
-                        case GameData.MapZone.Lago:
-                            ZoneManager.instance.SetConfiner(ZoneManager.instance.GetLagoConfiner());
-                            break;
-                        case GameData.MapZone.BosqueProfundo:
-                            ZoneManager.instance.SetConfiner(ZoneManager.instance.GetBosqueProfundoConfiner());
-                            break;
-                    }
+                    case GameData.MapZone.BosqueAraucarias:
+                        ZoneManager.instance.SetConfiner(ZoneManager.instance.GetBosqueAraucConfiner());
+                        break;
+                    case GameData.MapZone.Aldea:
+                        ZoneManager.instance.SetConfiner(ZoneManager.instance.GetAldeaConfiner());
+                        break;
+                    case GameData.MapZone.Lago:
+                        ZoneManager.instance.SetConfiner(ZoneManager.instance.GetLagoConfiner());
+                        break;
+                    case GameData.MapZone.BosqueProfundo:
+                        ZoneManager.instance.SetConfiner(ZoneManager.instance.GetBosqueProfundoConfiner());
+                        break;
                 }
                 foreach (GameObject item in ZoneManager.instance.GetAfterTrenTrenObjects())
                 {
@@ -359,23 +362,21 @@ public class OverworldManager
             case GameData.State.SegundoPelotonVencido:
                 UtilsClass.WaitOneFrame();
                 Debug.Log("El estado en el overworld es: " + GameData.state);
-                if (GameData.cutsceneAlreadyWatched)
+                GameData.mapZoneState = GameData.MapZone.Aldea;
+                switch (GameData.mapZoneState)
                 {
-                    switch (GameData.mapZoneState)
-                    {
-                        case GameData.MapZone.BosqueAraucarias:
-                            ZoneManager.instance.SetConfiner(ZoneManager.instance.GetBosqueAraucConfiner());
-                            break;
-                        case GameData.MapZone.Aldea:
-                            ZoneManager.instance.SetConfiner(ZoneManager.instance.GetAldeaConfiner());
-                            break;
-                        case GameData.MapZone.Lago:
-                            ZoneManager.instance.SetConfiner(ZoneManager.instance.GetLagoConfiner());
-                            break;
-                        case GameData.MapZone.BosqueProfundo:
-                            ZoneManager.instance.SetConfiner(ZoneManager.instance.GetBosqueProfundoConfiner());
-                            break;
-                    }
+                    case GameData.MapZone.BosqueAraucarias:
+                        ZoneManager.instance.SetConfiner(ZoneManager.instance.GetBosqueAraucConfiner());
+                        break;
+                    case GameData.MapZone.Aldea:
+                        ZoneManager.instance.SetConfiner(ZoneManager.instance.GetAldeaConfiner());
+                        break;
+                    case GameData.MapZone.Lago:
+                        ZoneManager.instance.SetConfiner(ZoneManager.instance.GetLagoConfiner());
+                        break;
+                    case GameData.MapZone.BosqueProfundo:
+                        ZoneManager.instance.SetConfiner(ZoneManager.instance.GetBosqueProfundoConfiner());
+                        break;
                 }
                 foreach (GameObject item in ZoneManager.instance.GetAfterTrenTrenObjects())
                 {
@@ -387,23 +388,21 @@ public class OverworldManager
             case GameData.State.TercerPelotonVencido:
                 UtilsClass.WaitOneFrame();
                 Debug.Log("El estado en el overworld es: " + GameData.state);
-                if (GameData.cutsceneAlreadyWatched)
+                GameData.mapZoneState = GameData.MapZone.Aldea;
+                switch (GameData.mapZoneState)
                 {
-                    switch (GameData.mapZoneState)
-                    {
-                        case GameData.MapZone.BosqueAraucarias:
-                            ZoneManager.instance.SetConfiner(ZoneManager.instance.GetBosqueAraucConfiner());
-                            break;
-                        case GameData.MapZone.Aldea:
-                            ZoneManager.instance.SetConfiner(ZoneManager.instance.GetAldeaConfiner());
-                            break;
-                        case GameData.MapZone.Lago:
-                            ZoneManager.instance.SetConfiner(ZoneManager.instance.GetLagoConfiner());
-                            break;
-                        case GameData.MapZone.BosqueProfundo:
-                            ZoneManager.instance.SetConfiner(ZoneManager.instance.GetBosqueProfundoConfiner());
-                            break;
-                    }
+                    case GameData.MapZone.BosqueAraucarias:
+                        ZoneManager.instance.SetConfiner(ZoneManager.instance.GetBosqueAraucConfiner());
+                        break;
+                    case GameData.MapZone.Aldea:
+                        ZoneManager.instance.SetConfiner(ZoneManager.instance.GetAldeaConfiner());
+                        break;
+                    case GameData.MapZone.Lago:
+                        ZoneManager.instance.SetConfiner(ZoneManager.instance.GetLagoConfiner());
+                        break;
+                    case GameData.MapZone.BosqueProfundo:
+                        ZoneManager.instance.SetConfiner(ZoneManager.instance.GetBosqueProfundoConfiner());
+                        break;
                 }
                 ZoneManager.instance.GetBosqueToLagoPortal().SetActive(true);
                 ZoneManager.instance.GetLagoToBosquePortal().SetActive(true);

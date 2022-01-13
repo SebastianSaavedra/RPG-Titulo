@@ -10546,7 +10546,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2358909082737580249}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3, y: 8, z: 0}
+  m_LocalPosition: {x: -1, y: 7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6989693021506279504}
@@ -20216,7 +20216,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4150129603059944626}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -18.7, y: 21.5, z: 0}
+  m_LocalPosition: {x: -29, y: 16, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6989693021506279504}
@@ -20290,12 +20290,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e94742e25c900f4cb27e1d909226b49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  confiner: {fileID: 0}
   aldeaConfiner: {fileID: 2863702289265773165}
   bosqueAraucConfiner: {fileID: 662267695144425406}
   lagoConfiner: {fileID: 374699399631073014}
   bosqueProfundoConfiner: {fileID: 1447831245610209452}
-  player: {fileID: 0}
   aldeaToBosquePos: {fileID: 7376193482666497576}
   bosqueToAldeaPos: {fileID: 6748498968063954048}
   bosqueToLagoPos: {fileID: 5014421232780233482}
@@ -25480,11 +25478,11 @@ MonoBehaviour:
   characterType: 27
   enemyEncounter:
     enemyBattleArray:
-    - characterType: 11
+    - characterType: 9
       lanePosition: 1
-    - characterType: 10
+    - characterType: 9
       lanePosition: 0
-    - characterType: 11
+    - characterType: 9
       lanePosition: 2
   npcDialogues:
     dialogues: []
@@ -33503,11 +33501,11 @@ MonoBehaviour:
   characterType: 9
   enemyEncounter:
     enemyBattleArray:
-    - characterType: 10
+    - characterType: 6
       lanePosition: 1
-    - characterType: 10
+    - characterType: 6
       lanePosition: 0
-    - characterType: 11
+    - characterType: 6
       lanePosition: 2
   npcDialogues:
     dialogues:

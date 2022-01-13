@@ -39,6 +39,8 @@ public class Character
         public int health;
         public int attack;
         public int defense;
+        public int special;
+        public int specialMax;
         public int critChance;
         public int damageChance;
         public int turns;
