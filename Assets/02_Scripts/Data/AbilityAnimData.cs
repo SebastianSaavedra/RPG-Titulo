@@ -7,6 +7,7 @@ public class AbilityAnimData : MonoBehaviour
     [SerializeField] List<GameObject> rayos = new List<GameObject>();
     [SerializeField] GameObject monedaCara, monedaCruz;
     [SerializeField] GameObject mineralCobre, mineralBronce, mineralPlata, mineralOro;
+    [SerializeField] GameObject tsunami;
 
     public List<GameObject> GetRayosList()
     {
@@ -41,6 +42,11 @@ public class AbilityAnimData : MonoBehaviour
     public GameObject GetMineralOro()
     {
         return mineralOro;
+    }
+
+    public GameObject GetTsunami()
+    {
+        return tsunami;
     }
 
 

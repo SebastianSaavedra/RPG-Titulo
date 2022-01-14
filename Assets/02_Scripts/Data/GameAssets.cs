@@ -42,6 +42,7 @@ public class GameAssets : MonoBehaviour
     public Transform pfPelotonLanceros,pfPelotonFusileros,pfPelotoFusileroYLancero;
     public Transform pfMineralBronce, pfMineralCobre, pfMineralPlata, pfMineralOro;
     public Transform anchimallenFire;
+    public Transform pfFogata;
     public RectTransform pf_ItemSlot;
     //public Transform pfPopUpWindow;
     //public Transform pfPopUpWindowButton;
@@ -63,7 +64,7 @@ public class GameAssets : MonoBehaviour
     public Sprite splashSuyai, splashPedro, splashChillpila, splashArana, splashAntay;
     public Sprite playerDialogueSprite, npc_1DialogueSprite, warriorNpcDialogueSprite;
 
-    public Sprite item_Herb,item_Weapon1,item_Helmet1,item_Armor1,item_EscamaMarina;
+    public Sprite item_Herb,item_Weapon1,item_Helmet1,item_Armor1,item_EscamaMarina,fogataSprite;
 
     public List<Sprite> enemies = new List<Sprite>();
 

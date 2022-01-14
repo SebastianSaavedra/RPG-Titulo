@@ -70,6 +70,7 @@ MonoBehaviour:
   pfMineralPlata: {fileID: 3255913004261338983, guid: f9706cd3f7cedac4793a775430b4e665, type: 3}
   pfMineralOro: {fileID: 5260693226285514096, guid: 3882b2c9ac0dfdc45b66a8b906421ce0, type: 3}
   anchimallenFire: {fileID: 495158190909151474, guid: 5d6a9552de2637346bff8047dda3d366, type: 3}
+  pfFogata: {fileID: 740378356030626837, guid: 714de8fb7edcf824d90da4c5036ff554, type: 3}
   pf_ItemSlot: {fileID: 2809455457114441785, guid: c5887062ac45ac7469a69d3353335627, type: 3}
   suyaiBATTLEANIM: {fileID: 9100000, guid: f12bc6ecd7ec9bb4a94d78b4c02c7fbc, type: 2}
   pedroBATTLEANIM: {fileID: 9100000, guid: 92d7085d1b370e74ab1045b36989edfa, type: 2}
@@ -123,6 +124,7 @@ MonoBehaviour:
   item_Helmet1: {fileID: 21300000, guid: e22455aecdcedc2468d6f0cec293e622, type: 3}
   item_Armor1: {fileID: 21300000, guid: 281ffacdaa32afb4e92e328ce45f2ef4, type: 3}
   item_EscamaMarina: {fileID: 21300000, guid: 4d1d23dd744b10f448c30b52361f5c1d, type: 3}
+  fogataSprite: {fileID: 0}
   enemies:
   - {fileID: 21300000, guid: 2f50c32beb34dbb4687efa4f3b7e170b, type: 3}
   - {fileID: 21300000, guid: d2d0c1724bb61fe49ae74baa68e8c837, type: 3}

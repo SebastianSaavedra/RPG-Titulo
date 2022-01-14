@@ -129,6 +129,7 @@ public class EnemyOverworld : MonoBehaviour
         }
         else
         {
+            Debug.Log("Esta andando el enemigo");
             aiPath.maxSpeed = SPEED;
         }
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class AnimationEventCharacter : MonoBehaviour
 {
@@ -181,13 +182,15 @@ public class AnimationEventCharacter : MonoBehaviour
                     case "Attack":
                         SoundManager.PlaySound(SoundManager.Sound.MeleeAtk1);
                         break;
-
                     case "Special":
                         SoundManager.PlaySound(SoundManager.Sound.TsunamiAtk);
-
+                        abilityAnimationContainer.GetTsunami().transform.position = new Vector3(277f, -600f, 0f);
+                        abilityAnimationContainer.GetTsunami().SetActive(true);
+                        abilityAnimationContainer.GetTsunami().transform.DOLocalMoveY(-450, 1f);
                         break;
                 }
                 break;
         }
     }
+
 }

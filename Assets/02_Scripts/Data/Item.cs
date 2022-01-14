@@ -7,6 +7,8 @@ public class Item {
     public enum ItemType {
         MedicinalHerbs,
         EscamaMarina,
+        Fogata,
+
 
         Armor_1,
         Armor_2,

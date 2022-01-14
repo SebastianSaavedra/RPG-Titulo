@@ -99,6 +99,10 @@ public class ResourceManager : MonoBehaviour
     public void ConsumeHerbs(int amount)
     {
         herbs -= amount;
+        if (herbs >= 0)
+        {
+            herbs = 0;
+        }
         if (OnHerbsChanged != null)
         {
             OnHerbsChanged(this, EventArgs.Empty);

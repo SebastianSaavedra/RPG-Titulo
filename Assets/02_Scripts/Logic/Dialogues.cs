@@ -1050,7 +1050,7 @@ public static class Dialogues
         {
             () => {
                 dialogue.Show();
-                dialogue.ShowRightCharacter(GameAssets.i.fusileroOWSprite, false);
+                dialogue.ShowRightCharacter(GameAssets.i.lanceroOWSprite, false);
                 dialogue.ShowText("¡Acá hay otra persona…!");
                 dialogue.ShowRightCharacterName("Grupo de fusileros");
                 dialogue.ShowRightNameplate();
@@ -1075,7 +1075,7 @@ public static class Dialogues
         {
             () => {
                 dialogue.Show();
-                dialogue.ShowRightCharacter(GameAssets.i.lanceroOWSprite, false);
+                dialogue.ShowRightCharacter(GameAssets.i.fusileroOWSprite, false);
                 dialogue.ShowText("No te creas la gran cosa por haber derrotado a esos novatos, ahora te las veras con hombres de verdad.");
                 dialogue.ShowRightCharacterName("Grupo de Lanceros");
                 dialogue.ShowRightNameplate();

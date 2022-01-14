@@ -375,16 +375,16 @@ public class PlayerOverworld : MonoBehaviour
                         }
                         break;
 
-                        // Para testear el recoger armas y equiparlas
-                    //case Item.ItemType.Weapon_1:
-                    //    if (itemOverworld.GetItem().GetAmount() > 0)
-                    //    {
-                    //        //Debug.Log(itemOverworld.GetItem().GetItemType());
-                    //        Inventory.instance.AddItem(itemOverworld.GetItem());
-                    //        itemOverworld.GetItem().SetAmount(0);
-                    //        SoundManager.PlaySound(SoundManager.Sound.Coin);
-                    //    }
-                    //    break;
+                    case Item.ItemType.Fogata:
+                        SoundManager.PlaySound(SoundManager.Sound.Heal);
+                        foreach (Character character in GameData.characterList)
+                        {
+                            if (character.IsInPlayerTeam())
+                            {
+                                character.GetHealthSystem().Heal(100);
+                            }
+                        }
+                        break;
                 }
             }
         }

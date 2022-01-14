@@ -30,11 +30,12 @@ public class CharacterBattle : MonoBehaviour
     private Action onSlideComplete;
     //private World_Bar healthWorldBar;
     private HealthSystem healthSystem;
-    [HideInInspector] public StatusSystem statusSystem;
+    [HideInInspector] public StatusAndBuffsSystem statusSystem;
     private SpriteRenderer spriteRen;
     private bool canSpecial;
     private bool hasStatus;
     private bool isBlocking;
+    private Transform buffArrow, debuffArrow;
 
     private enum State
     {
@@ -55,7 +56,9 @@ public class CharacterBattle : MonoBehaviour
         spriteRen = gameObject.GetComponent<SpriteRenderer>();
         materialTintColor = new Color(1, 0, 0, 0);
         selectionCircleTransform = transform.Find("SelectionCircle");
-        statusSystem = StatusSystem.instance;
+        buffArrow = transform.Find("BuffArrow");
+        debuffArrow = transform.Find("DebuffArrow");
+        statusSystem = StatusAndBuffsSystem.instance;
         HideSelectionCircle();
         SetStateIdle();
     }
@@ -85,6 +88,10 @@ public class CharacterBattle : MonoBehaviour
                 character.stats.special = UnityEngine.Random.Range(2, 5);
                 character.stats.specialMax = character.stats.special;
                 break;
+            case Character.Type.CaiCai:
+                character.stats.special = 4;
+                character.stats.specialMax = character.stats.special;
+                break;
         }
         if (!character.IsInPlayerTeam())
         {
@@ -102,7 +109,7 @@ public class CharacterBattle : MonoBehaviour
         this.stats = stats;
         this.character = character;
 
-        health = stats.health;
+        //health = stats.health;
         attack = stats.attack;
         defense = stats.defense;
         damageChance = stats.damageChance;
@@ -229,6 +236,7 @@ public class CharacterBattle : MonoBehaviour
     {
         //Revive Anim
         Debug.Log(character.name + " fue revivido");
+        //character.isDead = false;
         playerAnims.PlayAnimIdle();
     }
 
@@ -287,21 +295,38 @@ public class CharacterBattle : MonoBehaviour
                 break;
             case 0:
                 stats.attack += 5;
+                if (!buffArrow.gameObject.activeInHierarchy)
+                {
+                    buffArrow.gameObject.SetActive(true);
+                }
                 Debug.Log("El daño de " + characterType + " ahora es:" + stats.attack);
                 break;
             case 1:
                 stats.attack += 10;
+                if (!buffArrow.gameObject.activeInHierarchy)
+                {
+                    buffArrow.gameObject.SetActive(true);
+                }
                 Debug.Log("El daño de " + characterType + " ahora es:" + stats.attack);
                 break;
             case 2:
                 stats.defense += 2;
+                if (!buffArrow.gameObject.activeInHierarchy)
+                {
+                    buffArrow.gameObject.SetActive(true);
+                }
                 Debug.Log("La defensa de " + characterType + " ahora es:" + stats.defense);
                 break;
             case 3:
                 stats.critChance += 50;
+                if (!buffArrow.gameObject.activeInHierarchy)
+                {
+                    buffArrow.gameObject.SetActive(true);
+                }
                 Debug.Log("El critico de " + characterType + " ahora es:" + stats.critChance);
                 break;
         }
+        statusSystem.SetBuffsTimer(2);
     }
 
     public void Debuff(int number)
@@ -313,47 +338,61 @@ public class CharacterBattle : MonoBehaviour
             case 0:
                 {
                     stats.attack /= 2;
-                    //sprite = GameAssets.i.dmgDebuff.GetComponent<Sprite>();
+                    if (!debuffArrow.gameObject.activeInHierarchy)
+                    {
+                        debuffArrow.gameObject.SetActive(true);
+                    }
                     Debug.Log("El daño total del enemigo es: " + stats.attack);
                     break;
                 }
             case 1:
                 {
                     stats.damageChance /=  2;
-                    //sprite = GameAssets.i.blindDebuff.GetComponent<Sprite>();
+                    if (!debuffArrow.gameObject.activeInHierarchy)
+                    {
+                        debuffArrow.gameObject.SetActive(true);
+                    }
                     Debug.Log("La probabilidad de atacar del enemigo es: " + stats.damageChance);
                     break;
                 }
             case 2:
                 {
-                    healthSystem.SetHealthAmount(healthSystem.GetHealthAmount() / 2);
-                    if (healthSystem.GetHealthAmount() < 1)
+                    stats.defense -= 1;
+                    if (!debuffArrow.gameObject.activeInHierarchy)
                     {
-                        healthSystem.SetHealthAmount(1);
+                        debuffArrow.gameObject.SetActive(true);
                     }
-                    //sprite = GameAssets.i.healthDebuff.GetComponent<Sprite>();
-                    Debug.Log("La vida actual del enemigo es: " + healthSystem.GetHealthAmount());
+                    Debug.Log("La defensa actual del enemigo es: " + stats.defense);
                     break;
                 }
             case 3:
                 {
-                    Debug.Log("Otro debuff");
+                    stats.critChance /= 2;
+                    if (!debuffArrow.gameObject.activeInHierarchy)
+                    {
+                        debuffArrow.gameObject.SetActive(true);
+                    }
+                    Debug.Log("La probabilidad de critico actual del enemigo es: " + stats.critChance);
                     break;
                 }
         }
-        statusSystem.SetStatusTimer(6);
-    }
-     
-    public void StatusIcons(Sprite sprite)
-    {
-
+        statusSystem.SetStatusTimer(2);
     }
 
     public void RefreshStats()
     {
         stats.attack = attack;
+        stats.defense = defense;
         stats.damageChance = damageChance;
-        //healthSystem.SetHealthAmount(health);
+        stats.critChance = critChance;
+        if (buffArrow.gameObject.activeInHierarchy)
+        {
+            buffArrow.gameObject.SetActive(false);
+        }
+        if (debuffArrow.gameObject.activeInHierarchy)
+        {
+            debuffArrow.gameObject.SetActive(false);
+        }
     }
 
     public bool IsDead()
@@ -481,6 +520,10 @@ public class CharacterBattle : MonoBehaviour
     public bool HasStatus()
     {
         return statusSystem.HasStatus();
+    }
+    public bool HasBuffs()
+    {
+        return statusSystem.HasBuffs();
     }
 
     private void Update()

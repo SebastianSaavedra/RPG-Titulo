@@ -140,11 +140,11 @@ public class Character
                 stats = new Stats
                 {
                     attack = 10,
-                    health = 1,
-                    healthMax = 1,
+                    health = 33,
+                    healthMax = 33,
                     defense = 1,
                     critChance = 5,
-                    turns = 4
+                    turns = 100
                 };
                 isInPlayerTeam = true;
                 lanePosition = LanePosition.Middle;
@@ -155,8 +155,8 @@ public class Character
                 stats = new Stats
                 {
                     attack = 7,
-                    health = 1,
-                    healthMax = 1,
+                    health = 25,
+                    healthMax = 25,
                     defense = 1,
                     critChance = 10,
                     turns = 3
@@ -170,8 +170,8 @@ public class Character
                 stats = new Stats
                 {
                     attack = 7,
-                    health = 1,
-                    healthMax = 1,
+                    health = 30,
+                    healthMax = 30,
                     defense = 1,
                     critChance = 15,
                     turns = 2

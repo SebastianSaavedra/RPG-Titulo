@@ -482,6 +482,7 @@ public class Battle
         SetCamera(activeCharacterBattle.GetPosition(), 30f);
         activeCharacterBattle.Block(() =>
         {
+            StatusInfo(activeCharacterBattle);
             ResetCamera();
             activeCharacterBattle.HideSelectionCircle();
         });
@@ -541,6 +542,7 @@ public class Battle
             activeCharacterBattle.GetComponent<SpriteRenderer>().sortingOrder -= 2;
         },() =>
         {
+            StatusInfo(activeCharacterBattle);
             ResetCamera();
             selectedTargetCharacterBattle.HideSelectionCircle();
             activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
@@ -607,10 +609,10 @@ public class Battle
                 }
             }, () =>
             {
+                StatusInfo(activeCharacterBattle);
                 ResetCamera();
                 activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
                 activeCharacterBattle.GetComponent<SpriteRenderer>().sortingOrder -= 2;
-                StatusInfo(activeCharacterBattle);
             });
         }, .3f);
     }
@@ -649,7 +651,8 @@ public class Battle
                         SetCamera(activeCharacterBattle.GetPosition(), 30f);
                         activeCharacterBattle.PlayAnimSpecial(() =>
                         {
-                            FunctionTimer.Create(() => {
+                            FunctionTimer.Create(() => 
+                            {
                                 // Heal Grupal
                                 //SoundManager.PlaySound(SoundManager.Sound.Heal);
                                 List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(true);
@@ -684,7 +687,7 @@ public class Battle
                                 //SoundManager.PlaySound(SoundManager.Sound.Heal);
                                 selectedTargetCharacterBattle.Heal((int)(selectedTargetCharacterBattle.GetMaxHealthAmount() * .25f));
                                 selectedTargetCharacterBattle.Revive();
-                                DamagePopups.Create(selectedTargetCharacterBattle.GetPosition(), selectedTargetCharacterBattle.GetHealthAmount().ToString(), Color.green);
+                                DamagePopups.Create(selectedTargetCharacterBattle.GetPosition(), ((int)(selectedTargetCharacterBattle.GetMaxHealthAmount() * .25f)).ToString(), Color.green);
                             }, () =>
                             {
                                 ResetCamera();
@@ -830,15 +833,17 @@ public class Battle
                 ResourceManager.instance.ConsumeSouls(4);
                 break;
         }
+        StatusInfo(activeCharacterBattle);
         BattleUI.instance.lastMenuActivated = null;
         BattleUI.instance.battleMenus = BattleUI.BATTLEMENUS.None;
     }
 
     public void EnemySpecial()
     {
-            aiTargetCharacterBattle = GetAliveTeamCharacterBattleList(true)[Random.Range(0, GetAliveTeamCharacterBattleList(true).Count)];
-            Vector3 slideToPosition = aiTargetCharacterBattle.GetPosition() + new Vector3(-8f, 0);
-            switch (activeCharacterBattle.GetCharacterType())
+        aiTargetCharacterBattle = GetAliveTeamCharacterBattleList(true)[Random.Range(0, GetAliveTeamCharacterBattleList(true).Count)];
+        Vector3 slideToPosition = aiTargetCharacterBattle.GetPosition() + new Vector3(-8f, 0);
+        activeCharacterBattle.GetComponent<SpriteRenderer>().sortingOrder += 2;
+        switch (activeCharacterBattle.GetCharacterType())
             {
                 case Character.Type.Fusilero:
 
@@ -937,7 +942,6 @@ public class Battle
 
             case Character.Type.CaiCai:
 
-
                 activeCharacterBattle.SlideToPosition(GetPosition(LanePosition.Middle, false) + new Vector3(-25, 0), () =>
                 {
                     activeCharacterBattle.PlayAnimSpecial(() =>
@@ -960,6 +964,8 @@ public class Battle
                 });
                 break;
         }
+        activeCharacterBattle.GetComponent<SpriteRenderer>().sortingOrder -= 2;
+        StatusInfo(activeCharacterBattle);
     }
 
     public CharacterBattle GetActiveCharacterBattle()
@@ -1058,7 +1064,7 @@ public class Battle
         if (GetAliveTeamCharacterBattleList(true).Count == 0)
         {
             // Perdio
-            //Debug.Log("Perdiste el combate, ganaron los enemigos :(");
+            Debug.Log("Perdiste el combate, ganaron los enemigos :(");
 
             foreach (CharacterBattle characterBattle in GetTeamCharacterBattleList(true))
             {
@@ -1122,16 +1128,16 @@ public class Battle
                         EnemyAttackOrSpecial();
                         break;
                     case Character.Type.Anchimallen:
-                        EnemyAttack();
+                        EnemyAttackOrSpecial();
                         break;
                     case Character.Type.Guirivilo:
-                        EnemyAttack();
+                        EnemyAttackOrSpecial();
                         break;
                     case Character.Type.Piuchen:
-                        EnemyAttack();
+                        EnemyAttackOrSpecial();
                         break;
                     case Character.Type.CaiCai:
-                        EnemyAttack();
+                        EnemyAttackOrSpecial();
                         break;
                 }
             }
@@ -1194,9 +1200,39 @@ public class Battle
 
     private void StatusInfo(CharacterBattle character)
     {
-        if (character.HasStatus())
+        Debug.Log(character.GetCharacterType() + " Status info");
+        if (character.IsPlayerTeam())
         {
-            character.statusSystem.TimerTick();
+            if (character.HasBuffs())
+            {
+                character.statusSystem.BuffsTimerTick();
+                if (character.statusSystem.GetRemainingBuffDuration() <= 0)
+                {
+                    List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(true);
+
+                    foreach (CharacterBattle characterBattle in characterBattleList)
+                    {
+                        characterBattle.RefreshStats();
+                    }
+                }
+            }
+
+        }
+        else
+        {
+            if (character.HasStatus())
+            {
+                character.statusSystem.StatusTimerTick();
+                if (character.statusSystem.GetRemainingStatusDuration() <= 0)
+                {
+                    List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(false);
+
+                    foreach (CharacterBattle characterBattle in characterBattleList)
+                    {
+                        characterBattle.RefreshStats();
+                    }
+                }
+            }
         }
     }
 
