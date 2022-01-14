@@ -53,6 +53,7 @@ public static class GameData
         //Debug.Log("Se iniciaron los datos del GAMEDATA");
         isInit = true;
         SoundManager.Initialize();
+        //mapZoneState = MapZone.Aldea;
         state = State.Intro;
         nombresMasculinosMapucheArray = new string[] 
         {

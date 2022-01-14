@@ -24,7 +24,6 @@ public class AnimationEventCharacter : MonoBehaviour
                         break;
 
                     case "Special":
-                        Debug.Log("Suyai special");
                         SoundManager.PlaySound(SoundManager.Sound.Heal);
                         break;
                 }

@@ -174,12 +174,15 @@ public class OverworldManager
                         case GameData.State.TrenTrenSaved:
                         case GameData.State.CaiCaiBeated:
                         case GameData.State.TercerPelotonVencido:
+                        case GameData.State.Endgame:
                             break;
                     }
                     break;
                 case Character.Type.SoldadoDesesperado:
                     switch (GameData.state)
                     {
+                        case GameData.State.Endgame:
+                        case GameData.State.TercerPelotonVencido:
                         case GameData.State.CaiCaiBeated:
                             character.name = GetRandomString("Masculino");
                             npcOverworld = SpawnNPC(character);
@@ -192,8 +195,20 @@ public class OverworldManager
                 case Character.Type.NinoMapuche_2:
                 case Character.Type.HombreMapuche_1:
                 case Character.Type.HombreMapuche_2:
-                    character.name = GetRandomString("Masculino");
-                    npcOverworld = SpawnNPC(character);
+                    switch (GameData.state)
+                    {
+                        default:
+                            character.name = GetRandomString("Masculino");
+                            npcOverworld = SpawnNPC(character);
+                            break;
+
+                        case GameData.State.CaiCaiBeated:
+                        case GameData.State.PrimerPelotonVencido:
+                        case GameData.State.SegundoPelotonVencido:
+                        case GameData.State.TercerPelotonVencido:
+                        case GameData.State.Endgame:
+                            break;
+                    }
                     break;
                 case Character.Type.ViejaMachi:
                     character.name = "Kuyenray";

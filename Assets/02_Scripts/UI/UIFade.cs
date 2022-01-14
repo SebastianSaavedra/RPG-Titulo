@@ -8,6 +8,7 @@ public class UIFade : MonoBehaviour
 {
     private static UIFade instance;
     private float timer = 1f;
+    [SerializeField] private GameObject continuara;
 
 
     private void Awake()
@@ -42,6 +43,11 @@ public class UIFade : MonoBehaviour
     {
         instance.GetComponent<Image>().color = new Color(0, 0, 0, 1);
         instance.GetComponent<Image>().DOColor(new Color(0, 0, 0, 0), 1f);
+    }
+
+    public static void Continuara()
+    {
+        instance.continuara.SetActive(true);
     }
 
     public static float GetTimer()

@@ -382,6 +382,7 @@ public class PlayerOverworld : MonoBehaviour
                             if (character.IsInPlayerTeam())
                             {
                                 character.GetHealthSystem().Heal(100);
+                                Debug.Log(character.type + " ha sido curado");
                             }
                         }
                         break;
@@ -506,7 +507,7 @@ public class PlayerOverworld : MonoBehaviour
         Debug.Log(character.type + " se acaba de equipar una armadura");
         character.stats.defense += 1;
         character.stats.health += 10;
-        character.stats.healthMax = character.stats.health;
+        character.stats.healthMax += 10;
         inventoryPartyWindow.RefreshTextStatsAfterEquippinItem(character);
     }
 

@@ -5,10 +5,17 @@ using UnityEngine;
 public class Acelerar : MonoBehaviour
 {
     [Range(.1f, 2f)]
-    public float velocidadDeJuego = 1f;
+    public float velocidadDeJuego = 2f;
 
     void Update()
     {
-        Time.timeScale = velocidadDeJuego;
+        if (Input.GetKey(KeyCode.Tab))
+        {
+            Time.timeScale = velocidadDeJuego;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
     }
 }

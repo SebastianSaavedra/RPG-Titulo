@@ -235,9 +235,11 @@ public class Battle
                 break;
             case GameData.State.SavingTrenTren:
                 Dialogues.Play_TrenTrenStartingBattle();
+                TurnSystem.instance.GetTurnsCounterGameobject().SetActive(true);
                 break;
             case GameData.State.FightingCaiCai:
                 Dialogues.Play_CaiCaiDuringBattle();
+                TurnSystem.instance.GetTurnsCounterGameobject().SetActive(true);
                 break;
         }
     }
@@ -651,22 +653,17 @@ public class Battle
                         SetCamera(activeCharacterBattle.GetPosition(), 30f);
                         activeCharacterBattle.PlayAnimSpecial(() =>
                         {
-                            FunctionTimer.Create(() => 
+                            List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(true);
+                            if (GameData.state == GameData.State.SavingTrenTren)
                             {
-                                // Heal Grupal
-                                //SoundManager.PlaySound(SoundManager.Sound.Heal);
-                                List<CharacterBattle> characterBattleList = GetAliveTeamCharacterBattleList(true);
-                                if (GameData.state == GameData.State.SavingTrenTren)
-                                {
-                                    characterBattleList.Add(trenTrenCapturadoCharacterBattle);
-                                }
-                                foreach (CharacterBattle characterBattle in characterBattleList)
-                                {
-                                    characterBattle.Heal(15);
-                                    DamagePopups.Create(characterBattle.GetPosition(), "15", Color.green);
-                                }
-                                ResourceManager.instance.ConsumeHerbs(characterBattleList.Count);
-                            }, 1.2f);
+                                characterBattleList.Add(trenTrenCapturadoCharacterBattle);
+                            }
+                            foreach (CharacterBattle characterBattle in characterBattleList)
+                            {
+                                characterBattle.Heal(15);
+                                DamagePopups.Create(characterBattle.GetPosition(), "15", Color.green);
+                            }
+                            ResourceManager.instance.ConsumeHerbs(characterBattleList.Count);
                         },
                         () => 
                         {
@@ -871,7 +868,7 @@ public class Battle
 
                 case Character.Type.Lancero:
 
-                    SetCamera(aiTargetCharacterBattle.GetPosition() + new Vector3(-5f, 0), 30f);
+                    SetCamera(aiTargetCharacterBattle.GetPosition() + new Vector3(10f, 0), 30f);
 
                     activeCharacterBattle.SlideToPosition(slideToPosition, () =>
                     {
@@ -1053,12 +1050,15 @@ public class Battle
             return;
         }
 
-        if (TurnSystem.instance.ZeroTurns())
+        if (TurnSystem.instance.GetTurnsCounterGameobject().activeInHierarchy)
         {
-            //Debug.Log("Se te acabaron los turnos, vuela alto");
-            UIFade.FadeIn();
-            FunctionTimer.Create(OverworldManager.LoadGameOver, UIFade.GetTimer());
-            return;
+            if (TurnSystem.instance.ZeroTurns())
+            {
+                //Debug.Log("Se te acabaron los turnos, vuela alto");
+                UIFade.FadeIn();
+                FunctionTimer.Create(OverworldManager.LoadGameOver, UIFade.GetTimer());
+                return;
+            }
         }
 
         if (GetAliveTeamCharacterBattleList(true).Count == 0)
@@ -1079,7 +1079,7 @@ public class Battle
             }
 
             UIFade.FadeIn();
-            FunctionTimer.Create(OverworldManager.LoadBackToOvermap, UIFade.GetTimer());
+            FunctionTimer.Create(OverworldManager.LoadGameOver, UIFade.GetTimer());
             return;
         }
 
@@ -1128,7 +1128,7 @@ public class Battle
                         EnemyAttackOrSpecial();
                         break;
                     case Character.Type.Anchimallen:
-                        EnemyAttackOrSpecial();
+                        EnemyAttack();
                         break;
                     case Character.Type.Guirivilo:
                         EnemyAttackOrSpecial();
@@ -1177,10 +1177,13 @@ public class Battle
         }
 
         // Turn Start
-        if (activeCharacterBattle.IsPlayerTeam())
+        if (TurnSystem.instance.GetTurnsCounterGameobject().activeInHierarchy)
         {
-            TurnSystem.instance.TurnDecrease();
-            Debug.Log("Turn Start");
+            if (activeCharacterBattle.IsPlayerTeam())
+            {
+                TurnSystem.instance.TurnDecrease();
+                Debug.Log("Turn Start");
+            }
         }
     }
 

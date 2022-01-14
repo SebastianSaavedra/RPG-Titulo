@@ -54,10 +54,10 @@ public class UI_Shop : MonoBehaviour
 
     public void Buy_HealingHerbs() 
     {
-        if (shopContents.healingHerbs > 0 && ResourceManager.instance.GetMoneyAmount() >= 5) 
+        if (shopContents.healingHerbs > 0) //&& ResourceManager.instance.GetMoneyAmount() >= 5) 
         {
             shopContents.healingHerbs--;
-            ResourceManager.instance.PayMoney(5);
+            //ResourceManager.instance.PayMoney(5);
             Inventory.instance.AddItem(new Item(Item.ItemType.MedicinalHerbs, 1));
             Refresh();
         }

@@ -142,9 +142,9 @@ public class Character
                     attack = 10,
                     health = 33,
                     healthMax = 33,
-                    defense = 1,
+                    defense = 2,
                     critChance = 5,
-                    turns = 100
+                    turns = 4
                 };
                 isInPlayerTeam = true;
                 lanePosition = LanePosition.Middle;
@@ -157,7 +157,7 @@ public class Character
                     attack = 7,
                     health = 25,
                     healthMax = 25,
-                    defense = 1,
+                    defense = 2,
                     critChance = 10,
                     turns = 3
                 };
@@ -172,7 +172,7 @@ public class Character
                     attack = 7,
                     health = 30,
                     healthMax = 30,
-                    defense = 1,
+                    defense = 2,
                     critChance = 15,
                     turns = 2
                 };
@@ -202,7 +202,7 @@ public class Character
                     attack = 13,
                     health = 33,
                     healthMax = 33,
-                    defense = 1,
+                    defense = 2,
                     critChance = 5,
                     turns = 1
                 };
@@ -229,9 +229,9 @@ public class Character
                 stats = new Stats
                 {
                     attack = 8,
-                    health = 24,
-                    healthMax = 24,
-                    defense = 1,
+                    health = 22,
+                    healthMax = 22,
+                    defense = 0,
                     critChance = 15,
                     damageChance = 90,
                 };
@@ -241,9 +241,9 @@ public class Character
                 stats = new Stats
                 {
                     attack = 8,
-                    health = 26,
-                    healthMax = 26,
-                    defense = 2,
+                    health = 24,
+                    healthMax = 24,
+                    defense = 1,
                     critChance = 10,
                     damageChance = 90,
                 };
@@ -253,9 +253,9 @@ public class Character
                 stats = new Stats
                 {
                     attack = 8,
-                    health = 20,
-                    healthMax = 20,
-                    defense = 2,
+                    health = 18,
+                    healthMax = 18,
+                    defense = 1,
                     critChance = 18,
                     damageChance = 95,
                 };
@@ -265,8 +265,8 @@ public class Character
                 stats = new Stats
                 {
                     attack = 10,
-                    health = 28,
-                    healthMax = 28,
+                    health = 15,
+                    healthMax = 15,
                     defense = 1,
                     critChance = 10,
                     damageChance = 90,
@@ -277,9 +277,9 @@ public class Character
                 stats = new Stats
                 {
                     attack = 8,
-                    health = 25,
-                    healthMax = 25,
-                    defense = 2,
+                    health = 20,
+                    healthMax = 20,
+                    defense = 1,
                     critChance = 10,
                     damageChance = 90,
                 };
@@ -289,8 +289,8 @@ public class Character
                 stats = new Stats
                 {
                     attack = 11,
-                    health = 56,
-                    healthMax = 56,
+                    health = 30,
+                    healthMax = 23,
                     defense = 2,
                     critChance = 15,
                     damageChance = 85,

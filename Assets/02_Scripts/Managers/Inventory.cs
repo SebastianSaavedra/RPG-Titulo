@@ -50,6 +50,10 @@ public class Inventory : MonoBehaviour
     public void RemoveItem(Item item)
     {
         itemList.Remove(item);
+        if (item.GetItemType() == Item.ItemType.MedicinalHerbs)
+        {
+            ResourceManager.instance.ConsumeHerbs(1);
+        }
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
     }
 

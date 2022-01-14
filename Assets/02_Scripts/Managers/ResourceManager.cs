@@ -43,7 +43,7 @@ public class ResourceManager : MonoBehaviour
         AddMoney(100);
         AddSouls(6);
         SetTattoosAmount(5);
-        SetHitsAmount(10);
+        SetHitsAmount(5);
     }
 
     #region Money
@@ -99,7 +99,7 @@ public class ResourceManager : MonoBehaviour
     public void ConsumeHerbs(int amount)
     {
         herbs -= amount;
-        if (herbs >= 0)
+        if (herbs <= 0)
         {
             herbs = 0;
         }

@@ -464,7 +464,7 @@ public class CharacterBattle : MonoBehaviour
         switch (characterType)
         {
             case Character.Type.Pedro:
-                if (ResourceManager.instance.GetMoneyAmount() > 25)
+                if (ResourceManager.instance.GetMoneyAmount() >= 25)
                 {
                     canSpecial = true;
                 }

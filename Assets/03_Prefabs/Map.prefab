@@ -3741,7 +3741,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &692431686543632258
 Transform:
   m_ObjectHideFlags: 0
@@ -3750,7 +3750,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 681195376544345972}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.73, y: -15.24, z: 0}
+  m_LocalPosition: {x: -11, y: 44.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6989693021506279504}
@@ -3768,7 +3768,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4ae1a4e18e42d34da569c0593f1e71b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterType: 9
+  characterType: 13
   enemyEncounter:
     enemyBattleArray: []
   npcDialogues:
@@ -6262,11 +6262,11 @@ MonoBehaviour:
       - 'No todos los hombres estamos hechos para luchar, otros, como yo tenemos
         otras tareas. '
       - "Me he dedicado al trabajo en telares desde peque\xF1o."
-      - "Alg\xFAn d\xEDa podre abrir una tienda para que todos puedan disfrutar de
-        mis creaciones."
+      - "Alg\xFAn d\xEDa podr\xE9 abrir una tienda para que todos puedan disfrutar
+        de mis creaciones."
     - dialogue:
-      - Estas impaciente Suyai, pero armar una tienda tomara tiempo. Aun no esta
-        lista.
+      - "Estas impaciente Suyai, pero armar una tienda tomar\xE1 tiempo. A\xFAn no
+        esta lista."
   quest: {fileID: 0}
   shopContents:
     healingHerbs: 0
@@ -6401,8 +6401,8 @@ MonoBehaviour:
   npcDialogues:
     dialogues:
     - dialogue:
-      - "Aun no hemos patrullado por la zona que va m\xE1s all\xE1 de este punto
-        as\xED que no puedo dejarte pasar aun"
+      - "A\xFAn no hemos patrullado por la zona que va m\xE1s all\xE1 de este punto
+        as\xED que no puedo dejarte pasar a\xFAn."
       - No insistas Suyai, no te dejare pasar.
   quest: {fileID: 0}
   shopContents:
@@ -11289,10 +11289,9 @@ MonoBehaviour:
   npcDialogues:
     dialogues:
     - dialogue:
-      - "<w><c=rainbow> \xA1GUAU! <c=normal></w>Yo cuando crezca quiero ser un Guerrero
-        Mapuche"
-      - "Ser\xE9 tan fuerte que no ser\xE1 necesario que existan mas guerreros, yo
-        solo podre derrotar a todos."
+      - "<w> \xA1GUAU! <c=normal></w>Yo cuando crezca quiero ser un Guerrero Mapuche"
+      - "Ser\xE9 tan fuerte que no ser\xE1 necesario que existan m\xE1s guerreros,
+        yo solo podre derrotar a todos."
   quest: {fileID: 0}
   shopContents:
     healingHerbs: 0
@@ -14862,10 +14861,10 @@ MonoBehaviour:
       - "\xBFAs\xED que te han encargado salir de la aldea? "
       - "El bosque es una zona bastante tranquila, aunque \xFAltimamente se siente
         un aura extra\xF1a."
-      - Pero no creo que sea nada, aunque nunca esta de mas ser precavido.
+      - "Pero no creo que sea nada, aunque nunca esta de m\xE1s ser precavido."
       - En cualquier caso, ten cuidado.
     - dialogue:
-      - Buena suerte Suyai
+      - Buena suerte Suyai.
   quest: {fileID: 0}
   shopContents:
     healingHerbs: 0
@@ -29828,7 +29827,7 @@ MonoBehaviour:
   npcDialogues:
     dialogues:
     - dialogue:
-      - "No fui yo el que da\xF1o los telares, fue mi amiga, lo juro."
+      - "No fu\xED yo el que da\xF1o los telares, fue mi amiga, lo juro."
       - "\xBFNo me crees, cierto?"
   quest: {fileID: 0}
   shopContents:
@@ -34856,7 +34855,7 @@ MonoBehaviour:
       - "\xBFUna <q=AnchiOW> <c=red> luz brillante </c> merodeando por el bosque?
         Creo que el uso de esas hierbas, que ustedes las machis usan, te est\xE1
         afectando."
-      - Si veo alguna luz sospechosa, te avisare, cuenta con ello.
+      - "Si veo alguna luz sospechosa, te avisar\xE9, cuenta con ello."
   quest: {fileID: 0}
   shopContents:
     healingHerbs: 0
@@ -36846,7 +36845,7 @@ MonoBehaviour:
   npcDialogues:
     dialogues:
     - dialogue:
-      - Suyai, que bueno que te pillo en pie.
+      - "\xA1SUYAI, VEN AC\xC1!"
       - "Es hora de finalizar tu entrenamiento, as\xED que te espero fuera de la
         Gran Ruca, en el centro de la Aldea."
       - "Espabila y empieza a mover tus piernas con WASD o las Flechas Direccionales,
@@ -36857,17 +36856,13 @@ MonoBehaviour:
       - Suyai, tu entrenamiento finalmente termina hoy.
       - "La prueba final de toda machi es estar lista para actuar en cualquier momento,
         y si no tienes hierbas es dif\xEDcil que puedas ser \xFAtil."
-      - 'Tu ultima tarea es ir al bosque de araucarias y buscar todas las <q=herb>
-        <c=greenHerb> hierbas <c=normal> que puedas encontrar. '
+      - "Tu \xFAltima tarea es ir al bosque de araucarias y buscar todas las <q=herb>
+        <c=greenHerb> hierbas <c=normal> que puedas encontrar. "
       - "Yo creo que con 6 ser\xE1n suficientes. Puedes revisar el avance en el inventario
         del men\xFA, el cual puedes activar con ENTER."
       - "Recuerdas que las puedes obtener de los arbustos de <c=greenHerb> colores
         vivos <c=normal> , \xBFno?."
-      - Vuelve cuando hallas recolectado las suficientes.
-      - ...
-      - "Casi lo olvido, \xBFves estas fogatas?"
-      - "Cuando necesites recuperarte, puedes tomar un descanso frente a ellas, eso
-        recargara tus energ\xEDas."
+      - Vuelve cuando hayas recolectado las suficientes.
     - dialogue:
       - "\xBFYa tienes las 6 hierbas? Apres\xFArate, que no quiero morir de vieja
         esperando. "
@@ -36953,7 +36948,7 @@ MonoBehaviour:
   npcDialogues:
     dialogues:
     - dialogue:
-      - "Juntarme con los ni\xF1os solo me causa problemas, quiz\xE1s deber\xEDa
+      - "Juntarme con los ni\xF1os s\xF3lo me causa problemas, quiz\xE1s deber\xEDa
         empezar a estudiar para ser una machi."
       - "As\xED como hiciste tu Suyai."
       - "Suyai, \xBFeres feliz estudiando para ser una machi?"
@@ -38234,7 +38229,7 @@ MonoBehaviour:
       - Sin embargo, no dejan de ser cuentos que las madres cuentan a sus hijos como
         historias antes de dormir.
     - dialogue:
-      - "Por otro lado, otros dicen que las cosechas son una practica ense\xF1ada
+      - "Por otro lado, otros dicen que las cosechas son una pr\xE1ctica ense\xF1ada
         por una de estas criaturas relacionadas con la tierra."
       - ' En fin, mientras tengamos para comer, no me importa creer o no en esas
         historias.'
@@ -41217,7 +41212,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6396670250213314896, guid: c7ec991017e64ad40adb48de2bd9bba5, type: 3}
       propertyPath: speed
-      value: 5
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 6396670250213314896, guid: c7ec991017e64ad40adb48de2bd9bba5, type: 3}
       propertyPath: posArray.Array.size
@@ -41491,7 +41486,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6396670250213314896, guid: c7ec991017e64ad40adb48de2bd9bba5, type: 3}
       propertyPath: speed
-      value: 5
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 6396670250213314896, guid: c7ec991017e64ad40adb48de2bd9bba5, type: 3}
       propertyPath: posArray.Array.size
@@ -41691,7 +41686,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6396670250213314896, guid: c7ec991017e64ad40adb48de2bd9bba5, type: 3}
       propertyPath: speed
-      value: 5
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 6396670250213314896, guid: c7ec991017e64ad40adb48de2bd9bba5, type: 3}
       propertyPath: posArray.Array.size
@@ -41867,7 +41862,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6396670250213314896, guid: c7ec991017e64ad40adb48de2bd9bba5, type: 3}
       propertyPath: speed
-      value: 5
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 6396670250213314896, guid: c7ec991017e64ad40adb48de2bd9bba5, type: 3}
       propertyPath: posArray.Array.size
@@ -41969,7 +41964,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6396670250213314896, guid: c7ec991017e64ad40adb48de2bd9bba5, type: 3}
       propertyPath: speed
-      value: 5
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 6396670250213314896, guid: c7ec991017e64ad40adb48de2bd9bba5, type: 3}
       propertyPath: posArray.Array.size
@@ -42153,7 +42148,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6396670250213314896, guid: c7ec991017e64ad40adb48de2bd9bba5, type: 3}
       propertyPath: speed
-      value: 5
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 6396670250213314896, guid: c7ec991017e64ad40adb48de2bd9bba5, type: 3}
       propertyPath: posArray.Array.size
