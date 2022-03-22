@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 740378356030626837}
   - component: {fileID: 6207582821118604137}
   - component: {fileID: 9095070404826837758}
+  - component: {fileID: 1720775019176456451}
   m_Layer: 0
   m_Name: pfHierbaItem
   m_TagString: Untagged
@@ -95,3 +96,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 951c521811c2b554ea48ce6d76ad2bd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1720775019176456451
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2651371375870236682}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6f7d0ea13462db54dbc4bc87ce3c5e6d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

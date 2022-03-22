@@ -371,6 +371,7 @@ public class PlayerOverworld : MonoBehaviour
                             //QuestManager.instance.QuestProgress();
                             itemOverworld.GetItem().SetAmount(0);
                             SoundManager.PlaySound(SoundManager.Sound.Herbs);
+                            itemOverworld.GetComponent<Animator>().Play("Base Layer.Arbusto");
                             Debug.Log("A la planta le quedan: " + itemOverworld.GetItem().GetAmount() + " hierbas");
                         }
                         break;
@@ -380,9 +381,9 @@ public class PlayerOverworld : MonoBehaviour
                         foreach (Character character in GameData.characterList)
                         {
                             if (character.IsInPlayerTeam())
-                            {
-                                character.GetHealthSystem().Heal(100);
-                                Debug.Log(character.type + " ha sido curado");
+                            {   
+                                character.stats.health = character.stats.healthMax;
+                                Debug.Log(character.type + " ha sido curado y su vida es: " + character.stats.health);
                             }
                         }
                         break;

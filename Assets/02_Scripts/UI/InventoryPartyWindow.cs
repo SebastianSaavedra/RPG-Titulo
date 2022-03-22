@@ -174,17 +174,38 @@ public class InventoryPartyWindow : MonoBehaviour
                 {
                     case "Top":
                         Debug.Log("Curo al " + topCharacter.name);
-                        topCharacter.GetHealthSystem().Heal(15);
+                        if (topCharacter.stats.health < topCharacter.stats.healthMax)
+                        {
+                            topCharacter.stats.health += 15;
+                            if (topCharacter.stats.health >= topCharacter.stats.healthMax)
+                            {
+                                topCharacter.stats.health = topCharacter.stats.healthMax;
+                            }
+                        }
                         ui_Inventory.GetInventory().RemoveItem(ui_Inventory.GetItemPicked());
                         break;
                     case "Middle":
                         Debug.Log("Curo al " + midCharacter.name);
-                        midCharacter.GetHealthSystem().Heal(15);
+                        if (midCharacter.stats.health < midCharacter.stats.healthMax)
+                        {
+                            midCharacter.stats.health += 15;
+                            if (midCharacter.stats.health >= midCharacter.stats.healthMax)
+                            {
+                                midCharacter.stats.health = midCharacter.stats.healthMax;
+                            }
+                        }
                         ui_Inventory.GetInventory().RemoveItem(ui_Inventory.GetItemPicked());
                         break;
                     case "Bottom":
                         Debug.Log("Curo al " + bottomCharacter.name);
-                        bottomCharacter.GetHealthSystem().Heal(15);
+                        if (bottomCharacter.stats.health < bottomCharacter.stats.healthMax)
+                        {
+                            bottomCharacter.stats.health += 15;
+                            if (bottomCharacter.stats.health >= bottomCharacter.stats.healthMax)
+                            {
+                                bottomCharacter.stats.health = bottomCharacter.stats.healthMax;
+                            }
+                        }
                         ui_Inventory.GetInventory().RemoveItem(ui_Inventory.GetItemPicked());
                         break;
                 }

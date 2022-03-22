@@ -1,8 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using MEC;
+using TMPro;
+using DG.Tweening;
+using CodeMonkey.Utils;
 
 public class ZoneManager : MonoBehaviour
 {
@@ -21,6 +25,12 @@ public class ZoneManager : MonoBehaviour
 
     [Space(10)]
     [SerializeField] List<GameObject> afterTrenTrenBattle = new List<GameObject>();
+
+    [Space(10)]
+    DOTween myTween;
+    [SerializeField] RectTransform zonePopUp;
+    [SerializeField] TextMeshProUGUI zoneName;
+    [SerializeField] float animSpeed = 1f;
 
     private void Awake()
     {
@@ -66,35 +76,47 @@ public class ZoneManager : MonoBehaviour
     {
         return afterTrenTrenBattle;
     }
-    
+
     public void AldeaToBosque()
     {
         Timing.RunCoroutine(_WaitForFadeToComplete(bosqueAraucConfiner, aldeaToBosquePos.position, GameData.MapZone.BosqueAraucarias));
+        zoneName.SetText("Bosque de Araucarias");
+        FunctionTimer.Create(ZonePopUp,1.1f);
     }
 
     public void BosqueToAldea()
     {
         Timing.RunCoroutine(_WaitForFadeToComplete(aldeaConfiner, bosqueToAldeaPos.position, GameData.MapZone.Aldea));
+        zoneName.SetText("Aldea");
+        FunctionTimer.Create(ZonePopUp, 1.1f);
     }
 
     public void BosqueToLago()
     {
         Timing.RunCoroutine(_WaitForFadeToComplete(lagoConfiner, bosqueToLagoPos.position, GameData.MapZone.Lago));
+        zoneName.SetText("Lago");
+        FunctionTimer.Create(ZonePopUp, 1.1f);
     }
 
     public void BosqueToBosqueP()
     {
         Timing.RunCoroutine(_WaitForFadeToComplete(bosqueProfundoConfiner, bosqueToBosquePPos.position, GameData.MapZone.BosqueProfundo));
+        zoneName.SetText("Bosque Profundo");
+        FunctionTimer.Create(ZonePopUp, 1.1f);
     }
 
     public void LagoToBosque()
     {
         Timing.RunCoroutine(_WaitForFadeToComplete(bosqueAraucConfiner, lagoToBosquePos.position, GameData.MapZone.BosqueAraucarias));
+        zoneName.SetText("Bosque de Araucarias");
+        FunctionTimer.Create(ZonePopUp, 1.1f);
     }
 
     public void BosquePToBosque()
     {
         Timing.RunCoroutine(_WaitForFadeToComplete(bosqueAraucConfiner, bosquePToBosquePos.position, GameData.MapZone.BosqueAraucarias));
+        zoneName.SetText("Bosque de Araucarias");
+        FunctionTimer.Create(ZonePopUp, 1.1f);
     }
 
     public void TrenTrenBeforeBattle()
@@ -104,6 +126,11 @@ public class ZoneManager : MonoBehaviour
     public void CaicaiBeforeBattle()
     {
         Dialogues.Play_CaiCaiBeforeBattle(OverworldManager.GetInstance().GetCaiCaiCharacter());
+    }
+
+    public void ZonePopUp()
+    {
+        zonePopUp.DOAnchorPosY(-100, animSpeed, true).SetEase(Ease.InOutSine).SetLoops(2, LoopType.Yoyo);
     }
 
     IEnumerator<float> _WaitForFadeToComplete(PolygonCollider2D confiner, Vector3 position, GameData.MapZone mapZone)

@@ -497,7 +497,7 @@ public class Battle
         BattleUI.instance.lastMenuActivated = null;
         BattleUI.instance.battleMenus = BattleUI.BATTLEMENUS.None;
         SetCamera(selectedTargetCharacterBattle.GetPosition() + new Vector3(-5f, 0), 30f);
-        activeCharacterBattle.GetComponent<SpriteRenderer>().sortingOrder += 2;
+        activeCharacterBattle.GetComponent<SpriteRenderer>().sortingOrder += 99;
 
         activeCharacterBattle.AttackTarget(selectedTargetCharacterBattle.GetPosition(), () =>
         {
@@ -541,7 +541,7 @@ public class Battle
                 }
                 //WhichMonsterWasKilled(selectedTargetCharacterBattle.GetCharacterType());
             }
-            activeCharacterBattle.GetComponent<SpriteRenderer>().sortingOrder -= 2;
+            activeCharacterBattle.GetComponent<SpriteRenderer>().sortingOrder -= 99;
         },() =>
         {
             StatusInfo(activeCharacterBattle);
@@ -564,7 +564,7 @@ public class Battle
                 aiTargetCharacterBattle = GetAliveTeamCharacterBattleList(true)[Random.Range(0, GetAliveTeamCharacterBattleList(true).Count)];
             }
             SetCamera(aiTargetCharacterBattle.GetPosition() + new Vector3(+5f, 0), 30f);
-            activeCharacterBattle.GetComponent<SpriteRenderer>().sortingOrder += 2;
+            activeCharacterBattle.GetComponent<SpriteRenderer>().sortingOrder += 99;
             Vector3 targetPosition;
 
             if (activeCharacterBattle.GetCharacterType() == Character.Type.Fusilero)
@@ -614,7 +614,7 @@ public class Battle
                 StatusInfo(activeCharacterBattle);
                 ResetCamera();
                 activeCharacterBattle.SlideBack(() => FunctionTimer.Create(ChooseNextActiveCharacter, .2f));
-                activeCharacterBattle.GetComponent<SpriteRenderer>().sortingOrder -= 2;
+                activeCharacterBattle.GetComponent<SpriteRenderer>().sortingOrder -= 99;
             });
         }, .3f);
     }
@@ -838,8 +838,8 @@ public class Battle
     public void EnemySpecial()
     {
         aiTargetCharacterBattle = GetAliveTeamCharacterBattleList(true)[Random.Range(0, GetAliveTeamCharacterBattleList(true).Count)];
-        Vector3 slideToPosition = aiTargetCharacterBattle.GetPosition() + new Vector3(-8f, 0);
-        activeCharacterBattle.GetComponent<SpriteRenderer>().sortingOrder += 2;
+        Vector3 slideToPosition = aiTargetCharacterBattle.GetPosition() + new Vector3(22f, 0);
+        activeCharacterBattle.GetComponent<SpriteRenderer>().sortingOrder += 99;
         switch (activeCharacterBattle.GetCharacterType())
             {
                 case Character.Type.Fusilero:
@@ -961,7 +961,7 @@ public class Battle
                 });
                 break;
         }
-        activeCharacterBattle.GetComponent<SpriteRenderer>().sortingOrder -= 2;
+        activeCharacterBattle.GetComponent<SpriteRenderer>().sortingOrder -= 99;
         StatusInfo(activeCharacterBattle);
     }
 
